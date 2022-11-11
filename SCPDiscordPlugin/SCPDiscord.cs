@@ -3,35 +3,21 @@ using SCPDiscord.Commands;
 using SCPDiscord.EventListeners;
 using SCPDiscord.Interface;
 using SCPDiscord.Properties;
-using Smod2;
-using Smod2.API;
-using Smod2.Attributes;
-using Smod2.Commands;
-using Smod2.EventHandlers;
-using Smod2.Events;
-using Smod2.Piping;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading;
+using PluginAPI.Core;
+using PluginAPI.Core.Attributes;
+using PluginAPI.Enums;
+using PluginAPI.Events;
 using YamlDotNet.Core;
 
 namespace SCPDiscord
 {
-	[PluginDetails(
-		author = "Karl Essinger",
-		name = "SCPDiscord",
-		description = "SCP:SL - Discord bridge.",
-		id = "karlofduty.scpdiscord",
-		version = "2.1.0",
-		SmodMajor = 3,
-		SmodMinor = 10,
-		SmodRevision = 5
-	)]
-
-	public class SCPDiscord : Plugin
+	public class SCPDiscord
 	{
 		public readonly Stopwatch serverStartTime = new Stopwatch();
 
@@ -45,11 +31,9 @@ namespace SCPDiscord
 
 		public bool shutdown;
 
-		private int maxPlayers = 20;
-		private readonly Stopwatch maxPlayersCacheTimer = new Stopwatch();
+		public const string VERSION = "3.0.0-alpha1";
 
-
-		public override void Register()
+		public void Register()
 		{
 			// Event handlers
 			AddEventHandlers(new RoundEventListener(this), Priority.LAST);
@@ -69,11 +53,15 @@ namespace SCPDiscord
 			AddConfig(new Smod2.Config.ConfigSetting("scpdiscord_languages_global", true, true, "Whether or not the languages should be placed in the global config directory."));
 		}
 
-		public override void OnEnable()
+		[PluginEntryPoint("SCPDiscord", VERSION, "SCP:SL - Discord bridge.", "Karl Essinger")]
+		public void OnEnable()
 		{
 			plugin = this;
 
 			serverStartTime.Start();
+
+			EventManager.RegisterEvents<SyncPlayerRole>(this);
+
 			AddCommand("scpd_rc", new ReconnectCommand());
 			AddCommand("scpd_reconnect", new ReconnectCommand());
 			AddCommand("scpd_reload", new ReloadCommand());
@@ -92,7 +80,7 @@ namespace SCPDiscord
 			SetUpFileSystem();
 			roleSync = new RoleSync(this);
 			LoadConfig();
-			if (this.Server.Port == Config.GetInt("bot.port"))
+			if (Server.Port == Config.GetInt("bot.port"))
 			{
 				Error("ERROR: Server is running on the same port as the plugin, aborting...");
 				Disable();
@@ -101,27 +89,16 @@ namespace SCPDiscord
 
 			new Thread(() => new StartNetworkSystem(plugin)).Start();
 
-			GetMaxPlayers();
-			Info("SCPDiscord " + this.Details.version + " enabled.");
+			Info("SCPDiscord " + VERSION + " enabled.");
 		}
 
-		private class SyncPlayerRole : IEventHandlerPlayerJoin
+		public class SyncPlayerRole
 		{
-			public void OnPlayerJoin(PlayerJoinEvent ev)
+			[PluginEvent(ServerEventType.PlayerJoined)]
+			public void OnPlayerJoin(Player player)
 			{
-				plugin.roleSync.SendRoleQuery(ev.Player);
+				plugin.roleSync.SendRoleQuery(player);
 			}
-		}
-
-		public int GetMaxPlayers()
-		{
-			if (maxPlayersCacheTimer.ElapsedMilliseconds > 10000 || !maxPlayersCacheTimer.IsRunning)
-			{
-				maxPlayers = GetConfigInt("max_players");
-				maxPlayersCacheTimer.Reset();
-				maxPlayersCacheTimer.Start();
-			}
-			return maxPlayers;
 		}
 
 		/// <summary>
@@ -129,31 +106,31 @@ namespace SCPDiscord
 		/// </summary>
 		public void SetUpFileSystem()
 		{
-			if (!Directory.Exists(FileManager.GetAppFolder(true, !GetConfigBool("scpdiscord_config_global")) + "SCPDiscord"))
+			if (!Directory.Exists(Config.GetConfigDir()))
 			{
-				Directory.CreateDirectory(FileManager.GetAppFolder(true, !GetConfigBool("scpdiscord_config_global")) + "SCPDiscord");
+				Directory.CreateDirectory(Config.GetConfigDir());
 			}
 
-			if (!Directory.Exists(FileManager.GetAppFolder(true, !GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord"))
+			if (!Directory.Exists(Config.GetLanguageDir()))
 			{
-				Directory.CreateDirectory(FileManager.GetAppFolder(true, !GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord");
+				Directory.CreateDirectory(Config.GetLanguageDir());
 			}
 
-			if (!Directory.Exists(FileManager.GetAppFolder(true, !GetConfigBool("scpdiscord_languages_global")) + "SCPDiscord"))
+			if (!Directory.Exists(Config.GetRolesyncDir()))
 			{
-				Directory.CreateDirectory(FileManager.GetAppFolder(true, !GetConfigBool("scpdiscord_languages_global")) + "SCPDiscord");
+				Directory.CreateDirectory(Config.GetRolesyncDir());
 			}
 
-			if (!File.Exists(FileManager.GetAppFolder(true, !GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml"))
+			if (!File.Exists(Config.GetConfigPath()))
 			{
-				Info("Config file '" + FileManager.GetAppFolder(true, !GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml' does not exist, creating...");
-				File.WriteAllText(FileManager.GetAppFolder(true, !GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml", Encoding.UTF8.GetString(Resources.config));
+				Info("Config file '" + Config.GetConfigPath() + "' does not exist, creating...");
+				File.WriteAllText(Config.GetConfigPath(), Encoding.UTF8.GetString(Resources.config));
 			}
 
-			if (!File.Exists(FileManager.GetAppFolder(true, !GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord/rolesync.json"))
+			if (!File.Exists(Config.GetRolesyncPath()))
 			{
 				Info("Config file rolesync.json does not exist, creating...");
-				File.WriteAllText(FileManager.GetAppFolder(true, !GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord/rolesync.json", "[]");
+				File.WriteAllText(Config.GetConfigPath(), "[]");
 			}
 		}
 
@@ -165,7 +142,7 @@ namespace SCPDiscord
 			try
 			{
 				Config.Reload(plugin);
-				Info("Successfully loaded config '" + FileManager.GetAppFolder(true, !GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml'.");
+				Info("Successfully loaded config '" + Config.GetConfigPath() + "'.");
 			}
 			catch (Exception e)
 			{
@@ -179,13 +156,13 @@ namespace SCPDiscord
 				}
 				else if (e is FileNotFoundException)
 				{
-					Error("'" + FileManager.GetAppFolder(true, !GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml' was not found.");
+					Error("'" + Config.GetConfigPath() + "' was not found.");
 				}
 				else if (e is JsonReaderException || e is YamlException)
 				{
-					Error("'" + FileManager.GetAppFolder(true, !GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml' formatting error.");
+					Error("'" + Config.GetConfigPath() + "' formatting error.");
 				}
-				Error("Error reading config file '" + FileManager.GetAppFolder(true, !GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml'. Aborting startup." + e);
+				Error("Error reading config file '" + Config.GetConfigPath() + "'. Aborting startup." + e);
 				Disable();
 			}
 		}
@@ -195,22 +172,37 @@ namespace SCPDiscord
 			PluginManager.DisablePlugin(this);
 		}
 
-		public override void OnDisable()
+		public void OnDisable()
 		{
 			shutdown = true;
 			NetworkSystem.Disconnect();
-			Info("SCPDiscord disabled.");
+			Log.Info("SCPDiscord disabled.");
 		}
 
 		/// <summary>
 		/// Logging functions
 		/// </summary>
 
+		public void Info(string message)
+		{
+			Log.Info(message);
+		}
+
+		public void Warn(string message)
+		{
+			Log.Warning(message);
+		}
+
+		public void Error(string message)
+		{
+			Log.Error(message);
+		}
+
 		public void Verbose(string message)
 		{
 			if (Config.GetBool("settings.verbose"))
 			{
-				Info(message);
+				Log.Info(message);
 			}
 		}
 
@@ -218,7 +210,7 @@ namespace SCPDiscord
 		{
 			if (Config.GetBool("settings.verbose"))
 			{
-				Warn(message);
+				Log.Warning(message);
 			}
 		}
 
@@ -226,7 +218,7 @@ namespace SCPDiscord
 		{
 			if (Config.GetBool("settings.verbose"))
 			{
-				Error(message);
+				Log.Error(message);
 			}
 		}
 
@@ -234,7 +226,7 @@ namespace SCPDiscord
 		{
 			if (Config.GetBool("settings.debug"))
 			{
-				Info(message);
+				Log.Info(message);
 			}
 		}
 
@@ -242,7 +234,7 @@ namespace SCPDiscord
 		{
 			if (Config.GetBool("settings.debug"))
 			{
-				Warn(message);
+				Log.Warning(message);
 			}
 		}
 
@@ -250,7 +242,7 @@ namespace SCPDiscord
 		{
 			if (Config.GetBool("settings.debug"))
 			{
-				Error(message);
+				Log.Error(message);
 			}
 		}
 
@@ -261,7 +253,6 @@ namespace SCPDiscord
 		/// </summary>
 		/// <param name="channelAliases">The user friendly name of the channel, set in the config.</param>
 		/// <param name="message">The message to be sent.</param>
-		[PipeMethod]
 		public bool SendString(IEnumerable<string> channelAliases, string message)
 		{
 			foreach (string channel in channelAliases)
@@ -283,7 +274,6 @@ namespace SCPDiscord
 			return true;
 		}
 
-		[PipeMethod]
 		public bool SendEmbed(IEnumerable<string> channelAliases, EmbedMessage message)
 		{
 			foreach (string channel in channelAliases)
@@ -298,7 +288,6 @@ namespace SCPDiscord
 			return true;
 		}
 
-		[PipeMethod]
 		public bool SendStringByID(ulong channelID, string message)
 		{
 			MessageWrapper wrapper = new MessageWrapper
@@ -313,7 +302,6 @@ namespace SCPDiscord
 			return true;
 		}
 
-		[PipeMethod]
 		public bool SendEmbedByID(EmbedMessage message)
 		{
 			NetworkSystem.QueueMessage(new MessageWrapper { EmbedMessage = message });
@@ -326,7 +314,6 @@ namespace SCPDiscord
 		/// <param name="channelAliases">A collection of channel aliases, set in the config.</param>
 		/// <param name="messagePath">The language node of the message to send.</param>
 		/// <param name="variables">Variables to support in the message as key value pairs.</param>
-		[PipeMethod]
 		public bool SendMessage(IEnumerable<string> channelAliases, string messagePath, Dictionary<string, string> variables = null)
 		{
 			foreach (string channel in channelAliases)
@@ -341,7 +328,6 @@ namespace SCPDiscord
 			return true;
 		}
 
-		[PipeMethod]
 		public bool SendEmbedWithMessage(IEnumerable<string> channelAliases, string messagePath, EmbedMessage embed, Dictionary<string, string> variables = null)
 		{
 			foreach (string channel in channelAliases)
@@ -367,14 +353,12 @@ namespace SCPDiscord
 		/// <param name="channelID">The ID of the channel to send to.</param>
 		/// <param name="messagePath">The language node of the message to send.</param>
 		/// <param name="variables">Variables to support in the message as key value pairs.</param>
-		[PipeMethod]
 		public bool SendMessageByID(ulong channelID, string messagePath, Dictionary<string, string> variables = null)
 		{
 			new Thread(() => new ProcessMessageAsync(channelID, messagePath, variables)).Start();
 			return true;
 		}
 
-		[PipeMethod]
 		public bool SendEmbedWithMessageByID(EmbedMessage embed, string messagePath, Dictionary<string, string> variables = null)
 		{
 			new Thread(() => new ProcessEmbedMessageAsync(embed, messagePath, variables)).Start();
@@ -389,11 +373,11 @@ namespace SCPDiscord
 		/// <returns>True if player was found, false if not.</returns>
 		public bool KickPlayer(string steamID, string message = "Kicked from server")
 		{
-			foreach (Player player in PluginManager.Server.GetPlayers())
+			foreach (Player player in Player.GetPlayers<Player>())
 			{
 				if (player.GetParsedUserID() == steamID)
 				{
-					player.Ban(0, message);
+					player.Ban(message, 0);
 					return true;
 				}
 			}
@@ -408,11 +392,11 @@ namespace SCPDiscord
 		/// <returns>True if player was found, false if not.</returns>
 		public bool GetPlayerName(string steamID, ref string name)
 		{
-			foreach (Player player in PluginManager.Server.GetPlayers())
+			foreach (Player player in Player.GetPlayers<Player>())
 			{
 				if (player.GetParsedUserID() == steamID)
 				{
-					name = player.Name;
+					name = player.Nickname;
 					return true;
 				}
 			}

@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
 using System.Threading;
+using PluginAPI.Core;
 
 namespace SCPDiscord
 {
@@ -389,9 +390,9 @@ namespace SCPDiscord
 				{
 					BotActivity = new BotActivity
 					{
-						StatusType = plugin.PluginManager.Server.NumPlayers <= 1 ? BotActivity.Types.Status.Idle : BotActivity.Types.Status.Online,
+						StatusType = Player.Count <= 1 ? BotActivity.Types.Status.Idle : BotActivity.Types.Status.Online,
 						ActivityType = BotActivity.Types.Activity.Playing,
-						ActivityText = Math.Max(0, plugin.Server.NumPlayers - 1) + " / " + plugin.GetMaxPlayers()
+						ActivityText = Math.Max(0, Player.Count - 1) + " / " + Server.MaxPlayers
 					}
 				};
 

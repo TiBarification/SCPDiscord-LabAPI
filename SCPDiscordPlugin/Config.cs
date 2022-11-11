@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using PluginAPI.Core;
+using PluginAPI.Helpers;
 using YamlDotNet.Serialization;
 
 namespace SCPDiscord
@@ -164,7 +166,7 @@ namespace SCPDiscord
 			plugin.SetUpFileSystem();
 
 			// Reads file contents into FileStream
-			FileStream stream = File.OpenRead(FileManager.GetAppFolder(true, !plugin.GetConfigBool("scpdiscord_config_global")) + "SCPDiscord/config.yml");
+			FileStream stream = File.OpenRead(GetConfigDir() + "config.yml");
 
 			// Converts the FileStream into a YAML Dictionary object
 			IDeserializer deserializer = new DeserializerBuilder().Build();
@@ -325,6 +327,52 @@ namespace SCPDiscord
 		public static void SetDict(string key, Dictionary<string, ulong> value)
 		{
 			configDicts[key] = value;
+		}
+
+		public static string GetConfigDir()
+		{
+			if (plugin.GetConfigBool("scpdiscord_config_global"))
+			{
+				return Paths.SecretLab + "/SCPDiscord/";
+			}
+			else
+			{
+				return Paths.Configs + "/SCPDiscord/";
+			}
+		}
+
+		public static string GetConfigPath()
+		{
+			return GetConfigDir() + "config.yml";
+		}
+
+		public static string GetLanguageDir()
+		{
+			if (plugin.GetConfigBool("scpdiscord_languages_global"))
+			{
+				return Paths.SecretLab + "/SCPDiscord/Languages/";
+			}
+			else
+			{
+				return Paths.Configs + "/SCPDiscord/Languages/";
+			}
+		}
+
+		public static string GetRolesyncDir()
+		{
+			if (plugin.GetConfigBool("scpdiscord_rolesync_global"))
+			{
+				return Paths.SecretLab + "/SCPDiscord/";
+			}
+			else
+			{
+				return Paths.Configs + "/SCPDiscord/";
+			}
+		}
+
+		public static string GetRolesyncPath()
+		{
+			return GetRolesyncDir() + "rolesync.json";
 		}
 
 		public static void ValidateConfig(SCPDiscord plugin)

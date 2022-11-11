@@ -2,14 +2,13 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using PluginAPI.Core;
+using PluginAPI.Core.Interfaces;
 using SCPDiscord.Interface;
-using Smod2.Commands;
-using Smod2.EventHandlers;
-using Smod2.Events;
 
 namespace SCPDiscord
 {
-	public class SynchronousExecutor : IEventHandlerFixedUpdate
+	public class SynchronousExecutor
 	{
 		private readonly SCPDiscord plugin;
 		private readonly ConcurrentQueue<ConsoleCommand> queuedCommands = new ConcurrentQueue<ConsoleCommand>();
@@ -33,8 +32,7 @@ namespace SCPDiscord
 		{
 			while(queuedCommands.TryDequeue(out ConsoleCommand command))
 			{
-				string[] words = command.Command.Split(' ');
-				string response = ConsoleCommand(plugin.PluginManager.Server, words[0], words.Skip(1).ToArray());
+				string response = ConsoleCommand(Server.Instance, command.Command);
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
 					{ "feedback", response }
@@ -51,19 +49,18 @@ namespace SCPDiscord
 
 			while(queuedRoleSyncCommands.TryDequeue(out string stringCommand))
 			{
-				string[] words = stringCommand.Split(' ');
-				plugin.Debug("RoleSync command response: " + ConsoleCommand(plugin.PluginManager.Server, words[0], words.Skip(1).ToArray()));
+				plugin.Debug("RoleSync command response: " + ConsoleCommand(Server.Instance, stringCommand));
 			}
 		}
 
-		private string ConsoleCommand(ICommandSender user, string command, string[] arguments)
+		private string ConsoleCommand(Player user, string command)
 		{
 			if (user == null)
 			{
-				user = plugin.Server;
+				user = Server.Instance;
 			}
 
-			string[] feedback = plugin.PluginManager.CommandManager.CallCommand(user, command, arguments);
+			string[] feedback = Server.RunCommand(command, user);
 
 			StringBuilder builder = new StringBuilder();
 			foreach (string line in feedback)

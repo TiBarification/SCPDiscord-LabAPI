@@ -1,6 +1,5 @@
 using Newtonsoft.Json.Linq;
 using SCPDiscord.Interface;
-using Smod2.API;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,6 +9,7 @@ using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using PluginAPI.Core;
 
 namespace SCPDiscord
 {
@@ -32,8 +32,8 @@ namespace SCPDiscord
 		public void Reload()
 		{
 			plugin.SetUpFileSystem();
-			syncedPlayers = JArray.Parse(File.ReadAllText(FileManager.GetAppFolder(true, !plugin.GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord/rolesync.json")).ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<ulong>());
-			plugin.Info("Successfully loaded rolesync '" + FileManager.GetAppFolder(true, !plugin.GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord/rolesync.json'.");
+			syncedPlayers = JArray.Parse(File.ReadAllText(Config.GetConfigDir() + "rolesync.json")).ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<ulong>());
+			plugin.Info("Successfully loaded rolesync '" + Config.GetConfigDir() + "rolesync.json'.");
 		}
 
 		private void SavePlayers()
@@ -46,14 +46,14 @@ namespace SCPDiscord
 				builder.Append("    {\"" + player.Key + "\": \"" + player.Value + "\"},\n");
 			}
 			builder.Append("]");
-			File.WriteAllText(FileManager.GetAppFolder(true, !plugin.GetConfigBool("scpdiscord_rolesync_global")) + "SCPDiscord/rolesync.json", builder.ToString());
+			File.WriteAllText(Config.GetConfigDir() + "rolesync.json", builder.ToString());
 		}
 
 		public void SendRoleQuery(Player player)
 		{
 			if (plugin.GetConfigBool("online_mode"))
 			{
-				if (player.UserIDType != UserIdType.STEAM || !syncedPlayers.ContainsKey(player.UserID))
+				if (player.UserIDType != UserIdType.STEAM || !syncedPlayers.ContainsKey(player.UserId))
 				{
 					return;
 				}
@@ -62,8 +62,8 @@ namespace SCPDiscord
 				{
 					UserQuery = new UserQuery
 					{
-						SteamIDOrIP = player.UserID,
-						DiscordID = syncedPlayers[player.UserID]
+						SteamIDOrIP = player.UserId,
+						DiscordID = syncedPlayers[player.UserId]
 					}
 				};
 
@@ -71,7 +71,7 @@ namespace SCPDiscord
 			}
 			else
 			{
-				if (!syncedPlayers.ContainsKey(player.IPAddress))
+				if (!syncedPlayers.ContainsKey(player.IpAddress))
 				{
 					return;
 				}
@@ -80,8 +80,8 @@ namespace SCPDiscord
 				{
 					UserQuery = new UserQuery
 					{
-						SteamIDOrIP = player.IPAddress,
-						DiscordID = syncedPlayers[player.IPAddress]
+						SteamIDOrIP = player.IpAddress,
+						DiscordID = syncedPlayers[player.IpAddress]
 					}
 				};
 
@@ -99,15 +99,15 @@ namespace SCPDiscord
 				try
 				{
 					plugin.Debug("Looking for player with SteamID/IP: " + userInfo.SteamIDOrIP);
-					foreach (Player pl in plugin.Server.GetPlayers())
+					foreach (Player pl in Player.GetPlayers<Player>())
 					{
-						plugin.Debug("Player " + pl.PlayerID + ": SteamID " + pl.UserID + " IP " + pl.IPAddress);
-						if (pl.UserID == userInfo.SteamIDOrIP)
+						plugin.Debug("Player " + pl.PlayerId + ": SteamID " + pl.UserId + " IP " + pl.IpAddress);
+						if (pl.UserId == userInfo.SteamIDOrIP)
 						{
 							plugin.Debug("Matching SteamID found");
 							matchingPlayers.Add(pl);
 						}
-						else if (pl.IPAddress == userInfo.SteamIDOrIP)
+						else if (pl.IpAddress == userInfo.SteamIDOrIP)
 						{
 							plugin.Debug("Matching IP found");
 							matchingPlayers.Add(pl);
@@ -135,10 +135,10 @@ namespace SCPDiscord
 						{
 							Dictionary<string, string> variables = new Dictionary<string, string>
 							{
-								{ "ipaddress",                        player.IPAddress                          },
-								{ "name",                             player.Name                               },
-								{ "playerid",                         player.PlayerID.ToString()                },
-								{ "userid",                           player.UserID                             },
+								{ "ipaddress",                        player.IpAddress                          },
+								{ "name",                             player.Nickname                               },
+								{ "playerid",                         player.PlayerId.ToString()                },
+								{ "userid",                           player.UserId                             },
 								{ "steamid",                          player.GetParsedUserID()                  },
 								{ "discorddisplayname",               userInfo.DiscordDisplayName               },
 								{ "discordusername",                  userInfo.DiscordUsername                  },
@@ -157,7 +157,7 @@ namespace SCPDiscord
 								plugin.sync.ScheduleRoleSyncCommand(command);
 							}
 
-							plugin.Verbose("Synced " + player.Name + " (" + userInfo.SteamIDOrIP + ") with Discord role id " + keyValuePair.Key);
+							plugin.Verbose("Synced " + player.Nickname + " (" + userInfo.SteamIDOrIP + ") with Discord role id " + keyValuePair.Key);
 							return;
 						}
 					}

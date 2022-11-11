@@ -1,11 +1,12 @@
 using SCPDiscord.Interface;
-using Smod2.API;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading;
+using PluginAPI.Core;
+using PluginAPI.Helpers;
 
 namespace SCPDiscord
 {
@@ -74,10 +75,10 @@ namespace SCPDiscord
 								break;
 
 							case MessageWrapper.MessageOneofCase.ListCommand:
-								var reply = "```md\n# Players online (" + (plugin.Server.NumPlayers - 1) + "):\n";
-								foreach (Player player in plugin.Server.GetPlayers())
+								var reply = "```md\n# Players online (" + (Player.Count - 1) + "):\n";
+								foreach (Player player in Player.GetPlayers<Player>())
 								{
-									reply += player.Name.PadRight(35) + "<" + player.UserID + ">" + "\n";
+									reply += player.Nickname.PadRight(35) + "<" + player.UserId + ">" + "\n";
 								}
 								reply += "```";
 								plugin.SendStringByID(data.ListCommand.ChannelID, reply);
@@ -169,7 +170,7 @@ namespace SCPDiscord
 			}
 
 			// Add the player to the SteamIDBans file.
-			StreamWriter streamWriter = new StreamWriter(FileManager.GetAppFolder(true, true) + "UserIdBans.txt", true);
+			StreamWriter streamWriter = new StreamWriter(Paths.SecretLab + "UserIdBans.txt", true);
 			streamWriter.WriteLine(name + ';' + steamID + ';' + endTime.Ticks + ';' + reason + ";" + adminTag + ";" + DateTime.UtcNow.Ticks);
 			streamWriter.Dispose();
 
@@ -214,8 +215,8 @@ namespace SCPDiscord
 			}
 
 			// Get all ban entries in the files.
-			List<string> ipBans = File.ReadAllLines(FileManager.GetAppFolder(true, true) + "IpBans.txt").ToList();
-			List<string> steamIDBans = File.ReadAllLines(FileManager.GetAppFolder(true, true) + "UserIdBans.txt").ToList();
+			List<string> ipBans = File.ReadAllLines(Paths.SecretLab + "IpBans.txt").ToList();
+			List<string> steamIDBans = File.ReadAllLines(Paths.SecretLab + "UserIdBans.txt").ToList();
 
 			// Get all ban entries to be removed.
 			List<string> matchingIPBans = ipBans.FindAll(s => s.Contains(steamIDOrIP));
@@ -237,8 +238,8 @@ namespace SCPDiscord
 			}
 
 			// Save the edited ban files
-			File.WriteAllLines(FileManager.GetAppFolder(true, true) + "IpBans.txt", ipBans);
-			File.WriteAllLines(FileManager.GetAppFolder(true, true) + "UserIdBans.txt", steamIDBans);
+			File.WriteAllLines(Paths.SecretLab + "IpBans.txt", ipBans);
+			File.WriteAllLines(Paths.SecretLab + "UserIdBans.txt", steamIDBans);
 
 			// Send response message to Discord
 			Dictionary<string, string> unbanVars = new Dictionary<string, string>
@@ -313,9 +314,9 @@ namespace SCPDiscord
 			{
 				reason = "All players kicked by Admin";
 			}
-			foreach (Player player in plugin.PluginManager.Server.GetPlayers())
+			foreach (Player player in Player.GetPlayers<Player>())
 			{
-				player.Ban(0, reason);
+				player.Ban(reason, 0);
 			}
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
