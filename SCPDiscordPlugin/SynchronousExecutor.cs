@@ -32,7 +32,7 @@ namespace SCPDiscord
 		{
 			while(queuedCommands.TryDequeue(out ConsoleCommand command))
 			{
-				string response = ConsoleCommand(Server.Instance, command.Command);
+				string response = Server.RunCommand(command.Command);
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
 					{ "feedback", response }
@@ -49,25 +49,8 @@ namespace SCPDiscord
 
 			while(queuedRoleSyncCommands.TryDequeue(out string stringCommand))
 			{
-				plugin.Debug("RoleSync command response: " + ConsoleCommand(Server.Instance, stringCommand));
+				plugin.Debug("RoleSync command response: " + Server.RunCommand(stringCommand));
 			}
-		}
-
-		private string ConsoleCommand(Player user, string command)
-		{
-			if (user == null)
-			{
-				user = Server.Instance;
-			}
-
-			string[] feedback = Server.RunCommand(command, user);
-
-			StringBuilder builder = new StringBuilder();
-			foreach (string line in feedback)
-			{
-				builder.Append(line + "\n");
-			}
-			return builder.ToString();
 		}
 	}
 }

@@ -58,7 +58,7 @@ rolesync:
         - "scpd_removereservedslot <var:userid>"
 
 # Name your channels here, this name is used in the channels section below. The left value is a name of your choice and the right is a channel id you want it to represent.
-aliases: 
+aliases:
     - "default": "add-channel-id-here"
     - "staff": "add-channel-id-here"
 
@@ -91,20 +91,20 @@ channels:
         noplayer: [ "default" ]
     ondetonate: [ "default" ]
     ondecontaminate: [ "default" ]
-    onsummonvehicle: 
+    onsummonvehicle:
         chaos: [ "default" ]
         mtf: [ "default" ]
     ongeneratorfinish: [ "default" ]
     onscpdeathannouncement: []
     oncassiecustomannouncement: []
     oncassieteamannouncement: []
-    
+
     # Player events
     onplayerhurt:
         default: []
         friendlyfire: []
         noattacker: []
-    onplayerdie: 
+    onplayerdie:
         default: [ "default" ]
         friendlyfire: [ "default", "staff" ]
         nokiller: [ "default" ]
@@ -181,13 +181,8 @@ channels:
     # Admin events
     onadminquery: [ "staff" ]
     onauthcheck: [ "staff" ]
-    onban: 
-        admin: 
-            kick: [ "default", "staff" ]
-            ban: [ "default", "staff" ]
-        console: 
-            kick: [ "default", "staff" ]
-            ban: [ "default", "staff" ]
+    onban: [ "default", "staff" ]
+    onkick: [ "default", "staff" ]
 
     # Team events
     ondecideteamrespawnqueue: []

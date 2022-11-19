@@ -237,7 +237,7 @@ namespace SCPDiscord
 			if (primary == null && backup == null)
 			{
 				plugin.Error("NO LANGUAGE FILE LOADED! DEACTIVATING SCPDISCORD.");
-				plugin.Disable();
+				throw new Exception();
 			}
 
 			if (Config.GetBool("settings.verbose"))

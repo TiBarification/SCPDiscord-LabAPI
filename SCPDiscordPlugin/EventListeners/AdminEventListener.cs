@@ -1,11 +1,13 @@
-﻿using Smod2.EventHandlers;
-using Smod2.Events;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using PlayerRoles;
+using PluginAPI.Core;
+using PluginAPI.Core.Attributes;
+using PluginAPI.Enums;
 
 namespace SCPDiscord.EventListeners
 {
 	//Comments here are my own as there were none in the Smod2 api
-	internal class AdminEventListener : IEventHandlerAdminQuery, IEventHandlerBan
+	internal class AdminEventListener
 	{
 		private readonly SCPDiscord plugin;
 
@@ -14,6 +16,7 @@ namespace SCPDiscord.EventListeners
 			this.plugin = plugin;
 		}
 
+		/* TODO: [PluginEvent(ServerEventType)]
 		public void OnAdminQuery(AdminQueryEvent ev)
 		{
 			// Triggered whenever an admin uses an admin command, both gui and commandline RA
@@ -38,7 +41,7 @@ namespace SCPDiscord.EventListeners
 					{ "successful",     ev.Successful.ToString()            }
 				};
 
-				this.plugin.SendMessage(Config.GetArray("channels.onadminquery"), "admin.onadminquery", variables);				
+				plugin.SendMessage(Config.GetArray("channels.onadminquery"), "admin.onadminquery", variables);
 			}
 			else
 			{
@@ -56,50 +59,63 @@ namespace SCPDiscord.EventListeners
 					{ "successful",     ev.Successful.ToString()            }
 				};
 
-				this.plugin.SendMessage(Config.GetArray("channels.onadminquery"), "admin.onadminquery", variables);				
+				plugin.SendMessage(Config.GetArray("channels.onadminquery"), "admin.onadminquery", variables);
 			}
-			
-
 		}
+		*/
 
-		public void OnBan(BanEvent ev)
+		[PluginEvent(ServerEventType.PlayerBanned)]
+		public void OnBan(Player player, Player issuer, string reason, long duration)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "allowban",               ev.AllowBan.ToString()              },
-				{ "duration",               Utilities.SecondsToCompoundTime(ev.Duration)  },
-				{ "reason",                 ev.Reason                           },
-				{ "result",                 ev.Result                           },
-				{ "playeripaddress",        ev.Player.IPAddress                 },
-				{ "playername",             ev.Player.Name                      },
-				{ "playerplayerid",         ev.Player.PlayerID.ToString()       },
-				{ "playersteamid",          ev.Player.GetParsedUserID()         },
-				{ "playerclass",            ev.Player.PlayerRole.RoleID.ToString()    },
-				{ "playerteam",             ev.Player.PlayerRole.Team.ToString()  },
-				{ "issuer",                 ev.Issuer                           }
+				{ "duration",               Utilities.SecondsToCompoundTime(duration)  },
+				{ "reason",                 reason                                     },
+				{ "playeripaddress",        player.IpAddress                           },
+				{ "playername",             player.Nickname                            },
+				{ "playerplayerid",         player.PlayerId.ToString()                 },
+				{ "playersteamid",          player.GetParsedUserID()                   },
+				{ "playerclass",            player.Role.ToString()                     },
+				{ "playerteam",             player.ReferenceHub.GetTeam().ToString()   },
+				{ "issueripaddress",        issuer.IpAddress                           },
+				{ "issuername",             issuer.Nickname                            },
+				{ "issuerplayerid",         issuer.PlayerId.ToString()                 },
+				{ "issuersteamid",          issuer.GetParsedUserID()                   },
+				{ "issuerclass",            issuer.Role.ToString()                     },
+				{ "issuerteam",             issuer.ReferenceHub.GetTeam().ToString()   }
 			};
-			if (ev.Issuer != "Server")
+
+			if (duration == 0)
 			{
-				if (ev.Duration == 0)
-				{
-					this.plugin.SendMessage(Config.GetArray("channels.onban.admin.kick"), "admin.onban.admin.kick", variables);
-				}
-				else
-				{
-					this.plugin.SendMessage(Config.GetArray("channels.onban.admin.ban"), "admin.onban.admin.ban", variables);
-				}
+				plugin.SendMessage(Config.GetArray("channels.onkick"), "admin.onkick", variables);
 			}
 			else
 			{
-				if (ev.Duration == 0)
-				{
-					this.plugin.SendMessage(Config.GetArray("channels.onban.console.kick"), "admin.onban.console.kick", variables);
-				}
-				else
-				{
-					this.plugin.SendMessage(Config.GetArray("channels.onban.console.ban"), "admin.onban.console.ban", variables);
-				}
+				plugin.SendMessage(Config.GetArray("channels.onban"), "admin.onban", variables);
 			}
+		}
+
+		[PluginEvent(ServerEventType.PlayerKicked)]
+		public void OnKick(Player player, Player issuer, string reason)
+		{
+			Dictionary<string, string> variables = new Dictionary<string, string>
+			{
+				{ "reason",                 reason                                   },
+				{ "playeripaddress",        player.IpAddress                         },
+				{ "playername",             player.Nickname                          },
+				{ "playerplayerid",         player.PlayerId.ToString()               },
+				{ "playersteamid",          player.GetParsedUserID()                 },
+				{ "playerclass",            player.Role.ToString()                   },
+				{ "playerteam",             player.ReferenceHub.GetTeam().ToString() },
+				{ "issueripaddress",        issuer.IpAddress                         },
+				{ "issuername",             issuer.Nickname                          },
+				{ "issuerplayerid",         issuer.PlayerId.ToString()               },
+				{ "issuersteamid",          issuer.GetParsedUserID()                 },
+				{ "issuerclass",            issuer.Role.ToString()                   },
+				{ "issuerteam",             issuer.ReferenceHub.GetTeam().ToString() }
+			};
+
+			plugin.SendMessage(Config.GetArray("channels.onkick"), "admin.onkick", variables);
 		}
 	}
 }

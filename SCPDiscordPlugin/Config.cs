@@ -141,10 +141,8 @@ namespace SCPDiscord
 			// Admin events
 			{ "channels.onadminquery",              new string[]{ } },
 			{ "channels.onauthcheck",               new string[]{ } },
-			{ "channels.onban.admin.ban",           new string[]{ } },
-			{ "channels.onban.admin.kick",          new string[]{ } },
-			{ "channels.onban.console.ban",         new string[]{ } },
-			{ "channels.onban.console.kick",        new string[]{ } },
+			{ "channels.onban",                     new string[]{ } },
+			{ "channels.onkick",                    new string[]{ } },
 
 			// Team events
 			{ "channels.ondecideteamrespawnqueue",  new string[]{ } },

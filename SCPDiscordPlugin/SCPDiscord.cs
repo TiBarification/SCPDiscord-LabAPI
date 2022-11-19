@@ -33,34 +33,29 @@ namespace SCPDiscord
 
 		public const string VERSION = "3.0.0-alpha1";
 
-		public void Register()
+		[PluginEntryPoint("SCPDiscord", VERSION, "SCP:SL - Discord bridge.", "Karl Essinger")]
+		public void Start()
 		{
-			// Event handlers
-			AddEventHandlers(new RoundEventListener(this), Priority.LAST);
-			AddEventHandlers(new PlayerEventListener(this), Priority.LAST);
-			AddEventHandlers(new AdminEventListener(this), Priority.LAST);
-			AddEventHandlers(new EnvironmentEventListener(this), Priority.LAST);
-			AddEventHandlers(new TeamEventListener(this), Priority.LAST);
-			AddEventHandlers(new SyncPlayerRole(), Priority.LAST);
+			plugin = this;
+
+			serverStartTime.Start();
 
 			sync = new SynchronousExecutor(this);
-			AddEventHandlers(sync);
+			EventManager.RegisterEvents(this, sync);
 
 			AddConfig(new Smod2.Config.ConfigSetting("max_players", 20, true, "Gets the max players without reserved slots."));
 			AddConfig(new Smod2.Config.ConfigSetting("online_mode", true, true, "Gets the server's online mode status."));
 			AddConfig(new Smod2.Config.ConfigSetting("scpdiscord_config_global", false, true, "Whether or not the config should be placed in the global config directory."));
 			AddConfig(new Smod2.Config.ConfigSetting("scpdiscord_rolesync_global", true, true, "Whether or not the rolesync file should be placed in the global config directory."));
 			AddConfig(new Smod2.Config.ConfigSetting("scpdiscord_languages_global", true, true, "Whether or not the languages should be placed in the global config directory."));
-		}
 
-		[PluginEntryPoint("SCPDiscord", VERSION, "SCP:SL - Discord bridge.", "Karl Essinger")]
-		public void OnEnable()
-		{
-			plugin = this;
-
-			serverStartTime.Start();
-
+			// Event handlers
 			EventManager.RegisterEvents<SyncPlayerRole>(this);
+			EventManager.RegisterEvents<RoundEventListener>(this);
+			EventManager.RegisterEvents<PlayerEventListener>(this);
+			EventManager.RegisterEvents<AdminEventListener>(this);
+			EventManager.RegisterEvents<EnvironmentEventListener>(this);
+			EventManager.RegisterEvents<TeamEventListener>(this);
 
 			AddCommand("scpd_rc", new ReconnectCommand());
 			AddCommand("scpd_reconnect", new ReconnectCommand());
@@ -83,7 +78,7 @@ namespace SCPDiscord
 			if (Server.Port == Config.GetInt("bot.port"))
 			{
 				Error("ERROR: Server is running on the same port as the plugin, aborting...");
-				Disable();
+				throw new Exception();
 			}
 			Language.Reload();
 
@@ -92,7 +87,7 @@ namespace SCPDiscord
 			Info("SCPDiscord " + VERSION + " enabled.");
 		}
 
-		public class SyncPlayerRole
+		private class SyncPlayerRole
 		{
 			[PluginEvent(ServerEventType.PlayerJoined)]
 			public void OnPlayerJoin(Player player)
@@ -163,13 +158,7 @@ namespace SCPDiscord
 					Error("'" + Config.GetConfigPath() + "' formatting error.");
 				}
 				Error("Error reading config file '" + Config.GetConfigPath() + "'. Aborting startup." + e);
-				Disable();
 			}
-		}
-
-		public void Disable()
-		{
-			PluginManager.DisablePlugin(this);
 		}
 
 		public void OnDisable()
