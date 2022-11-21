@@ -341,7 +341,6 @@ player:
             message: "<var:playername> (<var:playersteamid>) took <var:damage> damage by <var:damagetype>."
             regex: ["damage by UNKNOWN":"damage from unknown causes"]
     onplayerdie:
-        # spawnragdoll - bool
         # damagetype - DamageType
         # attackeripaddress - string
         # attackername - string
@@ -421,20 +420,6 @@ player:
         # team - Team
         message: "<var:name> (<var:steamid>) has become a <var:class>."
         regex: []
-    oncheckescape:
-        # allowescape - bool
-        # ipaddress - string
-        # name - string
-        # playerid - int
-        # steamid - string
-        # class - Role
-        # team - Team
-        allowed:
-            message: "<var:name> (<var:steamid>) has escaped as <var:class>."
-            regex: []
-        denied:
-            message: ""
-            regex: []
     onspawn:
         # ipaddress - string
         # name - string
@@ -547,6 +532,7 @@ player:
         message: "<var:playername> (<var:playersteamid>) was cured by SCP-049."
         regex: []
     onspawnragdoll:
+        # damagetype - string
         # ipaddress - string
         # name - string
         # playerid - int

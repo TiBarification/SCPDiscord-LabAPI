@@ -1,9 +1,6 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using PluginAPI.Core;
-using PluginAPI.Core.Interfaces;
 using SCPDiscord.Interface;
 
 namespace SCPDiscord
@@ -28,6 +25,7 @@ namespace SCPDiscord
 			queuedRoleSyncCommands.Enqueue(command);
         }
 
+		// TODO: Find new way to get unity to call this function
 		public void OnFixedUpdate(FixedUpdateEvent ev)
 		{
 			while(queuedCommands.TryDequeue(out ConsoleCommand command))
