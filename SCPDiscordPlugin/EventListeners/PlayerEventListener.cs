@@ -1,5 +1,9 @@
 using System;
 using System.Collections.Generic;
+using InventorySystem.Items.Firearms;
+using InventorySystem.Items.Pickups;
+using MapGeneration;
+using MapGeneration.Distributors;
 using PlayerRoles;
 using PlayerRoles.PlayableScps.Scp939;
 using PlayerStatsSystem;
@@ -24,12 +28,12 @@ namespace SCPDiscord.EventListeners
 
 		public PlayerEventListener(SCPDiscord plugin)
 		{
-			this.plugin = plugin;
+			plugin = plugin;
 		}
 
 		private bool IsTeamDamage(Team attackerTeam, Team targetTeam)
 		{
-			if (!this.plugin.roundStarted)
+			if (!plugin.roundStarted)
 			{
 				return false;
 			}
@@ -244,40 +248,100 @@ namespace SCPDiscord.EventListeners
 			plugin.SendMessage(Config.GetArray("channels.onplayerdie.default"), "player.onplayerdie.default", variables);
 		}
 
-
-		/*
-		public void OnPlayerPickupItem(PlayerPickupItemEvent ev)
+		[PluginEvent(ServerEventType.PlayerPickupAmmo)]
+		public void OnPlayerPickupAmmo(Player player, ItemPickupBase ammo)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "item",         ev.Item.ToString()                    },
-				{ "ipaddress",    ev.Player.IPAddress                   },
-				{ "name",         ev.Player.Name                        },
-				{ "playerid",     ev.Player.PlayerID.ToString()         },
-				{ "steamid",      ev.Player.GetParsedUserID()                     },
-				{ "class",        ev.Player.Role.ToString()    },
-				{ "team",         ev.Player.ReferenceHub.GetTeam().ToString()    }
+				{ "ammo",         ammo.ToString()                    },
+				{ "ipaddress",    player.IpAddress                   },
+				{ "name",         player.Nickname                        },
+				{ "playerid",     player.PlayerId.ToString()         },
+				{ "steamid",      player.GetParsedUserID()                     },
+				{ "class",        player.Role.ToString()    },
+				{ "team",         player.ReferenceHub.GetTeam().ToString()    }
 			};
-			this.plugin.SendMessage(Config.GetArray("channels.onplayerpickupitem"), "player.onplayerpickupitem", variables);
+			plugin.SendMessage(Config.GetArray("channels.onplayerpickupammo"), "player.onplayerpickupammo", variables);
 		}
-		*/
 
-		/*
-		public void OnPlayerDropItem(PlayerDropItemEvent ev)
+		[PluginEvent(ServerEventType.PlayerPickupArmor)]
+		public void OnPlayerPickupArmor(Player player, ItemPickupBase armor)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "item",         ev.Item.ToString()                    },
-				{ "ipaddress",    ev.Player.IPAddress                   },
-				{ "name",         ev.Player.Name                        },
-				{ "playerid",     ev.Player.PlayerID.ToString()         },
-				{ "steamid",      ev.Player.GetParsedUserID() },
-				{ "class",        ev.Player.Role.ToString()    },
-				{ "team",         ev.Player.ReferenceHub.GetTeam().ToString()    }
+				{ "armor",         armor.ToString()                    },
+				{ "ipaddress",    player.IpAddress                   },
+				{ "name",         player.Nickname                        },
+				{ "playerid",     player.PlayerId.ToString()         },
+				{ "steamid",      player.GetParsedUserID()                     },
+				{ "class",        player.Role.ToString()    },
+				{ "team",         player.ReferenceHub.GetTeam().ToString()    }
 			};
-			this.plugin.SendMessage(Config.GetArray("channels.onplayerdropitem"), "player.onplayerdropitem", variables);
+			plugin.SendMessage(Config.GetArray("channels.onplayerpickuparmor"), "player.onplayerpickuparmor", variables);
 		}
-		*/
+
+		[PluginEvent(ServerEventType.PlayerPickupScp330)]
+		public void OnPlayerPickupSCP330(Player player, ItemPickupBase scp330)
+		{
+			Dictionary<string, string> variables = new Dictionary<string, string>
+			{
+				{ "ipaddress",    player.IpAddress                   },
+				{ "name",         player.Nickname                        },
+				{ "playerid",     player.PlayerId.ToString()         },
+				{ "steamid",      player.GetParsedUserID()                     },
+				{ "class",        player.Role.ToString()    },
+				{ "team",         player.ReferenceHub.GetTeam().ToString()    }
+			};
+			plugin.SendMessage(Config.GetArray("channels.onplayerpickupscp330"), "player.onplayerpickupscp330", variables);
+		}
+
+		[PluginEvent(ServerEventType.PlayerSearchedPickup)]
+		public void OnPlayerPickupItem(Player player, ItemPickupBase item)
+		{
+			Dictionary<string, string> variables = new Dictionary<string, string>
+			{
+				{ "item",         item.ToString()                    },
+				{ "ipaddress",    player.IpAddress                   },
+				{ "name",         player.Nickname                        },
+				{ "playerid",     player.PlayerId.ToString()         },
+				{ "steamid",      player.GetParsedUserID()                     },
+				{ "class",        player.Role.ToString()    },
+				{ "team",         player.ReferenceHub.GetTeam().ToString()    }
+			};
+			plugin.SendMessage(Config.GetArray("channels.onplayerpickupitem"), "player.onplayerpickupitem", variables);
+		}
+
+		[PluginEvent(ServerEventType.PlayerDropAmmo)]
+		public void OnPlayerDropAmmo(Player player, ItemPickupBase ammo)
+		{
+			Dictionary<string, string> variables = new Dictionary<string, string>
+			{
+				{ "ammo",         ammo.ToString()                    },
+				{ "ipaddress",    player.IpAddress                   },
+				{ "name",         player.Nickname                        },
+				{ "playerid",     player.PlayerId.ToString()         },
+				{ "steamid",      player.GetParsedUserID() },
+				{ "class",        player.Role.ToString()    },
+				{ "team",         player.ReferenceHub.GetTeam().ToString()    }
+			};
+			plugin.SendMessage(Config.GetArray("channels.onplayerdropammo"), "player.onplayerdropammo", variables);
+		}
+
+		[PluginEvent(ServerEventType.PlayerDropItem)]
+		public void OnPlayerDropItem(Player player, ItemPickupBase item)
+		{
+			Dictionary<string, string> variables = new Dictionary<string, string>
+			{
+				{ "item",         item.ToString()                    },
+				{ "ipaddress",    player.IpAddress                   },
+				{ "name",         player.Nickname                        },
+				{ "playerid",     player.PlayerId.ToString()         },
+				{ "steamid",      player.GetParsedUserID() },
+				{ "class",        player.Role.ToString()    },
+				{ "team",         player.ReferenceHub.GetTeam().ToString()    }
+			};
+			plugin.SendMessage(Config.GetArray("channels.onplayerdropitem"), "player.onplayerdropitem", variables);
+		}
 
 		[PluginEvent(ServerEventType.PlayerDeath)]
 		public void OnPlayerJoin(Player player)
@@ -291,7 +355,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",        player.Role.ToString()                    },
 				{ "team",         player.ReferenceHub.GetTeam().ToString()  }
 			};
-			this.plugin.SendMessage(Config.GetArray("channels.onplayerjoin"), "player.onplayerjoin", variables);
+			plugin.SendMessage(Config.GetArray("channels.onplayerjoin"), "player.onplayerjoin", variables);
 		}
 
 		/*
@@ -308,14 +372,14 @@ namespace SCPDiscord.EventListeners
 				{ "class",          ev.Player.Role.ToString()  },
 				{ "team",           ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
-			this.plugin.SendMessage(Config.GetArray("channels.onnicknameset"), "player.onnicknameset", variables);
+			plugin.SendMessage(Config.GetArray("channels.onnicknameset"), "player.onnicknameset", variables);
 		}
 		*/
 
 		[PluginEvent(ServerEventType.PlayerChangeRole)]
 		public void OnSetRole(Player player, PlayerRoleBase oldRole, RoleTypeId newRole, RoleChangeReason changeReason)
 		{
-			if (ev.RoleType == Smod2.API.RoleType.NONE)
+			if (newRole == RoleTypeId.None)
 			{
 				return;
 			}
@@ -330,7 +394,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",          player.Role.ToString()                    },
 				{ "team",           player.ReferenceHub.GetTeam().ToString()  }
 			};
-			this.plugin.SendMessage(Config.GetArray("channels.onsetrole"), "player.onsetrole", variables);
+			plugin.SendMessage(Config.GetArray("channels.onsetrole"), "player.onsetrole", variables);
 		}
 
 		[PluginEvent(ServerEventType.PlayerSpawn)]
@@ -346,7 +410,7 @@ namespace SCPDiscord.EventListeners
 				{ "team",           player.ReferenceHub.GetTeam().ToString() }
 			};
 
-			this.plugin.SendMessage(Config.GetArray("channels.onspawn"), "player.onspawn", variables);
+			plugin.SendMessage(Config.GetArray("channels.onspawn"), "player.onspawn", variables);
 		}
 
 		/*
@@ -367,11 +431,11 @@ namespace SCPDiscord.EventListeners
 			};
 			if (ev.Allow)
 			{
-				this.plugin.SendMessage(Config.GetArray("channels.ondooraccess.allowed"), "player.ondooraccess.allowed", variables);
+				plugin.SendMessage(Config.GetArray("channels.ondooraccess.allowed"), "player.ondooraccess.allowed", variables);
 			}
 			else
 			{
-				this.plugin.SendMessage(Config.GetArray("channels.ondooraccess.denied"), "player.ondooraccess.denied", variables);
+				plugin.SendMessage(Config.GetArray("channels.ondooraccess.denied"), "player.ondooraccess.denied", variables);
 			}
 		}
 		*/
@@ -391,7 +455,7 @@ namespace SCPDiscord.EventListeners
 				{ "team",           ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
 
-			this.plugin.SendMessage(Config.GetArray("channels.onintercom"), "player.onintercom", variables);
+			plugin.SendMessage(Config.GetArray("channels.onintercom"), "player.onintercom", variables);
 		}
 		*/
 
@@ -409,7 +473,7 @@ namespace SCPDiscord.EventListeners
 				{ "team",               ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
 
-			this.plugin.SendMessage(Config.GetArray("channels.onintercomcooldowncheck"), "player.onintercomcooldowncheck", variables);
+			plugin.SendMessage(Config.GetArray("channels.onintercomcooldowncheck"), "player.onintercomcooldowncheck", variables);
 		}
 		*/
 
@@ -425,7 +489,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",              ev.Player.Role.ToString()    },
 				{ "team",               ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
-			this.plugin.SendMessage(Config.GetArray("channels.onpocketdimensionexit"), "player.onpocketdimensionexit", variables);
+			plugin.SendMessage(Config.GetArray("channels.onpocketdimensionexit"), "player.onpocketdimensionexit", variables);
 		}
 		*/
 
@@ -448,7 +512,7 @@ namespace SCPDiscord.EventListeners
 				{ "playerclass",        ev.Player.Role.ToString()    },
 				{ "playerteam",         ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
-			this.plugin.SendMessage(Config.GetArray("channels.onpocketdimensionenter"), "player.onpocketdimensionenter", variables);
+			plugin.SendMessage(Config.GetArray("channels.onpocketdimensionenter"), "player.onpocketdimensionenter", variables);
 		}
 		*/
 
@@ -464,7 +528,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",              ev.Player.Role.ToString()    },
 				{ "team",               ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
-			this.plugin.SendMessage(Config.GetArray("channels.onpocketdimensiondie"), "player.onpocketdimensiondie", variables);
+			plugin.SendMessage(Config.GetArray("channels.onpocketdimensiondie"), "player.onpocketdimensiondie", variables);
 		}
 		*/
 
@@ -481,7 +545,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",              ev.Player.Role.ToString()  },
 				{ "team",               ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
-			this.plugin.SendMessage(Config.GetArray("channels.onthrowgrenade"), "player.onthrowgrenade", variables);
+			plugin.SendMessage(Config.GetArray("channels.onthrowgrenade"), "player.onthrowgrenade", variables);
 		}
 		*/
 
@@ -505,7 +569,7 @@ namespace SCPDiscord.EventListeners
 				{ "playerclass",            ev.Player.Role.ToString()        },
 				{ "playerteam",             ev.Player.ReferenceHub.GetTeam().ToString()      }
 			};
-			this.plugin.SendMessage(Config.GetArray("channels.onplayerinfected"), "player.onplayerinfected", variables);
+			plugin.SendMessage(Config.GetArray("channels.onplayerinfected"), "player.onplayerinfected", variables);
 		}
 		*/
 
@@ -522,12 +586,10 @@ namespace SCPDiscord.EventListeners
 				{ "class",              player.ToString()                         },
 				{ "team",               player.ReferenceHub.GetTeam().ToString()  }
 			};
-			this.plugin.SendMessage(Config.GetArray("channels.onspawnragdoll"), "player.onspawnragdoll", variables);
+			plugin.SendMessage(Config.GetArray("channels.onspawnragdoll"), "player.onspawnragdoll", variables);
 		}
 
-		/// <summary>
-		/// Called when a player enters FemurBreaker
-		/// </summary>
+		/*
 		public void OnLure(PlayerLureEvent ev)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
@@ -541,12 +603,11 @@ namespace SCPDiscord.EventListeners
 				{ "team",               ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
 
-			this.plugin.SendMessage(Config.GetArray("channels.onlure"), "player.onlure", variables);
+			plugin.SendMessage(Config.GetArray("channels.onlure"), "player.onlure", variables);
 		}
+		*/
 
-		/// <summary>
-		/// Called when a player presses the button to contain SCP-106
-		/// </summary>
+		/*
 		public void OnContain106(PlayerContain106Event ev)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
@@ -559,12 +620,11 @@ namespace SCPDiscord.EventListeners
 				{ "class",                  ev.Player.Role.ToString()  },
 				{ "team",                   ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
-			this.plugin.SendMessage(Config.GetArray("channels.oncontain106"), "player.oncontain106", variables);
+			plugin.SendMessage(Config.GetArray("channels.oncontain106"), "player.oncontain106", variables);
 		}
+		*/
 
-		/// <summary>
-		/// Called when a player uses Medkit
-		/// </summary>
+		/*
 		public void OnConsumableUse(PlayerConsumableUseEvent ev)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
@@ -582,12 +642,11 @@ namespace SCPDiscord.EventListeners
 				{ "class",                  ev.Player.Role.ToString() },
 				{ "team",                   ev.Player.ReferenceHub.GetTeam().ToString() }
 			};
-			this.plugin.SendMessage(Config.GetArray("channels.onmedicaluse"), "player.onmedicaluse", variables);
+			plugin.SendMessage(Config.GetArray("channels.onmedicaluse"), "player.onmedicaluse", variables);
 		}
+		*/
 
-		/// <summary>
-		/// Called when SCP-106 creates a portal
-		/// </summary>
+		/*
 		public void On106CreatePortal(Player106CreatePortalEvent ev)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
@@ -599,12 +658,11 @@ namespace SCPDiscord.EventListeners
 				{ "class",                  ev.Player.Role.ToString()  },
 				{ "team",                   ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
-			this.plugin.SendMessage(Config.GetArray("channels.on106createportal"), "player.on106createportal", variables);
+			plugin.SendMessage(Config.GetArray("channels.on106createportal"), "player.on106createportal", variables);
 		}
+		*/
 
-		/// <summary>
-		/// Called when SCP-106 teleports through portals
-		/// </summary>
+		/*
 		public void On106Teleport(Player106TeleportEvent ev)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
@@ -616,12 +674,11 @@ namespace SCPDiscord.EventListeners
 				{ "class",                  ev.Player.Role.ToString()  },
 				{ "team",                   ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
-			this.plugin.SendMessage(Config.GetArray("channels.on106teleport"), "player.on106teleport", variables);
+			plugin.SendMessage(Config.GetArray("channels.on106teleport"), "player.on106teleport", variables);
 		}
+		*/
 
-		/// <summary>
-		/// Called when a player uses an elevator
-		/// </summary>
+		/*
 		public void OnElevatorUse(PlayerElevatorUseEvent ev)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
@@ -634,12 +691,11 @@ namespace SCPDiscord.EventListeners
 				{ "class",                  ev.Player.Role.ToString()  },
 				{ "team",                   ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
-			this.plugin.SendMessage(Config.GetArray("channels.onelevatoruse"), "player.onelevatoruse", variables);
+			plugin.SendMessage(Config.GetArray("channels.onelevatoruse"), "player.onelevatoruse", variables);
 		}
+		*/
 
-		/// <summary>
-		/// Called when a player handcuffs/releases another player
-		/// </summary>
+		/*
 		public void OnHandcuffed(PlayerHandcuffedEvent ev)
 		{
 			if (ev.Disarmer != null)
@@ -660,7 +716,7 @@ namespace SCPDiscord.EventListeners
 					{ "playerclass",        ev.Disarmer.Role.ToString() },
 					{ "playerteam",         ev.Disarmer.ReferenceHub.GetTeam().ToString()   }
 				};
-				this.plugin.SendMessage(Config.GetArray("channels.onhandcuff.default"), "player.onhandcuff.default", variables);
+				plugin.SendMessage(Config.GetArray("channels.onhandcuff.default"), "player.onhandcuff.default", variables);
 			}
 			else
 			{
@@ -674,13 +730,12 @@ namespace SCPDiscord.EventListeners
 					{ "targetclass",        ev.Player.Role.ToString()        },
 					{ "targetteam",         ev.Player.ReferenceHub.GetTeam().ToString()      }
 				};
-				this.plugin.SendMessage(Config.GetArray("channels.onhandcuff.nootherplayer"), "player.onhandcuff.nootherplayer", variables);
+				plugin.SendMessage(Config.GetArray("channels.onhandcuff.nootherplayer"), "player.onhandcuff.nootherplayer", variables);
 			}
 		}
+		*/
 
-		/// <summary>
-		/// Called when a player triggers a tesla gate
-		/// </summary>
+		/*
 		public void OnPlayerTriggerTesla(PlayerTriggerTeslaEvent ev)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
@@ -695,17 +750,16 @@ namespace SCPDiscord.EventListeners
 
 			if (ev.Triggerable)
 			{
-				this.plugin.SendMessage(Config.GetArray("channels.onplayertriggertesla.default"), "player.onplayertriggertesla.default", variables);
+				plugin.SendMessage(Config.GetArray("channels.onplayertriggertesla.default"), "player.onplayertriggertesla.default", variables);
 			}
 			else
 			{
-				this.plugin.SendMessage(Config.GetArray("channels.onplayertriggertesla.ignored"), "player.onplayertriggertesla.ignored", variables);
+				plugin.SendMessage(Config.GetArray("channels.onplayertriggertesla.ignored"), "player.onplayertriggertesla.ignored", variables);
 			}
 		}
+		*/
 
-		/// <summary>
-		/// Called when a player changes the knob of SCP-914
-		/// </summary>
+		/*
 		public void OnSCP914ChangeKnob(PlayerSCP914ChangeKnobEvent ev)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
@@ -718,9 +772,11 @@ namespace SCPDiscord.EventListeners
 				{ "class",                  ev.Player.Role.ToString()    },
 				{ "team",                   ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
-			this.plugin.SendMessage(Config.GetArray("channels.onscp914changeknob"), "player.onscp914changeknob", variables);
+			plugin.SendMessage(Config.GetArray("channels.onscp914changeknob"), "player.onscp914changeknob", variables);
 		}
+		*/
 
+		/*
 		public void OnPlayerRadioSwitch(PlayerRadioSwitchEvent ev)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
@@ -733,9 +789,11 @@ namespace SCPDiscord.EventListeners
 				{ "class",                  ev.Player.Role.ToString()    },
 				{ "team",                   ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
-			this.plugin.SendMessage(Config.GetArray("channels.onplayerradioswitch"), "player.onplayerradioswitch", variables);
+			plugin.SendMessage(Config.GetArray("channels.onplayerradioswitch"), "player.onplayerradioswitch", variables);
 		}
+		*/
 
+		/*
 		public void OnMakeNoise(PlayerMakeNoiseEvent ev)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
@@ -747,9 +805,11 @@ namespace SCPDiscord.EventListeners
 				{ "class",                  ev.Player.Role.ToString()    },
 				{ "team",                   ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
-			this.plugin.SendMessage(Config.GetArray("channels.onmakenoise"), "player.onmakenoise", variables);
+			plugin.SendMessage(Config.GetArray("channels.onmakenoise"), "player.onmakenoise", variables);
 		}
+		*/
 
+		/*
 		public void OnRecallZombie(PlayerRecallZombieEvent ev)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
@@ -768,9 +828,11 @@ namespace SCPDiscord.EventListeners
 				{ "targetclass",        ev.Target.Role.ToString()   },
 				{ "targetteam",         ev.Target.ReferenceHub.GetTeam().ToString() },
 			};
-			this.plugin.SendMessage(Config.GetArray("channels.onrecallzombie"), "player.onrecallzombie", variables);
+			plugin.SendMessage(Config.GetArray("channels.onrecallzombie"), "player.onrecallzombie", variables);
 		}
+		*/
 
+		/*
 		public void OnCallCommand(PlayerCallCommandEvent ev)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
@@ -784,31 +846,32 @@ namespace SCPDiscord.EventListeners
 				{ "class",                  ev.Player.Role.ToString()    },
 				{ "team",                   ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
-			this.plugin.SendMessage(Config.GetArray("channels.oncallcommand"), "player.oncallcommand", variables);
+			plugin.SendMessage(Config.GetArray("channels.oncallcommand"), "player.oncallcommand", variables);
 		}
+		*/
 
-		public void OnReload(PlayerReloadEvent ev)
+
+		[PluginEvent(ServerEventType.PlayerReloadWeapon)]
+		public void OnReload(Player player, Firearm weapon)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "weapon",                     ev.Weapon.ToString()                    },
-				{ "normalmaxclipsize",          ev.NormalMaxClipSize.ToString()         },
-				{ "ammoremoved",                ev.AmmoRemoved.ToString()               },
-				{ "clipammocountafterreload",   ev.ClipAmmoCountAfterReload.ToString()  },
-				{ "currentammototal",           ev.CurrentAmmoTotal.ToString()          },
-				{ "currentclipammocount",       ev.CurrentClipAmmoCount.ToString()      },
-				{ "ipaddress",                  ev.Player?.IPAddress                     },
-				{ "name",                       ev.Player?.Name                          },
-				{ "playerid",                   ev.Player?.PlayerID.ToString()           },
-				{ "steamid",                    ev.Player?.GetParsedUserID() ?? ev.Player?.UserID },
-				{ "class",                      ev.Player?.Role.ToString()        },
-				{ "team",                       ev.Player?.ReferenceHub.GetTeam().ToString()      }
+				{ "weapon",      weapon.name                                 },
+				{ "maxclipsize", weapon.AmmoManagerModule.MaxAmmo.ToString() },
+				{ "ipaddress",   player?.IpAddress                           },
+				{ "name",        player?.Nickname                            },
+				{ "playerid",    player?.PlayerId.ToString()                 },
+				{ "steamid",     player?.GetParsedUserID()                   },
+				{ "class",       player?.Role.ToString()                     },
+				{ "team",        player?.ReferenceHub.GetTeam().ToString()   }
 			};
-			this.plugin.SendMessage(Config.GetArray("channels.onreload"), "player.onreload", variables);
+			plugin.SendMessage(Config.GetArray("channels.onreload"), "player.onreload", variables);
 		}
 
-		public void OnGrenadeExplosion(PlayerGrenadeExplosion ev)
+		[PluginEvent(ServerEventType.GrenadeExploded)]
+		public void OnGrenadeExplosion(ItemPickupBase grenade)
 		{
+			/*
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
 				{ "ipaddress",                  ev.Player?.IPAddress                },
@@ -818,9 +881,11 @@ namespace SCPDiscord.EventListeners
 				{ "class",                      ev.Player?.Role.ToString()   },
 				{ "team",                       ev.Player?.ReferenceHub.GetTeam().ToString() }
 			};
-			this.plugin.SendMessage(Config.GetArray("channels.ongrenadeexplosion"), "player.ongrenadeexplosion", variables);
+			plugin.SendMessage(Config.GetArray("channels.ongrenadeexplosion"), "player.ongrenadeexplosion", variables);
+			*/
 		}
 
+		/*
 		public void OnGrenadeHitPlayer(PlayerGrenadeHitPlayer ev)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
@@ -838,100 +903,124 @@ namespace SCPDiscord.EventListeners
 				{ "targetclass",        ev.Victim?.Role.ToString()    },
 				{ "targetteam",         ev.Victim?.ReferenceHub.GetTeam().ToString()  },
 			};
-			this.plugin.SendMessage(Config.GetArray("channels.ongrenadehitplayer"), "player.ongrenadehitplayer", variables);
+			plugin.SendMessage(Config.GetArray("channels.ongrenadehitplayer"), "player.ongrenadehitplayer", variables);
 		}
+		*/
 
-		/// <summary>
-		/// Called when a player attempts to unlock a generator.
-		/// </summary>
-		public void OnGeneratorUnlock(PlayerGeneratorUnlockEvent ev)
+		[PluginEvent(ServerEventType.PlayerUnlockGenerator)]
+		public void OnGeneratorUnlock(Player player, Scp079Generator generator)
 		{
-			if (ev.Allow)
+			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				Dictionary<string, string> variables = new Dictionary<string, string>
-				{
-					{ "engaged",                    ev.Generator.IsEngaged.ToString()          },
-					{ "activating",                 ev.Generator.IsActivating.ToString()       },
-					{ "locked",                     (!ev.Generator.IsUnlocked).ToString()      },
-					{ "open",                       ev.Generator.IsOpen.ToString()             },
-					{ "room",                       ev.Generator.Room.RoomType.ToString()      },
-					{ "starttime",                  ev.Generator.ActivationTime.ToString()     },
-					{ "timeleft",                   ev.Generator.ActivationTimeLeft.ToString() },
-					{ "ipaddress",                  ev.Player.IPAddress                        },
-					{ "name",                       ev.Player.Name                             },
-					{ "playerid",                   ev.Player.PlayerID.ToString()              },
-					{ "steamid",                    ev.Player.GetParsedUserID() ?? ev.Player.UserID },
-					{ "class",                      ev.Player.Role.ToString()           },
-					{ "team",                       ev.Player.ReferenceHub.GetTeam().ToString()         }
-				};
-				this.plugin.SendMessage(Config.GetArray("channels.ongeneratorunlock"), "player.ongeneratorunlock", variables);
-			}
+				{ "engaged",                    generator.Engaged.ToString()              },
+				{ "activating",                 generator.Activating.ToString()           },
+				//{ "locked",                     (!generator.).ToString()                  },
+				//{ "open",                       generator.IsOpen.ToString()               },
+				{ "room",                       generator.GetComponentInParent<RoomIdentifier>().Name.ToString() },
+				//{ "starttime",                  generator.ActivationTime.ToString()       },
+				//{ "timeleft",                   generator.ActivationTimeLeft.ToString()   },
+				{ "ipaddress",                  player.IpAddress                          },
+				{ "name",                       player.Nickname                           },
+				{ "playerid",                   player.PlayerId.ToString()                },
+				{ "steamid",                    player.GetParsedUserID()                  },
+				{ "class",                      player.Role.ToString()                    },
+				{ "team",                       player.ReferenceHub.GetTeam().ToString()  }
+			};
+			plugin.SendMessage(Config.GetArray("channels.ongeneratorunlock"), "player.ongeneratorunlock", variables);
 		}
 
-		/// <summary>
-		/// Called when a player attempts to open/close a generator.
-		/// </summary>
-		public void OnGeneratorAccess(PlayerGeneratorAccessEvent ev)
+
+		[PluginEvent(ServerEventType.PlayerOpenGenerator)]
+		public void OnGeneratorOpen(Player player, Scp079Generator generator)
 		{
-			if (ev.Allow)
+			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				Dictionary<string, string> variables = new Dictionary<string, string>
-				{
-					{ "engaged",                    ev.Generator.IsEngaged.ToString()          },
-					{ "activating",                 ev.Generator.IsActivating.ToString()       },
-					{ "locked",                     (!ev.Generator.IsUnlocked).ToString()      },
-					{ "open",                       ev.Generator.IsOpen.ToString()             },
-					{ "room",                       ev.Generator.Room.RoomType.ToString()      },
-					{ "starttime",                  ev.Generator.ActivationTime.ToString()     },
-					{ "timeleft",                   ev.Generator.ActivationTimeLeft.ToString() },
-					{ "ipaddress",                  ev.Player.IPAddress                        },
-					{ "name",                       ev.Player.Name                             },
-					{ "playerid",                   ev.Player.PlayerID.ToString()              },
-					{ "steamid",                    ev.Player.GetParsedUserID() ?? ev.Player.UserID },
-					{ "class",                      ev.Player.Role.ToString()           },
-					{ "team",                       ev.Player.ReferenceHub.GetTeam().ToString()         }
-				};
-				if (ev.Generator.IsOpen)
-				{
-					this.plugin.SendMessage(Config.GetArray("channels.ongeneratoraccess.closed"), "player.ongeneratoraccess.closed", variables);
-				}
-				else
-				{
-					this.plugin.SendMessage(Config.GetArray("channels.ongeneratoraccess.opened"), "player.ongeneratoraccess.opened", variables);
-				}
-			}
+				{ "engaged",          generator.Engaged.ToString()                 },
+				{ "activating",       generator.Activating.ToString()              },
+				//{ "locked",           (!ev.Generator.IsUnlocked).ToString()        },
+				//{ "open",             generator.IsOpen.ToString()                  },
+				{ "room",             generator.GetComponentInParent<RoomIdentifier>().Name.ToString() },
+				//{ "starttime",        ev.Generator.ActivationTime.ToString()       },
+				//{ "timeleft",         ev.Generator.ActivationTimeLeft.ToString()   },
+				{ "ipaddress",        player.IpAddress                             },
+				{ "name",             player.Nickname                              },
+				{ "playerid",         player.PlayerId.ToString()                   },
+				{ "steamid",          player.GetParsedUserID()                     },
+				{ "class",            player.Role.ToString()                       },
+				{ "team",             player.ReferenceHub.GetTeam().ToString()     }
+			};
+
+			plugin.SendMessage(Config.GetArray("channels.ongeneratoropen"), "player.ongeneratoropen", variables);
 		}
 
-		/// <summary>
-		/// Called when a player switches the lever on a generator
-		/// </summary>
-		public void OnGeneratorLeverUsed(PlayerGeneratorLeverUsedEvent ev)
+		[PluginEvent(ServerEventType.PlayerCloseGenerator)]
+		public void OnGeneratorClose(Player player, Scp079Generator generator)
 		{
-			if (ev.Allow)
+			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				Dictionary<string, string> variables = new Dictionary<string, string>
-				{
-					{ "engaged",                    ev.Generator.IsEngaged.ToString()       },
-					{ "activating",                 ev.Generator.IsActivating.ToString()    },
-					{ "locked",                     (!ev.Generator.IsUnlocked).ToString()   },
-					{ "open",                       ev.Generator.IsOpen.ToString()          },
-					{ "room",                       ev.Generator.Room.RoomType.ToString()   },
-					{ "starttime",                  ev.Generator.ActivationTime.ToString()  },
-					{ "timeleft",                   ev.Generator.ActivationTimeLeft.ToString() },
-					{ "ipaddress",                  ev.Player.IPAddress                     },
-					{ "name",                       ev.Player.Name                          },
-					{ "playerid",                   ev.Player.PlayerID.ToString()           },
-					{ "steamid",                    ev.Player.GetParsedUserID() ?? ev.Player.UserID },
-					{ "class",                      ev.Player.Role.ToString()        },
-					{ "team",                       ev.Player.ReferenceHub.GetTeam().ToString()      }
-				};
-				this.plugin.SendMessage(Config.GetArray("channels.ongeneratorleverused"), "player.ongeneratorleverused", variables);
-			}
+				{ "engaged",        generator.Engaged.ToString()                  },
+				{ "activating",     generator.Activating.ToString()               },
+				//{ "locked",         (!ev.Generator.IsUnlocked).ToString()         },
+				//{ "open",           generator.IsOpen.ToString()                   },
+				{ "room",           generator.GetComponentInParent<RoomIdentifier>().Name.ToString() },
+				//{ "starttime",      ev.Generator.ActivationTime.ToString()        },
+				//{ "timeleft",       ev.Generator.ActivationTimeLeft.ToString()    },
+				{ "ipaddress",      player.IpAddress                              },
+				{ "name",           player.Nickname                               },
+				{ "playerid",       player.PlayerId.ToString()                    },
+				{ "steamid",        player.GetParsedUserID()                      },
+				{ "class",          player.Role.ToString()                        },
+				{ "team",           player.ReferenceHub.GetTeam().ToString()      }
+			};
+			plugin.SendMessage(Config.GetArray("channels.ongeneratorclose"), "player.ongeneratorclose", variables);
 		}
 
-		/// <summary>
-		/// Called when SCP-079 opens/closes doors.
-		/// </summary>
+		[PluginEvent(ServerEventType.PlayerActivateGenerator)]
+		public void OnGeneratorActivated(Player player, Scp079Generator generator)
+		{
+			Dictionary<string, string> variables = new Dictionary<string, string>
+			{
+				{ "engaged",       generator.Engaged.ToString()                },
+				{ "activating",    generator.Activating.ToString()             },
+				//{ "locked",        (!ev.Generator.IsUnlocked).ToString()       },
+				//{ "open",          ev.Generator.IsOpen.ToString()              },
+				{ "room",          generator.GetComponentInParent<RoomIdentifier>().Name.ToString() },
+				//{ "starttime",     ev.Generator.ActivationTime.ToString()      },
+				//{ "timeleft",      ev.Generator.ActivationTimeLeft.ToString()  },
+				{ "ipaddress",     player.IpAddress                            },
+				{ "name",          player.Nickname                             },
+				{ "playerid",      player.PlayerId.ToString()                  },
+				{ "steamid",       player.GetParsedUserID()                    },
+				{ "class",         player.Role.ToString()                      },
+				{ "team",          player.ReferenceHub.GetTeam().ToString()    }
+			};
+			plugin.SendMessage(Config.GetArray("channels.ongeneratoractivated"), "player.ongeneratoractivated", variables);
+		}
+
+		[PluginEvent(ServerEventType.PlayerDeactivatedGenerator)]
+		public void OnGeneratorDeactivated(Player player, Scp079Generator generator)
+		{
+			Dictionary<string, string> variables = new Dictionary<string, string>
+			{
+				{ "engaged",       generator.Engaged.ToString()                },
+				{ "activating",    generator.Activating.ToString()             },
+				//{ "locked",        (!ev.Generator.IsUnlocked).ToString()       },
+				//{ "open",          ev.Generator.IsOpen.ToString()              },
+				{ "room",          generator.GetComponentInParent<RoomIdentifier>().Name.ToString() },
+				//{ "starttime",     ev.Generator.ActivationTime.ToString()      },
+				//{ "timeleft",      ev.Generator.ActivationTimeLeft.ToString()  },
+				{ "ipaddress",     player.IpAddress                            },
+				{ "name",          player.Nickname                             },
+				{ "playerid",      player.PlayerId.ToString()                  },
+				{ "steamid",       player.GetParsedUserID()                    },
+				{ "class",         player.Role.ToString()                      },
+				{ "team",          player.ReferenceHub.GetTeam().ToString()    }
+			};
+			plugin.SendMessage(Config.GetArray("channels.ongeneratordeactivated"), "player.ongeneratordeactivated", variables);
+		}
+
+
+		/*
 		public void On079Door(Player079DoorEvent ev)
 		{
 			if (ev.Allow)
@@ -950,18 +1039,17 @@ namespace SCPDiscord.EventListeners
 				};
 				if (ev.Door.IsOpen)
 				{
-					this.plugin.SendMessage(Config.GetArray("channels.on079door.closed"), "player.on079door.closed", variables);
+					plugin.SendMessage(Config.GetArray("channels.on079door.closed"), "player.on079door.closed", variables);
 				}
 				else
 				{
-					this.plugin.SendMessage(Config.GetArray("channels.on079door.opened"), "player.on079door.opened", variables);
+					plugin.SendMessage(Config.GetArray("channels.on079door.opened"), "player.on079door.opened", variables);
 				}
 			}
 		}
+		*/
 
-		/// <summary>
-		/// Called when SCP-079 locks/unlocks doors.
-		/// </summary>
+		/*
 		public void On079Lock(Player079LockEvent ev)
 		{
 			if (ev.Allow)
@@ -980,18 +1068,17 @@ namespace SCPDiscord.EventListeners
 				};
 				if (ev.Door.IsLocked)
 				{
-					this.plugin.SendMessage(Config.GetArray("channels.on079lock.unlocked"), "player.on079lock.unlocked", variables);
+					plugin.SendMessage(Config.GetArray("channels.on079lock.unlocked"), "player.on079lock.unlocked", variables);
 				}
 				else
 				{
-					this.plugin.SendMessage(Config.GetArray("channels.on079lock.locked"), "player.on079lock.locked", variables);
+					plugin.SendMessage(Config.GetArray("channels.on079lock.locked"), "player.on079lock.locked", variables);
 				}
 			}
 		}
+		*/
 
-		/// <summary>
-		/// Called when SCP-079 sends an elevator up/down.
-		/// </summary>
+		/*
 		public void On079Elevator(Player079ElevatorEvent ev)
 		{
 			if (ev.Allow)
@@ -1010,18 +1097,17 @@ namespace SCPDiscord.EventListeners
 				};
 				if (ev.Elevator.ElevatorStatus == ElevatorStatus.DOWN)
 				{
-					this.plugin.SendMessage(Config.GetArray("channels.on079elevator.up"), "player.on079elevator.up", variables);
+					plugin.SendMessage(Config.GetArray("channels.on079elevator.up"), "player.on079elevator.up", variables);
 				}
 				else if (ev.Elevator.ElevatorStatus == ElevatorStatus.UP)
 				{
-					this.plugin.SendMessage(Config.GetArray("channels.on079elevator.down"), "player.on079elevator.down", variables);
+					plugin.SendMessage(Config.GetArray("channels.on079elevator.down"), "player.on079elevator.down", variables);
 				}
 			}
 		}
+		*/
 
-		/// <summary>
-		/// Called when SCP-079 triggers a tesla gate.
-		/// </summary>
+		/*
 		public void On079TeslaGate(Player079TeslaGateEvent ev)
 		{
 			if (ev.Allow)
@@ -1036,13 +1122,12 @@ namespace SCPDiscord.EventListeners
 					{ "class",                      ev.Player.Role.ToString()    },
 					{ "team",                       ev.Player.ReferenceHub.GetTeam().ToString()  }
 				};
-				this.plugin.SendMessage(Config.GetArray("channels.on079teslagate"), "player.on079teslagate", variables);
+				plugin.SendMessage(Config.GetArray("channels.on079teslagate"), "player.on079teslagate", variables);
 			}
 		}
+		*/
 
-		/// <summary>
-		/// Called when a player's SCP-079 experience is added to.
-		/// </summary>
+		/*
 		public void On079AddExp(Player079AddExpEvent ev)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
@@ -1056,12 +1141,11 @@ namespace SCPDiscord.EventListeners
 				{ "class",                      ev.Player.Role.ToString()    },
 				{ "team",                       ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
-			this.plugin.SendMessage(Config.GetArray("channels.on079addexp"), "player.on079addexp", variables);
+			plugin.SendMessage(Config.GetArray("channels.on079addexp"), "player.on079addexp", variables);
 		}
+		*/
 
-		/// <summary>
-		/// Called when a player's SCP-079 level is incremented.
-		/// </summary>
+		/*
 		public void On079LevelUp(Player079LevelUpEvent ev)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
@@ -1073,12 +1157,11 @@ namespace SCPDiscord.EventListeners
 				{ "class",                      ev.Player.Role.ToString()  },
 				{ "team",                       ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
-			this.plugin.SendMessage(Config.GetArray("channels.on079levelup"), "player.on079levelup", variables);
+			plugin.SendMessage(Config.GetArray("channels.on079levelup"), "player.on079levelup", variables);
 		}
+		*/
 
-		/// <summary>
-		/// Called when SCP-079 unlocks all doors.
-		/// </summary>
+		/*
 		public void On079UnlockDoors(Player079UnlockDoorsEvent ev)
 		{
 			if (ev.Allow)
@@ -1092,13 +1175,12 @@ namespace SCPDiscord.EventListeners
 					{ "class",                      ev.Player.Role.ToString()    },
 					{ "team",                       ev.Player.ReferenceHub.GetTeam().ToString()  }
 				};
-				this.plugin.SendMessage(Config.GetArray("channels.on079unlockdoors"), "player.on079unlockdoors", variables);
+				plugin.SendMessage(Config.GetArray("channels.on079unlockdoors"), "player.on079unlockdoors", variables);
 			}
 		}
+		*/
 
-		/// <summary>
-		/// Called when SCP-079 teleports to a new camera.
-		/// </summary>
+		/*
 		public void On079CameraTeleport(Player079CameraTeleportEvent ev)
 		{
 			if (ev.Allow)
@@ -1113,13 +1195,12 @@ namespace SCPDiscord.EventListeners
 					{ "class",                      ev.Player.Role.ToString()    },
 					{ "team",                       ev.Player.ReferenceHub.GetTeam().ToString()  }
 				};
-				this.plugin.SendMessage(Config.GetArray("channels.on079camerateleport"), "player.on079camerateleport", variables);
+				plugin.SendMessage(Config.GetArray("channels.on079camerateleport"), "player.on079camerateleport", variables);
 			}
 		}
+		*/
 
-		/// <summary>
-		/// Called when SCP-079 starts using a speaker.
-		/// </summary>
+		/*
 		public void On079StartSpeaker(Player079StartSpeakerEvent ev)
 		{
 			if (ev.Allow)
@@ -1135,13 +1216,12 @@ namespace SCPDiscord.EventListeners
 					{ "class",                      ev.Player.Role.ToString()    },
 					{ "team",                       ev.Player.ReferenceHub.GetTeam().ToString()  }
 				};
-				this.plugin.SendMessage(Config.GetArray("channels.on079startspeaker"), "player.on079startspeaker", variables);
+				plugin.SendMessage(Config.GetArray("channels.on079startspeaker"), "player.on079startspeaker", variables);
 			}
 		}
+		*/
 
-		/// <summary>
-		/// Called when SCP-079 stops using a speaker.
-		/// </summary>
+		/*
 		public void On079StopSpeaker(Player079StopSpeakerEvent ev)
 		{
 			if (ev.Allow)
@@ -1156,13 +1236,12 @@ namespace SCPDiscord.EventListeners
 					{ "class",                      ev.Player.Role.ToString()  },
 					{ "team",                       ev.Player.ReferenceHub.GetTeam().ToString()  }
 				};
-				this.plugin.SendMessage(Config.GetArray("channels.on079stopspeaker"), "player.on079stopspeaker", variables);
+				plugin.SendMessage(Config.GetArray("channels.on079stopspeaker"), "player.on079stopspeaker", variables);
 			}
 		}
+		*/
 
-		/// <summary>
-		/// Called when SCP-079 uses the lockdown (warning sign) ability.
-		/// </summary>
+		/*
 		public void On079Lockdown(Player079LockdownEvent ev)
 		{
 			if (ev.Allow)
@@ -1178,13 +1257,12 @@ namespace SCPDiscord.EventListeners
 					{ "class",                      ev.Player.Role.ToString()  },
 					{ "team",                       ev.Player.ReferenceHub.GetTeam().ToString()  }
 				};
-				this.plugin.SendMessage(Config.GetArray("channels.on079lockdown"), "player.on079lockdown", variables);
+				plugin.SendMessage(Config.GetArray("channels.on079lockdown"), "player.on079lockdown", variables);
 			}
 		}
+		*/
 
-		/// <summary>
-		/// Called when SCP-079 uses an elevator to teleport to a new floor.
-		/// </summary>
+		/*
 		public void On079ElevatorTeleport(Player079ElevatorTeleportEvent ev)
 		{
 			if (ev.Allow)
@@ -1200,25 +1278,9 @@ namespace SCPDiscord.EventListeners
 					{ "class",                      ev.Player.Role.ToString()    },
 					{ "team",                       ev.Player.ReferenceHub.GetTeam().ToString()  }
 				};
-				this.plugin.SendMessage(Config.GetArray("channels.on079elevatorteleport"), "player.on079elevatorteleport", variables);
+				plugin.SendMessage(Config.GetArray("channels.on079elevatorteleport"), "player.on079elevatorteleport", variables);
 			}
 		}
-
-		public void OnPlayerDropAllItems(PlayerDropAllItemsEvent ev)
-		{
-			if (ev.Allow)
-			{
-				Dictionary<string, string> variables = new Dictionary<string, string>
-				{
-					{ "ipaddress",                  ev.Player.IPAddress                 },
-					{ "name",                       ev.Player.Name                      },
-					{ "playerid",                   ev.Player.PlayerID.ToString()       },
-					{ "steamid",                    ev.Player.GetParsedUserID() ?? ev.Player.UserID },
-					{ "class",                      ev.Player.Role.ToString()    },
-					{ "team",                       ev.Player.ReferenceHub.GetTeam().ToString()  }
-				};
-				this.plugin.SendMessage(Config.GetArray("channels.onplayerdropallitems"), "player.onplayerdropallitems", variables);
-			}
-		}
+		*/
 	}
 }

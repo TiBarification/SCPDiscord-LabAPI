@@ -49,10 +49,10 @@
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>packages\Newtonsoft.Json.13.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PluginAPI, Version=12.0.0.0, Culture=neutral, processorArchitecture=Amd64">
-      <HintPath>packages\Northwood.PluginAPI.12.0.0-beta7\lib\net48\PluginAPI.dll</HintPath>
+      <HintPath>packages\Northwood.PluginAPI.12.0.0-beta8\lib\net48\PluginAPI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -314,7 +314,7 @@
     <Compile Include="Language.cs" />
     <Compile Include="NetworkSystem.cs" />
     <Compile Include="EventListeners\RoundEventListener.cs" />
-    <Compile Include="PlayerExtensions.cs" />
+    <Compile Include="APIExtensions.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

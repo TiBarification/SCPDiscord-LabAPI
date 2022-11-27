@@ -373,6 +373,35 @@ player:
         # team - Team
         message: "<var:name> (<var:steamid>) picked up <var:item>."
         regex: []
+    onplayerpickupammo:
+        # ammo - Item
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "<var:name> (<var:steamid>) picked up <var:ammo>."
+        regex: []
+    onplayerpickuparmor:
+        # item - Item
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "<var:name> (<var:steamid>) picked up <var:armor>."
+        regex: []
+    onplayerpickupscp330:
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "<var:name> (<var:steamid>) picked up SCP-330."
+        regex: []
     onplayerdropitem:
         # item - Item
         # ipaddress - string
@@ -718,11 +747,7 @@ player:
         regex: []
     onreload:
         # weapon
-        # normalmaxclipsize
-        # ammoremoved
-        # clipammocountafterreload
-        # currentammototal
-        # currentclipammocount
+        # maxclipsize
         # ipaddress
         # name
         # playerid
@@ -773,7 +798,7 @@ player:
         regex: [
             "Micro-HID":"the Micro-HID room",
             "nuke":"the nuke silo" ]
-    ongeneratoraccess:
+    ongeneratorclose:
         # engaged - bool
         # activating - bool
         # locked - bool
@@ -787,17 +812,29 @@ player:
         # steamid - string
         # class - Role
         # team - Team
-        closed:
-            message: "<var:name> (<var:steamid>) closed a generator in <var:room>."
-            regex: [
-                "Micro-HID":"the Micro-HID room",
-                "nuke":"the nuke silo" ]
-        opened:
-            message: "<var:name> (<var:steamid>) opened a generator in <var:room>."
-            regex: [
-                "Micro-HID":"the Micro-HID room",
-                "nuke":"the nuke silo" ]
-    ongeneratorleverused:
+        message: "<var:name> (<var:steamid>) closed a generator in <var:room>."
+        regex: [
+            "Micro-HID":"the Micro-HID room",
+            "nuke":"the nuke silo" ]
+    ongeneratoropen:
+        # engaged - bool
+        # activating - bool
+        # locked - bool
+        # open - bool
+        # room - RoomType
+        # starttime - float
+        # timeleft - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "<var:name> (<var:steamid>) opened a generator in <var:room>."
+        regex: [
+            "Micro-HID":"the Micro-HID room",
+            "nuke":"the nuke silo" ]
+    ongeneratoractivated:
         # engaged - bool
         # activating - bool
         # locked - bool
@@ -812,6 +849,24 @@ player:
         # class - Role
         # team - Team
         message: "<var:name> (<var:steamid>) activated the generator in <var:room>."
+        regex: [
+            "Micro-HID":"the Micro-HID room",
+            "nuke":"the nuke silo" ]
+    ongeneratordeactivated:
+        # engaged - bool
+        # activating - bool
+        # locked - bool
+        # open - bool
+        # room - RoomType
+        # starttime - float
+        # timeleft - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "<var:name> (<var:steamid>) deactivated the generator in <var:room>."
         regex: [
             "Micro-HID":"the Micro-HID room",
             "nuke":"the nuke silo" ]

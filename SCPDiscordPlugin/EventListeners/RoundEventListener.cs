@@ -5,8 +5,7 @@ using System.Collections.Generic;
 
 namespace SCPDiscord.EventListeners
 {
-	internal class RoundEventListener : IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerConnect, IEventHandlerWaitingForPlayers,
-		IEventHandlerCheckRoundEnd, IEventHandlerRoundRestart, IEventHandlerSetServerName, IEventHandlerSceneChanged, IEventHandlerDisconnect, IEventHandlerPlayerLeave
+	internal class RoundEventListener
 	{
 		private readonly SCPDiscord plugin;
 

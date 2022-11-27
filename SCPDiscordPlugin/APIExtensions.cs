@@ -2,7 +2,7 @@ using PluginAPI.Core;
 
 namespace SCPDiscord
 {
-	public static class PlayerExtensions
+	public static class APIExtensions
 	{
 		public static string GetParsedUserID(this Player player)
 		{
@@ -15,7 +15,6 @@ namespace SCPDiscord
 					return player.UserId.Substring(0, charLocation);
 				}
 			}
-
 			return null;
 		}
 	}

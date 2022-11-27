@@ -40,9 +40,6 @@ namespace SCPDiscord
 
 			serverStartTime.Start();
 
-			sync = new SynchronousExecutor(this);
-			EventManager.RegisterEvents(this, sync);
-
 			AddConfig(new Smod2.Config.ConfigSetting("max_players", 20, true, "Gets the max players without reserved slots."));
 			AddConfig(new Smod2.Config.ConfigSetting("online_mode", true, true, "Gets the server's online mode status."));
 			AddConfig(new Smod2.Config.ConfigSetting("scpdiscord_config_global", false, true, "Whether or not the config should be placed in the global config directory."));
@@ -50,6 +47,8 @@ namespace SCPDiscord
 			AddConfig(new Smod2.Config.ConfigSetting("scpdiscord_languages_global", true, true, "Whether or not the languages should be placed in the global config directory."));
 
 			// Event handlers
+			sync = new SynchronousExecutor(this);
+            EventManager.RegisterEvents(this, sync);
 			EventManager.RegisterEvents<SyncPlayerRole>(this);
 			EventManager.RegisterEvents<RoundEventListener>(this);
 			EventManager.RegisterEvents<PlayerEventListener>(this);
