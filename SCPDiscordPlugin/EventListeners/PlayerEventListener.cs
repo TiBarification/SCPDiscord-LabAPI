@@ -26,9 +26,9 @@ namespace SCPDiscord.EventListeners
 			{ Team.ClassD, Team.ChaosInsurgency }
 		};
 
-		public PlayerEventListener(SCPDiscord plugin)
+		public PlayerEventListener(SCPDiscord pl)
 		{
-			plugin = plugin;
+			plugin = pl;
 		}
 
 		private bool IsTeamDamage(Team attackerTeam, Team targetTeam)

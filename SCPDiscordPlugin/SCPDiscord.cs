@@ -44,10 +44,6 @@ namespace SCPDiscord
 			LiteNetLib4MirrorNetworkManager.singleton.gameObject.AddComponent<SynchronousExecutor>();
 			sync = LiteNetLib4MirrorNetworkManager.singleton.gameObject.GetComponent<SynchronousExecutor>();
 
-			AddConfig(new Smod2.Config.ConfigSetting("scpdiscord_config_global", false, true, "Whether or not the config should be placed in the global config directory."));
-			AddConfig(new Smod2.Config.ConfigSetting("scpdiscord_rolesync_global", true, true, "Whether or not the rolesync file should be placed in the global config directory."));
-			AddConfig(new Smod2.Config.ConfigSetting("scpdiscord_languages_global", true, true, "Whether or not the languages should be placed in the global config directory."));
-
 			// Event handlers
             EventManager.RegisterEvents(this, sync);
 			EventManager.RegisterEvents<SyncPlayerRole>(this);
@@ -56,7 +52,7 @@ namespace SCPDiscord
 			EventManager.RegisterEvents<AdminEventListener>(this);
 			EventManager.RegisterEvents<EnvironmentEventListener>(this);
 			EventManager.RegisterEvents<TeamEventListener>(this);
-			
+
 			SetUpFileSystem();
 			roleSync = new RoleSync(this);
 			LoadConfig();
@@ -196,7 +192,7 @@ namespace SCPDiscord
 			}
 		}
 
-		public new void Debug(string message)
+		public void Debug(string message)
 		{
 			if (Config.GetBool("settings.debug"))
 			{

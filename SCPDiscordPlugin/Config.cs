@@ -24,12 +24,14 @@ namespace SCPDiscord
 
 		private static readonly Dictionary<string, bool> configBools = new Dictionary<string, bool>
 		{
-			{ "settings.playercount",       true    },
-			{ "settings.verbose",           true    },
-			{ "settings.debug",             true    },
-			{ "settings.metrics",           true    },
-			{ "settings.configvalidation",  true    },
-			{ "settings.rolesync",          false   }
+			{ "settings.playercount",       true           },
+			{ "settings.verbose",           true           },
+			{ "settings.debug",             true           },
+			{ "settings.metrics",           true           },
+			{ "settings.configvalidation",  true           },
+			{ "settings.rolesync",          false          },
+			{ "settings.useglobaldirectory.language", true },
+			{ "settings.useglobaldirectory.rolesync", true }
 		};
 
 		private static readonly Dictionary<string, int> configInts = new Dictionary<string, int>
@@ -329,14 +331,7 @@ namespace SCPDiscord
 
 		public static string GetConfigDir()
 		{
-			if (plugin.GetConfigBool("scpdiscord_config_global"))
-			{
-				return Paths.SecretLab + "/SCPDiscord/";
-			}
-			else
-			{
-				return Paths.Configs + "/SCPDiscord/";
-			}
+			return Paths.Configs + "/SCPDiscord/";
 		}
 
 		public static string GetConfigPath()
@@ -346,7 +341,7 @@ namespace SCPDiscord
 
 		public static string GetLanguageDir()
 		{
-			if (plugin.GetConfigBool("scpdiscord_languages_global"))
+			if (GetBool("settings.useglobaldirectory.language"))
 			{
 				return Paths.SecretLab + "/SCPDiscord/Languages/";
 			}
@@ -358,7 +353,7 @@ namespace SCPDiscord
 
 		public static string GetRolesyncDir()
 		{
-			if (plugin.GetConfigBool("scpdiscord_rolesync_global"))
+			if (GetBool("settings.useglobaldirectory.rolesync"))
 			{
 				return Paths.SecretLab + "/SCPDiscord/";
 			}
