@@ -2,10 +2,11 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using PluginAPI.Core;
 using SCPDiscord.Interface;
+using UnityEngine;
 
 namespace SCPDiscord
 {
-	public class SynchronousExecutor
+	public class SynchronousExecutor : MonoBehaviour
 	{
 		private readonly SCPDiscord plugin;
 		private readonly ConcurrentQueue<ConsoleCommand> queuedCommands = new ConcurrentQueue<ConsoleCommand>();
@@ -25,8 +26,7 @@ namespace SCPDiscord
 			queuedRoleSyncCommands.Enqueue(command);
         }
 
-		// TODO: Find new way to get unity to call this function
-		public void OnFixedUpdate(FixedUpdateEvent ev)
+		public void FixedUpdate()
 		{
 			while(queuedCommands.TryDequeue(out ConsoleCommand command))
 			{
