@@ -51,9 +51,9 @@ namespace SCPDiscord
 
 		public void SendRoleQuery(Player player)
 		{
-			if (plugin.GetConfigBool("online_mode"))
+			if (CharacterClassManager.OnlineMode)
 			{
-				if (player.UserIDType != UserIdType.STEAM || !syncedPlayers.ContainsKey(player.UserId))
+				if (!syncedPlayers.ContainsKey(player.UserId))
 				{
 					return;
 				}
@@ -171,7 +171,7 @@ namespace SCPDiscord
 
 		public EmbedMessage AddPlayer(string steamIDOrIP, ulong discordID, ulong channelID)
 		{
-			if (plugin.GetConfigBool("online_mode"))
+			if (CharacterClassManager.OnlineMode)
 			{
 				plugin.Warn("SERVER IS IN ONLINE MODE");
 				if (syncedPlayers.ContainsKey(steamIDOrIP + "@steam"))

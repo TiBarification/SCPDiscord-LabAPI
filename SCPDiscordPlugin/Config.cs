@@ -50,7 +50,6 @@ namespace SCPDiscord
 			{ "channels.onroundend",                new string[]{ } },
 			{ "channels.onroundrestart",            new string[]{ } },
 			{ "channels.onroundstart",              new string[]{ } },
-			{ "channels.onscenechanged",            new string[]{ } },
 			{ "channels.onsetservername",           new string[]{ } },
 			{ "channels.onwaitingforplayers",       new string[]{ } },
 
@@ -149,10 +148,7 @@ namespace SCPDiscord
 			{ "channels.onkick",                    new string[]{ } },
 
 			// Team events
-			{ "channels.ondecideteamrespawnqueue",  new string[]{ } },
 			{ "channels.onsetntfunitname",          new string[]{ } },
-			{ "channels.onsetrolemaxhp",            new string[]{ } },
-			{ "channels.onsetscpconfig",            new string[]{ } },
 			{ "channels.onteamrespawn.ci",          new string[]{ } },
 			{ "channels.onteamrespawn.mtf",         new string[]{ } },
 		};

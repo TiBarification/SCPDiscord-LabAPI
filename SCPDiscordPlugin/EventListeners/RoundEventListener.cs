@@ -1,7 +1,7 @@
-﻿using Smod2;
-using Smod2.EventHandlers;
-using Smod2.Events;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using LiteNetLib;
+using PluginAPI.Core.Attributes;
+using PluginAPI.Enums;
 
 namespace SCPDiscord.EventListeners
 {
@@ -14,62 +14,35 @@ namespace SCPDiscord.EventListeners
 			this.plugin = plugin;
 		}
 
-		/// <summary>
-		///  This is the event handler for Round start events (before people are spawned in)
-		/// </summary>
-		public void OnRoundStart(RoundStartEvent ev)
+		[PluginEvent(ServerEventType.RoundStart)]
+		public void OnRoundStart()
 		{
 			this.plugin.SendMessage(Config.GetArray("channels.onroundstart"), "round.onroundstart");
 			this.plugin.roundStarted = true;
 		}
 
-		/// <summary>
-		///  This is the event handler for connection events, before players have been created, so names and what not are available. See PlayerJoin if you need that information
-		/// </summary>
-		public void OnConnect(ConnectEvent ev)
+		[PluginEvent(ServerEventType.PlayerPreauth)]
+		public void OnConnect(string userID, string ipAddress, long expiration, CentralAuthPreauthFlags flags, string region, byte[] signature, ConnectionRequest connectionRequest, int readerStartPosition)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "ipaddress", ev.Connection.IpAddress }
+				{ "ipaddress", ipAddress       },
+				{ "steamid", userID            },
+				{ "jointype", flags.ToString() },
+				{ "region", region             }
 			};
 			this.plugin.SendMessage(Config.GetArray("channels.onconnect"), "round.onconnect", variables);
 		}
 
-		/// <summary>
-		///  This is the event handler for disconnection events.
-		/// </summary>
+		/*
 		public void OnDisconnect(DisconnectEvent ev)
 		{
 			this.plugin.SendMessage(Config.GetArray("channels.ondisconnect"), "round.ondisconnect");
 		}
+		*/
 
-		/// <summary>
-		/// This is the event handler for players leaving
-		/// </summary>
-		public void OnPlayerLeave(PlayerLeaveEvent ev)
-		{
-			Dictionary<string, string> variables = new Dictionary<string, string>
-			{
-				{ "ipaddress", ev.Player.IPAddress           },
-				{ "name", ev.Player.Name                     },
-				{ "steamid", ev.Player.GetParsedUserID()               },
-				{ "playerid", ev.Player.PlayerID.ToString()  }
-			};
-			this.plugin.SendMessage(Config.GetArray("channels.onplayerleave"), "round.onplayerleave", variables);
-		}
-
-		/// <summary>
-		///  This event handler will call everytime the game checks for a round end
-		/// </summary>
-		public void OnCheckRoundEnd(CheckRoundEndEvent ev)
-		{
-			//Protip, don't turn this on.
-			this.plugin.SendMessage(Config.GetArray("channels.oncheckroundend"), "round.oncheckroundend");
-		}
-
-		/// <summary>
-		///  This is the event handler for Round end events (when the stats appear on screen)
-		/// </summary>
+		/*
+		[PluginEvent(ServerEventType.RoundEnd)]
 		public void OnRoundEnd(RoundEndEvent ev)
 		{
 			if (this.plugin.roundStarted && ev.Round.Duration > 60)
@@ -97,29 +70,25 @@ namespace SCPDiscord.EventListeners
 				this.plugin.roundStarted = false;
 			}
 		}
+		*/
 
-		/// <summary>
-		///  This event handler will call when the server is waiting for players
-		/// </summary>
-		public void OnWaitingForPlayers(WaitingForPlayersEvent ev)
+
+		[PluginEvent(ServerEventType.WaitingForPlayers)]
+		public void OnWaitingForPlayers()
 		{
 			this.plugin.SendMessage(Config.GetArray("channels.onwaitingforplayers"), "round.onwaitingforplayers");
 		}
 
-		/// <summary>
-		///  This event handler will call when the server is about to restart
-		/// </summary>
-		public void OnRoundRestart(RoundRestartEvent ev)
+		[PluginEvent(ServerEventType.RoundRestart)]
+		public void OnRoundRestart()
 		{
 			this.plugin.SendMessage(Config.GetArray("channels.onroundrestart"), "round.onroundrestart");
 		}
 
-		/// <summary>
-		///  This event handler will call when the server name is set
-		/// </summary>
+		/*
+		[PluginEvent(ServerEventType.)]
 		public void OnSetServerName(SetServerNameEvent ev)
 		{
-			// ReSharper disable once StringLiteralTypo
 			ev.ServerName = (ConfigManager.Manager.Config.GetBoolValue("discord_metrics", true)) ? ev.ServerName += "<color=#ffffff00><size=1>SCPD:" + this.plugin.Details.version + "</size></color>" : ev.ServerName;
 
 			Dictionary<string, string> variables = new Dictionary<string, string>
@@ -128,14 +97,6 @@ namespace SCPDiscord.EventListeners
 			};
 			this.plugin.SendMessage(Config.GetArray("channels.onsetservername"), "round.onsetservername", variables);
 		}
-
-		public void OnSceneChanged(SceneChangedEvent ev)
-		{
-			Dictionary<string, string> variables = new Dictionary<string, string>
-			{
-				{ "scenename", ev.SceneName }
-			};
-			this.plugin.SendMessage(Config.GetArray("channels.onscenechanged"), "round.onscenechanged", variables);
-		}
+		*/
 	}
 }

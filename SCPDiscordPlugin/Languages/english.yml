@@ -178,6 +178,9 @@ round:
         regex: []
     onconnect:
         # ipaddress - string
+        # steamid - string
+        # jointype - CentralAuthPreauthFlags
+        # region - string
         message: "Player attempting connection..."
         regex: []
     ondisconnect:
@@ -230,10 +233,6 @@ round:
     onsetservername:
         # servername - string
         message: "**Server name: <var:servername>.**"
-        regex: []
-    onscenechanged:
-        # scenename - string
-        message: "**Scene loaded: <var:scenename>.**"
         regex: []
 
 environment:
@@ -1028,6 +1027,7 @@ player:
         # team - Team
         message: "<var:name> (<var:steamid>) had all of their items dropped."
         regex: []
+
 admin:
     onadminquery:
         # ipaddress - string
@@ -1078,10 +1078,6 @@ admin:
         regex: []
 
 team:
-    ondecideteamrespawnqueue:
-        # teams - Team[]
-        message: "Respawn queue decided."
-        regex: []
     onteamrespawn:
         # players - List<Player>
         # spawnchaos - bool
@@ -1091,28 +1087,6 @@ team:
         ci:
             message: "**Facility incursion detected, intruders identified as members of hostile GOI \"Chaos Insurgency\".**"
             regex: []
-    onsetrolemaxhp:
-        # maxhp - int
-        # role - Role
-        message: "Max HP for <var:role> set to <var:maxhp>."
-        regex: []
-    onsetscpconfig:
-        # banned049 - bool
-        # banned079 - bool
-        # banned096 - bool
-        # banned106 - bool
-        # banned173 - bool
-        # banned939_53 - bool
-        # banned939_89 - bool
-        # 049amount - int
-        # 079amount - int
-        # 096amount - int
-        # 106amount - int
-        # 173amount - int
-        # 939_53amount - int
-        # 939_89amount - int
-        message: "SCP settings set."
-        regex: []
     onsetntfunitname:
         # name - string
         message: "**MTF unit designated <var:name> has entered the facility.**"

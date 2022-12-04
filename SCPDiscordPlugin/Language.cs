@@ -49,7 +49,6 @@ namespace SCPDiscord
 			"round.onwaitingforplayers",
 			"round.onroundrestart",
 			"round.onsetservername",
-			"round.onscenechanged",
 
 			"environment.onscp914activate",
 			"environment.onstartcountdown.noplayer",
@@ -144,11 +143,8 @@ namespace SCPDiscord
 			"admin.onban.admin.ban",
 			"admin.onban.console.ban",
 
-			"team.ondecideteamrespawnqueue",
 			"team.onteamrespawn.mtf",
 			"team.onteamrespawn.ci",
-			"team.onsetrolemaxhp",
-			"team.onsetscpconfig",
 			"team.onsetntfunitname",
 
 			"botmessages.connectedtobot",

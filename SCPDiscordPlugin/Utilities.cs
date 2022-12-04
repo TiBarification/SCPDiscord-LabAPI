@@ -22,5 +22,19 @@ namespace SCPDiscord
                 where parts[index] > 0
                 select parts[index] + (parts[index] == 1 ? units[index] : units[index] + "s"));
         }
+
+		public static string GetParsedUserID(string userID)
+		{
+			if (!string.IsNullOrWhiteSpace(userID))
+			{
+				int charLocation = userID.LastIndexOf('@');
+
+				if (charLocation > 0)
+				{
+					return userID.Substring(0, charLocation);
+				}
+			}
+			return null;
+		}
 	}
 }

@@ -78,7 +78,6 @@ channels:
     onwaitingforplayers: [ "default" ]
     onroundrestart: [ "default", "staff" ]
     onsetservername: []
-    onscenechanged: []
 
     # Environment events
     onscp914activate: []

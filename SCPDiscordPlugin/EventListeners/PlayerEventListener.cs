@@ -358,6 +358,19 @@ namespace SCPDiscord.EventListeners
 			plugin.SendMessage(Config.GetArray("channels.onplayerjoin"), "player.onplayerjoin", variables);
 		}
 
+		[PluginEvent(ServerEventType.PlayerLeft)]
+		public void OnPlayerLeave(Player player)
+		{
+			Dictionary<string, string> variables = new Dictionary<string, string>
+			{
+				{ "ipaddress", player.IpAddress           },
+				{ "name", player.Nickname                 },
+				{ "steamid", player.GetParsedUserID()     },
+				{ "playerid", player.PlayerId.ToString()  }
+			};
+			this.plugin.SendMessage(Config.GetArray("channels.onplayerleave"), "round.onplayerleave", variables);
+		}
+
 		/*
 		[PluginEvent(ServerEventType.)]
 		public void OnNicknameSet(PlayerNicknameSetEvent ev)
