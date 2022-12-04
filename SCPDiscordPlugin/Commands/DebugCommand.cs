@@ -1,31 +1,28 @@
-using Smod2.API;
-using Smod2.Commands;
+using System;
+using CommandSystem;
 
 namespace SCPDiscord.Commands
 {
-	public class DebugCommand : ICommandHandler
+	[CommandHandler(typeof(RemoteAdminCommandHandler))]
+	public class DebugCommand : ICommand
 	{
-		public string GetCommandDescription()
+		public string Command => "scpdiscord_debug";
+		public string[] Aliases => new string[] { "scpd_debug" };
+		public string Description => "Toggles debug mode for SCPDiscord.";
+		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
 		{
-			return "Toggles debug messages.";
-		}
-
-		public string GetUsage()
-		{
-			return "scpd_debug";
-		}
-
-		public string[] OnCall(ICommandSender sender, string[] args)
-		{
+			/*
 			if (sender is Player player)
 			{
 				if (!player.HasPermission("scpdiscord.debug"))
 				{
-					return new[] { "You don't have permission to use that command." };
+					response = "You don't have permission to use that command.";
 				}
 			}
+			*/
 			Config.SetBool("settings.debug", !Config.GetBool("settings.debug"));
-			return new[] { "Debug messages: " + Config.GetBool("settings.debug") };
+			response = "Debug messages: " + Config.GetBool("settings.debug");
+			return true;
 		}
 	}
 }

@@ -1,25 +1,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Smod2.API;
-using Smod2.Commands;
+using CommandSystem;
+using PluginAPI.Core;
 
 namespace SCPDiscord.Commands
 {
-	public class SetNickname : ICommandHandler
+	[CommandHandler(typeof(RemoteAdminCommandHandler))]
+	public class SetNickname : ICommand
 	{
-		public string GetCommandDescription()
+		public string Command => "scpdiscord_setnickname";
+		public string[] Aliases => new string[] { "scpd_setnickname" };
+		public string Description => "Sets a nickname for a player.";
+		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
 		{
-			return "Sets a nickname for a player.";
-		}
-
-		public string GetUsage()
-		{
-			return "scpd_setnickname <steamid/playerid> <name>";
-		}
-
-		public string[] OnCall(ICommandSender sender, string[] args)
-		{
+			/*
 			if (sender is Player admin)
 			{
 				if (!admin.HasPermission("scpdiscord.setnickname"))
@@ -27,27 +22,29 @@ namespace SCPDiscord.Commands
 					return new[] { "You don't have permission to use that command." };
 				}
 			}
+			*/
 
-			if (args.Length <= 1)
+			if (arguments.Count <= 1)
 			{
-				return new[] { "Invalid arguments." };
+				response = "Invalid arguments.";
+				return false;
 			}
 
-			string steamIDOrPlayerID = args[0].Replace("@steam", ""); // Remove steam suffix if there is one
+			string steamIDOrPlayerID = arguments.At(0).Replace("@steam", ""); // Remove steam suffix if there is one
 
 			List<Player> matchingPlayers = new List<Player>();
 			try
 			{
 				SCPDiscord.plugin.Debug("Looking for player with SteamID/PlayerID: " + steamIDOrPlayerID);
-				foreach (Player pl in SCPDiscord.plugin.Server.GetPlayers())
+				foreach (Player pl in Player.GetPlayers<Player>())
 				{
-					SCPDiscord.plugin.Debug("Player " + pl.PlayerID + ": SteamID " + pl.UserID + " PlayerID " + pl.PlayerID);
+					SCPDiscord.plugin.Debug("Player " + pl.PlayerId + ": SteamID " + pl.UserId + " PlayerID " + pl.PlayerId);
 					if (pl.GetParsedUserID() == steamIDOrPlayerID)
 					{
 						SCPDiscord.plugin.Debug("Matching SteamID found");
 						matchingPlayers.Add(pl);
 					}
-					else if (pl.PlayerID.ToString() == steamIDOrPlayerID)
+					else if (pl.PlayerId.ToString() == steamIDOrPlayerID)
 					{
 						SCPDiscord.plugin.Debug("Matching playerID found");
 						matchingPlayers.Add(pl);
@@ -58,15 +55,17 @@ namespace SCPDiscord.Commands
 
 			if (!matchingPlayers.Any())
 			{
-				return new[] { "Player \"" + args[0] + "\"not found." };
-			}
-			
-			foreach (Player matchingPlayer in matchingPlayers)
-			{
-				matchingPlayer.DisplayedNickname = string.Join(" ", args.Skip(1));
+				response = "Player \"" + arguments.At(0) + "\"not found.";
+				return false;
 			}
 
-			return new[] { "Player nickname updated." };
+			foreach (Player matchingPlayer in matchingPlayers)
+			{
+				matchingPlayer.DisplayNickname = string.Join(" ", arguments.Skip(1));
+			}
+
+			response = "Player nickname updated.";
+			return true;
 		}
 	}
 }

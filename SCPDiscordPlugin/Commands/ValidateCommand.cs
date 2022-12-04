@@ -1,34 +1,30 @@
-using Smod2.API;
-using Smod2.Commands;
+using System;
+using CommandSystem;
+using PluginAPI.Core;
 
 namespace SCPDiscord.Commands
 {
-	public class ValidateCommand : ICommandHandler
+	[CommandHandler(typeof(RemoteAdminCommandHandler))]
+	public class ValidateCommand : ICommand
 	{
-		public string GetCommandDescription()
+		public string Command => "scpdiscord_validate";
+		public string[] Aliases => new string[] { "scpd_validate" };
+		public string Description => "Creates a config validation report.";
+		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
 		{
-			return "Creates a config validation report.";
-		}
-
-		public string GetUsage()
-		{
-			return "scpd_validate";
-		}
-
-		public string[] OnCall(ICommandSender sender, string[] args)
-		{
-			if (sender is Player player)
+			/*if (sender is Player player)
 			{
 				if (!player.HasPermission("scpdiscord.validate"))
 				{
 					return new[] { "You don't have permission to use that command." };
 				}
-			}
+			}*/
 
 			Config.ValidateConfig(SCPDiscord.plugin);
 			Language.ValidateLanguageStrings();
 
-			return new[] { "Validation report posted in server console." };
+			response = "Validation report posted in server console.";
+			return true;
 		}
 	}
 }

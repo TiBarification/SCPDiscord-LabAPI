@@ -136,7 +136,7 @@ namespace SCPDiscord
 							Dictionary<string, string> variables = new Dictionary<string, string>
 							{
 								{ "ipaddress",                        player.IpAddress                          },
-								{ "name",                             player.Nickname                               },
+								{ "name",                             player.Nickname                           },
 								{ "playerid",                         player.PlayerId.ToString()                },
 								{ "userid",                           player.UserId                             },
 								{ "steamid",                          player.GetParsedUserID()                  },

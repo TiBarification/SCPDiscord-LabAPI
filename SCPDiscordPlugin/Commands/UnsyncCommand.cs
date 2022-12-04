@@ -1,36 +1,33 @@
-using Smod2.API;
-using Smod2.Commands;
+using System;
+using CommandSystem;
+using PluginAPI.Core;
 
 namespace SCPDiscord.Commands
 {
-	public class UnsyncCommand : ICommandHandler
+	[CommandHandler(typeof(RemoteAdminCommandHandler))]
+	public class UnsyncCommand : ICommand
 	{
-		public string GetCommandDescription()
+		public string Command => "scpdiscord_unsync";
+		public string[] Aliases => new string[] { "scpd_unsync" };
+		public string Description => "Removes a user from having their discord role synced to the server.";
+		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
 		{
-			return "Removes a user from having their discord role synced to the server.";
-		}
-
-		public string GetUsage()
-		{
-			return "scpd_unsync <discord id>";
-		}
-
-		public string[] OnCall(ICommandSender sender, string[] args)
-		{
-			if (sender is Player player)
+			/*if (sender is Player player)
 			{
 				if (!player.HasPermission("scpdiscord.unsync"))
 				{
 					return new[] { "You don't have permission to use that command." };
 				}
-			}
+			}*/
 
-			if (args.Length > 0 && ulong.TryParse(args[0], out ulong discordID))
+			if (arguments.Count > 0 && ulong.TryParse(arguments.At(0), out ulong discordID))
 			{
-				return new[] { SCPDiscord.plugin.roleSync.RemovePlayerLocally(discordID) };
+				response = SCPDiscord.plugin.roleSync.RemovePlayerLocally(discordID);
+				return true;
 			}
 
-			return new[] { "Invalid arguments." };
+			response = "Invalid arguments.";
+			return false;
 		}
 	}
 }

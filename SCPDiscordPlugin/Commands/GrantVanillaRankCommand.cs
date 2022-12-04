@@ -1,53 +1,48 @@
-using Smod2.API;
-using Smod2.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CommandSystem;
+using PluginAPI.Core;
 
 namespace SCPDiscord.Commands
 {
-	public class GrantVanillaRankCommand : ICommandHandler
+	[CommandHandler(typeof(RemoteAdminCommandHandler))]
+	public class GrantVanillaRankCommand : ICommand
 	{
-		public string GetCommandDescription()
+		public string Command => "scpdiscord_givevanillarank";
+		public string[] Aliases => new string[] { "scpd_givevanillarank", "scpd_gvr" };
+		public string Description => "Gives a player the vanilla rank provided.";
+		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
 		{
-			return "Gives a player the vanilla rank provided.";
-		}
-
-		public string GetUsage()
-		{
-			return "scpd_givevanillarank/scpd_gvr <steamid/playerid> <rank>";
-		}
-
-		public string[] OnCall(ICommandSender sender, string[] args)
-		{
-			if (sender is Player admin)
+			/*if (sender is Player admin)
 			{
 				if (!admin.HasPermission("scpdiscord.grantvanillarank"))
 				{
 					return new[] { "You don't have permission to use that command." };
 				}
-			}
+			}*/
 
-			if (args.Length <= 1)
+			if (arguments.Count <= 1)
 			{
-				return new[] { "Invalid arguments." };
+				response = "Invalid arguments.";
+				return false;
 			}
 
-			string steamIDOrPlayerID = args[0].Replace("@steam", ""); // Remove steam suffix if there is one
+			string steamIDOrPlayerID = arguments.At(0).Replace("@steam", ""); // Remove steam suffix if there is one
 
 			List<Player> matchingPlayers = new List<Player>();
 			try
 			{
 				SCPDiscord.plugin.Debug("Looking for player with SteamID/PlayerID: " + steamIDOrPlayerID);
-				foreach (Player pl in SCPDiscord.plugin.Server.GetPlayers())
+				foreach (Player pl in Player.GetPlayers<Player>())
 				{
-					SCPDiscord.plugin.Debug("Player " + pl.PlayerID + ": SteamID " + pl.UserID + " PlayerID " + pl.PlayerID);
+					SCPDiscord.plugin.Debug("Player " + pl.PlayerId + ": SteamID " + pl.UserId + " PlayerID " + pl.PlayerId);
 					if (pl.GetParsedUserID() == steamIDOrPlayerID)
 					{
 						SCPDiscord.plugin.Debug("Matching SteamID found");
 						matchingPlayers.Add(pl);
 					}
-					else if (pl.PlayerID.ToString() == steamIDOrPlayerID)
+					else if (pl.PlayerId.ToString() == steamIDOrPlayerID)
 					{
 						SCPDiscord.plugin.Debug("Matching playerID found");
 						matchingPlayers.Add(pl);
@@ -58,22 +53,25 @@ namespace SCPDiscord.Commands
 
 			if (!matchingPlayers.Any())
 			{
-				return new[] { "Player \"" + args[0] + "\"not found." };
+				response = "Player \"" + arguments.At(0) + "\"not found.";
+				return false;
 			}
-			
+
 			try
 			{
 				foreach (Player matchingPlayer in matchingPlayers)
 				{
-					matchingPlayer.SetRank(null, null, args[1]);
+					matchingPlayer.SetRank(null, null, arguments.At(1));
 				}
 			}
 			catch (Exception)
 			{
-				return new[] { "Vanilla rank \"" + args[1] + "\" not found. Are you sure you are using the RA config role name and not the role title/badge?" };
+				response = "Vanilla rank \"" + arguments.At(1) + "\" not found. Are you sure you are using the RA config role name and not the role title/badge?";
+				return false;
 			}
-			
-			return new[] { "Player rank updated." };
+
+			response = "Player rank updated.";
+			return true;
 		}
 	}
 }

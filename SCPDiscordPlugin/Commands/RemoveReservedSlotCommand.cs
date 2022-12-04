@@ -1,22 +1,18 @@
-using Smod2.Commands;
+using System;
+using CommandSystem;
 
 namespace SCPDiscord.Commands
 {
-	public class RemoveReservedSlotCommand : ICommandHandler
+	[CommandHandler(typeof(RemoteAdminCommandHandler))]
+	public class RemoveReservedSlotCommand : ICommand
 	{
-		public string GetCommandDescription()
+		public string Command => "scpdiscord_removereservedslot";
+		public string[] Aliases => new string[] { "scpd_removereservedslot", "scpd_rrs" };
+		public string Description => "Removes a reserved slot from a player.";
+		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
 		{
-			return "Removes a reserved slot from a player.";
-		}
-
-		public string GetUsage()
-		{
-			return "scpd_removereservedslot/scpd_rrs <steamid>";
-		}
-
-		public string[] OnCall(ICommandSender sender, string[] args)
-		{
-			return new[] { "This command doesn't work in this version." };
+			response = "This command doesn't work in this version.";
+			return false;
 			/*
 			if (sender is Player player)
 			{
@@ -35,7 +31,7 @@ namespace SCPDiscord.Commands
 			{
 				return new[] { "This user does not have a reserved slot." };
 			}
-			
+
 			ReservedSlot.GetSlots().First(slot => slot.SteamID == args[0])?.RemoveSlotFromFile();
 
 			return new[] { "Reserved slot removed." };

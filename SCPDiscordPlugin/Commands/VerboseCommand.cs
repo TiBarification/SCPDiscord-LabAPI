@@ -1,31 +1,30 @@
-using Smod2.API;
-using Smod2.Commands;
+using System;
+using CommandSystem;
+using PluginAPI.Core;
 
 namespace SCPDiscord.Commands
 {
-	public class VerboseCommand : ICommandHandler
+	[CommandHandler(typeof(RemoteAdminCommandHandler))]
+	public class VerboseCommand : ICommand
 	{
-		public string GetCommandDescription()
+		public string Command => "scpdiscord_verbose";
+		public string[] Aliases => new string[] { "scpd_verbose" };
+		public string Description => "Toggles verbose messages.";
+		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
 		{
-			return "Toggles verbose messages.";
-		}
-
-		public string GetUsage()
-		{
-			return "scpd_verbose";
-		}
-
-		public string[] OnCall(ICommandSender sender, string[] args)
-		{
-			if (sender is Player player)
+			/*if (sender is Player player)
 			{
-				if (!player.HasPermission("scpdiscord.verbose"))
+				if (!player.HasPermission("scpdiscord.validate"))
 				{
 					return new[] { "You don't have permission to use that command." };
 				}
-			}
-			Config.SetBool("settings.verbose", !Config.GetBool("settings.verbose"));
-			return new[] { "Verbose messages: " + Config.GetBool("settings.verbose") };
+			}*/
+
+			Config.ValidateConfig(SCPDiscord.plugin);
+			Language.ValidateLanguageStrings();
+
+			response = "Validation report posted in server console.";
+			return true;
 		}
 	}
 }

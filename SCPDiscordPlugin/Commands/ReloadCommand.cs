@@ -1,22 +1,17 @@
-using Smod2.API;
-using Smod2.Commands;
+using System;
+using CommandSystem;
 
 namespace SCPDiscord.Commands
 {
-	public class ReloadCommand : ICommandHandler
+	[CommandHandler(typeof(RemoteAdminCommandHandler))]
+	public class ReloadCommand : ICommand
 	{
-		public string GetCommandDescription()
+		public string Command => "scpdiscord_reload";
+		public string[] Aliases => new string[] { "scpd_reload" };
+		public string Description => "Reloads all plugin configs and data files and then reconnects to the bot.";
+		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
 		{
-			return "Reloads all plugin configs and data files and then reconnects.";
-		}
-
-		public string GetUsage()
-		{
-			return "scpd_reload";
-		}
-
-		public string[] OnCall(ICommandSender sender, string[] args)
-		{
+			/*
 			if (sender is Player player)
 			{
 				if (!player.HasPermission("scpdiscord.reload"))
@@ -24,18 +19,19 @@ namespace SCPDiscord.Commands
 					return new[] { "You don't have permission to use that command." };
 				}
 			}
+			*/
 
 			SCPDiscord.plugin.Info("Reloading plugin...");
 			SCPDiscord.plugin.LoadConfig();
 			Language.Reload();
-			SCPDiscord.plugin.GetMaxPlayers();
 			SCPDiscord.plugin.roleSync.Reload();
 			if (NetworkSystem.IsConnected())
 			{
 				NetworkSystem.Disconnect();
 			}
 
-			return new[] { "Reload complete." };
+			response = "Reload complete.";
+			return true;
 		}
 	}
 }

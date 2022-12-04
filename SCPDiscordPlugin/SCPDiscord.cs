@@ -43,7 +43,7 @@ namespace SCPDiscord
 
 			LiteNetLib4MirrorNetworkManager.singleton.gameObject.AddComponent<SynchronousExecutor>();
 			sync = LiteNetLib4MirrorNetworkManager.singleton.gameObject.GetComponent<SynchronousExecutor>();
-			
+
 			AddConfig(new Smod2.Config.ConfigSetting("scpdiscord_config_global", false, true, "Whether or not the config should be placed in the global config directory."));
 			AddConfig(new Smod2.Config.ConfigSetting("scpdiscord_rolesync_global", true, true, "Whether or not the rolesync file should be placed in the global config directory."));
 			AddConfig(new Smod2.Config.ConfigSetting("scpdiscord_languages_global", true, true, "Whether or not the languages should be placed in the global config directory."));
@@ -56,22 +56,7 @@ namespace SCPDiscord
 			EventManager.RegisterEvents<AdminEventListener>(this);
 			EventManager.RegisterEvents<EnvironmentEventListener>(this);
 			EventManager.RegisterEvents<TeamEventListener>(this);
-
-			AddCommand("scpd_rc", new ReconnectCommand());
-			AddCommand("scpd_reconnect", new ReconnectCommand());
-			AddCommand("scpd_reload", new ReloadCommand());
-			AddCommand("scpd_unsync", new UnsyncCommand());
-			AddCommand("scpd_verbose", new VerboseCommand());
-			AddCommand("scpd_debug", new DebugCommand());
-			AddCommand("scpd_validate", new ValidateCommand());
-			AddCommand("scpd_grs", new GrantReservedSlotCommand());
-			AddCommand("scpd_rrs", new RemoveReservedSlotCommand());
-			AddCommand("scpd_grantreservedslot", new GrantReservedSlotCommand());
-			AddCommand("scpd_removereservedslot", new RemoveReservedSlotCommand());
-			AddCommand("scpd_gvr", new GrantVanillaRankCommand());
-			AddCommand("scpd_grantvanillarank", new GrantVanillaRankCommand());
-			AddCommand("scpd_setnickname", new SetNickname());
-
+			
 			SetUpFileSystem();
 			roleSync = new RoleSync(this);
 			LoadConfig();

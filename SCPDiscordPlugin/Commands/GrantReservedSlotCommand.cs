@@ -1,22 +1,18 @@
-using Smod2.Commands;
+using System;
+using CommandSystem;
 
 namespace SCPDiscord.Commands
 {
-	public class GrantReservedSlotCommand : ICommandHandler
+	[CommandHandler(typeof(RemoteAdminCommandHandler))]
+	public class GrantReservedSlotCommand : ICommand
 	{
-		public string GetCommandDescription()
+		public string Command => "scpdiscord_grantreservedslot";
+		public string[] Aliases => new string[] { "scpd_grantreservedslot", "scpd_grs" };
+		public string Description => "Gives a user a reserved slot.";
+		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
 		{
-			return "Gives a user a reserved slot.";
-		}
-
-		public string GetUsage()
-		{
-			return "scpd_grantreservedslot/scpd_grs <steamid>";
-		}
-
-		public string[] OnCall(ICommandSender sender, string[] args)
-		{
-			return new[] { "This command doesn't work in this version." };
+			response = "This command doesn't work in this version.";
+			return false;
 			/*
 			if (sender is Player admin)
 			{

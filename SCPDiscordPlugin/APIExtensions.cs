@@ -17,5 +17,21 @@ namespace SCPDiscord
 			}
 			return null;
 		}
+
+		public static void SetRank(this Player player, string color = null, string text = null, string group = null)
+		{
+			ServerRoles roleComponent = player.ReferenceHub.serverRoles;
+
+			if (roleComponent != null)
+			{
+				// TODO: Fix vanilla ranks
+				//if (group != null)
+					//roleComponent.SetGroup(ServerStatic.PermissionsHandler.GetGroup(group), false);
+				if (color != null)
+					roleComponent.SetColor(color);
+				if (text != null)
+					roleComponent.SetText(text);
+			}
+		}
 	}
 }
