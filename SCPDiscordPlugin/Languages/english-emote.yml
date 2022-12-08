@@ -701,15 +701,6 @@ player:
         # team - Team
         message: ":radio: <var:name> (<var:steamid>) switched their radio to the <var:setting> status."
         regex: []
-    onmakenoise:
-        # ipaddress - string
-        # name - string
-        # playerid - int
-        # steamid - string
-        # class - Role
-        # team - Team
-        message: ":sound: <var:name> (<var:steamid>) made noise!"
-        regex: []
     onrecallzombie:
         # allowrecall - bool
         # targetipaddress - string

@@ -44,7 +44,6 @@ namespace SCPDiscord
 			"round.onconnect",
 			"round.ondisconnect",
 			"round.onplayerleave",
-			"round.oncheckroundend",
 			"round.onroundend",
 			"round.onwaitingforplayers",
 			"round.onroundrestart",
@@ -81,13 +80,10 @@ namespace SCPDiscord
 			"player.onnicknameset",
 			"player.onassignteam",
 			"player.onsetrole",
-			"player.oncheckescape.allowed",
-			"player.oncheckescape.denied",
 			"player.onspawn",
 			"player.ondooraccess.allowed",
 			"player.ondooraccess.denied",
 			"player.onintercom",
-			"player.onintercomcooldowncheck",
 			"player.onpocketdimensionexit",
 			"player.onpocketdimensionenter",
 			"player.onpocketdimensiondie",
@@ -109,7 +105,6 @@ namespace SCPDiscord
 			"player.onplayertriggertesla.ignored",
 			"player.onscp914changeknob",
 			"player.onplayerradioswitch",
-			"player.onmakenoise",
 			"player.onrecallzombie",
 			"player.oncallcommand",
 			"player.onreload",
@@ -137,11 +132,8 @@ namespace SCPDiscord
 			"player.on079elevatorteleport",
 
 			"admin.onadminquery",
-			"admin.onauthcheck",
-			"admin.onban.admin.kick",
-			"admin.onban.console.kick",
-			"admin.onban.admin.ban",
-			"admin.onban.console.ban",
+			"admin.onban",
+			"admin.onkick",
 
 			"team.onteamrespawn.mtf",
 			"team.onteamrespawn.ci",
@@ -172,6 +164,11 @@ namespace SCPDiscord
 			ready = false;
 			plugin = SCPDiscord.plugin;
 			languagesPath = Config.GetLanguageDir();
+
+			if (!Directory.Exists(languagesPath))
+			{
+				Directory.CreateDirectory(languagesPath);
+			}
 
 			// Save default language files
 			SaveDefaultLanguages();

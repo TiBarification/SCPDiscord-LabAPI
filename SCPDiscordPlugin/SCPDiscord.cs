@@ -46,16 +46,15 @@ namespace SCPDiscord
 
 			// Event handlers
             EventManager.RegisterEvents(this, sync);
-			EventManager.RegisterEvents<SyncPlayerRole>(this);
-			EventManager.RegisterEvents<RoundEventListener>(this);
-			EventManager.RegisterEvents<PlayerEventListener>(this);
-			EventManager.RegisterEvents<AdminEventListener>(this);
-			EventManager.RegisterEvents<EnvironmentEventListener>(this);
-			EventManager.RegisterEvents<TeamEventListener>(this);
+			EventManager.RegisterEvents(this, new SyncPlayerRole());
+			EventManager.RegisterEvents(this, new RoundEventListener(this));
+			EventManager.RegisterEvents(this, new PlayerEventListener(this));
+			EventManager.RegisterEvents(this, new AdminEventListener(this));
+			EventManager.RegisterEvents(this, new EnvironmentEventListener(this));
+			EventManager.RegisterEvents(this, new TeamEventListener(this));
 
-			SetUpFileSystem();
-			roleSync = new RoleSync(this);
 			LoadConfig();
+			roleSync = new RoleSync(this);
 			if (Server.Port == Config.GetInt("bot.port"))
 			{
 				Error("ERROR: Server is running on the same port as the plugin, aborting...");
@@ -80,7 +79,7 @@ namespace SCPDiscord
 		/// <summary>
 		/// Makes sure all plugin files exist.
 		/// </summary>
-		public void SetUpFileSystem()
+		public void fdgsSetUpFileSystem()
 		{
 			if (!Directory.Exists(Config.GetConfigDir()))
 			{
@@ -138,7 +137,7 @@ namespace SCPDiscord
 				{
 					Error("'" + Config.GetConfigPath() + "' formatting error.");
 				}
-				Error("Error reading config file '" + Config.GetConfigPath() + "'. Aborting startup." + e);
+				Error("Error reading config file '" + Config.GetConfigPath() + "'. Aborting startup.\n" + e);
 			}
 		}
 

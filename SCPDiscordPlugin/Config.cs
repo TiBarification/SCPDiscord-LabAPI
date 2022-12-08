@@ -4,9 +4,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using PluginAPI.Core;
 using PluginAPI.Helpers;
+using UnityEngine;
 using YamlDotNet.Serialization;
+using Resources = SCPDiscord.Properties.Resources;
 
 namespace SCPDiscord
 {
@@ -45,7 +48,6 @@ namespace SCPDiscord
 			{ "channels.statusmessages",            new string[]{ } },
 
 			// Round events
-			{ "channels.oncheckroundend",           new string[]{ } },
 			{ "channels.onconnect",                 new string[]{ } },
 			{ "channels.ondisconnect",              new string[]{ } },
 			{ "channels.onplayerleave",             new string[]{ } },
@@ -91,8 +93,6 @@ namespace SCPDiscord
 			{ "channels.on106teleport",             new string[]{ } },
 			{ "channels.onassignteam",              new string[]{ } },
 			{ "channels.oncallcommand",             new string[]{ } },
-			{ "channels.oncheckescape.allowed",     new string[]{ } },
-			{ "channels.oncheckescape.denied",      new string[]{ } },
 			{ "channels.oncontain106",              new string[]{ } },
 			{ "channels.ondooraccess.allowed",      new string[]{ } },
 			{ "channels.ondooraccess.denied",       new string[]{ } },
@@ -107,9 +107,7 @@ namespace SCPDiscord
 			{ "channels.onhandcuff.default",        new string[]{ } },
 			{ "channels.onhandcuff.nootherplayer",  new string[]{ } },
 			{ "channels.onintercom",                new string[]{ } },
-			{ "channels.onintercomcooldowncheck",   new string[]{ } },
 			{ "channels.onlure",                    new string[]{ } },
-			{ "channels.onmakenoise",               new string[]{ } },
 			{ "channels.onmedicaluse",              new string[]{ } },
 			{ "channels.onnicknameset",             new string[]{ } },
 			{ "channels.onplayerdie.default",       new string[]{ } },
@@ -145,7 +143,6 @@ namespace SCPDiscord
 
 			// Admin events
 			{ "channels.onadminquery",              new string[]{ } },
-			{ "channels.onauthcheck",               new string[]{ } },
 			{ "channels.onban",                     new string[]{ } },
 			{ "channels.onkick",                    new string[]{ } },
 
@@ -160,10 +157,22 @@ namespace SCPDiscord
 			{ "aliases", new Dictionary<string, ulong>() }
 		};
 
+		public static Dictionary<ulong, string[]> roleDictionary = new Dictionary<ulong, string[]>();
+
 		internal static void Reload(SCPDiscord plugin)
 		{
 			ready = false;
-			plugin.SetUpFileSystem();
+
+			if (!Directory.Exists(GetConfigDir()))
+			{
+				Directory.CreateDirectory(GetConfigDir());
+			}
+
+			if (!File.Exists(GetConfigPath()))
+			{
+				plugin.Info("Config file '" + Config.GetConfigPath() + "' does not exist, creating...");
+				File.WriteAllText(Config.GetConfigPath(), Encoding.UTF8.GetString(Resources.config));
+			}
 
 			// Reads file contents into FileStream
 			FileStream stream = File.OpenRead(GetConfigDir() + "config.yml");
@@ -197,11 +206,17 @@ namespace SCPDiscord
 			{
 				try
 				{
+					plugin.Debug("Reading config string '" + node.Key + "'");
 					configStrings[node.Key] = json.SelectToken(node.Key).Value<string>();
 				}
 				catch (ArgumentNullException)
 				{
 					plugin.Warn("Config string '" + node.Key + "' not found, using default value: \"" + node.Value + "\"");
+				}
+				catch (Exception)
+				{
+					plugin.Error("Reading config string '" + node.Key + "' failed!");
+					throw;
 				}
 			}
 
@@ -210,11 +225,17 @@ namespace SCPDiscord
 			{
 				try
 				{
+					plugin.Debug("Reading config int '" + node.Key + "'");
 					configInts[node.Key] = json.SelectToken(node.Key).Value<int>();
 				}
 				catch (ArgumentNullException)
 				{
 					plugin.Warn("Config int '" + node.Key + "' not found, using default value: \"" + node.Value + "\"");
+				}
+				catch (Exception)
+				{
+					plugin.Error("Reading config int '" + node.Key + "' failed!");
+					throw;
 				}
 			}
 
@@ -223,24 +244,37 @@ namespace SCPDiscord
 			{
 				try
 				{
+					plugin.Debug("Reading config bool '" + node.Key + "'");
 					configBools[node.Key] = json.SelectToken(node.Key).Value<bool>();
 				}
 				catch (ArgumentNullException)
 				{
 					plugin.Warn("Config bool '" + node.Key + "' not found, using default value: " + node.Value);
 				}
+				catch (Exception)
+				{
+					plugin.Error("Reading config bool '" + node.Key + "' failed!");
+					throw;
+				}
 			}
+
 
 			// Read config arrays
 			foreach (KeyValuePair<string, string[]> node in configArrays.ToList())
 			{
 				try
 				{
+					plugin.Debug("Reading config array '" + node.Key + "'");
 					configArrays[node.Key] = json.SelectToken(node.Key).Value<JArray>().Values<string>().ToArray();
 				}
 				catch (ArgumentNullException)
 				{
 					plugin.Warn("Config array '" + node.Key + "' not found, using default value: []");
+				}
+				catch (Exception)
+				{
+					plugin.Error("Reading config arrays '" + node.Key + "' failed!");
+					throw;
 				}
 			}
 
@@ -249,11 +283,17 @@ namespace SCPDiscord
 			{
 				try
 				{
+					plugin.Debug("Reading config dict '" + node.Key + "'");
 					configDicts[node.Key] = json.SelectToken(node.Key).Value<JArray>().ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<ulong>());
 				}
 				catch (ArgumentNullException)
 				{
 					plugin.Warn("Config dictionary '" + node.Key + "' not found, using default value: []");
+				}
+				catch (Exception)
+				{
+					plugin.Error("Reading config dict '" + node.Key + "' failed!");
+					throw;
 				}
 			}
 
@@ -262,7 +302,8 @@ namespace SCPDiscord
 			{
 				try
 				{
-					plugin.roleSync.roleDictionary = json.SelectToken("rolesync").Value<JArray>().ToDictionary(k => ulong.Parse(((JObject)k).Properties().First().Name), v => v.Values().First().Value<JArray>().Values<string>().ToArray());
+					plugin.Debug("Reading rolesync");
+					roleDictionary = json.SelectToken("rolesync").Value<JArray>().ToDictionary(k => ulong.Parse(((JObject)k).Properties().First().Name), v => v.Values().First().Value<JArray>().Values<string>().ToArray());
 				}
 				catch (Exception)
 				{
@@ -270,6 +311,8 @@ namespace SCPDiscord
 					SetBool("settings.rolesync", false);
 				}
 			}
+
+			plugin.Debug("Finished reading config file");
 
 			if (GetBool("settings.configvalidation") && GetBool("settings.verbose"))
 			{
@@ -331,7 +374,7 @@ namespace SCPDiscord
 
 		public static string GetConfigDir()
 		{
-			return Paths.Configs + "/SCPDiscord/";
+			return FileManager.GetAppFolder(true, true) + "/SCPDiscord/";
 		}
 
 		public static string GetConfigPath()
@@ -343,11 +386,11 @@ namespace SCPDiscord
 		{
 			if (GetBool("settings.useglobaldirectory.language"))
 			{
-				return Paths.SecretLab + "/SCPDiscord/Languages/";
+				return FileManager.GetAppFolder(true, false) + "/SCPDiscord/Languages/";
 			}
 			else
 			{
-				return Paths.Configs + "/SCPDiscord/Languages/";
+				return FileManager.GetAppFolder(true, true) + "/SCPDiscord/Languages/";
 			}
 		}
 
@@ -355,11 +398,11 @@ namespace SCPDiscord
 		{
 			if (GetBool("settings.useglobaldirectory.rolesync"))
 			{
-				return Paths.SecretLab + "/SCPDiscord/";
+				return FileManager.GetAppFolder(true, false) + "/SCPDiscord/";
 			}
 			else
 			{
-				return Paths.Configs + "/SCPDiscord/";
+				return FileManager.GetAppFolder(true, true) + "/SCPDiscord/";
 			}
 		}
 
@@ -417,7 +460,7 @@ namespace SCPDiscord
 			}
 
 			sb.Append("------------ Rolesync system ------------\n");
-			foreach (KeyValuePair<ulong, string[]> node in plugin.roleSync.roleDictionary)
+			foreach (KeyValuePair<ulong, string[]> node in roleDictionary)
 			{
 				sb.Append(node.Key + ":\n");
 				foreach (string command in node.Value)

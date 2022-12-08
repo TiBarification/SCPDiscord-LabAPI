@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using InventorySystem.Items;
 using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Pickups;
 using MapGeneration;
@@ -312,11 +313,12 @@ namespace SCPDiscord.EventListeners
 		}
 
 		[PluginEvent(ServerEventType.PlayerDropAmmo)]
-		public void OnPlayerDropAmmo(Player player, ItemPickupBase ammo)
+		public void OnPlayerDropAmmo(Player player, ItemType ammo, int amount)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
 				{ "ammo",         ammo.ToString()                    },
+				{ "amount",         amount.ToString()                    },
 				{ "ipaddress",    player.IpAddress                   },
 				{ "name",         player.Nickname                        },
 				{ "playerid",     player.PlayerId.ToString()         },
@@ -328,11 +330,11 @@ namespace SCPDiscord.EventListeners
 		}
 
 		[PluginEvent(ServerEventType.PlayerDropItem)]
-		public void OnPlayerDropItem(Player player, ItemPickupBase item)
+		public void OnPlayerDropItem(Player player, ItemBase item)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "item",         item.ToString()                    },
+				{ "item",         item.name                    },
 				{ "ipaddress",    player.IpAddress                   },
 				{ "name",         player.Nickname                        },
 				{ "playerid",     player.PlayerId.ToString()         },
@@ -343,7 +345,7 @@ namespace SCPDiscord.EventListeners
 			plugin.SendMessage(Config.GetArray("channels.onplayerdropitem"), "player.onplayerdropitem", variables);
 		}
 
-		[PluginEvent(ServerEventType.PlayerDeath)]
+		[PluginEvent(ServerEventType.PlayerJoined)]
 		public void OnPlayerJoin(Player player)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
@@ -469,24 +471,6 @@ namespace SCPDiscord.EventListeners
 			};
 
 			plugin.SendMessage(Config.GetArray("channels.onintercom"), "player.onintercom", variables);
-		}
-		*/
-
-		/*
-		public void OnIntercomCooldownCheck(PlayerIntercomCooldownCheckEvent ev)
-		{
-			Dictionary<string, string> variables = new Dictionary<string, string>
-			{
-				{ "currentcooldown",    ev.CurrentCooldown.ToString()       },
-				{ "ipaddress",          ev.Player.IPAddress                 },
-				{ "name",               ev.Player.Name                      },
-				{ "playerid",           ev.Player.PlayerID.ToString()       },
-				{ "steamid",            ev.Player.GetParsedUserID() ?? ev.Player.UserID },
-				{ "class",              ev.Player.Role.ToString()    },
-				{ "team",               ev.Player.ReferenceHub.GetTeam().ToString()  }
-			};
-
-			plugin.SendMessage(Config.GetArray("channels.onintercomcooldowncheck"), "player.onintercomcooldowncheck", variables);
 		}
 		*/
 
@@ -803,22 +787,6 @@ namespace SCPDiscord.EventListeners
 				{ "team",                   ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
 			plugin.SendMessage(Config.GetArray("channels.onplayerradioswitch"), "player.onplayerradioswitch", variables);
-		}
-		*/
-
-		/*
-		public void OnMakeNoise(PlayerMakeNoiseEvent ev)
-		{
-			Dictionary<string, string> variables = new Dictionary<string, string>
-			{
-				{ "ipaddress",              ev.Player.IPAddress                 },
-				{ "name",                   ev.Player.Name                      },
-				{ "playerid",               ev.Player.PlayerID.ToString()       },
-				{ "steamid",                ev.Player.GetParsedUserID() ?? ev.Player.UserID },
-				{ "class",                  ev.Player.Role.ToString()    },
-				{ "team",                   ev.Player.ReferenceHub.GetTeam().ToString()  }
-			};
-			plugin.SendMessage(Config.GetArray("channels.onmakenoise"), "player.onmakenoise", variables);
 		}
 		*/
 

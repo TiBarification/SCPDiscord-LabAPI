@@ -17,9 +17,6 @@ namespace SCPDiscord
 	{
 		private Dictionary<string, ulong> syncedPlayers = new Dictionary<string, ulong>();
 
-		// This variable is set when the config reloads instead of when the role system reloads as the config has to be read to get the info anyway
-		public Dictionary<ulong, string[]> roleDictionary = new Dictionary<ulong, string[]>();
-
 		private readonly SCPDiscord plugin;
 
 		public RoleSync(SCPDiscord plugin)
@@ -31,9 +28,19 @@ namespace SCPDiscord
 
 		public void Reload()
 		{
-			plugin.SetUpFileSystem();
-			syncedPlayers = JArray.Parse(File.ReadAllText(Config.GetConfigDir() + "rolesync.json")).ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<ulong>());
-			plugin.Info("Successfully loaded rolesync '" + Config.GetConfigDir() + "rolesync.json'.");
+			if (!Directory.Exists(Config.GetRolesyncDir()))
+			{
+				Directory.CreateDirectory(Config.GetRolesyncDir());
+			}
+
+			if (!File.Exists(Config.GetRolesyncPath()))
+			{
+				plugin.Info("Config file rolesync.json does not exist, creating...");
+				File.WriteAllText(Config.GetRolesyncPath(), "[]");
+			}
+
+			syncedPlayers = JArray.Parse(File.ReadAllText(Config.GetRolesyncPath())).ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<ulong>());
+			plugin.Info("Successfully loaded rolesync '" + Config.GetRolesyncDir() + "rolesync.json'.");
 		}
 
 		private void SavePlayers()
@@ -46,7 +53,7 @@ namespace SCPDiscord
 				builder.Append("    {\"" + player.Key + "\": \"" + player.Value + "\"},\n");
 			}
 			builder.Append("]");
-			File.WriteAllText(Config.GetConfigDir() + "rolesync.json", builder.ToString());
+			File.WriteAllText(Config.GetRolesyncDir() + "rolesync.json", builder.ToString());
 		}
 
 		public void SendRoleQuery(Player player)
@@ -128,7 +135,7 @@ namespace SCPDiscord
 
 				foreach (Player player in matchingPlayers)
 				{
-					foreach (KeyValuePair<ulong, string[]> keyValuePair in roleDictionary)
+					foreach (KeyValuePair<ulong, string[]> keyValuePair in Config.roleDictionary)
 					{
 						plugin.Debug("User has discord role " + keyValuePair.Key + ": " + userInfo.RoleIDs.Contains(keyValuePair.Key));
 						if (userInfo.RoleIDs.Contains(keyValuePair.Key))

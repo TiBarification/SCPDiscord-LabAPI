@@ -411,6 +411,17 @@ player:
         # team - Team
         message: "<var:name> (<var:steamid>) dropped <var:item>."
         regex: []
+    onplayerdropammo:
+        # ammo - Item
+        # amount - int
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "<var:name> (<var:steamid>) dropped <var:amount> <var:ammo>."
+        regex: [ ]
     onplayerjoin:
         # ipaddress - string
         # name - string
@@ -486,17 +497,6 @@ player:
         # class - Role
         # team - Team
         message: "<var:name> (<var:steamid>) is using the intercom."
-        regex: []
-    onintercomcooldowncheck:
-        # This is not recommended to use outside of debugging
-        # currentcooldown
-        # ipaddress - string
-        # name - string
-        # playerid - int
-        # steamid - string
-        # class - Role
-        # team - Team
-        message: "Intercom cooldown check: <var:currentcooldown>s."
         regex: []
     onpocketdimensionexit:
         # ipaddress - string
@@ -707,15 +707,6 @@ player:
         # class - Role
         # team - Team
         message: "<var:name> (<var:steamid>) switched their radio to the <var:setting> status."
-        regex: []
-    onmakenoise:
-        # ipaddress - string
-        # name - string
-        # playerid - int
-        # steamid - string
-        # class - Role
-        # team - Team
-        message: "<var:name> (<var:steamid>) made noise!"
         regex: []
     onrecallzombie:
         # allowrecall - bool
@@ -1017,15 +1008,6 @@ player:
         # class - Role
         # team - Team
         message: "<var:name> (<var:steamid>) switched floor as SCP-079."
-        regex: []
-    onplayerdropallitems:
-        # ipaddress - string
-        # name - string
-        # playerid - int
-        # steamid - string
-        # class - Role
-        # team - Team
-        message: "<var:name> (<var:steamid>) had all of their items dropped."
         regex: []
 
 admin:
