@@ -215,14 +215,12 @@ namespace SCPDiscord
 			}
 		}
 
-		// TODO: Set message functions back to void whenever piping void functions is fixed.
-
 		/// <summary>
 		/// Enqueue a string to be sent to Discord.
 		/// </summary>
 		/// <param name="channelAliases">The user friendly name of the channel, set in the config.</param>
 		/// <param name="message">The message to be sent.</param>
-		public bool SendString(IEnumerable<string> channelAliases, string message)
+		public void SendString(IEnumerable<string> channelAliases, string message)
 		{
 			foreach (string channel in channelAliases)
 			{
@@ -239,11 +237,9 @@ namespace SCPDiscord
 					NetworkSystem.QueueMessage(wrapper);
 				}
 			}
-
-			return true;
 		}
 
-		public bool SendEmbed(IEnumerable<string> channelAliases, EmbedMessage message)
+		public void SendEmbed(IEnumerable<string> channelAliases, EmbedMessage message)
 		{
 			foreach (string channel in channelAliases)
 			{
@@ -253,11 +249,9 @@ namespace SCPDiscord
 					NetworkSystem.QueueMessage(new MessageWrapper { EmbedMessage = message });
 				}
 			}
-
-			return true;
 		}
 
-		public bool SendStringByID(ulong channelID, string message)
+		public void SendStringByID(ulong channelID, string message)
 		{
 			MessageWrapper wrapper = new MessageWrapper
 			{
@@ -268,13 +262,11 @@ namespace SCPDiscord
 				}
 			};
 			NetworkSystem.QueueMessage(wrapper);
-			return true;
 		}
 
-		public bool SendEmbedByID(EmbedMessage message)
+		public void SendEmbedByID(EmbedMessage message)
 		{
 			NetworkSystem.QueueMessage(new MessageWrapper { EmbedMessage = message });
-			return true;
 		}
 
 		/// <summary>
@@ -283,7 +275,7 @@ namespace SCPDiscord
 		/// <param name="channelAliases">A collection of channel aliases, set in the config.</param>
 		/// <param name="messagePath">The language node of the message to send.</param>
 		/// <param name="variables">Variables to support in the message as key value pairs.</param>
-		public bool SendMessage(IEnumerable<string> channelAliases, string messagePath, Dictionary<string, string> variables = null)
+		public void SendMessage(IEnumerable<string> channelAliases, string messagePath, Dictionary<string, string> variables = null)
 		{
 			foreach (string channel in channelAliases)
 			{
@@ -293,11 +285,9 @@ namespace SCPDiscord
 					messageThread.Start();
 				}
 			}
-
-			return true;
 		}
 
-		public bool SendEmbedWithMessage(IEnumerable<string> channelAliases, string messagePath, EmbedMessage embed, Dictionary<string, string> variables = null)
+		public void SendEmbedWithMessage(IEnumerable<string> channelAliases, string messagePath, EmbedMessage embed, Dictionary<string, string> variables = null)
 		{
 			foreach (string channel in channelAliases)
 			{
@@ -312,8 +302,6 @@ namespace SCPDiscord
 					messageThread.Start();
 				}
 			}
-
-			return true;
 		}
 
 		/// <summary>
@@ -322,16 +310,14 @@ namespace SCPDiscord
 		/// <param name="channelID">The ID of the channel to send to.</param>
 		/// <param name="messagePath">The language node of the message to send.</param>
 		/// <param name="variables">Variables to support in the message as key value pairs.</param>
-		public bool SendMessageByID(ulong channelID, string messagePath, Dictionary<string, string> variables = null)
+		public void SendMessageByID(ulong channelID, string messagePath, Dictionary<string, string> variables = null)
 		{
 			new Thread(() => new ProcessMessageAsync(channelID, messagePath, variables)).Start();
-			return true;
 		}
 
-		public bool SendEmbedWithMessageByID(EmbedMessage embed, string messagePath, Dictionary<string, string> variables = null)
+		public void SendEmbedWithMessageByID(EmbedMessage embed, string messagePath, Dictionary<string, string> variables = null)
 		{
 			new Thread(() => new ProcessEmbedMessageAsync(embed, messagePath, variables)).Start();
-			return true;
 		}
 
 		/// <summary>

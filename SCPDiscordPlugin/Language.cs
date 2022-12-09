@@ -237,7 +237,7 @@ namespace SCPDiscord
 				throw new Exception();
 			}
 
-			if (Config.GetBool("settings.verbose"))
+			if (Config.GetBool("settings.configvalidation"))
 			{
 				ValidateLanguageStrings();
 			}

@@ -314,7 +314,7 @@ namespace SCPDiscord
 
 			plugin.Debug("Finished reading config file");
 
-			if (GetBool("settings.configvalidation") && GetBool("settings.verbose"))
+			if (GetBool("settings.configvalidation"))
 			{
 				ValidateConfig(plugin);
 			}
