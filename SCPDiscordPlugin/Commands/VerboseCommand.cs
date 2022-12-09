@@ -12,18 +12,8 @@ namespace SCPDiscord.Commands
 		public string Description => "Toggles verbose messages.";
 		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
 		{
-			/*if (sender is Player player)
-			{
-				if (!player.HasPermission("scpdiscord.validate"))
-				{
-					return new[] { "You don't have permission to use that command." };
-				}
-			}*/
-
-			Config.ValidateConfig(SCPDiscord.plugin);
-			Language.ValidateLanguageStrings();
-
-			response = "Validation report posted in server console.";
+			Config.SetBool("settings.verbose", !Config.GetBool("settings.verbose"));
+			response = "Verbose messages: " + Config.GetBool("settings.verbose");
 			return true;
 		}
 	}
