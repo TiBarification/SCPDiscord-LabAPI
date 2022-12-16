@@ -14,7 +14,7 @@ namespace SCPDiscord.Commands
 			if (!ConfigParser.IsCommandChannel(command.Channel.Id)) return;
 			if (!ConfigParser.ValidatePermission(command)) return;
 
-			if (steamID.ToString().Length != 17)
+			if (steamID.ToString().Length < 17)
 			{
 				DiscordEmbed error = new DiscordEmbedBuilder
 				{
