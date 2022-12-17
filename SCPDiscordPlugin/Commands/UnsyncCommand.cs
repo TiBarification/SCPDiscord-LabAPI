@@ -5,6 +5,7 @@ using PluginAPI.Core;
 namespace SCPDiscord.Commands
 {
 	[CommandHandler(typeof(RemoteAdminCommandHandler))]
+	[CommandHandler(typeof (GameConsoleCommandHandler))]
 	public class UnsyncCommand : ICommand
 	{
 		public string Command => "scpdiscord_unsync";

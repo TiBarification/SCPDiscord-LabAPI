@@ -4,6 +4,7 @@ using CommandSystem;
 namespace SCPDiscord.Commands
 {
 	[CommandHandler(typeof(RemoteAdminCommandHandler))]
+	[CommandHandler(typeof (GameConsoleCommandHandler))]
 	public class DebugCommand : ICommand
 	{
 		public string Command => "scpdiscord_debug";

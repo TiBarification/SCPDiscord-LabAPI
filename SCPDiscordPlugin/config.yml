@@ -121,9 +121,6 @@ channels:
     onnicknameset: []
     onassignteam: []
     onsetrole: []
-    oncheckescape:
-        allowed: [ "default" ]
-        denied: []
     onspawn: [ "staff" ]
     ondooraccess:
         allowed: []
@@ -154,7 +151,10 @@ channels:
     onscp914changeknob: []
     onplayerradioswitch: []
     onrecallzombie: []
-    oncallcommand: []
+    oncallcommand:
+        remoteadmin: [ "staff" ]
+        game: [ "staff" ]
+        console: [ "staff" ]
     onreload: []
     ongrenadeexplosion: []
     ongrenadehitplayer: []
@@ -189,10 +189,7 @@ channels:
     onkick: [ "default", "staff" ]
 
     # Team events
-    ondecideteamrespawnqueue: []
-    onsetrolemaxhp: []
     onteamrespawn:
         mtf: []
         ci: [ "default" ]
-    onsetscpconfig: []
     onsetntfunitname: [ "default" ]

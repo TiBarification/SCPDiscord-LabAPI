@@ -725,16 +725,33 @@ player:
         message: "<var:targetname> (<var:targetsteamid>) was revived as an SCP-049-2 instance by <var:playername> (<var:playersteamid>)"
         regex: []
     oncallcommand:
-        # command
-        # returnmessage
-        # ipaddress
-        # name
-        # playerid
-        # steamid
-        # class
-        # team
-        message: "<var:name> (<var:steamid>) used the command '<var:command>'. Result: '<var:returnmessage>'"
-        regex: []
+        remoteadmin:
+            # command
+            # returnmessage
+            # ipaddress
+            # name
+            # playerid
+            # steamid
+            # class
+            # team
+            message: "<var:name> (<var:steamid>) used the command '<var:command>'. Result: '<var:returnmessage>'"
+            regex: [ ]
+        game:
+            # command
+            # returnmessage
+            # ipaddress
+            # name
+            # playerid
+            # steamid
+            # class
+            # team
+            message: "<var:name> (<var:steamid>) used the command '<var:command>'. Result: '<var:returnmessage>'"
+            regex: [ ]
+        console:
+            # command
+            # returnmessage
+            message: "Admin used the command '<var:command>'. Result: '<var:returnmessage>'"
+            regex: []
     onreload:
         # weapon
         # maxclipsize

@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using InventorySystem.Items;
 using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Pickups;
@@ -348,6 +350,8 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent(ServerEventType.PlayerJoined)]
 		public void OnPlayerJoin(Player player)
 		{
+			if (player.PlayerId == Server.Instance.PlayerId) return;
+
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
 				{ "ipaddress",    player.IpAddress                          },
@@ -363,6 +367,8 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent(ServerEventType.PlayerLeft)]
 		public void OnPlayerLeave(Player player)
 		{
+			if (player.PlayerId == Server.Instance.PlayerId) return;
+
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
 				{ "ipaddress", player.IpAddress           },
@@ -415,6 +421,8 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent(ServerEventType.PlayerSpawn)]
 		public void OnSpawn(Player player, RoleTypeId role)
 		{
+			if (player == null || player.PlayerId == Server.Instance?.PlayerId) return;
+
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
 				{ "ipaddress",      player.IpAddress                         },
@@ -813,24 +821,50 @@ namespace SCPDiscord.EventListeners
 		}
 		*/
 
-		/*
-		public void OnCallCommand(PlayerCallCommandEvent ev)
+		[PluginEvent(ServerEventType.PlayerRemoteAdminCommand)]
+		public void OnRemoteAdminCommand(Player player, string command, string[] args)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "command",                ev.Command                          },
-				{ "returnmessage",          ev.ReturnMessage                    },
-				{ "ipaddress",              ev.Player.IPAddress                 },
-				{ "name",                   ev.Player.Name                      },
-				{ "playerid",               ev.Player.PlayerID.ToString()       },
-				{ "steamid",                ev.Player.GetParsedUserID() ?? ev.Player.UserID },
-				{ "class",                  ev.Player.Role.ToString()    },
-				{ "team",                   ev.Player.ReferenceHub.GetTeam().ToString()  }
+				{ "command",                command + " " + string.Join(" ", args)   },
+				//{ "returnmessage",          ev.ReturnMessage                         },
+				{ "ipaddress",              player.IpAddress                         },
+				{ "name",                   player.Nickname                          },
+				{ "playerid",               player.PlayerId.ToString()               },
+				{ "steamid",                player.GetParsedUserID()                 },
+				{ "class",                  player.Role.ToString()                   },
+				{ "team",                   player.ReferenceHub.GetTeam().ToString() }
 			};
-			plugin.SendMessage(Config.GetArray("channels.oncallcommand"), "player.oncallcommand", variables);
+			plugin.SendMessage(Config.GetArray("channels.oncallcommand.remoteadmin"), "player.oncallcommand.remoteadmin", variables);
 		}
-		*/
 
+		[PluginEvent(ServerEventType.PlayerGameConsoleCommand)]
+		public void OnGameConsoleCommand(Player player, string command, string[] args)
+		{
+			Dictionary<string, string> variables = new Dictionary<string, string>
+			{
+				{ "command",                command + " " + string.Join(" ", args)   },
+				//{ "returnmessage",          ev.ReturnMessage                         },
+				{ "ipaddress",              player.IpAddress                         },
+				{ "name",                   player.Nickname                          },
+				{ "playerid",               player.PlayerId.ToString()               },
+				{ "steamid",                player.GetParsedUserID()                 },
+				{ "class",                  player.Role.ToString()                   },
+				{ "team",                   player.ReferenceHub.GetTeam().ToString() }
+			};
+			plugin.SendMessage(Config.GetArray("channels.oncallcommand.game"), "player.oncallcommand.game", variables);
+		}
+
+		[PluginEvent(ServerEventType.ConsoleCommand)]
+		public void OnConsoleCommand(string command, string[] args)
+		{
+			Dictionary<string, string> variables = new Dictionary<string, string>
+			{
+				{ "command",                command + " " + string.Join(" ", args)   },
+				//{ "returnmessage",          ev.ReturnMessage                         }
+			};
+			plugin.SendMessage(Config.GetArray("channels.oncallcommand.console"), "player.oncallcommand.console", variables);
+		}
 
 		[PluginEvent(ServerEventType.PlayerReloadWeapon)]
 		public void OnReload(Player player, Firearm weapon)
@@ -999,7 +1033,6 @@ namespace SCPDiscord.EventListeners
 			};
 			plugin.SendMessage(Config.GetArray("channels.ongeneratordeactivated"), "player.ongeneratordeactivated", variables);
 		}
-
 
 		/*
 		public void On079Door(Player079DoorEvent ev)

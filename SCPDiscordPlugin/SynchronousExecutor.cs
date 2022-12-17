@@ -8,13 +8,8 @@ namespace SCPDiscord
 {
 	public class SynchronousExecutor : MonoBehaviour
 	{
-		private readonly SCPDiscord plugin;
 		private readonly ConcurrentQueue<ConsoleCommand> queuedCommands = new ConcurrentQueue<ConsoleCommand>();
 		private readonly ConcurrentQueue<string> queuedRoleSyncCommands = new ConcurrentQueue<string>();
-		public SynchronousExecutor(SCPDiscord pl)
-		{
-			plugin = pl;
-		}
 
 		public void ScheduleDiscordCommand(ConsoleCommand command)
 		{
@@ -23,6 +18,7 @@ namespace SCPDiscord
 
 		public void ScheduleRoleSyncCommand(string command)
         {
+			SCPDiscord.plugin.Error("Length: " + queuedRoleSyncCommands?.Count);
 			queuedRoleSyncCommands.Enqueue(command);
         }
 
@@ -42,12 +38,12 @@ namespace SCPDiscord
 					ChannelID = command.ChannelID
 				};
 
-				plugin.SendEmbedWithMessageByID(embed, "botresponses.consolecommandfeedback", variables);
+				SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "botresponses.consolecommandfeedback", variables);
 			}
 
 			while(queuedRoleSyncCommands.TryDequeue(out string stringCommand))
 			{
-				plugin.Debug("RoleSync command response: " + Server.RunCommand(stringCommand));
+				SCPDiscord.plugin.Debug("RoleSync command response: " + Server.RunCommand(stringCommand));
 			}
 		}
 	}

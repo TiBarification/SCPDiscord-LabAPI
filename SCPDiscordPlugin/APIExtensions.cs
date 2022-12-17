@@ -24,9 +24,8 @@ namespace SCPDiscord
 
 			if (roleComponent != null)
 			{
-				// TODO: Fix vanilla ranks
-				//if (group != null)
-					//roleComponent.SetGroup(ServerStatic.PermissionsHandler.GetGroup(group), false);
+				if (group != null)
+					roleComponent.SetGroup(ServerStatic.GetPermissionsHandler().GetGroup(group), false);
 				if (color != null)
 					roleComponent.SetColor(color);
 				if (text != null)

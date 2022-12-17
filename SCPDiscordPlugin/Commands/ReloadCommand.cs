@@ -4,6 +4,7 @@ using CommandSystem;
 namespace SCPDiscord.Commands
 {
 	[CommandHandler(typeof(RemoteAdminCommandHandler))]
+	[CommandHandler(typeof (GameConsoleCommandHandler))]
 	public class ReloadCommand : ICommand
 	{
 		public string Command => "scpdiscord_reload";

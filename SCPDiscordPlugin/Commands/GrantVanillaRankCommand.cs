@@ -7,6 +7,7 @@ using PluginAPI.Core;
 namespace SCPDiscord.Commands
 {
 	[CommandHandler(typeof(RemoteAdminCommandHandler))]
+	[CommandHandler(typeof (GameConsoleCommandHandler))]
 	public class GrantVanillaRankCommand : ICommand
 	{
 		public string Command => "scpdiscord_givevanillarank";

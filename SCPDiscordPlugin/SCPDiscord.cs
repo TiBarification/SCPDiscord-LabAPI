@@ -32,7 +32,7 @@ namespace SCPDiscord
 
 		public bool shutdown;
 
-		public const string VERSION = "3.0.0-alpha1";
+		public const string VERSION = "3.0.0-alpha2";
 
 		[PluginEntryPoint("SCPDiscord", VERSION, "SCP:SL - Discord bridge.", "Karl Essinger")]
 		public void Start()
@@ -72,40 +72,8 @@ namespace SCPDiscord
 			[PluginEvent(ServerEventType.PlayerJoined)]
 			public void OnPlayerJoin(Player player)
 			{
+				plugin.Warn("YES");
 				plugin.roleSync.SendRoleQuery(player);
-			}
-		}
-
-		/// <summary>
-		/// Makes sure all plugin files exist.
-		/// </summary>
-		public void fdgsSetUpFileSystem()
-		{
-			if (!Directory.Exists(Config.GetConfigDir()))
-			{
-				Directory.CreateDirectory(Config.GetConfigDir());
-			}
-
-			if (!Directory.Exists(Config.GetLanguageDir()))
-			{
-				Directory.CreateDirectory(Config.GetLanguageDir());
-			}
-
-			if (!Directory.Exists(Config.GetRolesyncDir()))
-			{
-				Directory.CreateDirectory(Config.GetRolesyncDir());
-			}
-
-			if (!File.Exists(Config.GetConfigPath()))
-			{
-				Info("Config file '" + Config.GetConfigPath() + "' does not exist, creating...");
-				File.WriteAllText(Config.GetConfigPath(), Encoding.UTF8.GetString(Resources.config));
-			}
-
-			if (!File.Exists(Config.GetRolesyncPath()))
-			{
-				Info("Config file rolesync.json does not exist, creating...");
-				File.WriteAllText(Config.GetConfigPath(), "[]");
 			}
 		}
 

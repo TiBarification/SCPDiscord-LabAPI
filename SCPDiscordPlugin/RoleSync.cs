@@ -62,6 +62,7 @@ namespace SCPDiscord
 			{
 				if (!syncedPlayers.ContainsKey(player.UserId))
 				{
+					plugin.Debug("User ID '" + player.UserId + "' is not in rolesync list.");
 					return;
 				}
 
@@ -80,6 +81,7 @@ namespace SCPDiscord
 			{
 				if (!syncedPlayers.ContainsKey(player.IpAddress))
 				{
+					plugin.Debug("IP '" + player.IpAddress + "' is not in rolesync list.");
 					return;
 				}
 
