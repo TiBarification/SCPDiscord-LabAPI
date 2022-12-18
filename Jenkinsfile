@@ -29,28 +29,26 @@ pipeline {
         }
         stage('Setup Output Dir') {
             steps {
-                sh 'mkdir SCPDiscord'
-                sh 'mkdir SCPDiscord/Plugin'
-                sh 'mkdir SCPDiscord/Plugin/dependencies'
-                sh 'mkdir SCPDiscord/Bot'
+                sh 'mkdir dependencies'
+                sh 'mkdir bot'
             }
         }
         stage('Package') {
             parallel {
                 stage('Plugin') {
                     steps {
-                        sh 'mv SCPDiscordPlugin/bin/SCPDiscord.dll SCPDiscord/Plugin/'
-                        sh 'mv SCPDiscordPlugin/bin/YamlDotNet.dll SCPDiscord/Plugin/dependencies'
-                        sh 'mv SCPDiscordPlugin/bin/Google.Protobuf.dll SCPDiscord/Plugin/dependencies'
-                        sh 'mv SCPDiscordPlugin/bin/Newtonsoft.Json.dll SCPDiscord/Plugin/dependencies'
+                        sh 'mv SCPDiscordPlugin/bin/SCPDiscord.dll ./'
+                        sh 'mv SCPDiscordPlugin/bin/YamlDotNet.dll dependencies'
+                        sh 'mv SCPDiscordPlugin/bin/Google.Protobuf.dll dependencies'
+                        sh 'mv SCPDiscordPlugin/bin/Newtonsoft.Json.dll dependencies'
                     }
                 }
                 stage('Bot') {
                     steps {
                         dir(path: 'SCPDiscordBot') {
-                            sh 'warp-packer --arch linux-x64 --input_dir bin/linux-x64 --exec SCPDiscordBot --output ../SCPDiscord/Bot/SCPDiscordBot'
-                            sh 'warp-packer --arch windows-x64 --input_dir bin/win-x64 --exec SCPDiscordBot.exe --output ../SCPDiscord/Bot/SCPDiscordBot.exe'
-                            sh 'cp default_config.yml ../SCPDiscord/Bot/config.yml'
+                            sh 'warp-packer --arch linux-x64 --input_dir bin/linux-x64 --exec SCPDiscordBot --output ../bot/SCPDiscordBot'
+                            sh 'warp-packer --arch windows-x64 --input_dir bin/win-x64 --exec SCPDiscordBot.exe --output ../bot/SCPDiscordBot.exe'
+                            sh 'cp default_config.yml ../bot/config.yml'
                         }
                     }
                 }
@@ -58,8 +56,11 @@ pipeline {
         }
         stage('Archive') {
             steps {
-                sh 'zip -r SCPDiscord.zip SCPDiscord'
-                archiveArtifacts(artifacts: 'SCPDiscord.zip', onlyIfSuccessful: true)
+                sh 'zip -r dependencies.zip dependencies'
+                sh 'zip -r bot.zip bot'
+                archiveArtifacts(artifacts: 'dependencies.zip', onlyIfSuccessful: true)
+                archiveArtifacts(artifacts: 'SCPDiscord.dll', onlyIfSuccessful: true)
+                archiveArtifacts(artifacts: 'bot.zip', onlyIfSuccessful: true)
             }
         }
     }
