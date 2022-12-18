@@ -5,7 +5,7 @@ pipeline {
         stage('Dependencies') {
             steps {
                 sh 'steamcmd +force_install_dir \$HOME/scpsl +login anonymous +app_update 996560 -beta pluginapi-beta validate +quit'
-                sh 'ln -s "\$HOME/scpsl" ".scpsl_libs"'
+                sh 'ln -s "\$HOME/scpsl/SCPSL_Data/Managed" ".scpsl_libs"'
                 sh 'cd SCPDiscordBot; dotnet restore'
                 sh 'cd SCPDiscordPlugin; nuget restore -SolutionDirectory .'
             }
