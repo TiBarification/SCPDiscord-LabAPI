@@ -46,9 +46,8 @@ pipeline {
                 stage('Bot') {
                     steps {
                         dir(path: 'SCPDiscordBot') {
-                            sh 'warp-packer --arch linux-x64 --input_dir bin/linux-x64 --exec SCPDiscordBot --output ../bot/SCPDiscordBot'
-                            sh 'warp-packer --arch windows-x64 --input_dir bin/win-x64 --exec SCPDiscordBot.exe --output ../bot/SCPDiscordBot.exe'
-                            sh 'cp default_config.yml ../bot/config.yml'
+                            sh 'warp-packer --arch linux-x64 --input_dir bin/linux-x64 --exec SCPDiscordBot --output ../SCPDiscordBot_Linux'
+                            sh 'warp-packer --arch windows-x64 --input_dir bin/win-x64 --exec SCPDiscordBot.exe --output ../SCPDiscordBot_Windows.exe'
                         }
                     }
                 }
@@ -57,10 +56,10 @@ pipeline {
         stage('Archive') {
             steps {
                 sh 'zip -r dependencies.zip dependencies'
-                sh 'zip -r bot.zip bot'
                 archiveArtifacts(artifacts: 'dependencies.zip', onlyIfSuccessful: true)
                 archiveArtifacts(artifacts: 'SCPDiscord.dll', onlyIfSuccessful: true)
-                archiveArtifacts(artifacts: 'bot.zip', onlyIfSuccessful: true)
+                archiveArtifacts(artifacts: 'SCPDiscordBot_Linux', onlyIfSuccessful: true)
+                archiveArtifacts(artifacts: 'SCPDiscordBot_Windows.exe', onlyIfSuccessful: true)
             }
         }
     }
