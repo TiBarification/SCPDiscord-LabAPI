@@ -4,17 +4,10 @@ pipeline {
     stages {
         stage('Dependencies') {
             steps {
+                sh 'steamcmd +force_install_dir \$HOME/scpsl +login anonymous +app_update 996560 -beta pluginapi-beta validate +quit'
+                sh 'ln -s "\$HOME/scpsl" ".scpsl"'
                 sh 'cd SCPDiscordBot; dotnet restore'
                 sh 'cd SCPDiscordPlugin; nuget restore -SolutionDirectory .'
-            }
-        }
-        stage('Use upstream Smod') {
-            when { triggeredBy 'BuildUpstreamCause' }
-            steps {
-                sh ('rm SCPDiscordPlugin/lib/Assembly-CSharp.dll')
-                sh ('rm SCPDiscordPlugin/lib/Smod2.dll')
-                sh ('ln -s $SCPSL_LIBS/Assembly-CSharp.dll SCPDiscordPlugin/lib/Assembly-CSharp.dll')
-                sh ('ln -s $SCPSL_LIBS/Smod2.dll SCPDiscordPlugin/lib/Smod2.dll')
             }
         }
         stage('Build') {
@@ -64,17 +57,9 @@ pipeline {
             }
         }
         stage('Archive') {
-            when { not { triggeredBy 'BuildUpstreamCause' } }
             steps {
                 sh 'zip -r SCPDiscord.zip SCPDiscord'
                 archiveArtifacts(artifacts: 'SCPDiscord.zip', onlyIfSuccessful: true)
-            }
-        }
-        stage('Send upstream') {
-            when { triggeredBy 'BuildUpstreamCause' }
-            steps {
-                sh 'zip -r SCPDiscord.zip SCPDiscord'
-                sh 'cp SCPDiscord.zip $PLUGIN_BUILDER_ARTIFACT_DIR'
             }
         }
     }
