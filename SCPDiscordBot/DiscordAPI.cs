@@ -80,8 +80,6 @@ namespace SCPDiscord
 				Logger.Log("Hooking command events...", LogID.DISCORD);
 				instance.commands.CommandErrored += instance.OnCommandError;
 
-				ConfigParser.PrintConfig();
-
 				Logger.Log("Connecting to Discord...", LogID.DISCORD);
 				await client.ConnectAsync();
 			}

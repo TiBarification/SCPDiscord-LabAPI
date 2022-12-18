@@ -44,6 +44,8 @@ namespace SCPDiscord
 			Logger.Log("Loading config \"" + Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar + "config.yml\"", LogID.CONFIG);
 			ConfigParser.LoadConfig();
 
+			ConfigParser.PrintConfig();
+
 			await DiscordAPI.Reset();
 
 			new Thread(() => new StartNetworkSystem()).Start();
