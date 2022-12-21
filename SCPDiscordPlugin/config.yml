@@ -155,6 +155,10 @@ channels:
         remoteadmin: [ "staff" ]
         game: [ "staff" ]
         console: [ "staff" ]
+    onexecutedcommand:
+        remoteadmin: [ "staff" ]
+        game: [ "staff" ]
+        console: [ "staff" ]
     onreload: []
     ongrenadeexplosion: []
     ongrenadehitplayer: []

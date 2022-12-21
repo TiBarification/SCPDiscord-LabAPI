@@ -821,13 +821,57 @@ namespace SCPDiscord.EventListeners
 		}
 		*/
 
-		[PluginEvent(ServerEventType.PlayerRemoteAdminCommand)]
+		[PluginEvent(ServerEventType.RemoteAdminCommandExecuted)]
+		public void OnRemoteAdminCommand(Player player, string command, string[] args, string response)
+		{
+			Dictionary<string, string> variables = new Dictionary<string, string>
+			{
+				{ "command",                command + " " + string.Join(" ", args)   },
+				{ "returnmessage",          response                                 },
+				{ "ipaddress",              player.IpAddress                         },
+				{ "name",                   player.Nickname                          },
+				{ "playerid",               player.PlayerId.ToString()               },
+				{ "steamid",                player.GetParsedUserID()                 },
+				{ "class",                  player.Role.ToString()                   },
+				{ "team",                   player.ReferenceHub.GetTeam().ToString() }
+			};
+			plugin.SendMessage(Config.GetArray("channels.onexecutedcommand.remoteadmin"), "player.onexecutedcommand.remoteadmin", variables);
+		}
+
+		[PluginEvent(ServerEventType.PlayerGameConsoleCommandExecuted)]
+		public void OnGameConsoleCommand(Player player, string command, string[] args, string response)
+		{
+			Dictionary<string, string> variables = new Dictionary<string, string>
+			{
+				{ "command",                command + " " + string.Join(" ", args)   },
+				{ "returnmessage",          response                                 },
+				{ "ipaddress",              player.IpAddress                         },
+				{ "name",                   player.Nickname                          },
+				{ "playerid",               player.PlayerId.ToString()               },
+				{ "steamid",                player.GetParsedUserID()                 },
+				{ "class",                  player.Role.ToString()                   },
+				{ "team",                   player.ReferenceHub.GetTeam().ToString() }
+			};
+			plugin.SendMessage(Config.GetArray("channels.onexecutedcommand.game"), "player.onexecutedcommand.game", variables);
+		}
+
+		[PluginEvent(ServerEventType.ConsoleCommandExecuted)]
+		public void OnConsoleCommand(string command, string[] args, string response)
+		{
+			Dictionary<string, string> variables = new Dictionary<string, string>
+			{
+				{ "command",                command + " " + string.Join(" ", args)   },
+				{ "returnmessage",          response                         }
+			};
+			plugin.SendMessage(Config.GetArray("channels.onexecutedcommand.console"), "player.onexecutedcommand.console", variables);
+		}
+
+		[PluginEvent(ServerEventType.RemoteAdminCommand)]
 		public void OnRemoteAdminCommand(Player player, string command, string[] args)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
 				{ "command",                command + " " + string.Join(" ", args)   },
-				//{ "returnmessage",          ev.ReturnMessage                         },
 				{ "ipaddress",              player.IpAddress                         },
 				{ "name",                   player.Nickname                          },
 				{ "playerid",               player.PlayerId.ToString()               },
@@ -844,7 +888,6 @@ namespace SCPDiscord.EventListeners
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
 				{ "command",                command + " " + string.Join(" ", args)   },
-				//{ "returnmessage",          ev.ReturnMessage                         },
 				{ "ipaddress",              player.IpAddress                         },
 				{ "name",                   player.Nickname                          },
 				{ "playerid",               player.PlayerId.ToString()               },
@@ -860,8 +903,7 @@ namespace SCPDiscord.EventListeners
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "command",                command + " " + string.Join(" ", args)   },
-				//{ "returnmessage",          ev.ReturnMessage                         }
+				{ "command",                command + " " + string.Join(" ", args)   }
 			};
 			plugin.SendMessage(Config.GetArray("channels.oncallcommand.console"), "player.oncallcommand.console", variables);
 		}
