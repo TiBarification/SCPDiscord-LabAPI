@@ -2,6 +2,8 @@
 
 SCPDiscord links features from your SCP:SL server console to Discord channels, such as printing out server events to Discord and using server commands through Discord. It is incredibly customisable as you can read more about below.
 
+Prereleases: https://github.com/KarlOfDuty/SCPDiscord/releases
+
 ## The NorthWood version of SCPDiscord is in a very early alpha! The config will change a lot during this time so don't install it yet unless you are prepared to redo the config several times!
 
 ## Guides
