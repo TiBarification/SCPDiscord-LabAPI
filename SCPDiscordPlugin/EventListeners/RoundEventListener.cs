@@ -17,8 +17,8 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent(ServerEventType.RoundStart)]
 		public void OnRoundStart()
 		{
-			this.plugin.SendMessage(Config.GetArray("channels.onroundstart"), "round.onroundstart");
-			this.plugin.roundStarted = true;
+			plugin.SendMessage(Config.GetArray("channels.onroundstart"), "round.onroundstart");
+			plugin.roundStarted = true;
 		}
 
 		[PluginEvent(ServerEventType.PlayerPreauth)]
@@ -31,15 +31,8 @@ namespace SCPDiscord.EventListeners
 				{ "jointype", flags.ToString() },
 				{ "region", region             }
 			};
-			this.plugin.SendMessage(Config.GetArray("channels.onconnect"), "round.onconnect", variables);
+			plugin.SendMessage(Config.GetArray("channels.onconnect"), "round.onconnect", variables);
 		}
-
-		/*
-		public void OnDisconnect(DisconnectEvent ev)
-		{
-			this.plugin.SendMessage(Config.GetArray("channels.ondisconnect"), "round.ondisconnect");
-		}
-		*/
 
 		/*
 		[PluginEvent(ServerEventType.RoundEnd)]
@@ -76,13 +69,13 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent(ServerEventType.WaitingForPlayers)]
 		public void OnWaitingForPlayers()
 		{
-			this.plugin.SendMessage(Config.GetArray("channels.onwaitingforplayers"), "round.onwaitingforplayers");
+			plugin.SendMessage(Config.GetArray("channels.onwaitingforplayers"), "round.onwaitingforplayers");
 		}
 
 		[PluginEvent(ServerEventType.RoundRestart)]
 		public void OnRoundRestart()
 		{
-			this.plugin.SendMessage(Config.GetArray("channels.onroundrestart"), "round.onroundrestart");
+			plugin.SendMessage(Config.GetArray("channels.onroundrestart"), "round.onroundrestart");
 		}
 
 		/*

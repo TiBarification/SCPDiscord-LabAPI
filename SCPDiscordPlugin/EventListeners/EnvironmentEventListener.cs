@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using PlayerRoles;
+using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
 
@@ -13,9 +15,6 @@ namespace SCPDiscord.EventListeners
 			this.plugin = plugin;
 		}
 
-		/// <summary>
-		///  This is the event handler for when a SCP914 is activated
-		/// </summary>
 		/* TODO [PluginEvent(ServerEventType)]
 		public void OnSCP914Activate(SCP914ActivateEvent ev)
 		{
@@ -28,19 +27,16 @@ namespace SCPDiscord.EventListeners
 		}
 		*/
 
-		/// <summary>
-		///  This is the event handler for when the warhead starts counting down, isResumed is false if its the initial count down. Note: activator can be null
-		/// </summary>
-		/* TODO: [PluginEvent(ServerEventType)]
-		public void OnStartCountdown(WarheadStartEvent ev)
+		[PluginEvent(ServerEventType.WarheadStart)]
+		public void OnStartCountdown(bool isAutomatic, Player player)
 		{
-			if (ev.Activator == null)
+			if (player == null || player.PlayerId == Server.Instance.PlayerId)
 			{
 				Dictionary<string, string> vars = new Dictionary<string, string>
 				{
-					{ "isresumed",      ev.IsResumed.ToString()                 },
-					{ "timeleft",       ev.TimeLeft.ToString()                  },
-					{ "opendoorsafter", ev.OpenDoorsAfter.ToString()            }
+					{ "isAutomatic",    isAutomatic.ToString()                 },
+					//{ "isresumed",      ev.IsResumed.ToString()                 },
+					//{ "timeleft",       ev.TimeLeft.ToString()                  }
 				};
 				this.plugin.SendMessage(Config.GetArray("channels.onstartcountdown.noplayer"), "environment.onstartcountdown.noplayer", vars);
 				return;
@@ -48,39 +44,36 @@ namespace SCPDiscord.EventListeners
 
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "isresumed",      ev.IsResumed.ToString()                 },
-				{ "timeleft",       ev.TimeLeft.ToString()                  },
-				{ "opendoorsafter", ev.OpenDoorsAfter.ToString()            },
-				{ "ipaddress",      ev.Activator.IPAddress                  },
-				{ "name",           ev.Activator.Name                       },
-				{ "playerid",       ev.Activator.PlayerID.ToString()        },
-				{ "steamid",        ev.Activator.GetParsedUserID()          },
-				{ "class",          ev.Activator.PlayerRole.RoleID.ToString()     },
-				{ "team",           ev.Activator.PlayerRole.Team.ToString()   }
+				{ "isAutomatic", isAutomatic.ToString()                   },
+				//{ "isresumed",   ev.IsResumed.ToString()                 },
+				//{ "timeleft",    ev.TimeLeft.ToString()                  },
+				{ "ipaddress",   player.IpAddress                         },
+				{ "name",        player.Nickname                          },
+				{ "playerid",    player.PlayerId.ToString()               },
+				{ "steamid",     player.GetParsedUserID()                 },
+				{ "class",       player.Role.ToString()                   },
+				{ "team",        player.ReferenceHub.GetTeam().ToString() }
 			};
-
+			/*
 			if (ev.IsResumed)
 			{
-				this.plugin.SendMessage(Config.GetArray("channels.onstartcountdown.resumed"), "environment.onstartcountdown.resumed", variables);
+				plugin.SendMessage(Config.GetArray("channels.onstartcountdown.resumed"), "environment.onstartcountdown.resumed", variables);
 			}
 			else
 			{
-				this.plugin.SendMessage(Config.GetArray("channels.onstartcountdown.initiated"), "environment.onstartcountdown.initiated", variables);
-			}
+			*/
+				plugin.SendMessage(Config.GetArray("channels.onstartcountdown.initiated"), "environment.onstartcountdown.initiated", variables);
+			//}
 		}
-		*/
 
-		/// <summary>
-		///  This is the event handler for when the warhead stops counting down.
-		/// </summary>
-		/* TODO: [PluginEvent(ServerEventType)]
-		public void OnStopCountdown(WarheadStopEvent ev)
+		[PluginEvent(ServerEventType.WarheadStop)]
+		public void OnStopCountdown(Player player)
 		{
-			if (ev.Activator == null)
+			if (player == null || player.PlayerId == Server.Instance.PlayerId)
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "timeleft",       ev.TimeLeft.ToString()                  }
+					//{ "timeleft",       ev.TimeLeft.ToString()                  }
 				};
 				this.plugin.SendMessage(Config.GetArray("channels.onstopcountdown.noplayer"), "environment.onstopcountdown.noplayer", variables);
 			}
@@ -88,42 +81,30 @@ namespace SCPDiscord.EventListeners
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "timeleft",       ev.TimeLeft.ToString()                  },
-					{ "ipaddress",      ev.Activator.IPAddress                  },
-					{ "name",           ev.Activator.Name                       },
-					{ "playerid",       ev.Activator.PlayerID.ToString()        },
-					{ "steamid",        ev.Activator.GetParsedUserID()          },
-					{ "class",          ev.Activator.PlayerRole.RoleID.ToString()   },
-					{ "team",           ev.Activator.PlayerRole.Team.ToString()   }
+					//{ "timeleft",       ev.TimeLeft.ToString()                  },
+					{ "ipaddress",   player.IpAddress                         },
+					{ "name",        player.Nickname                          },
+					{ "playerid",    player.PlayerId.ToString()               },
+					{ "steamid",     player.GetParsedUserID()                 },
+					{ "class",       player.Role.ToString()                   },
+					{ "team",        player.ReferenceHub.GetTeam().ToString() }
 				};
 				this.plugin.SendMessage(Config.GetArray("channels.onstopcountdown.default"), "environment.onstopcountdown.default", variables);
 			}
 		}
-		*/
 
-		/// <summary>
-		///  This is the event handler for when the warhead is about to detonate (so before it actually triggers)
-		/// </summary>
-		/* TODO: [PluginEvent(ServerEventType)]
+		[PluginEvent(ServerEventType.WarheadDetonation)]
 		public void OnDetonate()
 		{
-			this.plugin.SendMessage(Config.GetArray("channels.ondetonate"), "environment.ondetonate");
+			plugin.SendMessage(Config.GetArray("channels.ondetonate"), "environment.ondetonate");
 		}
-		*/
 
-		/// <summary>
-		///  This is the event handler for when the LCZ is decontaminated
-		/// </summary>
-		/* TODO: [PluginEvent(ServerEventType)]
+		[PluginEvent(ServerEventType.LczDecontaminationStart)]
 		public void OnDecontaminate()
 		{
 			this.plugin.SendMessage(Config.GetArray("channels.ondecontaminate"), "environment.ondecontaminate");
 		}
-		*/
 
-		/// <summary>
-		/// Called when a van/chopper is summoned.
-		/// </summary>
 		/* TODO: [PluginEvent(ServerEventType)]
 		public void OnSummonVehicle(SummonVehicleEvent ev)
 		{
@@ -152,53 +133,6 @@ namespace SCPDiscord.EventListeners
 				{ "team",           ev.ActivatingPlayer.PlayerRole.Team.ToString()   }
 			};
 			this.plugin.SendMessage(Config.GetArray("channels.ongeneratorfinish"), "environment.ongeneratorfinish", variables);
-		}
-		*/
-
-		/* TODO: [PluginEvent(ServerEventType)]
-		public void OnScpDeathAnnouncement(ScpDeathAnnouncementEvent ev)
-		{
-			if (!ev.ShouldPlay) return;
-
-			Dictionary<string, string> variables = new Dictionary<string, string>
-			{
-				{ "ipaddress",      ev.DeadPlayer.IPAddress                    },
-				{ "name",           ev.DeadPlayer.Name                         },
-				{ "playerid",       ev.DeadPlayer.PlayerID.ToString()          },
-				{ "steamid",        ev.DeadPlayer.GetParsedUserID()            },
-				{ "class",          ev.DeadPlayer.PlayerRole.RoleID.ToString() },
-				{ "team",           ev.DeadPlayer.PlayerRole.Team.ToString()   }
-			};
-			this.plugin.SendMessage(Config.GetArray("channels.onscpdeathannouncement"), "environment.onscpdeathannouncement", variables);
-		}
-		*/
-
-		/* TODO: [PluginEvent(ServerEventType)]
-		public void OnCassieCustomAnnouncement(CassieCustomAnnouncementEvent ev)
-		{
-			if (!ev.Allow) return;
-
-			Dictionary<string, string> variables = new Dictionary<string, string>
-			{
-				{ "words", ev.Words }
-			};
-
-			this.plugin.SendMessage(Config.GetArray("channels.oncassiecustomannouncement"), "environment.oncassiecustomannouncement", variables);
-		}
-		*/
-
-		/* TODO: [PluginEvent(ServerEventType)]
-		public void OnCassieTeamAnnouncement(CassieTeamAnnouncementEvent ev)
-		{
-			if (!ev.Allow) return;
-
-			Dictionary<string, string> variables = new Dictionary<string, string>
-			{
-				{ "cassieunitname", ev.CassieUnitName },
-				{ "scpsleft", ev.SCPsLeft.ToString()  }
-			};
-
-			this.plugin.SendMessage(Config.GetArray("channels.oncassieteamannouncement"), "environment.oncassieteamannouncement", variables);
 		}
 		*/
 	}

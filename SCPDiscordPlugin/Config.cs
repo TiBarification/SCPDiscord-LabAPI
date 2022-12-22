@@ -49,7 +49,6 @@ namespace SCPDiscord
 
 			// Round events
 			{ "channels.onconnect",                 new string[]{ } },
-			{ "channels.ondisconnect",              new string[]{ } },
 			{ "channels.onplayerleave",             new string[]{ } },
 			{ "channels.onroundend",                new string[]{ } },
 			{ "channels.onroundrestart",            new string[]{ } },
@@ -60,6 +59,7 @@ namespace SCPDiscord
 			// Environment events
 			{ "channels.ondecontaminate",           new string[]{ } },
 			{ "channels.ondetonate",                new string[]{ } },
+			{ "channels.ongeneratorfinish",         new string[]{ } },
 			{ "channels.onscp914activate",          new string[]{ } },
 			{ "channels.onstartcountdown.initiated",new string[]{ } },
 			{ "channels.onstartcountdown.noplayer", new string[]{ } },
@@ -68,10 +68,6 @@ namespace SCPDiscord
 			{ "channels.onstopcountdown.noplayer",  new string[]{ } },
 			{ "channels.onsummonvehicle.chaos",     new string[]{ } },
 			{ "channels.onsummonvehicle.mtf",       new string[]{ } },
-			{ "channels.ongeneratorfinish",         new string[]{ } },
-			{ "channels.onscpdeathannouncement",    new string[]{ } },
-			{ "channels.oncassiecustomannouncement", new string[]{ } },
-			{ "channels.oncassieteamannouncement",  new string[]{ } },
 
 			// Player events
 			{ "channels.on079addexp",               new string[]{ } },

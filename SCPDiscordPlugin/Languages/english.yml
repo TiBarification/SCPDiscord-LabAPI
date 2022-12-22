@@ -181,11 +181,7 @@ round:
         # steamid - string
         # jointype - CentralAuthPreauthFlags
         # region - string
-        message: "Player attempting connection..."
-        regex: []
-    ondisconnect:
-        # ipaddress - string
-        message: "A player has disconnected."
+        message: "Player (<var:steamid>) attempting connection..."
         regex: []
     onplayerleave:
         # ipaddress - string
@@ -241,6 +237,7 @@ environment:
         message: "SCP-914 has been activated on setting <var:knobsetting>."
         regex: []
     onstartcountdown:
+        # isAutomatic - bool
         # isresumed - bool
         # timeleft - float
         # ipaddress - string
@@ -294,24 +291,6 @@ environment:
         # class
         # team
         message: "Generator in <var:room> has been activated by <var:name> (<var:steamid>)."
-        regex: [ ]
-    onscpdeathannouncement:
-        # ipaddress
-        # name
-        # playerid
-        # steamid
-        # class
-        # team
-        message: "<var:class> has been recontained or neutralized."
-        regex: [ ]
-    oncassiecustomannouncement:
-        # words
-        message: "C.A.S.S.I.E Announcement: <var:words>"
-        regex: [ ]
-    oncassieteamannouncement:
-        # cassieunitname
-        # scpsleft
-        message: "**MTF <var:cassieunitname> has entered the facility.**"
         regex: [ ]
 
 player:
