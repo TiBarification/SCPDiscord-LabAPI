@@ -38,7 +38,7 @@ namespace SCPDiscord
 					ChannelID = command.ChannelID
 				};
 
-				SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "botresponses.consolecommandfeedback", variables);
+				SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.consolecommandfeedback", variables);
 			}
 
 			while(queuedRoleSyncCommands.TryDequeue(out string stringCommand))

@@ -62,15 +62,15 @@ rolesync:
         - "scpd_removereservedslot <var:userid>"
 
 # Name your channels here, this name is used in the channels section below. The left value is a name of your choice and the right is a channel id you want it to represent.
-aliases:
+channels:
     - "default": "add-channel-id-here"
     - "staff": "add-channel-id-here"
 
 # Using the channel aliases above you can direct events to different channels here
 # Set to [] to disable an event.
-channels:
+messages:
     # Bot messages
-    statusmessages: [ "default", "staff" ]
+    connectedtobot: [ "default", "staff" ]
 
     # Round events
     onroundstart: []
@@ -149,14 +149,14 @@ channels:
     onrecallzombie: []
     oncallcommand:
         remoteadmin:
-            player: [ "staff" ]
-            server: [ "staff" ]
+            player: []
+            server: []
         game:
-            player: [ "staff" ]
-            server: [ "staff" ]
+            player: []
+            server: []
         console:
-            player: [ "staff" ]
-            server: [ "staff" ]
+            player: []
+            server: []
     onexecutedcommand:
         remoteadmin:
             player: [ "staff" ]

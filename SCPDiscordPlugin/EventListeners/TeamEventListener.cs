@@ -24,11 +24,11 @@ namespace SCPDiscord.EventListeners
 
 			if (team == SpawnableTeamType.ChaosInsurgency)
 			{
-				plugin.SendMessage(Config.GetArray("channels.onteamrespawn.ci"), "team.onteamrespawn.ci", variables);
+				plugin.SendMessage("messages.onteamrespawn.ci", variables);
 			}
 			else
 			{
-				plugin.SendMessage(Config.GetArray("channels.onteamrespawn.mtf"), "team.onteamrespawn.mtf", variables);
+				plugin.SendMessage("messages.onteamrespawn.mtf", variables);
 			}
 
 		}
@@ -41,7 +41,7 @@ namespace SCPDiscord.EventListeners
 			{
 				{ "name", ev.Unit }
 			};
-			plugin.SendMessage(Config.GetArray("channels.onsetntfunitname"), "team.onsetntfunitname", variables);
+			plugin.SendMessage(Config.GetArray("messages.onsetntfunitname"), "messages.onsetntfunitname", variables);
 		}
 		*/
 	}

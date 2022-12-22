@@ -1,5 +1,6 @@
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -38,127 +39,143 @@ namespace SCPDiscord
 			{ "bot.port", 8888 }
 		};
 
-		private static readonly Dictionary<string, string[]> configArrays = new Dictionary<string, string[]>
+		// The following four are a bit messed up but the language and config systems need slightly different versions of this list so it had to be this way
+		private static readonly List<string> configAndLanguageNodes = new List<string>
 		{
-			// Bot messages
-			{ "channels.statusmessages",						new string[]{ } },
+			"messages.onconnect",
+			"messages.onplayerleave",
+			"messages.onroundend",
+			"messages.onroundrestart",
+			"messages.onroundstart",
+			"messages.onsetservername",
+			"messages.onwaitingforplayers",
 
-			// Round events
-			{ "channels.onconnect",                 			new string[]{ } },
-			{ "channels.onplayerleave",             			new string[]{ } },
-			{ "channels.onroundend",                			new string[]{ } },
-			{ "channels.onroundrestart",            			new string[]{ } },
-			{ "channels.onroundstart",              			new string[]{ } },
-			{ "channels.onsetservername",           			new string[]{ } },
-			{ "channels.onwaitingforplayers",       			new string[]{ } },
+			"messages.ondecontaminate",
+			"messages.ondetonate",
+			"messages.ongeneratorfinish",
+			"messages.onscp914activate",
+			"messages.onstartcountdown.initiated",
+			"messages.onstartcountdown.noplayer",
+			"messages.onstartcountdown.resumed",
+			"messages.onstopcountdown.default",
+			"messages.onstopcountdown.noplayer",
+			"messages.onsummonvehicle.chaos",
+			"messages.onsummonvehicle.mtf",
 
-			// Environment events
-			{ "channels.ondecontaminate",           			new string[]{ } },
-			{ "channels.ondetonate",                			new string[]{ } },
-			{ "channels.ongeneratorfinish",         			new string[]{ } },
-			{ "channels.onscp914activate",          			new string[]{ } },
-			{ "channels.onstartcountdown.initiated",			new string[]{ } },
-			{ "channels.onstartcountdown.noplayer", 			new string[]{ } },
-			{ "channels.onstartcountdown.resumed",  			new string[]{ } },
-			{ "channels.onstopcountdown.default",   			new string[]{ } },
-			{ "channels.onstopcountdown.noplayer",  			new string[]{ } },
-			{ "channels.onsummonvehicle.chaos",     			new string[]{ } },
-			{ "channels.onsummonvehicle.mtf",       			new string[]{ } },
+			"messages.on079addexp",
+			"messages.on079camerateleport",
+			"messages.on079door.closed",
+			"messages.on079door.opened",
+			"messages.on079elevator.down",
+			"messages.on079elevator.up",
+			"messages.on079elevatorteleport",
+			"messages.on079levelup",
+			"messages.on079lock.locked",
+			"messages.on079lock.unlocked",
+			"messages.on079lockdown",
+			"messages.on079startspeaker",
+			"messages.on079stopspeaker",
+			"messages.on079teslagate",
+			"messages.on079unlockdoors",
+			"messages.on106createportal",
+			"messages.on106teleport",
+			"messages.onassignteam",
+			"messages.oncallcommand.console.player",
+			"messages.oncallcommand.console.server",
+			"messages.oncallcommand.game.player",
+			"messages.oncallcommand.game.server",
+			"messages.oncallcommand.remoteadmin.player",
+			"messages.oncallcommand.remoteadmin.server",
+			"messages.oncontain106",
+			"messages.ondooraccess.allowed",
+			"messages.ondooraccess.denied",
+			"messages.onelevatoruse",
+			"messages.onexecutedcommand.console.player",
+			"messages.onexecutedcommand.console.server",
+			"messages.onexecutedcommand.game.player",
+			"messages.onexecutedcommand.game.server",
+			"messages.onexecutedcommand.remoteadmin.player",
+			"messages.onexecutedcommand.remoteadmin.server",
+			"messages.ongeneratoractivated",
+			"messages.ongeneratorclose",
+			"messages.ongeneratordeactivated",
+			"messages.ongeneratoropen",
+			"messages.ongeneratorunlock",
+			"messages.ongrenadeexplosion",
+			"messages.ongrenadehitplayer",
+			"messages.onhandcuff.default",
+			"messages.onhandcuff.nootherplayer",
+			"messages.onintercom",
+			"messages.onlure",
+			"messages.onmedicaluse",
+			"messages.onnicknameset",
+			"messages.onplayerdie.default",
+			"messages.onplayerdie.friendlyfire",
+			"messages.onplayerdie.nokiller",
+			"messages.onplayerdropammo",
+			"messages.onplayerdropitem",
+			"messages.onplayerhurt.default",
+			"messages.onplayerhurt.friendlyfire",
+			"messages.onplayerhurt.noattacker",
+			"messages.onplayerinfected",
+			"messages.onplayerjoin",
+			"messages.onplayerpickupammo",
+			"messages.onplayerpickuparmor",
+			"messages.onplayerpickupitem",
+			"messages.onplayerpickupscp330",
+			"messages.onplayerradioswitch",
+			"messages.onplayertriggertesla.default",
+			"messages.onplayertriggertesla.ignored",
+			"messages.onpocketdimensiondie",
+			"messages.onpocketdimensionenter",
+			"messages.onpocketdimensionexit",
+			"messages.onrecallzombie",
+			"messages.onreload",
+			"messages.onscp914changeknob",
+			"messages.onsetrole",
+			"messages.onshoot.default",
+			"messages.onshoot.friendlyfire",
+			"messages.onshoot.notarget",
+			"messages.onspawn",
+			"messages.onspawnragdoll",
+			"messages.onthrowgrenade",
 
-			// Player events
-			{ "channels.on079addexp",               			new string[]{ } },
-			{ "channels.on079camerateleport",       			new string[]{ } },
-			{ "channels.on079door.closed",          			new string[]{ } },
-			{ "channels.on079door.opened",          			new string[]{ } },
-			{ "channels.on079elevator.down",        			new string[]{ } },
-			{ "channels.on079elevator.up",          			new string[]{ } },
-			{ "channels.on079elevatorteleport",     			new string[]{ } },
-			{ "channels.on079levelup",              			new string[]{ } },
-			{ "channels.on079lock.locked",          			new string[]{ } },
-			{ "channels.on079lock.unlocked",        			new string[]{ } },
-			{ "channels.on079lockdown",             			new string[]{ } },
-			{ "channels.on079startspeaker",         			new string[]{ } },
-			{ "channels.on079stopspeaker",          			new string[]{ } },
-			{ "channels.on079teslagate",            			new string[]{ } },
-			{ "channels.on079unlockdoors",          			new string[]{ } },
-			{ "channels.on106createportal",         			new string[]{ } },
-			{ "channels.on106teleport",             			new string[]{ } },
-			{ "channels.onassignteam",              			new string[]{ } },
-			{ "channels.oncallcommand.console.player",     		new string[]{ } },
-			{ "channels.oncallcommand.console.server",     		new string[]{ } },
-			{ "channels.oncallcommand.game.player",        		new string[]{ } },
-			{ "channels.oncallcommand.game.server",        		new string[]{ } },
-			{ "channels.oncallcommand.remoteadmin.player", 		new string[]{ } },
-			{ "channels.oncallcommand.remoteadmin.server", 		new string[]{ } },
-			{ "channels.oncontain106",              			new string[]{ } },
-			{ "channels.ondooraccess.allowed",      			new string[]{ } },
-			{ "channels.ondooraccess.denied",       			new string[]{ } },
-			{ "channels.onelevatoruse",             			new string[]{ } },
-			{ "channels.onexecutedcommand.console.player",     	new string[]{ } },
-			{ "channels.onexecutedcommand.console.server",     	new string[]{ } },
-			{ "channels.onexecutedcommand.game.player",        	new string[]{ } },
-			{ "channels.onexecutedcommand.game.server",        	new string[]{ } },
-			{ "channels.onexecutedcommand.remoteadmin.player", 	new string[]{ } },
-			{ "channels.onexecutedcommand.remoteadmin.server", 	new string[]{ } },
-			{ "channels.ongeneratoractivated",      			new string[]{ } },
-			{ "channels.ongeneratorclose",          			new string[]{ } },
-			{ "channels.ongeneratordeactivated",    			new string[]{ } },
-			{ "channels.ongeneratoropen",           			new string[]{ } },
-			{ "channels.ongeneratorunlock",         			new string[]{ } },
-			{ "channels.ongrenadeexplosion",        			new string[]{ } },
-			{ "channels.ongrenadehitplayer",        			new string[]{ } },
-			{ "channels.onhandcuff.default",        			new string[]{ } },
-			{ "channels.onhandcuff.nootherplayer",  			new string[]{ } },
-			{ "channels.onintercom",                			new string[]{ } },
-			{ "channels.onlure",                    			new string[]{ } },
-			{ "channels.onmedicaluse",              			new string[]{ } },
-			{ "channels.onnicknameset",             			new string[]{ } },
-			{ "channels.onplayerdie.default",       			new string[]{ } },
-			{ "channels.onplayerdie.friendlyfire",  			new string[]{ } },
-			{ "channels.onplayerdie.nokiller",      			new string[]{ } },
-			{ "channels.onplayerdropammo",          			new string[]{ } },
-			{ "channels.onplayerdropitem",          			new string[]{ } },
-			{ "channels.onplayerhurt.default",      			new string[]{ } },
-			{ "channels.onplayerhurt.friendlyfire", 			new string[]{ } },
-			{ "channels.onplayerhurt.noattacker",   			new string[]{ } },
-			{ "channels.onplayerinfected",          			new string[]{ } },
-			{ "channels.onplayerjoin",              			new string[]{ } },
-			{ "channels.onplayerpickupammo",        			new string[]{ } },
-			{ "channels.onplayerpickuparmor",       			new string[]{ } },
-			{ "channels.onplayerpickupitem",        			new string[]{ } },
-			{ "channels.onplayerpickupscp330",      			new string[]{ } },
-			{ "channels.onplayerradioswitch",       			new string[]{ } },
-			{ "channels.onplayertriggertesla.default",  		new string[]{ } },
-			{ "channels.onplayertriggertesla.ignored",  		new string[]{ } },
-			{ "channels.onpocketdimensiondie",      			new string[]{ } },
-			{ "channels.onpocketdimensionenter",    			new string[]{ } },
-			{ "channels.onpocketdimensionexit",     			new string[]{ } },
-			{ "channels.onrecallzombie",            			new string[]{ } },
-			{ "channels.onreload",                  			new string[]{ } },
-			{ "channels.onscp914changeknob",        			new string[]{ } },
-			{ "channels.onsetrole",                 			new string[]{ } },
-			{ "channels.onshoot.default",           			new string[]{ } },
-			{ "channels.onshoot.friendlyfire",      			new string[]{ } },
-			{ "channels.onshoot.notarget",          			new string[]{ } },
-			{ "channels.onspawn",                   			new string[]{ } },
-			{ "channels.onspawnragdoll",            			new string[]{ } },
-			{ "channels.onthrowgrenade",            			new string[]{ } },
+			"messages.onban.server",
+			"messages.onkick.server",
+			"messages.onban.player",
+			"messages.onkick.player",
 
-			// Admin events
-			{ "channels.onban.server",              			new string[]{ } },
-			{ "channels.onkick.server",             			new string[]{ } },
-			{ "channels.onban.player",              			new string[]{ } },
-			{ "channels.onkick.player",             			new string[]{ } },
+			"messages.onteamrespawn.mtf",
+			"messages.onteamrespawn.ci",
+			"messages.onsetntfunitname",
 
-			// Team events
-			{ "channels.onsetntfunitname",          			new string[]{ } },
-			{ "channels.onteamrespawn.ci",          			new string[]{ } },
-			{ "channels.onteamrespawn.mtf",         			new string[]{ } },
+			"messages.connectedtobot",
 		};
+
+		private static readonly List<string> languageOnlyNodes = new List<string>
+		{
+			"responses.connectedtobot",
+			"responses.reconnectedtobot",
+			"responses.invalidsteamid",
+			"responses.invalidduration",
+			"responses.playerbanned",
+			"responses.consolecommandfeedback",
+			"responses.invalidsteamidorip",
+			"responses.playerunbanned",
+			"responses.playerkicked",
+			"responses.playernotfound",
+			"responses.kickall"
+		};
+
+		public static readonly List<string> languageNodes = configAndLanguageNodes.Concat(languageOnlyNodes).ToList();
+
+		// Convert message nodes to a dictionary to hold the settings from the config
+		private static readonly Dictionary<string, string[]> configArrays = configAndLanguageNodes.Zip(new string[configAndLanguageNodes.Count][],
+			(name, emptyArray) => (name: name, emptyArray: emptyArray)).ToDictionary(ns => ns.name, ns => ns.emptyArray);
 
 		private static readonly Dictionary<string, Dictionary<string, ulong>> configDicts = new Dictionary<string, Dictionary<string, ulong>>
 		{
-			{ "aliases", new Dictionary<string, ulong>() }
+			{ "channels", new Dictionary<string, ulong>() }
 		};
 
 		public static Dictionary<ulong, string[]> roleDictionary = new Dictionary<ulong, string[]>();
@@ -441,11 +458,11 @@ namespace SCPDiscord
 			foreach (KeyValuePair<string, string[]> node in configArrays)
 			{
 				sb.Append(node.Key + ": [ " + string.Join(", ", node.Value) + " ]\n");
-				if (node.Key.StartsWith("channels."))
+				if (node.Key.StartsWith("messages."))
 				{
 					foreach (string s in node.Value)
 					{
-						if (!GetDict("aliases").ContainsKey(s))
+						if (!GetDict("channels").ContainsKey(s))
 						{
 							sb.Append("WARNING: Channel alias '" + s + "' does not exist!\n");
 						}

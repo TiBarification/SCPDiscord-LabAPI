@@ -173,7 +173,7 @@ namespace SCPDiscord.EventListeners
 					{ "playerclass",        target.Role.ToString()                   },
 					{ "playerteam",         target.ReferenceHub.GetTeam().ToString() }
 				};
-				plugin.SendMessage(Config.GetArray("channels.onplayerhurt.noattacker"), "player.onplayerhurt.noattacker", noAttackerVar);
+				plugin.SendMessage("messages.onplayerhurt.noattacker", noAttackerVar);
 				return;
 			}
 
@@ -197,11 +197,11 @@ namespace SCPDiscord.EventListeners
 
 			if (IsTeamDamage(attacker.ReferenceHub.GetTeam(), target.ReferenceHub.GetTeam()))
 			{
-				plugin.SendMessage(Config.GetArray("channels.onplayerhurt.friendlyfire"), "player.onplayerhurt.friendlyfire", variables);
+				plugin.SendMessage("messages.onplayerhurt.friendlyfire", variables);
 				return;
 			}
 
-			plugin.SendMessage(Config.GetArray("channels.onplayerhurt.default"), "player.onplayerhurt.default", variables);
+			plugin.SendMessage("messages.onplayerhurt.default", variables);
 		}
 
 		[PluginEvent(ServerEventType.PlayerDeath)]
@@ -224,7 +224,7 @@ namespace SCPDiscord.EventListeners
 					{ "playerclass",        target.Role.ToString()  },
 					{ "playerteam",         target.ReferenceHub.GetTeam().ToString()  }
 				};
-				plugin.SendMessage(Config.GetArray("channels.onplayerdie.nokiller"), "player.onplayerdie.nokiller", noKillerVar);
+				plugin.SendMessage("messages.onplayerdie.nokiller", noKillerVar);
 				return;
 			}
 
@@ -247,10 +247,10 @@ namespace SCPDiscord.EventListeners
 
 			if (IsTeamDamage(attacker.ReferenceHub.GetTeam(), target.ReferenceHub.GetTeam()))
 			{
-				plugin.SendMessage(Config.GetArray("channels.onplayerdie.friendlyfire"), "player.onplayerdie.friendlyfire", variables);
+				plugin.SendMessage("messages.onplayerdie.friendlyfire", variables);
 				return;
 			}
-			plugin.SendMessage(Config.GetArray("channels.onplayerdie.default"), "player.onplayerdie.default", variables);
+			plugin.SendMessage("messages.onplayerdie.default", variables);
 		}
 
 		[PluginEvent(ServerEventType.PlayerPickupAmmo)]
@@ -266,7 +266,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",        player.Role.ToString()    },
 				{ "team",         player.ReferenceHub.GetTeam().ToString()    }
 			};
-			plugin.SendMessage(Config.GetArray("channels.onplayerpickupammo"), "player.onplayerpickupammo", variables);
+			plugin.SendMessage("messages.onplayerpickupammo", variables);
 		}
 
 		[PluginEvent(ServerEventType.PlayerPickupArmor)]
@@ -282,7 +282,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",        player.Role.ToString()    },
 				{ "team",         player.ReferenceHub.GetTeam().ToString()    }
 			};
-			plugin.SendMessage(Config.GetArray("channels.onplayerpickuparmor"), "player.onplayerpickuparmor", variables);
+			plugin.SendMessage("messages.onplayerpickuparmor", variables);
 		}
 
 		[PluginEvent(ServerEventType.PlayerPickupScp330)]
@@ -297,7 +297,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",        player.Role.ToString()    },
 				{ "team",         player.ReferenceHub.GetTeam().ToString()    }
 			};
-			plugin.SendMessage(Config.GetArray("channels.onplayerpickupscp330"), "player.onplayerpickupscp330", variables);
+			plugin.SendMessage("messages.onplayerpickupscp330", variables);
 		}
 
 		[PluginEvent(ServerEventType.PlayerSearchedPickup)]
@@ -313,7 +313,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",        player.Role.ToString()    },
 				{ "team",         player.ReferenceHub.GetTeam().ToString()    }
 			};
-			plugin.SendMessage(Config.GetArray("channels.onplayerpickupitem"), "player.onplayerpickupitem", variables);
+			plugin.SendMessage("messages.onplayerpickupitem", variables);
 		}
 
 		[PluginEvent(ServerEventType.PlayerDropAmmo)]
@@ -330,7 +330,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",        player.Role.ToString()    },
 				{ "team",         player.ReferenceHub.GetTeam().ToString()    }
 			};
-			plugin.SendMessage(Config.GetArray("channels.onplayerdropammo"), "player.onplayerdropammo", variables);
+			plugin.SendMessage("messages.onplayerdropammo", variables);
 		}
 
 		[PluginEvent(ServerEventType.PlayerDropItem)]
@@ -346,7 +346,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",        player.Role.ToString()    },
 				{ "team",         player.ReferenceHub.GetTeam().ToString()    }
 			};
-			plugin.SendMessage(Config.GetArray("channels.onplayerdropitem"), "player.onplayerdropitem", variables);
+			plugin.SendMessage("messages.onplayerdropitem", variables);
 		}
 
 		[PluginEvent(ServerEventType.PlayerJoined)]
@@ -363,7 +363,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",        player.Role.ToString()                    },
 				{ "team",         player.ReferenceHub.GetTeam().ToString()  }
 			};
-			plugin.SendMessage(Config.GetArray("channels.onplayerjoin"), "player.onplayerjoin", variables);
+			plugin.SendMessage("messages.onplayerjoin", variables);
 		}
 
 		[PluginEvent(ServerEventType.PlayerLeft)]
@@ -378,7 +378,7 @@ namespace SCPDiscord.EventListeners
 				{ "steamid", player.GetParsedUserID()     },
 				{ "playerid", player.PlayerId.ToString()  }
 			};
-			this.plugin.SendMessage(Config.GetArray("channels.onplayerleave"), "round.onplayerleave", variables);
+			this.plugin.SendMessage("messages.onplayerleave", variables);
 		}
 
 		/*
@@ -395,7 +395,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",          ev.Player.Role.ToString()  },
 				{ "team",           ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
-			plugin.SendMessage(Config.GetArray("channels.onnicknameset"), "player.onnicknameset", variables);
+			plugin.SendMessage(Config.GetArray("messages.onnicknameset"), "messages.onnicknameset", variables);
 		}
 		*/
 
@@ -417,13 +417,13 @@ namespace SCPDiscord.EventListeners
 				{ "class",          player.Role.ToString()                    },
 				{ "team",           player.ReferenceHub.GetTeam().ToString()  }
 			};
-			plugin.SendMessage(Config.GetArray("channels.onsetrole"), "player.onsetrole", variables);
+			plugin.SendMessage("messages.onsetrole", variables);
 		}
 
 		[PluginEvent(ServerEventType.PlayerSpawn)]
 		public void OnSpawn(Player player, RoleTypeId role)
 		{
-			if (player == null || player.PlayerId == Server.Instance?.PlayerId) return;
+			if (player == null || player.UserId == Server.Instance.UserId) return;
 
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
@@ -435,7 +435,7 @@ namespace SCPDiscord.EventListeners
 				{ "team",           player.ReferenceHub.GetTeam().ToString() }
 			};
 
-			plugin.SendMessage(Config.GetArray("channels.onspawn"), "player.onspawn", variables);
+			plugin.SendMessage("messages.onspawn", variables);
 		}
 
 		/*
@@ -456,11 +456,11 @@ namespace SCPDiscord.EventListeners
 			};
 			if (ev.Allow)
 			{
-				plugin.SendMessage(Config.GetArray("channels.ondooraccess.allowed"), "player.ondooraccess.allowed", variables);
+				plugin.SendMessage(Config.GetArray("messages.ondooraccess.allowed"), "messages.ondooraccess.allowed", variables);
 			}
 			else
 			{
-				plugin.SendMessage(Config.GetArray("channels.ondooraccess.denied"), "player.ondooraccess.denied", variables);
+				plugin.SendMessage(Config.GetArray("messages.ondooraccess.denied"), "messages.ondooraccess.denied", variables);
 			}
 		}
 		*/
@@ -480,7 +480,7 @@ namespace SCPDiscord.EventListeners
 				{ "team",           ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
 
-			plugin.SendMessage(Config.GetArray("channels.onintercom"), "player.onintercom", variables);
+			plugin.SendMessage(Config.GetArray("messages.onintercom"), "messages.onintercom", variables);
 		}
 		*/
 
@@ -496,7 +496,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",              ev.Player.Role.ToString()    },
 				{ "team",               ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
-			plugin.SendMessage(Config.GetArray("channels.onpocketdimensionexit"), "player.onpocketdimensionexit", variables);
+			plugin.SendMessage(Config.GetArray("messages.onpocketdimensionexit"), "messages.onpocketdimensionexit", variables);
 		}
 		*/
 
@@ -519,7 +519,7 @@ namespace SCPDiscord.EventListeners
 				{ "playerclass",        ev.Player.Role.ToString()    },
 				{ "playerteam",         ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
-			plugin.SendMessage(Config.GetArray("channels.onpocketdimensionenter"), "player.onpocketdimensionenter", variables);
+			plugin.SendMessage(Config.GetArray("messages.onpocketdimensionenter"), "messages.onpocketdimensionenter", variables);
 		}
 		*/
 
@@ -535,7 +535,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",              ev.Player.Role.ToString()    },
 				{ "team",               ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
-			plugin.SendMessage(Config.GetArray("channels.onpocketdimensiondie"), "player.onpocketdimensiondie", variables);
+			plugin.SendMessage(Config.GetArray("messages.onpocketdimensiondie"), "messages.onpocketdimensiondie", variables);
 		}
 		*/
 
@@ -552,7 +552,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",              ev.Player.Role.ToString()  },
 				{ "team",               ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
-			plugin.SendMessage(Config.GetArray("channels.onthrowgrenade"), "player.onthrowgrenade", variables);
+			plugin.SendMessage(Config.GetArray("messages.onthrowgrenade"), "messages.onthrowgrenade", variables);
 		}
 		*/
 
@@ -576,7 +576,7 @@ namespace SCPDiscord.EventListeners
 				{ "playerclass",            ev.Player.Role.ToString()        },
 				{ "playerteam",             ev.Player.ReferenceHub.GetTeam().ToString()      }
 			};
-			plugin.SendMessage(Config.GetArray("channels.onplayerinfected"), "player.onplayerinfected", variables);
+			plugin.SendMessage(Config.GetArray("messages.onplayerinfected"), "messages.onplayerinfected", variables);
 		}
 		*/
 
@@ -593,7 +593,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",              player.ToString()                         },
 				{ "team",               player.ReferenceHub.GetTeam().ToString()  }
 			};
-			plugin.SendMessage(Config.GetArray("channels.onspawnragdoll"), "player.onspawnragdoll", variables);
+			plugin.SendMessage("messages.onspawnragdoll", variables);
 		}
 
 		/*
@@ -610,7 +610,7 @@ namespace SCPDiscord.EventListeners
 				{ "team",               ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
 
-			plugin.SendMessage(Config.GetArray("channels.onlure"), "player.onlure", variables);
+			plugin.SendMessage(Config.GetArray("messages.onlure"), "messages.onlure", variables);
 		}
 		*/
 
@@ -627,7 +627,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",                  ev.Player.Role.ToString()  },
 				{ "team",                   ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
-			plugin.SendMessage(Config.GetArray("channels.oncontain106"), "player.oncontain106", variables);
+			plugin.SendMessage(Config.GetArray("messages.oncontain106"), "messages.oncontain106", variables);
 		}
 		*/
 
@@ -649,7 +649,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",                  ev.Player.Role.ToString() },
 				{ "team",                   ev.Player.ReferenceHub.GetTeam().ToString() }
 			};
-			plugin.SendMessage(Config.GetArray("channels.onmedicaluse"), "player.onmedicaluse", variables);
+			plugin.SendMessage(Config.GetArray("messages.onmedicaluse"), "messages.onmedicaluse", variables);
 		}
 		*/
 
@@ -665,7 +665,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",                  ev.Player.Role.ToString()  },
 				{ "team",                   ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
-			plugin.SendMessage(Config.GetArray("channels.on106createportal"), "player.on106createportal", variables);
+			plugin.SendMessage(Config.GetArray("messages.on106createportal"), "messages.on106createportal", variables);
 		}
 		*/
 
@@ -681,7 +681,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",                  ev.Player.Role.ToString()  },
 				{ "team",                   ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
-			plugin.SendMessage(Config.GetArray("channels.on106teleport"), "player.on106teleport", variables);
+			plugin.SendMessage(Config.GetArray("messages.on106teleport"), "messages.on106teleport", variables);
 		}
 		*/
 
@@ -698,7 +698,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",                  ev.Player.Role.ToString()  },
 				{ "team",                   ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
-			plugin.SendMessage(Config.GetArray("channels.onelevatoruse"), "player.onelevatoruse", variables);
+			plugin.SendMessage(Config.GetArray("messages.onelevatoruse"), "messages.onelevatoruse", variables);
 		}
 		*/
 
@@ -723,7 +723,7 @@ namespace SCPDiscord.EventListeners
 					{ "playerclass",        ev.Disarmer.Role.ToString() },
 					{ "playerteam",         ev.Disarmer.ReferenceHub.GetTeam().ToString()   }
 				};
-				plugin.SendMessage(Config.GetArray("channels.onhandcuff.default"), "player.onhandcuff.default", variables);
+				plugin.SendMessage(Config.GetArray("messages.onhandcuff.default"), "messages.onhandcuff.default", variables);
 			}
 			else
 			{
@@ -737,7 +737,7 @@ namespace SCPDiscord.EventListeners
 					{ "targetclass",        ev.Player.Role.ToString()        },
 					{ "targetteam",         ev.Player.ReferenceHub.GetTeam().ToString()      }
 				};
-				plugin.SendMessage(Config.GetArray("channels.onhandcuff.nootherplayer"), "player.onhandcuff.nootherplayer", variables);
+				plugin.SendMessage(Config.GetArray("messages.onhandcuff.nootherplayer"), "messages.onhandcuff.nootherplayer", variables);
 			}
 		}
 		*/
@@ -757,11 +757,11 @@ namespace SCPDiscord.EventListeners
 
 			if (ev.Triggerable)
 			{
-				plugin.SendMessage(Config.GetArray("channels.onplayertriggertesla.default"), "player.onplayertriggertesla.default", variables);
+				plugin.SendMessage(Config.GetArray("messages.onplayertriggertesla.default"), "messages.onplayertriggertesla.default", variables);
 			}
 			else
 			{
-				plugin.SendMessage(Config.GetArray("channels.onplayertriggertesla.ignored"), "player.onplayertriggertesla.ignored", variables);
+				plugin.SendMessage(Config.GetArray("messages.onplayertriggertesla.ignored"), "messages.onplayertriggertesla.ignored", variables);
 			}
 		}
 		*/
@@ -779,7 +779,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",                  ev.Player.Role.ToString()    },
 				{ "team",                   ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
-			plugin.SendMessage(Config.GetArray("channels.onscp914changeknob"), "player.onscp914changeknob", variables);
+			plugin.SendMessage(Config.GetArray("messages.onscp914changeknob"), "messages.onscp914changeknob", variables);
 		}
 		*/
 
@@ -796,7 +796,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",                  ev.Player.Role.ToString()    },
 				{ "team",                   ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
-			plugin.SendMessage(Config.GetArray("channels.onplayerradioswitch"), "player.onplayerradioswitch", variables);
+			plugin.SendMessage(Config.GetArray("messages.onplayerradioswitch"), "messages.onplayerradioswitch", variables);
 		}
 		*/
 
@@ -819,7 +819,7 @@ namespace SCPDiscord.EventListeners
 				{ "targetclass",        ev.Target.Role.ToString()   },
 				{ "targetteam",         ev.Target.ReferenceHub.GetTeam().ToString() },
 			};
-			plugin.SendMessage(Config.GetArray("channels.onrecallzombie"), "player.onrecallzombie", variables);
+			plugin.SendMessage(Config.GetArray("messages.onrecallzombie"), "messages.onrecallzombie", variables);
 		}
 		*/
 
@@ -841,7 +841,7 @@ namespace SCPDiscord.EventListeners
 					{ "class",         player.Role.ToString()                   },
 					{ "team",          player.ReferenceHub.GetTeam().ToString() }
 				};
-				plugin.SendMessage(Config.GetArray("channels.onexecutedcommand.remoteadmin.player"), "player.onexecutedcommand.remoteadmin.player", variables);
+				plugin.SendMessage("messages.onexecutedcommand.remotemessages.player", variables);
 			}
 			else
 			{
@@ -851,7 +851,7 @@ namespace SCPDiscord.EventListeners
 					{ "result",        result.ToString()                        },
 					{ "returnmessage", response                                 }
 				};
-				plugin.SendMessage(Config.GetArray("channels.onexecutedcommand.remoteadmin.server"), "player.onexecutedcommand.remoteadmin.server", variables);
+				plugin.SendMessage("messages.onexecutedcommand.remotemessages.server", variables);
 			}
 		}
 
@@ -872,7 +872,7 @@ namespace SCPDiscord.EventListeners
 					{ "class",         player.Role.ToString()                   },
 					{ "team",          player.ReferenceHub.GetTeam().ToString() }
 				};
-				plugin.SendMessage(Config.GetArray("channels.onexecutedcommand.game.player"), "player.onexecutedcommand.game.player", variables);
+				plugin.SendMessage("messages.onexecutedcommand.game.player", variables);
 			}
 			else
 			{
@@ -882,7 +882,7 @@ namespace SCPDiscord.EventListeners
 					//{ "result",        result.ToString()                      },
 					{ "returnmessage", response                               }
 				};
-				plugin.SendMessage(Config.GetArray("channels.onexecutedcommand.game.server"), "player.onexecutedcommand.game.server", variables);
+				plugin.SendMessage("messages.onexecutedcommand.game.server", variables);
 			}
 		}
 
@@ -905,7 +905,7 @@ namespace SCPDiscord.EventListeners
 					{ "result",        result.ToString()                        },
 					{ "returnmessage", response                                 }
 				};
-				plugin.SendMessage(Config.GetArray("channels.onexecutedcommand.console.player"), "player.onexecutedcommand.console.player", variables);
+				plugin.SendMessage("messages.onexecutedcommand.console.player", variables);
 			}
 			else
 			{
@@ -915,7 +915,7 @@ namespace SCPDiscord.EventListeners
 					{ "result",        result.ToString()                        },
 					{ "returnmessage", response                                 }
 				};
-				plugin.SendMessage(Config.GetArray("channels.onexecutedcommand.console.server"), "player.onexecutedcommand.console.server", variables);
+				plugin.SendMessage("messages.onexecutedcommand.console.server", variables);
 			}
 		}
 
@@ -935,7 +935,7 @@ namespace SCPDiscord.EventListeners
 					{ "class",     player.Role.ToString()                   },
 					{ "team",      player.ReferenceHub.GetTeam().ToString() }
 				};
-				plugin.SendMessage(Config.GetArray("channels.oncallcommand.remoteadmin.player"), "player.oncallcommand.remoteadmin.player", variables);
+				plugin.SendMessage("messages.oncallcommand.remotemessages.player", variables);
 			}
 			else
 			{
@@ -943,7 +943,7 @@ namespace SCPDiscord.EventListeners
 				{
 					{ "command",   command + " " + string.Join(" ", args)   }
 				};
-				plugin.SendMessage(Config.GetArray("channels.oncallcommand.remoteadmin.server"), "player.oncallcommand.remoteadmin.server", variables);
+				plugin.SendMessage("messages.oncallcommand.remotemessages.server", variables);
 			}
 		}
 
@@ -962,7 +962,7 @@ namespace SCPDiscord.EventListeners
 					{ "class",     player.Role.ToString()                   },
 					{ "team",      player.ReferenceHub.GetTeam().ToString() }
 				};
-				plugin.SendMessage(Config.GetArray("channels.oncallcommand.game.player"), "player.oncallcommand.game.player", variables);
+				plugin.SendMessage("messages.oncallcommand.game.player", variables);
 			}
 			else
 			{
@@ -970,7 +970,7 @@ namespace SCPDiscord.EventListeners
 				{
 					{ "command",   command + " " + string.Join(" ", args)   }
 				};
-				plugin.SendMessage(Config.GetArray("channels.oncallcommand.game.server"), "player.oncallcommand.game.server", variables);
+				plugin.SendMessage("messages.oncallcommand.game.server", variables);
 			}
 		}
 
@@ -990,7 +990,7 @@ namespace SCPDiscord.EventListeners
 					{ "class",     player.Role.ToString()                   },
 					{ "team",      player.ReferenceHub.GetTeam().ToString() }
 				};
-				plugin.SendMessage(Config.GetArray("channels.oncallcommand.console.player"), "player.oncallcommand.console.player", variables);
+				plugin.SendMessage("messages.oncallcommand.console.player", variables);
 			}
 			else
 			{
@@ -998,7 +998,7 @@ namespace SCPDiscord.EventListeners
 				{
 					{ "command", command + " " + string.Join(" ", args)   }
 				};
-				plugin.SendMessage(Config.GetArray("channels.oncallcommand.console.server"), "player.oncallcommand.console.server", variables);
+				plugin.SendMessage("messages.oncallcommand.console.server", variables);
 			}
 		}
 
@@ -1016,7 +1016,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",       player?.Role.ToString()                     },
 				{ "team",        player?.ReferenceHub.GetTeam().ToString()   }
 			};
-			plugin.SendMessage(Config.GetArray("channels.onreload"), "player.onreload", variables);
+			plugin.SendMessage("messages.onreload", variables);
 		}
 
 		[PluginEvent(ServerEventType.GrenadeExploded)]
@@ -1032,7 +1032,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",                      ev.Player?.Role.ToString()   },
 				{ "team",                       ev.Player?.ReferenceHub.GetTeam().ToString() }
 			};
-			plugin.SendMessage(Config.GetArray("channels.ongrenadeexplosion"), "player.ongrenadeexplosion", variables);
+			plugin.SendMessage("messages.ongrenadeexplosion", variables);
 			*/
 		}
 
@@ -1054,7 +1054,7 @@ namespace SCPDiscord.EventListeners
 				{ "targetclass",        ev.Victim?.Role.ToString()    },
 				{ "targetteam",         ev.Victim?.ReferenceHub.GetTeam().ToString()  },
 			};
-			plugin.SendMessage(Config.GetArray("channels.ongrenadehitplayer"), "player.ongrenadehitplayer", variables);
+			plugin.SendMessage(Config.GetArray("messages.ongrenadehitplayer"), "messages.ongrenadehitplayer", variables);
 		}
 		*/
 
@@ -1077,7 +1077,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",                      player.Role.ToString()                    },
 				{ "team",                       player.ReferenceHub.GetTeam().ToString()  }
 			};
-			plugin.SendMessage(Config.GetArray("channels.ongeneratorunlock"), "player.ongeneratorunlock", variables);
+			plugin.SendMessage("messages.ongeneratorunlock", variables);
 		}
 
 		[PluginEvent(ServerEventType.PlayerOpenGenerator)]
@@ -1100,7 +1100,7 @@ namespace SCPDiscord.EventListeners
 				{ "team",             player.ReferenceHub.GetTeam().ToString()     }
 			};
 
-			plugin.SendMessage(Config.GetArray("channels.ongeneratoropen"), "player.ongeneratoropen", variables);
+			plugin.SendMessage("messages.ongeneratoropen", variables);
 		}
 
 		[PluginEvent(ServerEventType.PlayerCloseGenerator)]
@@ -1122,7 +1122,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",          player.Role.ToString()                        },
 				{ "team",           player.ReferenceHub.GetTeam().ToString()      }
 			};
-			plugin.SendMessage(Config.GetArray("channels.ongeneratorclose"), "player.ongeneratorclose", variables);
+			plugin.SendMessage("messages.ongeneratorclose", variables);
 		}
 
 		[PluginEvent(ServerEventType.PlayerActivateGenerator)]
@@ -1144,7 +1144,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",         player.Role.ToString()                      },
 				{ "team",          player.ReferenceHub.GetTeam().ToString()    }
 			};
-			plugin.SendMessage(Config.GetArray("channels.ongeneratoractivated"), "player.ongeneratoractivated", variables);
+			plugin.SendMessage("messages.ongeneratoractivated", variables);
 		}
 
 		[PluginEvent(ServerEventType.PlayerDeactivatedGenerator)]
@@ -1166,7 +1166,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",         player.Role.ToString()                      },
 				{ "team",          player.ReferenceHub.GetTeam().ToString()    }
 			};
-			plugin.SendMessage(Config.GetArray("channels.ongeneratordeactivated"), "player.ongeneratordeactivated", variables);
+			plugin.SendMessage("messages.ongeneratordeactivated", variables);
 		}
 
 		/*
@@ -1188,11 +1188,11 @@ namespace SCPDiscord.EventListeners
 				};
 				if (ev.Door.IsOpen)
 				{
-					plugin.SendMessage(Config.GetArray("channels.on079door.closed"), "player.on079door.closed", variables);
+					plugin.SendMessage(Config.GetArray("messages.on079door.closed"), "messages.on079door.closed", variables);
 				}
 				else
 				{
-					plugin.SendMessage(Config.GetArray("channels.on079door.opened"), "player.on079door.opened", variables);
+					plugin.SendMessage(Config.GetArray("messages.on079door.opened"), "messages.on079door.opened", variables);
 				}
 			}
 		}
@@ -1217,11 +1217,11 @@ namespace SCPDiscord.EventListeners
 				};
 				if (ev.Door.IsLocked)
 				{
-					plugin.SendMessage(Config.GetArray("channels.on079lock.unlocked"), "player.on079lock.unlocked", variables);
+					plugin.SendMessage(Config.GetArray("messages.on079lock.unlocked"), "messages.on079lock.unlocked", variables);
 				}
 				else
 				{
-					plugin.SendMessage(Config.GetArray("channels.on079lock.locked"), "player.on079lock.locked", variables);
+					plugin.SendMessage(Config.GetArray("messages.on079lock.locked"), "messages.on079lock.locked", variables);
 				}
 			}
 		}
@@ -1246,11 +1246,11 @@ namespace SCPDiscord.EventListeners
 				};
 				if (ev.Elevator.ElevatorStatus == ElevatorStatus.DOWN)
 				{
-					plugin.SendMessage(Config.GetArray("channels.on079elevator.up"), "player.on079elevator.up", variables);
+					plugin.SendMessage(Config.GetArray("messages.on079elevator.up"), "messages.on079elevator.up", variables);
 				}
 				else if (ev.Elevator.ElevatorStatus == ElevatorStatus.UP)
 				{
-					plugin.SendMessage(Config.GetArray("channels.on079elevator.down"), "player.on079elevator.down", variables);
+					plugin.SendMessage(Config.GetArray("messages.on079elevator.down"), "messages.on079elevator.down", variables);
 				}
 			}
 		}
@@ -1271,7 +1271,7 @@ namespace SCPDiscord.EventListeners
 					{ "class",                      ev.Player.Role.ToString()    },
 					{ "team",                       ev.Player.ReferenceHub.GetTeam().ToString()  }
 				};
-				plugin.SendMessage(Config.GetArray("channels.on079teslagate"), "player.on079teslagate", variables);
+				plugin.SendMessage(Config.GetArray("messages.on079teslagate"), "messages.on079teslagate", variables);
 			}
 		}
 		*/
@@ -1290,7 +1290,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",                      ev.Player.Role.ToString()    },
 				{ "team",                       ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
-			plugin.SendMessage(Config.GetArray("channels.on079addexp"), "player.on079addexp", variables);
+			plugin.SendMessage(Config.GetArray("messages.on079addexp"), "messages.on079addexp", variables);
 		}
 		*/
 
@@ -1306,7 +1306,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",                      ev.Player.Role.ToString()  },
 				{ "team",                       ev.Player.ReferenceHub.GetTeam().ToString()  }
 			};
-			plugin.SendMessage(Config.GetArray("channels.on079levelup"), "player.on079levelup", variables);
+			plugin.SendMessage(Config.GetArray("messages.on079levelup"), "messages.on079levelup", variables);
 		}
 		*/
 
@@ -1324,7 +1324,7 @@ namespace SCPDiscord.EventListeners
 					{ "class",                      ev.Player.Role.ToString()    },
 					{ "team",                       ev.Player.ReferenceHub.GetTeam().ToString()  }
 				};
-				plugin.SendMessage(Config.GetArray("channels.on079unlockdoors"), "player.on079unlockdoors", variables);
+				plugin.SendMessage(Config.GetArray("messages.on079unlockdoors"), "messages.on079unlockdoors", variables);
 			}
 		}
 		*/
@@ -1344,7 +1344,7 @@ namespace SCPDiscord.EventListeners
 					{ "class",                      ev.Player.Role.ToString()    },
 					{ "team",                       ev.Player.ReferenceHub.GetTeam().ToString()  }
 				};
-				plugin.SendMessage(Config.GetArray("channels.on079camerateleport"), "player.on079camerateleport", variables);
+				plugin.SendMessage(Config.GetArray("messages.on079camerateleport"), "messages.on079camerateleport", variables);
 			}
 		}
 		*/
@@ -1365,7 +1365,7 @@ namespace SCPDiscord.EventListeners
 					{ "class",                      ev.Player.Role.ToString()    },
 					{ "team",                       ev.Player.ReferenceHub.GetTeam().ToString()  }
 				};
-				plugin.SendMessage(Config.GetArray("channels.on079startspeaker"), "player.on079startspeaker", variables);
+				plugin.SendMessage(Config.GetArray("messages.on079startspeaker"), "messages.on079startspeaker", variables);
 			}
 		}
 		*/
@@ -1385,7 +1385,7 @@ namespace SCPDiscord.EventListeners
 					{ "class",                      ev.Player.Role.ToString()  },
 					{ "team",                       ev.Player.ReferenceHub.GetTeam().ToString()  }
 				};
-				plugin.SendMessage(Config.GetArray("channels.on079stopspeaker"), "player.on079stopspeaker", variables);
+				plugin.SendMessage(Config.GetArray("messages.on079stopspeaker"), "messages.on079stopspeaker", variables);
 			}
 		}
 		*/
@@ -1406,7 +1406,7 @@ namespace SCPDiscord.EventListeners
 					{ "class",                      ev.Player.Role.ToString()  },
 					{ "team",                       ev.Player.ReferenceHub.GetTeam().ToString()  }
 				};
-				plugin.SendMessage(Config.GetArray("channels.on079lockdown"), "player.on079lockdown", variables);
+				plugin.SendMessage(Config.GetArray("messages.on079lockdown"), "messages.on079lockdown", variables);
 			}
 		}
 		*/
@@ -1427,7 +1427,7 @@ namespace SCPDiscord.EventListeners
 					{ "class",                      ev.Player.Role.ToString()    },
 					{ "team",                       ev.Player.ReferenceHub.GetTeam().ToString()  }
 				};
-				plugin.SendMessage(Config.GetArray("channels.on079elevatorteleport"), "player.on079elevatorteleport", variables);
+				plugin.SendMessage(Config.GetArray("messages.on079elevatorteleport"), "messages.on079elevatorteleport", variables);
 			}
 		}
 		*/

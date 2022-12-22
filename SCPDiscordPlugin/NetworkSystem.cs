@@ -21,7 +21,37 @@ namespace SCPDiscord
 
 	public class ProcessMessageAsync
 	{
-		public ProcessMessageAsync(ulong channelID, string messagePath, Dictionary<string, string> variables)
+		public ProcessMessageAsync(string messagePath, Dictionary<string, string> variables)
+		{
+			string processedMessage = NetworkSystem.GetProcessedMessage(messagePath, variables);
+
+			// Add time stamp
+			if (Config.GetString("settings.timestamp") != "off" && Config.GetString("settings.timestamp") != "")
+			{
+				processedMessage = "[" + DateTime.Now.ToString(Config.GetString("settings.timestamp")) + "]: " + processedMessage;
+			}
+
+			foreach (string channel in Config.GetArray(messagePath))
+			{
+				if (Config.GetDict("channels").ContainsKey(channel))
+				{
+					MessageWrapper wrapper = new MessageWrapper
+					{
+						ChatMessage = new ChatMessage
+						{
+							ChannelID = Config.GetDict("channels")[channel],
+							Content = processedMessage
+						}
+					};
+					NetworkSystem.QueueMessage(wrapper);
+				}
+			}
+		}
+	}
+
+	public class ProcessMessageByIDAsync
+	{
+		public ProcessMessageByIDAsync(ulong channelID, string messagePath, Dictionary<string, string> variables)
 		{
 			string processedMessage = NetworkSystem.GetProcessedMessage(messagePath, variables);
 
@@ -47,6 +77,35 @@ namespace SCPDiscord
 	public class ProcessEmbedMessageAsync
 	{
 		public ProcessEmbedMessageAsync(EmbedMessage embed, string messagePath, Dictionary<string, string> variables)
+		{
+			string processedMessage = NetworkSystem.GetProcessedMessage(messagePath, variables);
+			embed.Description = processedMessage;
+
+			// Add time stamp
+			if (Config.GetString("settings.timestamp") != "off" && Config.GetString("settings.timestamp") != "")
+			{
+				embed.Timestamp = DateTimeOffset.Now.ToUnixTimeSeconds();
+			}
+
+			foreach (string channel in Config.GetArray(messagePath))
+			{
+				if (Config.GetDict("channels").ContainsKey(channel))
+				{
+					// Create copy to avoid pointer issues
+					EmbedMessage embedCopy = new EmbedMessage(embed)
+					{
+						ChannelID = Config.GetDict("channels")[channel]
+					};
+					MessageWrapper wrapper = new MessageWrapper { EmbedMessage = embedCopy };
+					NetworkSystem.QueueMessage(wrapper);
+				}
+			}
+		}
+	}
+
+	public class ProcessEmbedMessageByIDAsync
+	{
+		public ProcessEmbedMessageByIDAsync(EmbedMessage embed, string messagePath, Dictionary<string, string> variables)
 		{
 			string processedMessage = NetworkSystem.GetProcessedMessage(messagePath, variables);
 			embed.Description = processedMessage;
@@ -172,7 +231,7 @@ namespace SCPDiscord
 						Colour = EmbedMessage.Types.DiscordColour.Green
 					};
 
-					plugin.SendEmbedWithMessage(Config.GetArray("channels.statusmessages"), "botmessages.connectedtobot", embed);
+					plugin.SendEmbedWithMessage("messages.connectedtobot", embed);
 				}
 				catch (SocketException e)
 				{

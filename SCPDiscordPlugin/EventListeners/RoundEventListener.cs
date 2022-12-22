@@ -17,7 +17,7 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent(ServerEventType.RoundStart)]
 		public void OnRoundStart()
 		{
-			plugin.SendMessage(Config.GetArray("channels.onroundstart"), "round.onroundstart");
+			plugin.SendMessage("messages.onroundstart");
 			plugin.roundStarted = true;
 		}
 
@@ -31,7 +31,7 @@ namespace SCPDiscord.EventListeners
 				{ "jointype", flags.ToString() },
 				{ "region", region             }
 			};
-			plugin.SendMessage(Config.GetArray("channels.onconnect"), "round.onconnect", variables);
+			plugin.SendMessage("messages.onconnect", variables);
 		}
 
 		/*
@@ -59,7 +59,7 @@ namespace SCPDiscord.EventListeners
 					{ "warheaddetonated",   ev.Round.Stats.WarheadDetonated.ToString()  },
 					{ "zombies",            ev.Round.Stats.Zombies.ToString()           }
 				};
-				this.plugin.SendMessage(Config.GetArray("channels.onroundend"), "round.onroundend", variables);
+				this.plugin.SendMessage(Config.GetArray("messages.onroundend"), "messages.onroundend", variables);
 				this.plugin.roundStarted = false;
 			}
 		}
@@ -69,13 +69,13 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent(ServerEventType.WaitingForPlayers)]
 		public void OnWaitingForPlayers()
 		{
-			plugin.SendMessage(Config.GetArray("channels.onwaitingforplayers"), "round.onwaitingforplayers");
+			plugin.SendMessage("messages.onwaitingforplayers");
 		}
 
 		[PluginEvent(ServerEventType.RoundRestart)]
 		public void OnRoundRestart()
 		{
-			plugin.SendMessage(Config.GetArray("channels.onroundrestart"), "round.onroundrestart");
+			plugin.SendMessage("messages.onroundrestart");
 		}
 
 		/*
@@ -88,7 +88,7 @@ namespace SCPDiscord.EventListeners
 			{
 				{ "servername", ev.ServerName }
 			};
-			this.plugin.SendMessage(Config.GetArray("channels.onsetservername"), "round.onsetservername", variables);
+			this.plugin.SendMessage(Config.GetArray("messages.onsetservername"), "messages.onsetservername", variables);
 		}
 		*/
 	}

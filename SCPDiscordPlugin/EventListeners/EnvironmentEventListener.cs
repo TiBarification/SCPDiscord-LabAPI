@@ -23,7 +23,7 @@ namespace SCPDiscord.EventListeners
 			{
 				{ "knobsetting",    ev.KnobSetting.ToString()   }
 			};
-			this.plugin.SendMessage(Config.GetArray("channels.onscp914activate"), "environment.onscp914activate", variables);
+			this.plugin.SendMessage(Config.GetArray("messages.onscp914activate"), "messages.onscp914activate", variables);
 		}
 		*/
 
@@ -38,7 +38,7 @@ namespace SCPDiscord.EventListeners
 					//{ "isresumed",      ev.IsResumed.ToString()                 },
 					//{ "timeleft",       ev.TimeLeft.ToString()                  }
 				};
-				plugin.SendMessage(Config.GetArray("channels.onstartcountdown.noplayer"), "environment.onstartcountdown.noplayer", vars);
+				plugin.SendMessage("messages.onstartcountdown.noplayer", vars);
 				return;
 			}
 
@@ -57,12 +57,12 @@ namespace SCPDiscord.EventListeners
 			/*
 			if (ev.IsResumed)
 			{
-				plugin.SendMessage(Config.GetArray("channels.onstartcountdown.resumed"), "environment.onstartcountdown.resumed", variables);
+				plugin.SendMessage("messages.onstartcountdown.resumed", variables);
 			}
 			else
 			{
 			*/
-				plugin.SendMessage(Config.GetArray("channels.onstartcountdown.initiated"), "environment.onstartcountdown.initiated", variables);
+				plugin.SendMessage("messages.onstartcountdown.initiated", variables);
 			//}
 		}
 
@@ -75,7 +75,7 @@ namespace SCPDiscord.EventListeners
 				{
 					//{ "timeleft",       ev.TimeLeft.ToString()                  }
 				};
-				plugin.SendMessage(Config.GetArray("channels.onstopcountdown.noplayer"), "environment.onstopcountdown.noplayer", variables);
+				plugin.SendMessage("messages.onstopcountdown.noplayer", variables);
 			}
 			else
 			{
@@ -89,20 +89,20 @@ namespace SCPDiscord.EventListeners
 					{ "class",       player.Role.ToString()                   },
 					{ "team",        player.ReferenceHub.GetTeam().ToString() }
 				};
-				plugin.SendMessage(Config.GetArray("channels.onstopcountdown.default"), "environment.onstopcountdown.default", variables);
+				plugin.SendMessage("messages.onstopcountdown.default", variables);
 			}
 		}
 
 		[PluginEvent(ServerEventType.WarheadDetonation)]
 		public void OnDetonate()
 		{
-			plugin.SendMessage(Config.GetArray("channels.ondetonate"), "environment.ondetonate");
+			plugin.SendMessage("messages.ondetonate");
 		}
 
 		[PluginEvent(ServerEventType.LczDecontaminationStart)]
 		public void OnDecontaminate()
 		{
-			plugin.SendMessage(Config.GetArray("channels.ondecontaminate"), "environment.ondecontaminate");
+			plugin.SendMessage("messages.ondecontaminate");
 		}
 
 		/* TODO: [PluginEvent(ServerEventType)]
@@ -110,11 +110,11 @@ namespace SCPDiscord.EventListeners
 		{
 			if (ev.IsCI)
 			{
-				this.plugin.SendMessage(Config.GetArray("channels.onsummonvehicle.chaos"), "environment.onsummonvehicle.chaos");
+				this.plugin.SendMessage(Config.GetArray("messages.onsummonvehicle.chaos"), "messages.onsummonvehicle.chaos");
 			}
 			else
 			{
-				this.plugin.SendMessage(Config.GetArray("channels.onsummonvehicle.mtf"), "environment.onsummonvehicle.mtf");
+				this.plugin.SendMessage(Config.GetArray("messages.onsummonvehicle.mtf"), "messages.onsummonvehicle.mtf");
 			}
 		}
 		*/
@@ -132,7 +132,7 @@ namespace SCPDiscord.EventListeners
 				{ "class",          ev.ActivatingPlayer.PlayerRole.RoleID.ToString() },
 				{ "team",           ev.ActivatingPlayer.PlayerRole.Team.ToString()   }
 			};
-			this.plugin.SendMessage(Config.GetArray("channels.ongeneratorfinish"), "environment.ongeneratorfinish", variables);
+			this.plugin.SendMessage(Config.GetArray("messages.ongeneratorfinish"), "messages.ongeneratorfinish", variables);
 		}
 		*/
 	}

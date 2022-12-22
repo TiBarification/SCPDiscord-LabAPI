@@ -128,7 +128,7 @@ namespace SCPDiscord
 				{
 					{ "steamid", steamID }
 				};
-				plugin.SendEmbedWithMessageByID(embed, "botresponses.invalidsteamid", variables);
+				plugin.SendEmbedWithMessageByID(embed, "messages.invalidsteamid", variables);
 				return;
 			}
 
@@ -150,7 +150,7 @@ namespace SCPDiscord
 				{
 					{ "duration", duration }
 				};
-				plugin.SendEmbedWithMessageByID(embed, "botresponses.invalidduration", variables);
+				plugin.SendEmbedWithMessageByID(embed, "messages.invalidduration", variables);
 				return;
 			}
 
@@ -187,7 +187,7 @@ namespace SCPDiscord
 			};
 
 			embed.Colour = EmbedMessage.Types.DiscordColour.Green;
-			plugin.SendEmbedWithMessageByID(embed, "botresponses.playerbanned", banVars);
+			plugin.SendEmbedWithMessageByID(embed, "messages.playerbanned", banVars);
 		}
 
 		/// <summary>
@@ -210,7 +210,7 @@ namespace SCPDiscord
 				{
 					{ "steamidorip", steamIDOrIP }
 				};
-				plugin.SendEmbedWithMessageByID(embed, "botresponses.invalidsteamidorip", variables);
+				plugin.SendEmbedWithMessageByID(embed, "messages.invalidsteamidorip", variables);
 				return;
 			}
 
@@ -247,7 +247,7 @@ namespace SCPDiscord
 				{ "steamidorip", steamIDOrIP }
 			};
 			embed.Colour = EmbedMessage.Types.DiscordColour.Green;
-			plugin.SendEmbedWithMessageByID(embed, "botresponses.playerunbanned", unbanVars);
+			plugin.SendEmbedWithMessageByID(embed, "messages.playerunbanned", unbanVars);
 		}
 
 		/// <summary>
@@ -272,7 +272,7 @@ namespace SCPDiscord
 				{
 					{ "steamid", steamID }
 				};
-				plugin.SendEmbedWithMessageByID(embed, "botresponses.invalidsteamid", variables);
+				plugin.SendEmbedWithMessageByID(embed, "messages.invalidsteamid", variables);
 				return;
 			}
 
@@ -290,7 +290,7 @@ namespace SCPDiscord
 					{ "admintag", adminTag }
 				};
 				embed.Colour = EmbedMessage.Types.DiscordColour.Green;
-				plugin.SendEmbedWithMessageByID(embed, "botresponses.playerkicked", variables);
+				plugin.SendEmbedWithMessageByID(embed, "messages.playerkicked", variables);
 			}
 			else
 			{
@@ -298,7 +298,7 @@ namespace SCPDiscord
 				{
 					{ "steamid", steamID }
 				};
-				plugin.SendEmbedWithMessageByID(embed, "botresponses.playernotfound", variables);
+				plugin.SendEmbedWithMessageByID(embed, "messages.playernotfound", variables);
 			}
 		}
 
@@ -329,7 +329,7 @@ namespace SCPDiscord
 				Colour = EmbedMessage.Types.DiscordColour.Green,
 				ChannelID = channelID
 			};
-			plugin.SendEmbedWithMessageByID(embed, "botresponses.kickall", variables);
+			plugin.SendEmbedWithMessageByID(embed, "messages.kickall", variables);
 		}
 
 		/// <summary>

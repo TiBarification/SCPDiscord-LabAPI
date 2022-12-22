@@ -18,7 +18,7 @@ namespace SCPDiscord.Commands
 			/*
 			if (sender is Player admin)
 			{
-				if (!admin.HasPermission("scpdiscord.setnickname"))
+				if (!messages.HasPermission("scpdiscord.setnickname"))
 				{
 					return new[] { "You don't have permission to use that command." };
 				}

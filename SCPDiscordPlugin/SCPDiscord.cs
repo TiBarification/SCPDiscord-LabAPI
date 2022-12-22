@@ -191,13 +191,13 @@ namespace SCPDiscord
 		{
 			foreach (string channel in channelAliases)
 			{
-				if (Config.GetDict("aliases").ContainsKey(channel))
+				if (Config.GetDict("channels").ContainsKey(channel))
 				{
 					MessageWrapper wrapper = new MessageWrapper
 					{
 						ChatMessage = new ChatMessage
 						{
-							ChannelID = Config.GetDict("aliases")[channel],
+							ChannelID = Config.GetDict("channels")[channel],
 							Content = message
 						}
 					};
@@ -210,9 +210,9 @@ namespace SCPDiscord
 		{
 			foreach (string channel in channelAliases)
 			{
-				if (Config.GetDict("aliases").ContainsKey(channel))
+				if (Config.GetDict("channels").ContainsKey(channel))
 				{
-					message.ChannelID = Config.GetDict("aliases")[channel];
+					message.ChannelID = Config.GetDict("channels")[channel];
 					NetworkSystem.QueueMessage(new MessageWrapper { EmbedMessage = message });
 				}
 			}
@@ -239,36 +239,19 @@ namespace SCPDiscord
 		/// <summary>
 		/// Sends a message from the loaded language file.
 		/// </summary>
-		/// <param name="channelAliases">A collection of channel aliases, set in the config.</param>
+		/// <param name="channelAliases">A collection of channel channels, set in the config.</param>
 		/// <param name="messagePath">The language node of the message to send.</param>
 		/// <param name="variables">Variables to support in the message as key value pairs.</param>
-		public void SendMessage(IEnumerable<string> channelAliases, string messagePath, Dictionary<string, string> variables = null)
+		public void SendMessage(string messagePath, Dictionary<string, string> variables = null)
 		{
-			foreach (string channel in channelAliases)
-			{
-				if (Config.GetDict("aliases").ContainsKey(channel))
-				{
-					Thread messageThread = new Thread(() => new ProcessMessageAsync(Config.GetDict("aliases")[channel], messagePath, variables));
-					messageThread.Start();
-				}
-			}
+			Thread messageThread = new Thread(() => new ProcessMessageAsync(messagePath, variables));
+			messageThread.Start();
 		}
 
-		public void SendEmbedWithMessage(IEnumerable<string> channelAliases, string messagePath, EmbedMessage embed, Dictionary<string, string> variables = null)
+		public void SendEmbedWithMessage(string messagePath, EmbedMessage embed, Dictionary<string, string> variables = null)
 		{
-			foreach (string channel in channelAliases)
-			{
-				if (Config.GetDict("aliases").ContainsKey(channel))
-				{
-					// Create copy to avoid pointer issues
-					EmbedMessage embedCopy = new EmbedMessage(embed)
-					{
-						ChannelID = Config.GetDict("aliases")[channel]
-					};
-					Thread messageThread = new Thread(() => new ProcessEmbedMessageAsync(embedCopy, messagePath, variables));
-					messageThread.Start();
-				}
-			}
+			Thread messageThread = new Thread(() => new ProcessEmbedMessageAsync(embed, messagePath, variables));
+			messageThread.Start();
 		}
 
 		/// <summary>
@@ -279,12 +262,12 @@ namespace SCPDiscord
 		/// <param name="variables">Variables to support in the message as key value pairs.</param>
 		public void SendMessageByID(ulong channelID, string messagePath, Dictionary<string, string> variables = null)
 		{
-			new Thread(() => new ProcessMessageAsync(channelID, messagePath, variables)).Start();
+			new Thread(() => new ProcessMessageByIDAsync(channelID, messagePath, variables)).Start();
 		}
 
 		public void SendEmbedWithMessageByID(EmbedMessage embed, string messagePath, Dictionary<string, string> variables = null)
 		{
-			new Thread(() => new ProcessEmbedMessageAsync(embed, messagePath, variables)).Start();
+			new Thread(() => new ProcessEmbedMessageByIDAsync(embed, messagePath, variables)).Start();
 		}
 
 		/// <summary>

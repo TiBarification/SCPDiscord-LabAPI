@@ -44,11 +44,11 @@ namespace SCPDiscord.EventListeners
 
 				if (duration == 0)
 				{
-					plugin.SendMessage(Config.GetArray("channels.onkick.player"), "admin.onkick.player", variables);
+					plugin.SendMessage("messages.onkick.player", variables);
 				}
 				else
 				{
-					plugin.SendMessage(Config.GetArray("channels.onban.player"), "admin.onban.player", variables);
+					plugin.SendMessage("messages.onban.player", variables);
 				}
 			}
 			else
@@ -67,11 +67,11 @@ namespace SCPDiscord.EventListeners
 
 				if (duration == 0)
 				{
-					plugin.SendMessage(Config.GetArray("channels.onkick.server"), "admin.onkick.server", variables);
+					plugin.SendMessage("messages.onkick.server", variables);
 				}
 				else
 				{
-					plugin.SendMessage(Config.GetArray("channels.onban.server"), "admin.onban.server", variables);
+					plugin.SendMessage("messages.onban.server", variables);
 				}
 			}
 		}
@@ -96,7 +96,7 @@ namespace SCPDiscord.EventListeners
 				{ "issuerteam",             issuer.ReferenceHub.GetTeam().ToString() }
 			};
 
-			plugin.SendMessage(Config.GetArray("channels.onkick"), "admin.onkick", variables);
+			plugin.SendMessage("messages.onkick", variables);
 		}
 	}
 }

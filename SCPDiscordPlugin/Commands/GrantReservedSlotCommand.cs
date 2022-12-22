@@ -17,7 +17,7 @@ namespace SCPDiscord.Commands
 			/*
 			if (sender is Player admin)
 			{
-				if (!admin.HasPermission("scpdiscord.grantreservedslot"))
+				if (!messages.HasPermission("scpdiscord.grantreservedslot"))
 				{
 					return new[] { "You don't have permission to use that command." };
 				}

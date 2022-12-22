@@ -172,7 +172,7 @@ global_regex: [
 # Executes on the final version of the message, this is the only regex that affects player names
 final_regex: ["discord\\.gg":"","http":"","www\\.":"", "<@":"<", "<@!":"<!"]
 
-round:
+messages:
     onroundstart:
         message: "**Round started.**"
         regex: []
@@ -231,7 +231,6 @@ round:
         message: "**Server name: <var:servername>.**"
         regex: []
 
-environment:
     onscp914activate:
         # knobsetting - KnobSetting
         message: "SCP-914 has been activated on setting <var:knobsetting>."
@@ -293,7 +292,6 @@ environment:
         message: "Generator in <var:room> has been activated by <var:name> (<var:steamid>)."
         regex: [ ]
 
-player:
     onplayerhurt:
         # damage - float
         # damagetype - DamageType
@@ -1082,7 +1080,6 @@ player:
         message: "<var:name> (<var:steamid>) switched floor as SCP-079."
         regex: []
 
-admin:
     onban:
         player:
             # duration - int
@@ -1141,7 +1138,6 @@ admin:
             message: "Player <var:playername> (<var:playersteamid>) was kicked by the server. Reason: <var:reason>"
             regex: []
 
-team:
     onteamrespawn:
         # players - List<Player>
         # spawnchaos - bool
@@ -1165,15 +1161,12 @@ team:
 #                                                                                                                   #
 #####################################################################################################################
 
-botmessages:
     connectedtobot:
         message: "**SCP:SL server connected.**"
         regex: []
     reconnectedtobot:
         message: "**SCP:SL server reconnected.**"
         regex: []
-
-botresponses:
     missingarguments:
         # command - string
         message: "Missing arguments."
