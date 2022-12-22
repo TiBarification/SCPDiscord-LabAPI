@@ -38,7 +38,7 @@ namespace SCPDiscord.EventListeners
 					//{ "isresumed",      ev.IsResumed.ToString()                 },
 					//{ "timeleft",       ev.TimeLeft.ToString()                  }
 				};
-				this.plugin.SendMessage(Config.GetArray("channels.onstartcountdown.noplayer"), "environment.onstartcountdown.noplayer", vars);
+				plugin.SendMessage(Config.GetArray("channels.onstartcountdown.noplayer"), "environment.onstartcountdown.noplayer", vars);
 				return;
 			}
 
@@ -75,7 +75,7 @@ namespace SCPDiscord.EventListeners
 				{
 					//{ "timeleft",       ev.TimeLeft.ToString()                  }
 				};
-				this.plugin.SendMessage(Config.GetArray("channels.onstopcountdown.noplayer"), "environment.onstopcountdown.noplayer", variables);
+				plugin.SendMessage(Config.GetArray("channels.onstopcountdown.noplayer"), "environment.onstopcountdown.noplayer", variables);
 			}
 			else
 			{
@@ -89,7 +89,7 @@ namespace SCPDiscord.EventListeners
 					{ "class",       player.Role.ToString()                   },
 					{ "team",        player.ReferenceHub.GetTeam().ToString() }
 				};
-				this.plugin.SendMessage(Config.GetArray("channels.onstopcountdown.default"), "environment.onstopcountdown.default", variables);
+				plugin.SendMessage(Config.GetArray("channels.onstopcountdown.default"), "environment.onstopcountdown.default", variables);
 			}
 		}
 
@@ -102,7 +102,7 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent(ServerEventType.LczDecontaminationStart)]
 		public void OnDecontaminate()
 		{
-			this.plugin.SendMessage(Config.GetArray("channels.ondecontaminate"), "environment.ondecontaminate");
+			plugin.SendMessage(Config.GetArray("channels.ondecontaminate"), "environment.ondecontaminate");
 		}
 
 		/* TODO: [PluginEvent(ServerEventType)]

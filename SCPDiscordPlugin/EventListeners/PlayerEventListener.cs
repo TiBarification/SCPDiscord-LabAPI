@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using CommandSystem;
 using InventorySystem.Items;
 using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Pickups;
@@ -13,6 +14,7 @@ using PlayerStatsSystem;
 using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
+using RemoteAdmin;
 
 namespace SCPDiscord.EventListeners
 {
@@ -822,90 +824,182 @@ namespace SCPDiscord.EventListeners
 		*/
 
 		[PluginEvent(ServerEventType.RemoteAdminCommandExecuted)]
-		public void OnRemoteAdminCommand(Player player, string command, string[] args, string response)
+		public void OnRemoteAdminCommand(ICommandSender commandSender, string command, string[] args, bool result, string response)
 		{
-			Dictionary<string, string> variables = new Dictionary<string, string>
+			if (commandSender is PlayerCommandSender playerSender && Player.Get(playerSender.ReferenceHub) != null)
 			{
-				{ "command",                command + " " + string.Join(" ", args)   },
-				{ "returnmessage",          response                                 },
-				{ "ipaddress",              player.IpAddress                         },
-				{ "name",                   player.Nickname                          },
-				{ "playerid",               player.PlayerId.ToString()               },
-				{ "steamid",                player.GetParsedUserID()                 },
-				{ "class",                  player.Role.ToString()                   },
-				{ "team",                   player.ReferenceHub.GetTeam().ToString() }
-			};
-			plugin.SendMessage(Config.GetArray("channels.onexecutedcommand.remoteadmin"), "player.onexecutedcommand.remoteadmin", variables);
+				Player player = Player.Get(playerSender.ReferenceHub);
+				Dictionary<string, string> variables = new Dictionary<string, string>
+				{
+					{ "command",       command + " " + string.Join(" ", args)   },
+					{ "result",        result.ToString()                        },
+					{ "returnmessage", response                                 },
+					{ "ipaddress",     player.IpAddress                         },
+					{ "name",          player.Nickname                          },
+					{ "playerid",      player.PlayerId.ToString()               },
+					{ "steamid",       player.GetParsedUserID()                 },
+					{ "class",         player.Role.ToString()                   },
+					{ "team",          player.ReferenceHub.GetTeam().ToString() }
+				};
+				plugin.SendMessage(Config.GetArray("channels.onexecutedcommand.remoteadmin.player"), "player.onexecutedcommand.remoteadmin.player", variables);
+			}
+			else
+			{
+				Dictionary<string, string> variables = new Dictionary<string, string>
+				{
+					{ "command",       command + " " + string.Join(" ", args)   },
+					{ "result",        result.ToString()                        },
+					{ "returnmessage", response                                 }
+				};
+				plugin.SendMessage(Config.GetArray("channels.onexecutedcommand.remoteadmin.server"), "player.onexecutedcommand.remoteadmin.server", variables);
+			}
 		}
 
 		[PluginEvent(ServerEventType.PlayerGameConsoleCommandExecuted)]
 		public void OnGameConsoleCommand(Player player, string command, string[] args, string response)
 		{
-			Dictionary<string, string> variables = new Dictionary<string, string>
+			if (player != null && player.PlayerId != Server.Instance.PlayerId)
 			{
-				{ "command",                command + " " + string.Join(" ", args)   },
-				{ "returnmessage",          response                                 },
-				{ "ipaddress",              player.IpAddress                         },
-				{ "name",                   player.Nickname                          },
-				{ "playerid",               player.PlayerId.ToString()               },
-				{ "steamid",                player.GetParsedUserID()                 },
-				{ "class",                  player.Role.ToString()                   },
-				{ "team",                   player.ReferenceHub.GetTeam().ToString() }
-			};
-			plugin.SendMessage(Config.GetArray("channels.onexecutedcommand.game"), "player.onexecutedcommand.game", variables);
+				Dictionary<string, string> variables = new Dictionary<string, string>
+				{
+					{ "command",       command + " " + string.Join(" ", args)   },
+					//{ "result",        result.ToString()                        },
+					{ "returnmessage", response                                 },
+					{ "ipaddress",     player.IpAddress                         },
+					{ "name",          player.Nickname                          },
+					{ "playerid",      player.PlayerId.ToString()               },
+					{ "steamid",       player.GetParsedUserID()                 },
+					{ "class",         player.Role.ToString()                   },
+					{ "team",          player.ReferenceHub.GetTeam().ToString() }
+				};
+				plugin.SendMessage(Config.GetArray("channels.onexecutedcommand.game.player"), "player.onexecutedcommand.game.player", variables);
+			}
+			else
+			{
+				Dictionary<string, string> variables = new Dictionary<string, string>
+				{
+					{ "command",       command + " " + string.Join(" ", args) },
+					//{ "result",        result.ToString()                      },
+					{ "returnmessage", response                               }
+				};
+				plugin.SendMessage(Config.GetArray("channels.onexecutedcommand.game.server"), "player.onexecutedcommand.game.server", variables);
+			}
 		}
 
 		[PluginEvent(ServerEventType.ConsoleCommandExecuted)]
-		public void OnConsoleCommand(string command, string[] args, string response)
+		public void OnConsoleCommand(ICommandSender commandSender, string command, string[] args, bool result, string response)
 		{
-			Dictionary<string, string> variables = new Dictionary<string, string>
+			if (commandSender is PlayerCommandSender playerSender && Player.Get(playerSender.ReferenceHub) != null)
 			{
-				{ "command",                command + " " + string.Join(" ", args)   },
-				{ "returnmessage",          response                         }
-			};
-			plugin.SendMessage(Config.GetArray("channels.onexecutedcommand.console"), "player.onexecutedcommand.console", variables);
+				Player player = Player.Get(playerSender.ReferenceHub);
+				Dictionary<string, string> variables = new Dictionary<string, string>
+				{
+					{ "command",       command + " " + string.Join(" ", args)   },
+					{ "result",        result.ToString()                        },
+					{ "ipaddress",     player.IpAddress                         },
+					{ "name",          player.Nickname                          },
+					{ "playerid",      player.PlayerId.ToString()               },
+					{ "steamid",       player.GetParsedUserID()                 },
+					{ "class",         player.Role.ToString()                   },
+					{ "team",          player.ReferenceHub.GetTeam().ToString() },
+					{ "result",        result.ToString()                        },
+					{ "returnmessage", response                                 }
+				};
+				plugin.SendMessage(Config.GetArray("channels.onexecutedcommand.console.player"), "player.onexecutedcommand.console.player", variables);
+			}
+			else
+			{
+				Dictionary<string, string> variables = new Dictionary<string, string>
+				{
+					{ "command",       command + " " + string.Join(" ", args)   },
+					{ "result",        result.ToString()                        },
+					{ "returnmessage", response                                 }
+				};
+				plugin.SendMessage(Config.GetArray("channels.onexecutedcommand.console.server"), "player.onexecutedcommand.console.server", variables);
+			}
 		}
 
 		[PluginEvent(ServerEventType.RemoteAdminCommand)]
-		public void OnRemoteAdminCommand(Player player, string command, string[] args)
+		public void OnRemoteAdminCommand(ICommandSender commandSender, string command, string[] args)
 		{
-			Dictionary<string, string> variables = new Dictionary<string, string>
+			if (commandSender is PlayerCommandSender playerSender && Player.Get(playerSender.ReferenceHub) != null)
 			{
-				{ "command",                command + " " + string.Join(" ", args)   },
-				{ "ipaddress",              player.IpAddress                         },
-				{ "name",                   player.Nickname                          },
-				{ "playerid",               player.PlayerId.ToString()               },
-				{ "steamid",                player.GetParsedUserID()                 },
-				{ "class",                  player.Role.ToString()                   },
-				{ "team",                   player.ReferenceHub.GetTeam().ToString() }
-			};
-			plugin.SendMessage(Config.GetArray("channels.oncallcommand.remoteadmin"), "player.oncallcommand.remoteadmin", variables);
+				Player player = Player.Get(playerSender.ReferenceHub);
+				Dictionary<string, string> variables = new Dictionary<string, string>
+				{
+					{ "command",   command + " " + string.Join(" ", args)   },
+					{ "ipaddress", player.IpAddress                         },
+					{ "name",      player.Nickname                          },
+					{ "playerid",  player.PlayerId.ToString()               },
+					{ "steamid",   player.GetParsedUserID()                 },
+					{ "class",     player.Role.ToString()                   },
+					{ "team",      player.ReferenceHub.GetTeam().ToString() }
+				};
+				plugin.SendMessage(Config.GetArray("channels.oncallcommand.remoteadmin.player"), "player.oncallcommand.remoteadmin.player", variables);
+			}
+			else
+			{
+				Dictionary<string, string> variables = new Dictionary<string, string>
+				{
+					{ "command",   command + " " + string.Join(" ", args)   }
+				};
+				plugin.SendMessage(Config.GetArray("channels.oncallcommand.remoteadmin.server"), "player.oncallcommand.remoteadmin.server", variables);
+			}
 		}
 
 		[PluginEvent(ServerEventType.PlayerGameConsoleCommand)]
 		public void OnGameConsoleCommand(Player player, string command, string[] args)
 		{
-			Dictionary<string, string> variables = new Dictionary<string, string>
+			if (player != null && player.PlayerId != Server.Instance.PlayerId)
 			{
-				{ "command",                command + " " + string.Join(" ", args)   },
-				{ "ipaddress",              player.IpAddress                         },
-				{ "name",                   player.Nickname                          },
-				{ "playerid",               player.PlayerId.ToString()               },
-				{ "steamid",                player.GetParsedUserID()                 },
-				{ "class",                  player.Role.ToString()                   },
-				{ "team",                   player.ReferenceHub.GetTeam().ToString() }
-			};
-			plugin.SendMessage(Config.GetArray("channels.oncallcommand.game"), "player.oncallcommand.game", variables);
+				Dictionary<string, string> variables = new Dictionary<string, string>
+				{
+					{ "command",   command + " " + string.Join(" ", args)   },
+					{ "ipaddress", player.IpAddress                         },
+					{ "name",      player.Nickname                          },
+					{ "playerid",  player.PlayerId.ToString()               },
+					{ "steamid",   player.GetParsedUserID()                 },
+					{ "class",     player.Role.ToString()                   },
+					{ "team",      player.ReferenceHub.GetTeam().ToString() }
+				};
+				plugin.SendMessage(Config.GetArray("channels.oncallcommand.game.player"), "player.oncallcommand.game.player", variables);
+			}
+			else
+			{
+				Dictionary<string, string> variables = new Dictionary<string, string>
+				{
+					{ "command",   command + " " + string.Join(" ", args)   }
+				};
+				plugin.SendMessage(Config.GetArray("channels.oncallcommand.game.server"), "player.oncallcommand.game.server", variables);
+			}
 		}
 
 		[PluginEvent(ServerEventType.ConsoleCommand)]
-		public void OnConsoleCommand(string command, string[] args)
+		public void OnConsoleCommand(ICommandSender commandSender, string command, string[] args)
 		{
-			Dictionary<string, string> variables = new Dictionary<string, string>
+			if (commandSender is PlayerCommandSender playerSender && Player.Get(playerSender.ReferenceHub) != null)
 			{
-				{ "command",                command + " " + string.Join(" ", args)   }
-			};
-			plugin.SendMessage(Config.GetArray("channels.oncallcommand.console"), "player.oncallcommand.console", variables);
+				Player player = Player.Get(playerSender.ReferenceHub);
+				Dictionary<string, string> variables = new Dictionary<string, string>
+				{
+					{ "command",   command + " " + string.Join(" ", args)   },
+					{ "ipaddress", player.IpAddress                         },
+					{ "name",      player.Nickname                          },
+					{ "playerid",  player.PlayerId.ToString()               },
+					{ "steamid",   player.GetParsedUserID()                 },
+					{ "class",     player.Role.ToString()                   },
+					{ "team",      player.ReferenceHub.GetTeam().ToString() }
+				};
+				plugin.SendMessage(Config.GetArray("channels.oncallcommand.console.player"), "player.oncallcommand.console.player", variables);
+			}
+			else
+			{
+				Dictionary<string, string> variables = new Dictionary<string, string>
+				{
+					{ "command", command + " " + string.Join(" ", args)   }
+				};
+				plugin.SendMessage(Config.GetArray("channels.oncallcommand.console.server"), "player.oncallcommand.console.server", variables);
+			}
 		}
 
 		[PluginEvent(ServerEventType.PlayerReloadWeapon)]
@@ -985,7 +1079,6 @@ namespace SCPDiscord.EventListeners
 			};
 			plugin.SendMessage(Config.GetArray("channels.ongeneratorunlock"), "player.ongeneratorunlock", variables);
 		}
-
 
 		[PluginEvent(ServerEventType.PlayerOpenGenerator)]
 		public void OnGeneratorOpen(Player player, Scp079Generator generator)

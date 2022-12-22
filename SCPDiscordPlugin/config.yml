@@ -148,13 +148,25 @@ channels:
     onplayerradioswitch: []
     onrecallzombie: []
     oncallcommand:
-        remoteadmin: [ "staff" ]
-        game: [ "staff" ]
-        console: [ "staff" ]
+        remoteadmin:
+            player: [ "staff" ]
+            server: [ "staff" ]
+        game:
+            player: [ "staff" ]
+            server: [ "staff" ]
+        console:
+            player: [ "staff" ]
+            server: [ "staff" ]
     onexecutedcommand:
-        remoteadmin: [ "staff" ]
-        game: [ "staff" ]
-        console: [ "staff" ]
+        remoteadmin:
+            player: [ "staff" ]
+            server: [ "staff" ]
+        game:
+            player: [ "staff" ]
+            server: [ "staff" ]
+        console:
+            player: [ "staff" ]
+            server: [ "staff" ]
     onreload: []
     ongrenadeexplosion: []
     ongrenadehitplayer: []
@@ -183,10 +195,13 @@ channels:
     on079elevatorteleport: []
 
     # Admin events
-    onadminquery: [ "staff" ]
-    onauthcheck: [ "staff" ]
-    onban: [ "default", "staff" ]
-    onkick: [ "default", "staff" ]
+    onban:
+        player: [ "default", "staff" ]
+        server: [ "default", "staff" ]
+    onkick:
+        player: [ "default", "staff" ]
+        server: [ "default", "staff" ]
+
 
     # Team events
     onteamrespawn:
