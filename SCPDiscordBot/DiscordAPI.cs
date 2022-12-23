@@ -28,18 +28,18 @@ namespace SCPDiscord
 
 				instance = new DiscordAPI();
 
-				// Check if token is unset
-				if (ConfigParser.config.bot.token == "add-your-token-here" || ConfigParser.config.bot.token == "")
-				{
-					Logger.Fatal("You need to set your bot token in the config and start the bot again.", LogID.CONFIG);
-					throw new ArgumentException("Invalid Discord bot token");
-				}
-
 				// Checking log level
 				if (!Enum.TryParse(ConfigParser.config.bot.logLevel, true, out LogLevel logLevel))
 				{
 					Logger.Warn("Log level '" + ConfigParser.config.bot.logLevel + "' invalid, using 'Information' instead.", LogID.CONFIG);
 					logLevel = LogLevel.Information;
+				}
+
+				// Check if token is unset
+				if (ConfigParser.config.bot.token == "add-your-token-here" || ConfigParser.config.bot.token == "")
+				{
+					Logger.Fatal("You need to set your bot token in the config and start the bot again.", LogID.CONFIG);
+					throw new ArgumentException("Discord bot token has not been set in config");
 				}
 
 				// Setting up client configuration
@@ -49,11 +49,13 @@ namespace SCPDiscord
 					TokenType = TokenType.Bot,
 					MinimumLogLevel = logLevel,
 					AutoReconnect = true,
-					Intents = DiscordIntents.AllUnprivileged,
+					Intents = DiscordIntents.AllUnprivileged | DiscordIntents.MessageContents,
 					LogTimestampFormat = "yyyy-MM-dd HH:mm:ss"
 				};
 
 				client = new DiscordClient(cfg);
+
+				ConfigParser.PrintConfig();
 
 				Logger.Log("Registering commands...", LogID.DISCORD);
 				instance.commands = client.UseCommandsNext(new CommandsNextConfiguration
