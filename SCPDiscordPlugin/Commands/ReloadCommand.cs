@@ -23,7 +23,12 @@ namespace SCPDiscord.Commands
 			*/
 
 			SCPDiscord.plugin.Info("Reloading plugin...");
-			SCPDiscord.plugin.LoadConfig();
+			if (!SCPDiscord.plugin.LoadConfig())
+			{
+				response = "Reload failed.";
+				return true;
+			}
+
 			Language.Reload();
 			SCPDiscord.plugin.roleSync.Reload();
 			if (NetworkSystem.IsConnected())

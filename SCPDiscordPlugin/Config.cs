@@ -12,6 +12,11 @@ namespace SCPDiscord
 {
 	public static class Config
 	{
+		public class ConfigParseException : Exception
+		{
+			public ConfigParseException(Exception e) : base(e.Message, e) { }
+		}
+
 		public static bool ready;
 
 		private static readonly Dictionary<string, string> configStrings = new Dictionary<string, string>
@@ -234,10 +239,10 @@ namespace SCPDiscord
 				{
 					plugin.Warn("Config string '" + node.Key + "' not found, using default value: \"" + node.Value + "\"");
 				}
-				catch (Exception)
+				catch (Exception e)
 				{
-					plugin.Error("Reading config string '" + node.Key + "' failed!");
-					throw;
+					plugin.Error("Reading config string '" + node.Key + "' failed: " + e.Message);
+					throw new ConfigParseException(e);
 				}
 			}
 
@@ -253,10 +258,10 @@ namespace SCPDiscord
 				{
 					plugin.Warn("Config int '" + node.Key + "' not found, using default value: \"" + node.Value + "\"");
 				}
-				catch (Exception)
+				catch (Exception e)
 				{
-					plugin.Error("Reading config int '" + node.Key + "' failed!");
-					throw;
+					plugin.Error("Reading config int '" + node.Key + "' failed: " + e.Message);
+					throw new ConfigParseException(e);
 				}
 			}
 
@@ -272,10 +277,10 @@ namespace SCPDiscord
 				{
 					plugin.Warn("Config bool '" + node.Key + "' not found, using default value: " + node.Value);
 				}
-				catch (Exception)
+				catch (Exception e)
 				{
-					plugin.Error("Reading config bool '" + node.Key + "' failed!");
-					throw;
+					plugin.Error("Reading config bool '" + node.Key + "' failed: " + e.Message);
+					throw new ConfigParseException(e);
 				}
 			}
 
@@ -292,10 +297,10 @@ namespace SCPDiscord
 				{
 					plugin.Warn("Config array '" + node.Key + "' not found, using default value: []");
 				}
-				catch (Exception)
+				catch (Exception e)
 				{
-					plugin.Error("Reading config arrays '" + node.Key + "' failed!");
-					throw;
+					plugin.Error("Reading config arrays '" + node.Key + "' failed: " + e.Message);
+					throw new ConfigParseException(e);
 				}
 			}
 
@@ -311,10 +316,10 @@ namespace SCPDiscord
 				{
 					plugin.Warn("Config dictionary '" + node.Key + "' not found, using default value: []");
 				}
-				catch (Exception)
+				catch (Exception e)
 				{
-					plugin.Error("Reading config dict '" + node.Key + "' failed!");
-					throw;
+					plugin.Error("Reading config dict '" + node.Key + "' failed: " + e.Message);
+					throw new ConfigParseException(e);
 				}
 			}
 

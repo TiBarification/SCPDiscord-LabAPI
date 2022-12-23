@@ -53,7 +53,9 @@ namespace SCPDiscord
 			EventManager.RegisterEvents(this, new EnvironmentEventListener(this));
 			EventManager.RegisterEvents(this, new TeamEventListener(this));
 
-			LoadConfig();
+			if (!LoadConfig())
+				return;
+
 			roleSync = new RoleSync(this);
 			if (Server.Port == Config.GetInt("bot.port"))
 			{
@@ -79,12 +81,13 @@ namespace SCPDiscord
 		/// <summary>
 		/// Loads all config options from the plugin config file.
 		/// </summary>
-		public void LoadConfig()
+		public bool LoadConfig()
 		{
 			try
 			{
 				Config.Reload(plugin);
 				Info("Successfully loaded config '" + Config.GetConfigPath() + "'.");
+				return true;
 			}
 			catch (Exception e)
 			{
@@ -104,8 +107,16 @@ namespace SCPDiscord
 				{
 					Error("'" + Config.GetConfigPath() + "' formatting error.");
 				}
-				Error("Error reading config file '" + Config.GetConfigPath() + "'. Aborting startup.\n" + e);
+				else if (e is Config.ConfigParseException)
+				{
+					Error("Formatting issue in config file '" + Config.GetConfigPath() + "'. Aborting startup.");
+				}
+				else
+				{
+					Error("Error reading config file '" + Config.GetConfigPath() + "'. Aborting startup.\n" + e);
+				}
 			}
+			return false;
 		}
 
 		public void OnDisable()
