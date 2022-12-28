@@ -449,9 +449,9 @@ namespace SCPDiscord
 				{
 					BotActivity = new BotActivity
 					{
-						StatusType = Player.Count <= 1 ? BotActivity.Types.Status.Idle : BotActivity.Types.Status.Online,
+						StatusType = Player.Count <= 0 ? BotActivity.Types.Status.Idle : BotActivity.Types.Status.Online,
 						ActivityType = BotActivity.Types.Activity.Playing,
-						ActivityText = Math.Max(0, Player.Count - 1) + " / " + Server.MaxPlayers
+						ActivityText = Math.Max(0, Player.Count) + " / " + Server.MaxPlayers
 					}
 				};
 
