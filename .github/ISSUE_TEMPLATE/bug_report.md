@@ -23,5 +23,4 @@ If applicable, add screenshots to help explain your problem.
 **Setup (please complete the following information):**
  - OS: [e.g. Ubuntu 18.04]
  - Version: [e.g. 1.1.0-C]
- - Smod Version: [e.g. 3.4.1]
- - MultiAdmin version: [e.g. 3.2.0]
+ - API Version: [e.g. 12.0.0-rc5]
