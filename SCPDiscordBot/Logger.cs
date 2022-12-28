@@ -24,7 +24,7 @@ namespace SCPDiscord
 			{ LogID.DISCORD, new EventId(504, "Discord") },
 		};
 
-		public static void Debug(string message, LogID logID)
+		public static void Debug(string message, LogID logID = LogID.GENERAL)
 		{
 			try
 			{
@@ -36,7 +36,7 @@ namespace SCPDiscord
 			}
 		}
 
-		public static void Log(string message, LogID logID)
+		public static void Log(string message, LogID logID = LogID.GENERAL)
 		{
 			try
 			{
@@ -48,7 +48,7 @@ namespace SCPDiscord
 			}
 		}
 
-		public static void Warn(string message, LogID logID)
+		public static void Warn(string message, LogID logID = LogID.GENERAL)
 		{
 			try
 			{
@@ -60,7 +60,7 @@ namespace SCPDiscord
 			}
 		}
 
-		public static void Error(string message, LogID logID)
+		public static void Error(string message, LogID logID = LogID.GENERAL)
 		{
 			try
 			{
@@ -72,7 +72,7 @@ namespace SCPDiscord
 			}
 		}
 
-		public static void Fatal(string message, LogID logID)
+		public static void Fatal(string message, LogID logID = LogID.GENERAL)
 		{
 			try
 			{

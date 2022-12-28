@@ -43,16 +43,25 @@ namespace SCPDiscord
 
 		public static Config config = null;
 
+		public static string configPath = "config.yml";
+
 		public static void LoadConfig()
 		{
-			// Writes default config to file if it does not already exist
-			if (!File.Exists("./config.yml"))
+			if (SCPDiscordBot.commandlineArguments.Length > 0)
 			{
-				File.WriteAllText("./config.yml", Encoding.UTF8.GetString(Resources.default_config));
+				configPath = SCPDiscordBot.commandlineArguments[0];
+			}
+
+			Logger.Log("Loading config \"" + Path.GetFullPath(configPath) + "\"", LogID.CONFIG);
+
+			// Writes default config to file if it does not already exist
+			if (!File.Exists(configPath))
+			{
+				File.WriteAllText(configPath, Encoding.UTF8.GetString(Resources.default_config));
 			}
 
 			// Reads config contents into FileStream
-			FileStream stream = File.OpenRead("./config.yml");
+			FileStream stream = File.OpenRead(configPath);
 
 			// Converts the FileStream into a YAML object
 			IDeserializer deserializer = new DeserializerBuilder().WithNamingConvention(HyphenatedNamingConvention.Instance).Build();

@@ -10,9 +10,11 @@ namespace SCPDiscord
 	{
 		public static SCPDiscordBot instance;
 		public static bool discordConnected = false;
+		public static string[] commandlineArguments;
 
 		public static void Main(string[] args)
 		{
+			commandlineArguments = args;
 			new SCPDiscordBot().MainAsync().GetAwaiter().GetResult();
 		}
 
@@ -41,8 +43,14 @@ namespace SCPDiscord
 			ConfigParser.loaded = false;
 			NetworkSystem.ShutDown();
 
-			Logger.Log("Loading config \"" + Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar + "config.yml\"", LogID.CONFIG);
-			ConfigParser.LoadConfig();
+			try
+			{
+				ConfigParser.LoadConfig();
+			}
+			catch (Exception e)
+			{
+				Logger.Fatal("Error loading config!\n" + e);
+			}
 
 			await DiscordAPI.Reset();
 
