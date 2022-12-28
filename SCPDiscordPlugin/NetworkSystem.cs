@@ -445,13 +445,19 @@ namespace SCPDiscord
 			// Update player count
 			if (Config.GetBool("settings.playercount"))
 			{
+				Dictionary<string, string> variables = new Dictionary<string, string>
+				{
+					{ "players",    Math.Max(0, Player.Count).ToString() },
+					{ "maxplayers", Server.MaxPlayers.ToString()         }
+				};
+
 				MessageWrapper wrapper = new MessageWrapper
 				{
 					BotActivity = new BotActivity
 					{
 						StatusType = Player.Count <= 0 ? BotActivity.Types.Status.Idle : BotActivity.Types.Status.Online,
 						ActivityType = BotActivity.Types.Activity.Playing,
-						ActivityText = Math.Max(0, Player.Count) + " / " + Server.MaxPlayers
+						ActivityText = GetProcessedMessage("messages.botstatus", variables)
 					}
 				};
 

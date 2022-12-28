@@ -402,7 +402,7 @@ namespace SCPDiscord
 		/// <returns>True if a possible SteamID, false if not.</returns>
 		private static bool IsPossibleSteamID(string steamID)
 		{
-			return steamID.Length == 17 && ulong.TryParse(steamID, out ulong _);
+			return steamID.Length >= 17 && ulong.TryParse(steamID, out ulong _);
 		}
 	}
 }

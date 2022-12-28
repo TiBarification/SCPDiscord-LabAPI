@@ -159,15 +159,16 @@ namespace SCPDiscord
 
 		private static readonly List<string> languageOnlyNodes = new List<string>
 		{
-			"responses.invalidsteamid",
-			"responses.invalidduration",
-			"responses.playerbanned",
-			"responses.consolecommandfeedback",
-			"responses.invalidsteamidorip",
-			"responses.playerunbanned",
-			"responses.playerkicked",
-			"responses.playernotfound",
-			"responses.kickall"
+			"messages.botstatus",
+			"messages.invalidsteamid",
+			"messages.invalidduration",
+			"messages.playerbanned",
+			"messages.consolecommandfeedback",
+			"messages.invalidsteamidorip",
+			"messages.playerunbanned",
+			"messages.playerkicked",
+			"messages.playernotfound",
+			"messages.kickall"
 		};
 
 		public static readonly List<string> languageNodes = configAndLanguageNodes.Concat(languageOnlyNodes).ToList();
