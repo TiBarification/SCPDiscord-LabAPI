@@ -8,7 +8,7 @@ Prereleases: https://github.com/KarlOfDuty/SCPDiscord/releases
 
 ## Guides
 
-- [Installation](docs/Installation.md) (Outdated Smod version)
+- [Installation](docs/Installation.md)
 
 - [Editing messages and languages](docs/Languages.md)
 
