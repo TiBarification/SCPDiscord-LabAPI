@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using LiteNetLib;
+using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
 
@@ -34,37 +37,39 @@ namespace SCPDiscord.EventListeners
 			plugin.SendMessage("messages.onconnect", variables);
 		}
 
-		/*
 		[PluginEvent(ServerEventType.RoundEnd)]
-		public void OnRoundEnd(RoundEndEvent ev)
+		public void OnRoundEnd(RoundSummary.LeadingTeam leadingTeam)
 		{
-			if (this.plugin.roundStarted && ev.Round.Duration > 60)
+			if (plugin.roundStarted && new TimeSpan(DateTime.Now.Ticks - Statistics.CurrentRound.StartTimestamp.Ticks).TotalSeconds > 60)
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "duration",          (ev.Round.Duration/60).ToString()            },
-					{ "dclassalive",        ev.Round.Stats.DClassAlive.ToString()       },
-					{ "dclassdead",         ev.Round.Stats.DClassDead.ToString()        },
-					{ "dclassescaped",      ev.Round.Stats.DClassEscaped.ToString()     },
-					{ "dclassstart",        ev.Round.Stats.DClassStart.ToString()       },
-					{ "mtfalive",           ev.Round.Stats.MTFAlive.ToString()          },
-					{ "scientistsalive",    ev.Round.Stats.ScientistsAlive.ToString()   },
-					{ "scientistsdead",     ev.Round.Stats.ScientistsDead.ToString()    },
-					{ "scientistsescaped",  ev.Round.Stats.ScientistsEscaped.ToString() },
-					{ "scientistsstart",    ev.Round.Stats.ScientistsStart.ToString()   },
-					{ "scpalive",           ev.Round.Stats.SCPAlive.ToString()          },
-					{ "scpdead",            ev.Round.Stats.SCPDead.ToString()           },
-					{ "scpkills",           ev.Round.Stats.SCPKills.ToString()          },
-					{ "scpstart",           ev.Round.Stats.SCPStart.ToString()          },
-					{ "warheaddetonated",   ev.Round.Stats.WarheadDetonated.ToString()  },
-					{ "zombies",            ev.Round.Stats.Zombies.ToString()           }
+					{ "duration",          (new TimeSpan(DateTime.Now.Ticks - Statistics.CurrentRound.StartTimestamp.Ticks).TotalSeconds / 60).ToString("0") },
+					{ "leadingteam",        leadingTeam.ToString()                               },
+					{ "dclassalive",        Statistics.CurrentRound.ClassDAlive.ToString()       },
+					{ "dclassdead",         Statistics.CurrentRound.ClassDDead.ToString()        },
+					{ "dclassescaped",      Statistics.CurrentRound.ClassDEscaped.ToString()     },
+					{ "dclassstart",        Statistics.CurrentRound.ClassDStart.ToString()       },
+					{ "mtfalive",           Statistics.CurrentRound.MtfAndGuardsAlive.ToString() },
+					{ "mtfdead",            Statistics.CurrentRound.MtfAndGuardsDead.ToString()  },
+					{ "mtfstart",           Statistics.CurrentRound.MtfAndGuardsStart.ToString() },
+					{ "scientistsalive",    Statistics.CurrentRound.ScientistsAlive.ToString()   },
+					{ "scientistsdead",     Statistics.CurrentRound.ScientistsDead.ToString()    },
+					{ "scientistsescaped",  Statistics.CurrentRound.ScientistsEscaped.ToString() },
+					{ "scientistsstart",    Statistics.CurrentRound.ScientistsStart.ToString()   },
+					{ "scpalive",           Statistics.CurrentRound.ScpsAlive.ToString()         },
+					{ "scpdead",            Statistics.CurrentRound.ScpsDead.ToString()          },
+					{ "scpkills",           Statistics.CurrentRound.TotalScpKills.ToString()     },
+					{ "scpstart",           Statistics.CurrentRound.ScpsStart.ToString()         },
+					//{ "warheaddetonated",   Statistics.CurrentRound.WarheadDetonated.ToString()  },
+					{ "warheadkills",       Statistics.CurrentRound.WarheadKills.ToString()      },
+					{ "zombiesalive",       Statistics.CurrentRound.ZombiesAlive.ToString()      },
+					{ "zombieschanged",     Statistics.CurrentRound.ZombiesChanged.ToString()    }
 				};
-				this.plugin.SendMessage(Config.GetArray("messages.onroundend"), "messages.onroundend", variables);
-				this.plugin.roundStarted = false;
+				plugin.SendMessage("messages.onroundend", variables);
+				plugin.roundStarted = false;
 			}
 		}
-		*/
-
 
 		[PluginEvent(ServerEventType.WaitingForPlayers)]
 		public void OnWaitingForPlayers()

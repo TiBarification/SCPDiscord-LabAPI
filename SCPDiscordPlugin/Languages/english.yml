@@ -190,16 +190,16 @@ messages:
         # name - string
         message: "**<var:name> (<var:steamid>) left the game.**"
         regex: []
-    oncheckroundend:
-        message: "Checking if round has ended..."
-        regex: []
     onroundend:
         # duration - int
+        # leadingteam -string
         # dclassalive - int
         # dclassdead - int
         # dclassescaped - int
         # dclassstart - int
         # mtfalive - int
+        # mtfdead - int
+        # mtfstart - int
         # scientistsalive - int
         # scientistsdead - int
         # scientistsescaped - int
@@ -209,7 +209,9 @@ messages:
         # scpkills - int
         # scpstart - int
         # warheaddetonated - bool
-        # zombies - int
+        # warheadkills - int
+        # zombiesalive - int
+        # zombieschanged - int
         message: >+
             **Round ended after <var:duration> minutes.**
             ```
@@ -217,9 +219,8 @@ messages:
             Rescued Scientists:         <var:scientistsescaped>/<var:scientistsstart>\n
             Contained SCPs:             <var:scpdead>/<var:scpstart>\n
             Killed by SCP:              <var:scpkills>\n
-            Warhead switchwas<var:warheaddetonated> detonated.
             ```
-        regex: ["switchwasTrue":"was","switchwasFalse":"was not"]
+        regex: []
     onwaitingforplayers:
         message: "**Server is ready and waiting for players.**"
         regex: []
@@ -463,18 +464,6 @@ messages:
         denied:
             message: "<var:name> (<var:steamid>) tried to isopen:<var:open> a locked door (<var:doorname>) requiring the permission <var:permission>."
             regex: ["isopen:True":"close", "isopen:False":"open"," requiring the permission .":"."]
-    onintercom:
-        # This is not recommended to use outside of debugging
-        # cooldowntime - float
-        # speechtime - float
-        # ipaddress - string
-        # name - string
-        # playerid - int
-        # steamid - string
-        # class - Role
-        # team - Team
-        message: "<var:name> (<var:steamid>) is using the intercom."
-        regex: []
     onpocketdimensionexit:
         # ipaddress - string
         # name - string
