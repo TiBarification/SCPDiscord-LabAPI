@@ -423,7 +423,7 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent(ServerEventType.PlayerSpawn)]
 		public void OnSpawn(Player player, RoleTypeId role)
 		{
-			if (player == null || player.UserId == "server") return;
+			if (player == null || player.UserId == "server" || role == RoleTypeId.None) return;
 
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
@@ -431,7 +431,7 @@ namespace SCPDiscord.EventListeners
 				{ "name",           player.Nickname                          },
 				{ "playerid",       player.PlayerId.ToString()               },
 				{ "steamid",        player.GetParsedUserID()                 },
-				{ "class",          player.Role.ToString()                   },
+				{ "class",          role.ToString()                   },
 				{ "team",           player.ReferenceHub.GetTeam().ToString() }
 			};
 
