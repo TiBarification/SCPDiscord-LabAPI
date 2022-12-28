@@ -34,6 +34,8 @@ settings:
     useglobaldirectory:
         language: true
         rolesync: true
+    # Always replace language files when the plugin starts, use this if you do not edit the language files and want to keep them up to date automatically (does not affect overrides.yml)
+    regeneratelanguagefiles: true
 
 # Sets commands which are run whenever someone with a synced Discord rank joins the server, only the highest one in the list that matches the player is executed
 # Valid variables:

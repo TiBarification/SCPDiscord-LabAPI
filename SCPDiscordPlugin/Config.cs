@@ -29,14 +29,15 @@ namespace SCPDiscord
 
 		private static readonly Dictionary<string, bool> configBools = new Dictionary<string, bool>
 		{
-			{ "settings.playercount",       true           },
-			{ "settings.verbose",           true           },
-			{ "settings.debug",             true           },
-			{ "settings.metrics",           true           },
-			{ "settings.configvalidation",  true           },
-			{ "settings.rolesync",          false          },
-			{ "settings.useglobaldirectory.language", true },
-			{ "settings.useglobaldirectory.rolesync", true }
+			{ "settings.playercount",                 true  },
+			{ "settings.verbose",                     true  },
+			{ "settings.debug",                       true  },
+			{ "settings.metrics",                     true  },
+			{ "settings.configvalidation",            true  },
+			{ "settings.rolesync",                    false },
+			{ "settings.useglobaldirectory.language", true  },
+			{ "settings.useglobaldirectory.rolesync", true  },
+			{ "settings.regeneratelanguagefiles",     false }
 		};
 
 		private static readonly Dictionary<string, int> configInts = new Dictionary<string, int>

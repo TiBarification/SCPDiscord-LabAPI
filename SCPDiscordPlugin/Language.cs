@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using PluginAPI.Core;
 using YamlDotNet.Core;
 using YamlDotNet.Serialization;
 
@@ -18,12 +19,14 @@ namespace SCPDiscord
 
 		private static JObject primary;
 		private static JObject backup;
+		private static JObject overrides;
 
 		private static string languagesPath = Config.GetLanguageDir();
 
 		// All default languages included in the .dll
 		private static readonly Dictionary<string, string> defaultLanguages = new Dictionary<string, string>
 		{
+			{ "overrides",          Encoding.UTF8.GetString(Resources.overrides)          },
 			{ "english",            Encoding.UTF8.GetString(Resources.english)          },
 			{ "russian",            Encoding.UTF8.GetString(Resources.russian)          },
 			{ "french",             Encoding.UTF8.GetString(Resources.french)           },
@@ -56,7 +59,7 @@ namespace SCPDiscord
 			plugin.Info("Loading primary language file...");
 			try
 			{
-				LoadLanguageFile(Config.GetString("settings.language"), false);
+				LoadLanguageFile(Config.GetString("settings.language"), "primary", out primary);
 			}
 			catch (Exception e)
 			{
@@ -86,7 +89,7 @@ namespace SCPDiscord
 				plugin.Info("Loading backup language file...");
 				try
 				{
-					LoadLanguageFile("english", true);
+					LoadLanguageFile("english", "backup", out backup);
 				}
 				catch (Exception e)
 				{
@@ -116,6 +119,32 @@ namespace SCPDiscord
 				throw new Exception();
 			}
 
+			try
+			{
+				LoadLanguageFile("overrides", "overrides", out overrides);
+			}
+			catch (Exception e)
+			{
+				switch (e)
+				{
+					case DirectoryNotFoundException _:
+						plugin.Warn("Language directory not found.");
+						break;
+					case UnauthorizedAccessException _:
+						plugin.Warn("Overrides language file access denied.");
+						break;
+					case FileNotFoundException _:
+						plugin.Warn("'" + languagesPath + "overrides.yml' was not found.");
+						break;
+					case JsonReaderException _:
+					case YamlException _:
+						plugin.Warn("'" + languagesPath + "overrides.yml' formatting error.");
+						break;
+				}
+				plugin.Warn("Error reading overrides language file '" + languagesPath + "overrides.yml'.");
+				plugin.Debug(e.ToString());
+			}
+
 			if (Config.GetBool("settings.configvalidation"))
 			{
 				ValidateLanguageStrings();
@@ -131,7 +160,7 @@ namespace SCPDiscord
 		{
 			foreach (KeyValuePair<string, string> language in defaultLanguages)
 			{
-				if (!File.Exists(languagesPath + language.Key + ".yml"))
+				if (!File.Exists(languagesPath + language.Key + ".yml") || (Config.GetBool("settings.regeneratelanguagefiles") && language.Key != "overrides"))
 				{
 					plugin.Info("Creating language file " + languagesPath + language.Key + ".yml...");
 					try
@@ -153,7 +182,7 @@ namespace SCPDiscord
 		/// This function makes me want to die too, don't worry.
 		/// Parses a yaml file into a yaml object, parses the yaml object into a json string, parses the json string into a json object
 		/// </summary>
-		private static void LoadLanguageFile(string language, bool isBackup)
+		private static void LoadLanguageFile(string language, string type, out JObject dataObject)
 		{
 			// Reads file contents into FileStream
 			FileStream stream = File.OpenRead(languagesPath + language + ".yml");
@@ -167,19 +196,9 @@ namespace SCPDiscord
 				.JsonCompatible()
 				.Build();
 			string jsonString = serializer.Serialize(yamlObject);
+			dataObject = JObject.Parse(jsonString);
 
-			string identifier;
-			if (isBackup)
-			{
-				identifier = "backup";
-				backup = JObject.Parse(jsonString);
-			}
-			else
-			{
-				identifier = "primary";
-				primary = JObject.Parse(jsonString);
-			}
-			plugin.Info("Successfully loaded " + identifier + " language file '" + language + ".yml'.");
+			plugin.Info("Successfully loaded " + type + " language file '" + language + ".yml'.");
 		}
 
 		public static void ValidateLanguageStrings()
@@ -216,13 +235,19 @@ namespace SCPDiscord
 		/// <returns></returns>
 		public static string GetString(string path)
 		{
-			if (primary == null && backup == null)
+			if (primary == null)
 			{
-				plugin.Verbose("Tried to send Discord message before loading languages.");
+				plugin.Warn("Tried to read language string before loading languages.");
 				return null;
 			}
+
 			try
 			{
+				try
+				{
+					return overrides?.SelectToken(path).Value<string>();
+				}
+				catch (Exception) { /* ignore */ }
 				return primary?.SelectToken(path).Value<string>();
 			}
 			catch (Exception primaryException)
@@ -272,20 +297,49 @@ namespace SCPDiscord
 		/// <returns></returns>
 		public static Dictionary<string, string> GetRegexDictionary(string path)
 		{
-			if (primary == null && backup == null)
+			if (primary == null)
 			{
-				plugin.Verbose("Tried to read regex dictionary before loading languages.");
+				plugin.Warn("Tried to read regex dictionary '" + path + "' before loading languages.");
 				return new Dictionary<string, string>();
 			}
+
 			try
 			{
-				JArray jsonArray = primary?.SelectToken(path).Value<JArray>();
-				return jsonArray?.ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<string>());
+				try
+				{
+					JArray overrideArray = overrides?.SelectToken(path).Value<JArray>();
+					return overrideArray?.ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<string>());
+				}
+				catch (Exception) { /* ignore */ }
+				JArray primaryArray = primary?.SelectToken(path).Value<JArray>();
+				return primaryArray?.ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<string>());
 			}
-			catch (NullReferenceException e)
+			catch (NullReferenceException)
 			{
-				plugin.Verbose("Error: Language regex dictionary '" + path + "' does not exist." + e);
-				return new Dictionary<string, string>();
+				try
+				{
+					JArray backupArray = backup?.SelectToken(path).Value<JArray>();
+					return backupArray?.ToDictionary(k => ((JObject)k).Properties().First().Name, v => v.Values().First().Value<string>());
+				}
+				catch (NullReferenceException)
+				{
+					// Doesn't exist
+				}
+				catch (ArgumentNullException)
+				{
+					// Regex array is empty
+					return new Dictionary<string, string>();
+				}
+				catch (InvalidCastException e)
+				{
+					plugin.Error(e.ToString());
+					throw;
+				}
+				catch (JsonException e)
+				{
+					plugin.Error(e.ToString());
+					throw;
+				}
 			}
 			catch (ArgumentNullException)
 			{
@@ -302,6 +356,9 @@ namespace SCPDiscord
 				plugin.Error(e.ToString());
 				throw;
 			}
+
+			plugin.Warn("Error: Language regex dictionary '" + path + "' does not exist in language file.");
+			return new Dictionary<string, string>();
 		}
 	}
 }

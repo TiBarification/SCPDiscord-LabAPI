@@ -431,7 +431,7 @@ namespace SCPDiscord.EventListeners
 				{ "name",           player.Nickname                          },
 				{ "playerid",       player.PlayerId.ToString()               },
 				{ "steamid",        player.GetParsedUserID()                 },
-				{ "class",          role.ToString()                   },
+				{ "class",          role.ToString()                          },
 				{ "team",           player.ReferenceHub.GetTeam().ToString() }
 			};
 
