@@ -841,7 +841,7 @@ namespace SCPDiscord.EventListeners
 					{ "class",         player.Role.ToString()                   },
 					{ "team",          player.ReferenceHub.GetTeam().ToString() }
 				};
-				plugin.SendMessage("messages.onexecutedcommand.remotemessages.player", variables);
+				plugin.SendMessage("messages.onexecutedcommand.remoteadmin.player", variables);
 			}
 			else
 			{
@@ -851,7 +851,7 @@ namespace SCPDiscord.EventListeners
 					{ "result",        result.ToString()                        },
 					{ "returnmessage", response                                 }
 				};
-				plugin.SendMessage("messages.onexecutedcommand.remotemessages.server", variables);
+				plugin.SendMessage("messages.onexecutedcommand.remoteadmin.server", variables);
 			}
 		}
 
@@ -935,7 +935,7 @@ namespace SCPDiscord.EventListeners
 					{ "class",     player.Role.ToString()                   },
 					{ "team",      player.ReferenceHub.GetTeam().ToString() }
 				};
-				plugin.SendMessage("messages.oncallcommand.remotemessages.player", variables);
+				plugin.SendMessage("messages.oncallcommand.remoteadmin.player", variables);
 			}
 			else
 			{
@@ -943,7 +943,7 @@ namespace SCPDiscord.EventListeners
 				{
 					{ "command",   command + " " + string.Join(" ", args)   }
 				};
-				plugin.SendMessage("messages.oncallcommand.remotemessages.server", variables);
+				plugin.SendMessage("messages.oncallcommand.remoteadmin.server", variables);
 			}
 		}
 
