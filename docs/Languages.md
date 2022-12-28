@@ -1,5 +1,7 @@
 # Switching to another included language
 
+**THE ONLY ONE THAT WORKS IN THE 3.0.0 ALPHA IS ENGLISH**
+
 There are several languages included in the plugin dll. The current languages are:
 * English (default)
 * English with emotes
@@ -11,15 +13,36 @@ There are several languages included in the plugin dll. The current languages ar
 * French
 * French with emotes
 
-You can choose which language you want to use by setting the config entry `settings.language` to the name of the language file in all lower-case. You can find the language files in `SCPDiscord/Languages` in your global config directory.
+You can choose which language you want to use by setting the config entry `settings.language` to the name of the language file in all lower-case. You can find the language files in `SCPDiscord/Languages` in your plugin directory.
 
-# Editing or adding a new language
+# Overriding specific messages
+
+Use the overrides.yml file to override specific entries from the normal language files.
+
+Here is an example where the bot status language entry has been copied from `english.yml` to `overrides.yml` and changed to remove the spaces:
+
+```yaml
+messages:
+    botstatus:
+        # players - int
+        # maxplayers - int
+        message: "<var:players>/<var:maxplayers>"
+        regex: []
+```
+
+This overrides only the bot status and uses the language file for everything else. You can keep the regenerate language files config option on as the overrides file is not affected by it. This makes sure your language files don't get outdated when you update the plugin.
+
+If you want to find out more about how the language files work you can read the contribution guide below.
+
+# Editing or adding a new language (usually for contributing to the plugin)
 
 **Make sure the file encoding is UTF-8, other encodings like UTF-8 BOM do not work. Also, make sure the line endings match your operating system.**
 
 In notepad++:
 
 ![](img/nppNewlines.png)
+
+Also make sure to turn off language regeneration in the config or your changes will be overwritten!
 
 If you are making a new language you can copy the english.yml file and name the new file something in all lowercase. Otherwise you can just edit the english file directly. Below is a more in depth guide, but you can just edit the existing words instead if you wish.
 
