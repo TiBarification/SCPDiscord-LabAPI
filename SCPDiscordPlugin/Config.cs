@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using PluginAPI.Helpers;
 using YamlDotNet.Serialization;
 using Resources = SCPDiscord.Properties.Resources;
 
@@ -158,8 +159,6 @@ namespace SCPDiscord
 
 		private static readonly List<string> languageOnlyNodes = new List<string>
 		{
-			"responses.connectedtobot",
-			"responses.reconnectedtobot",
 			"responses.invalidsteamid",
 			"responses.invalidduration",
 			"responses.playerbanned",
@@ -399,7 +398,7 @@ namespace SCPDiscord
 
 		public static string GetConfigDir()
 		{
-			return FileManager.GetAppFolder(true, true) + "/SCPDiscord/";
+			return Paths.LocalPlugins.Plugins + "/SCPDiscord/";
 		}
 
 		public static string GetConfigPath()
@@ -411,11 +410,11 @@ namespace SCPDiscord
 		{
 			if (GetBool("settings.useglobaldirectory.language"))
 			{
-				return FileManager.GetAppFolder(true, false) + "/SCPDiscord/Languages/";
+				return Paths.GlobalPlugins.Plugins + "/SCPDiscord/Languages/";
 			}
 			else
 			{
-				return FileManager.GetAppFolder(true, true) + "/SCPDiscord/Languages/";
+				return Paths.LocalPlugins.Plugins + "/SCPDiscord/Languages/";
 			}
 		}
 
@@ -423,11 +422,11 @@ namespace SCPDiscord
 		{
 			if (GetBool("settings.useglobaldirectory.rolesync"))
 			{
-				return FileManager.GetAppFolder(true, false) + "/SCPDiscord/";
+				return Paths.GlobalPlugins.Plugins + "/SCPDiscord/";
 			}
 			else
 			{
-				return FileManager.GetAppFolder(true, true) + "/SCPDiscord/";
+				return Paths.LocalPlugins.Plugins + "/SCPDiscord/";
 			}
 		}
 
