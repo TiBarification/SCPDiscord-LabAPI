@@ -74,7 +74,16 @@ namespace SCPDiscord
 			[PluginEvent(ServerEventType.PlayerJoined)]
 			public void OnPlayerJoin(Player player)
 			{
-				plugin.roleSync.SendRoleQuery(player);
+				if (player == null) return;
+
+				try
+				{
+					plugin.roleSync.SendRoleQuery(player);
+				}
+				catch (Exception e)
+				{
+					Log.Error("Error occured when checking player for rolesync!\n" + e);
+				}
 			}
 		}
 
