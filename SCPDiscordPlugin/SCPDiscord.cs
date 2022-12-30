@@ -1,13 +1,10 @@
 using Newtonsoft.Json;
-using SCPDiscord.Commands;
 using SCPDiscord.EventListeners;
 using SCPDiscord.Interface;
-using SCPDiscord.Properties;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
 using System.Threading;
 using Mirror.LiteNetLib4Mirror;
 using PluginAPI.Core;
@@ -32,7 +29,7 @@ namespace SCPDiscord
 
 		public bool shutdown;
 
-		public const string VERSION = "3.0.0-alpha3";
+		public const string VERSION = "3.0.0-alpha4";
 
 		[PluginEntryPoint("SCPDiscord", VERSION, "SCP:SL - Discord bridge.", "Karl Essinger")]
 		public void Start()
@@ -87,9 +84,6 @@ namespace SCPDiscord
 			}
 		}
 
-		/// <summary>
-		/// Loads all config options from the plugin config file.
-		/// </summary>
 		public bool LoadConfig()
 		{
 			try
@@ -134,10 +128,6 @@ namespace SCPDiscord
 			NetworkSystem.Disconnect();
 			Log.Info("SCPDiscord disabled.");
 		}
-
-		/// <summary>
-		/// Logging functions
-		/// </summary>
 
 		public void Info(string message)
 		{
@@ -202,11 +192,6 @@ namespace SCPDiscord
 			}
 		}
 
-		/// <summary>
-		/// Enqueue a string to be sent to Discord.
-		/// </summary>
-		/// <param name="channelAliases">The user friendly name of the channel, set in the config.</param>
-		/// <param name="message">The message to be sent.</param>
 		public void SendString(IEnumerable<string> channelAliases, string message)
 		{
 			foreach (string channel in channelAliases)
@@ -256,12 +241,6 @@ namespace SCPDiscord
 			NetworkSystem.QueueMessage(new MessageWrapper { EmbedMessage = message });
 		}
 
-		/// <summary>
-		/// Sends a message from the loaded language file.
-		/// </summary>
-		/// <param name="channelAliases">A collection of channel channels, set in the config.</param>
-		/// <param name="messagePath">The language node of the message to send.</param>
-		/// <param name="variables">Variables to support in the message as key value pairs.</param>
 		public void SendMessage(string messagePath, Dictionary<string, string> variables = null)
 		{
 			Thread messageThread = new Thread(() => new ProcessMessageAsync(messagePath, variables));
@@ -274,12 +253,6 @@ namespace SCPDiscord
 			messageThread.Start();
 		}
 
-		/// <summary>
-		/// Sends a message from the loaded language file to a specific channel by channel ID. Usually used for replies to Discord messages.
-		/// </summary>
-		/// <param name="channelID">The ID of the channel to send to.</param>
-		/// <param name="messagePath">The language node of the message to send.</param>
-		/// <param name="variables">Variables to support in the message as key value pairs.</param>
 		public void SendMessageByID(ulong channelID, string messagePath, Dictionary<string, string> variables = null)
 		{
 			new Thread(() => new ProcessMessageByIDAsync(channelID, messagePath, variables)).Start();
@@ -290,12 +263,6 @@ namespace SCPDiscord
 			new Thread(() => new ProcessEmbedMessageByIDAsync(embed, messagePath, variables)).Start();
 		}
 
-		/// <summary>
-		/// Kicks a player by SteamID.
-		/// </summary>
-		/// <param name="steamID">SteamID of player to be kicked.</param>
-		/// <param name="message">Message to be displayed to kicked user.</param>
-		/// <returns>True if player was found, false if not.</returns>
 		public bool KickPlayer(string steamID, string message = "Kicked from server")
 		{
 			foreach (Player player in Player.GetPlayers<Player>())
@@ -309,12 +276,6 @@ namespace SCPDiscord
 			return false;
 		}
 
-		/// <summary>
-		/// Gets a player name by SteamID.
-		/// </summary>
-		/// <param name="steamID">SteamID of a player.</param>
-		/// <param name="name">String that will be set to the player name.</param>
-		/// <returns>True if player was found, false if not.</returns>
 		public bool GetPlayerName(string steamID, ref string name)
 		{
 			foreach (Player player in Player.GetPlayers<Player>())

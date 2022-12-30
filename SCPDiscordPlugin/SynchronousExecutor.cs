@@ -18,7 +18,6 @@ namespace SCPDiscord
 
 		public void ScheduleRoleSyncCommand(string command)
         {
-			SCPDiscord.plugin.Error("Length: " + queuedRoleSyncCommands?.Count);
 			queuedRoleSyncCommands.Enqueue(command);
         }
 

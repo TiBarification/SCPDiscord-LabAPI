@@ -10,9 +10,9 @@ namespace SCPDiscord.Commands
 	[CommandHandler(typeof (GameConsoleCommandHandler))]
 	public class GrantVanillaRankCommand : ICommand
 	{
-		public string Command => "scpdiscord_givevanillarank";
-		public string[] Aliases => new string[] { "scpd_givevanillarank", "scpd_gvr" };
-		public string Description => "Gives a player the vanilla rank provided.";
+		public string Command => "scpdiscord_grantvanillarank";
+		public string[] Aliases => new string[] { "scpd_grantvanillarank", "scpd_gvr" };
+		public string Description => "Grants a player the vanilla rank provided.";
 		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
 		{
 			/*if (sender is Player admin)
@@ -23,7 +23,7 @@ namespace SCPDiscord.Commands
 				}
 			}*/
 
-			if (arguments.Count <= 1)
+			if (arguments.Count < 2)
 			{
 				response = "Invalid arguments.";
 				return false;

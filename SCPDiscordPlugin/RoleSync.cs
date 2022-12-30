@@ -182,7 +182,6 @@ namespace SCPDiscord
 		{
 			if (CharacterClassManager.OnlineMode)
 			{
-				plugin.Warn("SERVER IS IN ONLINE MODE");
 				if (syncedPlayers.ContainsKey(steamIDOrIP + "@steam"))
 				{
 					return new EmbedMessage
@@ -225,7 +224,6 @@ namespace SCPDiscord
 			}
 			else
 			{
-				plugin.Warn("SERVER IS IN OFFLINE MODE");
 				if (syncedPlayers.ContainsKey(steamIDOrIP))
 				{
 					return new EmbedMessage
