@@ -160,7 +160,7 @@ namespace SCPDiscord.EventListeners
 		}
 
 		[PluginEvent(ServerEventType.PlayerDamage)]
-		public void OnPlayerHurt(Player attacker, Player target, DamageHandlerBase damageHandler)
+		public void OnPlayerHurt(Player target, Player attacker, DamageHandlerBase damageHandler)
 		{
 			if (target == null || target.Role == RoleTypeId.None || !(damageHandler is StandardDamageHandler stdHandler))
 			{
