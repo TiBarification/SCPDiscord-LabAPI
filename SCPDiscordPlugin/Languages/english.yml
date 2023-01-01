@@ -234,7 +234,13 @@ messages:
 
     onscp914activate:
         # knobsetting - KnobSetting
-        message: "SCP-914 has been activated on setting <var:knobsetting>."
+        # ipaddress
+        # name
+        # playerid
+        # steamid
+        # class
+        # team
+        message: " <var:name> (<var:steamid>) activated SCP-914 on the setting <var:knobsetting>."
         regex: []
     onstartcountdown:
         # isAutomatic - bool
@@ -474,7 +480,6 @@ messages:
         message: "<var:name> (<var:steamid>) escaped the SCP-106 pocket dimension."
         regex: []
     onpocketdimensionenter:
-        # damage - int
         # attackeripaddress - string
         # attackername - string
         # attackerplayerid - int
@@ -555,20 +560,15 @@ messages:
         # team - Team
         message: "<var:name> (<var:steamid>) has initiated SCP-106 recall protocol."
         regex: []
-    onmedicaluse:
-        # health - float
-        # artificialhealth - float
-        # healthregenamount -float
-        # healthregenspeedmultiplier - float
-        # stamina - float
-        # medicalitem - string
+    onitemuse:
+        # item - string
         # ipaddress - string
         # name - string
         # playerid - int
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) used <var:medicalitem> and healed <var:health> + <var:artificialhealth> with <var:healthregenamount> regeneration and granting <var:stamina> stamina."
+        message: "<var:name> (<var:steamid>) used <var:item>."
         regex: []
     onshoot:
         # weapon - DamageType
@@ -622,7 +622,6 @@ messages:
         message: "<var:name> (<var:steamid>) called the <var:elevatorname> elevator."
         regex: []
     onhandcuff:
-        # cuffed - bool
         # targetipaddress - string
         # targetname - string
         # targetplayerid - int
@@ -636,11 +635,30 @@ messages:
         # playerclass - Role
         # playerteam - Team
         default:
-            message: "<var:targetclass> <var:targetname> (<var:targetsteamid>) was switchcuffed<var:cuffed> by <var:playerclass> <var:playername> (<var:playersteamid>)."
-            regex: ["switchcuffedTrue":"cuffed","switchcuffedFalse":"released"]
+            message: "<var:targetclass> <var:targetname> (<var:targetsteamid>) was handcuffed by <var:playerclass> <var:playername> (<var:playersteamid>)."
+            regex: []
         nootherplayer:
-            message: "<var:targetclass> <var:targetname> (<var:targetsteamid>) was switchcuffed<var:cuffed>."
-            regex: ["switchcuffedTrue":"cuffed","switchcuffedFalse":"released"]
+            message: "<var:targetclass> <var:targetname> (<var:targetsteamid>) was handcuffed."
+            regex: []
+    onhandcuffremoved:
+        # targetipaddress - string
+        # targetname - string
+        # targetplayerid - int
+        # targetsteamid - string
+        # targetclass - Role
+        # targetteam - Team
+        # playeripaddress - string
+        # playername - string
+        # playerplayerid - int
+        # playersteamid - string
+        # playerclass - Role
+        # playerteam - Team
+        default:
+            message: "<var:targetclass> <var:targetname> (<var:targetsteamid>) was released by <var:playerclass> <var:playername> (<var:playersteamid>)."
+            regex: []
+        nootherplayer:
+            message: "<var:targetclass> <var:targetname> (<var:targetsteamid>) was released."
+            regex: []
     onplayertriggertesla:
         # ipaddress - string
         # name - string
@@ -935,7 +953,7 @@ messages:
         opened:
             message: "<var:name> (<var:steamid>) opened a door as SCP-079."
             regex: []
-    on079lock:
+    on079lockdoor:
         # open - bool
         # door - string
         # apdrain - float
@@ -945,12 +963,8 @@ messages:
         # steamid - string
         # class - Role
         # team - Team
-        unlocked:
-            message: "<var:name> (<var:steamid>) unlocked a door as SCP-079."
-            regex: []
-        locked:
-            message: "<var:name> (<var:steamid>) locked a door as SCP-079."
-            regex: []
+        message: "<var:name> (<var:steamid>) locked a door as SCP-079."
+        regex: []
     on079elevator:
         # elevator - ElevatorType
         # status - ElevatorStatus
@@ -989,6 +1003,7 @@ messages:
         message: "<var:name> (<var:steamid>) got <var:amount> xp."
         regex: []
     on079levelup:
+        # level - int
         # ipaddress - string
         # name - string
         # playerid - int
@@ -997,52 +1012,16 @@ messages:
         # team - Team
         message: "<var:name> (<var:steamid>) leveled up as SCP-079."
         regex: []
-    on079unlockdoors:
-        # apdrain - float
+    on079unlockdoor:
+        # doorname - string
         # ipaddress - string
         # name - string
         # playerid - int
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) lost control over their locked doors."
+        message: "<var:name> (<var:steamid>) locked a <var:doorname> door."
         regex: []
-    on079camerateleport:
-        # apdrain - float
-        # ipaddress - string
-        # name - string
-        # playerid - int
-        # steamid - string
-        # class - Role
-        # team - Team
-        message: "<var:name> (<var:steamid>) switched camera."
-        regex: []
-    on079startspeaker:
-        # room - RoomType
-        # apdrain - float
-        # ipaddress - string
-        # name - string
-        # playerid - int
-        # steamid - string
-        # class - Role
-        # team - Team
-        message: "<var:name> (<var:steamid>) started speaking in <var:room>."
-        regex: [
-            "Micro-HID":"the Micro-HID room",
-            "nuke":"the nuke silo" ]
-    on079stopspeaker:
-        # room - RoomType
-        # apdrain - float
-        # ipaddress - string
-        # name - string
-        # playerid - int
-        # steamid - string
-        # class - Role
-        # team - Team
-        message: "<var:name> (<var:steamid>) stopped speaking in <var:room>."
-        regex: [
-            "Micro-HID":"the Micro-HID room",
-            "nuke":"the nuke silo" ]
     on079lockdown:
         # room - RoomType
         # apdrain - float
@@ -1053,6 +1032,19 @@ messages:
         # class - Role
         # team - Team
         message: "<var:name> (<var:steamid>) has locked down <var:room>."
+        regex: [
+            "Micro-HID":"the Micro-HID room",
+            "nuke":"the nuke silo" ]
+    on079cancellockdown:
+        # room - RoomType
+        # apdrain - float
+        # ipaddress - string
+        # name - string
+        # playerid - int
+        # steamid - string
+        # class - Role
+        # team - Team
+        message: "<var:name> (<var:steamid>) has cancelled lockdown in <var:room>."
         regex: [
             "Micro-HID":"the Micro-HID room",
             "nuke":"the nuke silo" ]

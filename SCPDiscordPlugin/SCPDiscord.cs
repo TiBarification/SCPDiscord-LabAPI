@@ -48,7 +48,6 @@ namespace SCPDiscord
 			EventManager.RegisterEvents(this, new PlayerEventListener(this));
 			EventManager.RegisterEvents(this, new AdminEventListener(this));
 			EventManager.RegisterEvents(this, new EnvironmentEventListener(this));
-			EventManager.RegisterEvents(this, new TeamEventListener(this));
 
 			if (!LoadConfig())
 				return;

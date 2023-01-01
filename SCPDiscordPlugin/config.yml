@@ -119,16 +119,15 @@ messages:
     ondooraccess:
         allowed: []
         denied: []
-    onintercom: []
     onpocketdimensionexit: [ "default" ]
     onpocketdimensionenter: [ "default" ]
     onpocketdimensiondie: []
-    onthrowgrenade: [ "default", "staff" ]
+    onthrowprojectile: [ "default", "staff" ]
     onplayerinfected: [ "default" ]
     onspawnragdoll: []
     onlure: [ "default" ]
     oncontain106: [ "default" ]
-    onmedicaluse: [ "default" ]
+    onitemuse: [ "default" ]
     onshoot:
         default: []
         friendlyfire: []
@@ -137,6 +136,9 @@ messages:
     on106teleport: []
     onelevatoruse: []
     onhandcuff:
+        default: [ "default" ]
+        nootherplayer: [ "default" ]
+    onhandcuffremoved:
         default: [ "default" ]
         nootherplayer: [ "default" ]
     onplayertriggertesla:
@@ -176,21 +178,16 @@ messages:
     on079door:
         closed: []
         opened: []
-    on079lock:
-        unlocked: []
-        locked: []
+    on079lockdoor: []
     on079elevator:
         up: []
         down: []
     on079teslagate: []
     on079addexp: []
     on079levelup: [ "default" ]
-    on079unlockdoors: []
-    on079camerateleport: []
-    on079startspeaker: []
-    on079stopspeaker: []
+    on079unlockdoor: []
     on079lockdown: []
-    on079elevatorteleport: []
+    on079cancellockdown: []
 
     # Admin events
     onban:

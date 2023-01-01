@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using MapGeneration.Distributors;
 using PlayerRoles;
 using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
+using Scp914;
 
 namespace SCPDiscord.EventListeners
 {
@@ -10,33 +12,36 @@ namespace SCPDiscord.EventListeners
 	{
 		private readonly SCPDiscord plugin;
 
-		public EnvironmentEventListener(SCPDiscord plugin)
+		public EnvironmentEventListener(SCPDiscord pl)
 		{
-			this.plugin = plugin;
+			plugin = pl;
 		}
 
-		/* TODO [PluginEvent(ServerEventType)]
-		public void OnSCP914Activate(SCP914ActivateEvent ev)
+		[PluginEvent(ServerEventType.Scp914Activate)]
+		public void OnSCP914Activate(Player player, Scp914KnobSetting setting)
 		{
-
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "knobsetting",    ev.KnobSetting.ToString()   }
+				{ "knobsetting",    setting.ToString()   },
+				{ "ipaddress",   player.IpAddress                           },
+				{ "name",        player.Nickname                            },
+				{ "playerid",    player.PlayerId.ToString()                 },
+				{ "steamid",     player.GetParsedUserID()                   },
+				{ "class",       player.Role.ToString()                     },
+				{ "team",        player.ReferenceHub.GetTeam().ToString()   }
 			};
-			this.plugin.SendMessage(Config.GetArray("messages.onscp914activate"), "messages.onscp914activate", variables);
+			plugin.SendMessage("messages.onscp914activate", variables);
 		}
-		*/
 
 		[PluginEvent(ServerEventType.WarheadStart)]
-		public void OnStartCountdown(bool isAutomatic, Player player)
+		public void OnStartCountdown(bool isAutomatic, Player player, bool isResumed)
 		{
 			if (player == null || player.PlayerId == Server.Instance.PlayerId)
 			{
 				Dictionary<string, string> vars = new Dictionary<string, string>
 				{
 					{ "isAutomatic",    isAutomatic.ToString()                 },
-					//{ "isresumed",      ev.IsResumed.ToString()                 },
-					//{ "timeleft",       ev.TimeLeft.ToString()                  }
+					{ "timeleft",    Warhead.DetonationTime.ToString("0") },
 				};
 				plugin.SendMessage("messages.onstartcountdown.noplayer", vars);
 				return;
@@ -44,26 +49,17 @@ namespace SCPDiscord.EventListeners
 
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "isAutomatic", isAutomatic.ToString()                   },
-				//{ "isresumed",   ev.IsResumed.ToString()                 },
-				//{ "timeleft",    ev.TimeLeft.ToString()                  },
-				{ "ipaddress",   player.IpAddress                         },
-				{ "name",        player.Nickname                          },
-				{ "playerid",    player.PlayerId.ToString()               },
-				{ "steamid",     player.GetParsedUserID()                 },
-				{ "class",       player.Role.ToString()                   },
-				{ "team",        player.ReferenceHub.GetTeam().ToString() }
+				{ "isAutomatic", isAutomatic.ToString()                     },
+				{ "timeleft",    Warhead.DetonationTime.ToString("0") },
+				{ "ipaddress",   player.IpAddress                           },
+				{ "name",        player.Nickname                            },
+				{ "playerid",    player.PlayerId.ToString()                 },
+				{ "steamid",     player.GetParsedUserID()                   },
+				{ "class",       player.Role.ToString()                     },
+				{ "team",        player.ReferenceHub.GetTeam().ToString()   }
 			};
-			/*
-			if (ev.IsResumed)
-			{
-				plugin.SendMessage("messages.onstartcountdown.resumed", variables);
-			}
-			else
-			{
-			*/
-				plugin.SendMessage("messages.onstartcountdown.initiated", variables);
-			//}
+
+			plugin.SendMessage(isResumed ? "messages.onstartcountdown.resumed" : "messages.onstartcountdown.initiated", variables);
 		}
 
 		[PluginEvent(ServerEventType.WarheadStop)]
@@ -73,7 +69,7 @@ namespace SCPDiscord.EventListeners
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					//{ "timeleft",       ev.TimeLeft.ToString()                  }
+					{ "timeleft",    Warhead.DetonationTime.ToString("0.##") },
 				};
 				plugin.SendMessage("messages.onstopcountdown.noplayer", variables);
 			}
@@ -81,7 +77,7 @@ namespace SCPDiscord.EventListeners
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					//{ "timeleft",       ev.TimeLeft.ToString()                  },
+					{ "timeleft",    Warhead.DetonationTime.ToString("0.##") },
 					{ "ipaddress",   player.IpAddress                         },
 					{ "name",        player.Nickname                          },
 					{ "playerid",    player.PlayerId.ToString()               },
@@ -119,21 +115,20 @@ namespace SCPDiscord.EventListeners
 		}
 		*/
 
-		/* TODO: [PluginEvent(ServerEventType)]
-		public void OnGeneratorFinish(GeneratorFinishEvent ev)
+		[PluginEvent(ServerEventType.GeneratorActivated)]
+		public void OnGeneratorFinish(Scp079Generator generator)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "room",           ev.Generator.Room.RoomType.ToString()            },
-				{ "ipaddress",      ev.ActivatingPlayer.IPAddress                    },
-				{ "name",           ev.ActivatingPlayer.Name                         },
-				{ "playerid",       ev.ActivatingPlayer.PlayerID.ToString()          },
-				{ "steamid",        ev.ActivatingPlayer.GetParsedUserID()            },
-				{ "class",          ev.ActivatingPlayer.PlayerRole.RoleID.ToString() },
-				{ "team",           ev.ActivatingPlayer.PlayerRole.Team.ToString()   }
+				//{ "room",           ev.Generator.Room.RoomType.ToString()            },
+				//{ "ipaddress",   player.IpAddress                         },
+				//{ "name",        player.Nickname                          },
+				//{ "playerid",    player.PlayerId.ToString()               },
+				//{ "steamid",     player.GetParsedUserID()                 },
+				//{ "class",       player.Role.ToString()                   },
+				//{ "team",        player.ReferenceHub.GetTeam().ToString() }
 			};
-			this.plugin.SendMessage(Config.GetArray("messages.ongeneratorfinish"), "messages.ongeneratorfinish", variables);
+			plugin.SendMessage("messages.ongeneratorfinish", variables);
 		}
-		*/
 	}
 }
