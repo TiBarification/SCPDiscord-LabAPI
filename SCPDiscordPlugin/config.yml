@@ -67,10 +67,8 @@ channels:
 # Using the channel aliases above you can direct events to different channels here
 # Set to [] to disable an event.
 messages:
-    # Bot messages
+    # Server events
     connectedtobot: [ "default", "staff" ]
-
-    # Round events
     onroundstart: []
     onconnect: []
     onplayerleave: [ "default" ]
@@ -79,6 +77,32 @@ messages:
     onwaitingforplayers: [ "default" ]
     onroundrestart: [ "default", "staff" ]
     onsetservername: []
+    onban:
+        player: [ "default", "staff" ]
+        server: [ "default", "staff" ]
+    onkick:
+        player: [ "default", "staff" ]
+        server: [ "default", "staff" ]
+    oncallcommand:
+        remoteadmin:
+            player: []
+            server: []
+        game:
+            player: []
+            server: []
+        console:
+            player: []
+            server: []
+    onexecutedcommand:
+        remoteadmin:
+            player: [ "staff" ]
+            server: [ "staff" ]
+        game:
+            player: [ "staff" ]
+            server: [ "staff" ]
+        console:
+            player: [ "staff" ]
+            server: [ "staff" ]
 
     # Environment events
     onscp914activate: []
@@ -95,6 +119,39 @@ messages:
         chaos: [ "default" ]
         mtf: [ "default" ]
     ongeneratorfinish: [ "default" ]
+    onelevatoruse: []
+
+    ongeneratorunlock: [ "default" ]
+    ongeneratoropen: []
+    ongeneratorclose: []
+    ongeneratoractivated: [ "default" ]
+    ongeneratordeactivated: [ "default" ]
+    onscp914changeknob: []
+    onplayertriggertesla:
+        default: [ ]
+        ignored: [ ]
+    onpocketdimensionexit: [ "default" ]
+    onpocketdimensionenter: [ "default" ]
+    ondooraccess:
+        allowed: []
+        denied: []
+
+    # SCP Events
+    on079door:
+        closed: [ ]
+        opened: [ ]
+    on079lockdoor: [ ]
+    on079elevator:
+        up: [ ]
+        down: [ ]
+    on079teslagate: [ ]
+    on079addexp: [ ]
+    on079levelup: [ "default" ]
+    on079unlockdoor: [ ]
+    on079lockdown: [ ]
+    on079cancellockdown: [ ]
+    onrecallzombie: []
+    onplayerinfected: [ "default" ]
 
     # Player events
     onplayerhurt:
@@ -116,90 +173,25 @@ messages:
     onassignteam: []
     onsetrole: []
     onspawn: [ "staff" ]
-    ondooraccess:
-        allowed: []
-        denied: []
-    onpocketdimensionexit: [ "default" ]
-    onpocketdimensionenter: [ "default" ]
-    onpocketdimensiondie: []
     onthrowprojectile: [ "default", "staff" ]
-    onplayerinfected: [ "default" ]
     onspawnragdoll: []
-    onlure: [ "default" ]
-    oncontain106: [ "default" ]
     onitemuse: [ "default" ]
     onshoot:
         default: []
         friendlyfire: []
         notarget: []
-    on106createportal: []
-    on106teleport: []
-    onelevatoruse: []
     onhandcuff:
         default: [ "default" ]
         nootherplayer: [ "default" ]
     onhandcuffremoved:
         default: [ "default" ]
         nootherplayer: [ "default" ]
-    onplayertriggertesla:
-        default: []
-        ignored: []
-    onscp914changeknob: []
     onplayerradioswitch: []
-    onrecallzombie: []
-    oncallcommand:
-        remoteadmin:
-            player: []
-            server: []
-        game:
-            player: []
-            server: []
-        console:
-            player: []
-            server: []
-    onexecutedcommand:
-        remoteadmin:
-            player: [ "staff" ]
-            server: [ "staff" ]
-        game:
-            player: [ "staff" ]
-            server: [ "staff" ]
-        console:
-            player: [ "staff" ]
-            server: [ "staff" ]
     onreload: []
     ongrenadeexplosion: []
     ongrenadehitplayer: []
-    ongeneratorunlock: [ "default" ]
-    ongeneratoropen: []
-    ongeneratorclose: []
-    ongeneratoractivated: [ "default" ]
-    ongeneratordeactivated: [ "default" ]
-    on079door:
-        closed: []
-        opened: []
-    on079lockdoor: []
-    on079elevator:
-        up: []
-        down: []
-    on079teslagate: []
-    on079addexp: []
-    on079levelup: [ "default" ]
-    on079unlockdoor: []
-    on079lockdown: []
-    on079cancellockdown: []
-
-    # Admin events
-    onban:
-        player: [ "default", "staff" ]
-        server: [ "default", "staff" ]
-    onkick:
-        player: [ "default", "staff" ]
-        server: [ "default", "staff" ]
-
-
-    # Team events
     onteamrespawn:
         mtf: []
         ci: [ "default" ]
     onsetntfunitname: [ "default" ]
+

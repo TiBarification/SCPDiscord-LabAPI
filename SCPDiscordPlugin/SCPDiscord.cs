@@ -44,9 +44,8 @@ namespace SCPDiscord
 			// Event handlers
             EventManager.RegisterEvents(this, sync);
 			EventManager.RegisterEvents(this, new SyncPlayerRole());
-			EventManager.RegisterEvents(this, new RoundEventListener(this));
 			EventManager.RegisterEvents(this, new PlayerEventListener(this));
-			EventManager.RegisterEvents(this, new AdminEventListener(this));
+			EventManager.RegisterEvents(this, new ServerEventListener(this));
 			EventManager.RegisterEvents(this, new EnvironmentEventListener(this));
 
 			if (!LoadConfig())

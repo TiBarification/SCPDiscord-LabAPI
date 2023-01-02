@@ -295,11 +295,12 @@
     <Compile Include="Commands\SetNickname.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Commands\DebugCommand.cs" />
-    <Compile Include="EventListeners\AdminEventListener.cs" />
+    <Compile Include="EventListeners\ServerEventListener.cs" />
     <Compile Include="BotListener.cs" />
     <Compile Include="EventListeners\EnvironmentEventListener.cs" />
     <Compile Include="EventListeners\PlayerEventListener.cs" />
     <Compile Include="Commands\GrantReservedSlotCommand.cs" />
+    <Compile Include="EventListeners\SCPEventListener.cs" />
     <Compile Include="Interface\BanCommand.cs" />
     <Compile Include="Interface\BotActivity.cs" />
     <Compile Include="Interface\ChatMessage.cs" />
@@ -316,7 +317,6 @@
     <Compile Include="Interface\UserQuery.cs" />
     <Compile Include="Language.cs" />
     <Compile Include="NetworkSystem.cs" />
-    <Compile Include="EventListeners\RoundEventListener.cs" />
     <Compile Include="APIExtensions.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
