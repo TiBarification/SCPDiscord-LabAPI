@@ -120,20 +120,47 @@ namespace SCPDiscord
 			switch (wrapper.MessageCase)
 			{
 				case MessageWrapper.MessageOneofCase.BotActivity:
-					DiscordAPI.SetActivity(wrapper.BotActivity.ActivityText, (ActivityType)wrapper.BotActivity.ActivityType, (UserStatus)wrapper.BotActivity.StatusType);
+					try
+					{
+						DiscordAPI.SetActivity(wrapper.BotActivity.ActivityText, (ActivityType)wrapper.BotActivity.ActivityType, (UserStatus)wrapper.BotActivity.StatusType);
+					}
+					catch (Exception)
+					{
+						Logger.Error("Could not update bot activity", LogID.DISCORD);
+					}
 					break;
 				case MessageWrapper.MessageOneofCase.ChatMessage:
-					foreach (string content in SplitString(wrapper.ChatMessage.Content, 2000))
+					try
 					{
-						MessageScheduler.QueueMessage(wrapper.ChatMessage.ChannelID, content);
+						foreach (string content in SplitString(wrapper.ChatMessage.Content, 2000))
+						{
+							MessageScheduler.QueueMessage(wrapper.ChatMessage.ChannelID, content);
+						}
 					}
-					MessageScheduler.QueueMessage(wrapper.ChatMessage.ChannelID, wrapper.ChatMessage.Content);
+					catch (Exception)
+					{
+						Logger.Error("Could not send message in text channel '" + wrapper.ChatMessage.ChannelID + "'", LogID.DISCORD);
+					}
 					break;
 				case MessageWrapper.MessageOneofCase.UserQuery:
-					DiscordAPI.GetPlayerRoles(wrapper.UserQuery.DiscordID, wrapper.UserQuery.SteamIDOrIP);
+					try
+					{
+						DiscordAPI.GetPlayerRoles(wrapper.UserQuery.DiscordID, wrapper.UserQuery.SteamIDOrIP);
+					}
+					catch (Exception)
+					{
+						Logger.Error("Could not fetch discord roles for '" + wrapper.UserQuery.DiscordID + "'", LogID.DISCORD);
+					}
 					break;
 				case MessageWrapper.MessageOneofCase.EmbedMessage:
-					await DiscordAPI.SendMessage(wrapper.EmbedMessage.ChannelID, Utilities.GetDiscordEmbed(wrapper.EmbedMessage));
+					try
+					{
+						await DiscordAPI.SendMessage(wrapper.EmbedMessage.ChannelID, Utilities.GetDiscordEmbed(wrapper.EmbedMessage));
+					}
+					catch (Exception)
+					{
+						Logger.Error("Could not send embed in text channel '" + wrapper.EmbedMessage.ChannelID + "'", LogID.DISCORD);
+					}
 					break;
 				case MessageWrapper.MessageOneofCase.BanCommand:
 				case MessageWrapper.MessageOneofCase.UnbanCommand:

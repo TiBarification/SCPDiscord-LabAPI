@@ -118,7 +118,7 @@ namespace SCPDiscord
 				DiscordChannel channel = await client.GetChannelAsync(channelID);
 				try
 				{
-					Logger.Debug("Sending message to " + channelID);
+					Logger.Debug("Sending message to " + channelID, LogID.DISCORD);
 					await channel.SendMessageAsync(message);
 				}
 				catch (UnauthorizedException)
@@ -126,9 +126,9 @@ namespace SCPDiscord
 					Logger.Error("No permissions to send message in '" + channel.Name + "'", LogID.DISCORD);
 				}
 			}
-			catch (Exception e)
+			catch (Exception)
 			{
-				Logger.Error("Could not send message in text channel with the ID '" + channelID + "'" + e, LogID.DISCORD);
+				Logger.Error("Could not send message in text channel '" + channelID + "'", LogID.DISCORD);
 			}
 		}
 
@@ -150,7 +150,7 @@ namespace SCPDiscord
 			}
 			catch (Exception)
 			{
-				Logger.Error("Could not send message in text channel with the ID '" + channelID + "'", LogID.DISCORD);
+				Logger.Error("Could not send embed in text channel '" + channelID + "'", LogID.DISCORD);
 			}
 		}
 
