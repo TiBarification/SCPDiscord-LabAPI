@@ -135,7 +135,7 @@ namespace SCPDiscord.EventListeners
 					{ "isAutomatic",    isAutomatic.ToString()                 },
 					{ "timeleft",    Warhead.DetonationTime.ToString("0") },
 				};
-				plugin.SendMessage("messages.onstartcountdown.noplayer", vars);
+				plugin.SendMessage(isResumed ? "messages.onstartcountdown.server.resumed" : "messages.onstartcountdown.server.initiated", vars);
 				return;
 			}
 
@@ -151,7 +151,7 @@ namespace SCPDiscord.EventListeners
 				{ "team",        player.ReferenceHub.GetTeam().ToString()   }
 			};
 
-			plugin.SendMessage(isResumed ? "messages.onstartcountdown.resumed" : "messages.onstartcountdown.initiated", variables);
+			plugin.SendMessage(isResumed ? "messages.onstartcountdown.player.resumed" : "messages.onstartcountdown.player.initiated", variables);
 		}
 
 		[PluginEvent(ServerEventType.WarheadStop)]

@@ -244,40 +244,47 @@ messages:
         message: " <var:name> (<var:steamid>) activated SCP-914 on the setting <var:knobsetting>."
         regex: []
     onstartcountdown:
-        # isAutomatic - bool
-        # isresumed - bool
-        # timeleft - float
-        # ipaddress - string
-        # name - string
-        # playerid - int
-        # steamid - string
-        # class - Role
-        # team - Team
-        noplayer:
-            message: "**The on-site nuclear warhead has been remotely activated by order of the O5 Council. All personnel must evacuate immediately.**"
-            regex: []
-        initiated:
-            message: "**The on-site nuclear warhead has been activated by <var:name> (<var:steamid>), <var:timeleft> seconds until detonation. All personnel must evacuate immediately.**"
-            regex: []
-        resumed:
-            message: "**The warhead countdown has been resumed <var:name> (<var:steamid>), <var:timeleft> seconds until detonation.**"
-            regex: []
+        player:
+            # isAutomatic - bool
+            # timeleft - float
+            # ipaddress - string
+            # name - string
+            # playerid - int
+            # steamid - string
+            # class - Role
+            # team - Team
+            initiated:
+                message: "**The alpha warhead has been activated by <var:name> (<var:steamid>), <var:timeleft> seconds until detonation. All personnel must evacuate immediately.**"
+                regex: [ ]
+            resumed:
+                message: "**The alpha  warhead countdown has been resumed by <var:name> (<var:steamid>), <var:timeleft> seconds until detonation.**"
+                regex: [ ]
+        server:
+            # isAutomatic - bool
+            # timeleft - float
+            initiated:
+                message: "**The alpha warhead has been remotely activated by order of the O5 Council. All personnel must evacuate immediately.**"
+                regex: []
+            resumed:
+                message: "**The alpha warhead countdown has been remotely resumed by order of the O5 Council. <var:timeleft> seconds left until detonation.**"
+                regex: []
     onstopcountdown:
-        # timeleft
-        # ipaddress
-        # name
-        # playerid
-        # steamid
-        # class
-        # team
         default:
-            message: "**The on-site nuclear warhead detonation has been canceled by <var:name> (<var:steamid>).**"
+            # timeleft
+            # ipaddress
+            # name
+            # playerid
+            # steamid
+            # class
+            # team
+            message: "**The alpha warhead detonation has been canceled by <var:name> (<var:steamid>) with <var:timeleft> seconds left.**"
             regex: []
         noplayer:
-            message: "**The on-site nuclear warhead detonation has been canceled remotely by order of the Ethics Committee**"
+            # timeleft
+            message: "**The alpha warhead detonation has been canceled remotely by order of the Ethics Committee with <var:timeleft> seconds left.**"
             regex: []
     ondetonate:
-        message: "**Detonation of the on-site nuclear warhead has been detected. MTF operatives are inbound to clear out any remaining threats.**"
+        message: "**Detonation of the alpha warhead has been detected. MTF operatives are inbound to clear out any remaining threats.**"
         regex: []
     ondecontaminate:
         message: "**Light Containment Zone de-contamination has been initiated, all biological material will be destroyed.**"

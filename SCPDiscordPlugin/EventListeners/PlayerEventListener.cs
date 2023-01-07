@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Footprinting;
-using Interactables.Interobjects.DoorUtils;
 using InventorySystem.Items;
 using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Pickups;

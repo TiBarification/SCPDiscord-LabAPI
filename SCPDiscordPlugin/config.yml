@@ -107,9 +107,12 @@ messages:
     # Environment events
     onscp914activate: []
     onstartcountdown:
-        noplayer: [ "default" ]
-        initiated: [ "default" ]
-        resumed: [ "default" ]
+        player:
+            initiated: [ "default" ]
+            resumed: [ "default" ]
+        server:
+            initiated: [ "default" ]
+            resumed: [ "default" ]
     onstopcountdown:
         default: [ "default" ]
         noplayer: [ "default" ]
