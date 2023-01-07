@@ -323,7 +323,7 @@ namespace SCPDiscord.EventListeners
 					{ "scpdead",            Statistics.CurrentRound.ScpsDead.ToString()          },
 					{ "scpkills",           Statistics.CurrentRound.TotalScpKills.ToString()     },
 					{ "scpstart",           Statistics.CurrentRound.ScpsStart.ToString()         },
-					//{ "warheaddetonated",   Statistics.CurrentRound.WarheadDetonated.ToString()  },
+					{ "warheaddetonated",   Statistics.CurrentRound.WarheadDetonated.ToString()  },
 					{ "warheadkills",       Statistics.CurrentRound.WarheadKills.ToString()      },
 					{ "zombiesalive",       Statistics.CurrentRound.ZombiesAlive.ToString()      },
 					{ "zombieschanged",     Statistics.CurrentRound.ZombiesChanged.ToString()    }

@@ -219,8 +219,9 @@ messages:
             Rescued Scientists:         <var:scientistsescaped>/<var:scientistsstart>\n
             Contained SCPs:             <var:scpdead>/<var:scpstart>\n
             Killed by SCP:              <var:scpkills>\n
+            Warhead switchwas<var:warheaddetonated> detonated.
             ```
-        regex: []
+        regex: ["switchwasTrue":"was","switchwasFalse":"was not"]
     onwaitingforplayers:
         message: "**Server is ready and waiting for players.**"
         regex: []
