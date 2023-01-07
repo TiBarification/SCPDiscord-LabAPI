@@ -20,7 +20,7 @@ namespace SCPDiscord
 		public static DiscordClient client = new DiscordClient(new DiscordConfiguration { Token = "DUMMY_TOKEN", TokenType = TokenType.Bot, MinimumLogLevel = LogLevel.Debug });
 		private CommandsNextExtension commands = null;
 
-		public static async Task Reset()
+		public static async Task Init()
 		{
 			try
 			{
@@ -118,19 +118,17 @@ namespace SCPDiscord
 				DiscordChannel channel = await client.GetChannelAsync(channelID);
 				try
 				{
-					foreach (string content in SplitString(message, 2000))
-					{
-						await channel.SendMessageAsync(content);
-					}
+					Logger.Debug("Sending message to " + channelID);
+					await channel.SendMessageAsync(message);
 				}
 				catch (UnauthorizedException)
 				{
 					Logger.Error("No permissions to send message in '" + channel.Name + "'", LogID.DISCORD);
 				}
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
-				Logger.Error("Could not send message in text channel with the ID '" + channelID + "'", LogID.DISCORD);
+				Logger.Error("Could not send message in text channel with the ID '" + channelID + "'" + e, LogID.DISCORD);
 			}
 		}
 
@@ -153,14 +151,6 @@ namespace SCPDiscord
 			catch (Exception)
 			{
 				Logger.Error("Could not send message in text channel with the ID '" + channelID + "'", LogID.DISCORD);
-			}
-		}
-
-		private static IEnumerable<string> SplitString(string str, int size)
-		{
-			for (int i = 0; i < str.Length; i += size)
-			{
-				yield return str.Substring(i, Math.Min(size, str.Length - i));
 			}
 		}
 

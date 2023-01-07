@@ -2,6 +2,7 @@
 using Google.Protobuf;
 using SCPDiscord.Interface;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -18,18 +19,14 @@ namespace SCPDiscord
 		}
 	}
 
-	public static class NetworkSystem // TODO: Make singleton, improve shutdown logic
+	public static class NetworkSystem
 	{
 		private static Socket clientSocket = null;
 		private static Socket listenerSocket = null;
 		private static NetworkStream networkStream = null;
 
-		private static bool shutdown = false;
-
 		public static void Init()
 		{
-			shutdown = false;
-
 			if (listenerSocket != null)
 			{
 				listenerSocket.Shutdown(SocketShutdown.Both);
@@ -81,7 +78,7 @@ namespace SCPDiscord
 			listenerSocket.Bind(listenerEndpoint);
 			listenerSocket.Listen(10);
 
-			while (!shutdown)
+			while (true)
 			{
 				try
 				{
@@ -126,7 +123,11 @@ namespace SCPDiscord
 					DiscordAPI.SetActivity(wrapper.BotActivity.ActivityText, (ActivityType)wrapper.BotActivity.ActivityType, (UserStatus)wrapper.BotActivity.StatusType);
 					break;
 				case MessageWrapper.MessageOneofCase.ChatMessage:
-					await DiscordAPI.SendMessage(wrapper.ChatMessage.ChannelID, wrapper.ChatMessage.Content);
+					foreach (string content in SplitString(wrapper.ChatMessage.Content, 2000))
+					{
+						MessageScheduler.QueueMessage(wrapper.ChatMessage.ChannelID, content);
+					}
+					MessageScheduler.QueueMessage(wrapper.ChatMessage.ChannelID, wrapper.ChatMessage.Content);
 					break;
 				case MessageWrapper.MessageOneofCase.UserQuery:
 					DiscordAPI.GetPlayerRoles(wrapper.UserQuery.DiscordID, wrapper.UserQuery.SteamIDOrIP);
@@ -157,11 +158,6 @@ namespace SCPDiscord
 			message.WriteDelimitedTo(networkStream);
 		}
 
-		public static void ShutDown()
-		{
-			shutdown = true;
-		}
-
 		private static bool IsConnected()
 		{
 			if (clientSocket == null)
@@ -178,6 +174,14 @@ namespace SCPDiscord
 				Logger.Error("TCP client was unexpectedly closed.", LogID.NETWORK);
 				Logger.Debug(e.ToString(), LogID.NETWORK);
 				return false;
+			}
+		}
+
+		private static IEnumerable<string> SplitString(string str, int size)
+		{
+			for (int i = 0; i < str.Length; i += size)
+			{
+				yield return str.Substring(i, Math.Min(size, str.Length - i));
 			}
 		}
 	}

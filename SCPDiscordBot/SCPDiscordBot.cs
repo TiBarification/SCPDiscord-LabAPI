@@ -8,8 +8,6 @@ namespace SCPDiscord
 {
 	public class SCPDiscordBot
 	{
-		public static SCPDiscordBot instance;
-		public static bool discordConnected = false;
 		public static string[] commandlineArguments;
 
 		public static void Main(string[] args)
@@ -20,12 +18,23 @@ namespace SCPDiscord
 
 		private async Task MainAsync()
 		{
-			instance = this;
-
 			Logger.Log("Starting SCPDiscord version " + GetVersion() + "...", LogID.GENERAL);
 			try
 			{
-				Reload();
+				try
+				{
+					ConfigParser.LoadConfig();
+				}
+				catch (Exception e)
+				{
+					Logger.Fatal("Error loading config!\n" + e);
+					return;
+				}
+
+				await DiscordAPI.Init();
+
+				new Thread(() => new StartNetworkSystem()).Start();
+				new Thread(() => new StartMessageScheduler()).Start();
 
 				// Block this task until the program is closed.
 				await Task.Delay(-1);
@@ -36,30 +45,6 @@ namespace SCPDiscord
 				Logger.Fatal(e.ToString(), LogID.GENERAL);
 				Console.ReadLine();
 			}
-		}
-
-		public async void Reload()
-		{
-			ConfigParser.loaded = false;
-			NetworkSystem.ShutDown();
-
-			try
-			{
-				ConfigParser.LoadConfig();
-			}
-			catch (Exception e)
-			{
-				Logger.Fatal("Error loading config!\n" + e);
-			}
-
-			await DiscordAPI.Reset();
-
-			new Thread(() => new StartNetworkSystem()).Start();
-		}
-
-		public static bool IsDiscordReady()
-		{
-			return discordConnected;
 		}
 
 		public static string GetVersion()
