@@ -193,7 +193,7 @@ namespace SCPDiscord.EventListeners
 			plugin.SendMessage("messages.ondecontaminate");
 		}
 
-		/* TODO: [PluginEvent(ServerEventType)]
+		/*
 		public void OnSummonVehicle(SummonVehicleEvent ev)
 		{
 			if (ev.IsCI)

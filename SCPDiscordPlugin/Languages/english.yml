@@ -504,7 +504,7 @@ messages:
         # team - Team
         message: "<var:name> (<var:steamid>) was lost in the SCP-106 pocket dimension."
         regex: []
-    onthrowgrenade:
+    onthrowprojectile:
         # type - GrenadeType
         # ipaddress - string
         # name - string
@@ -1078,7 +1078,7 @@ messages:
             # issuersteamid - string
             # issuerclass - Role
             # issuerteam - Team
-            message: "Player <var:playername> (<var:playersteamid>) was banned by <var:issuer> (<var:issuersteamid>) for `<var:duration>`. Reason: <var:reason>"
+            message: "Player <var:playername> (<var:playersteamid>) was banned by <var:issuername> (<var:issuersteamid>) for `<var:duration>`. Reason: <var:reason>"
             regex: [ ]
         server:
             # duration - int
@@ -1107,7 +1107,7 @@ messages:
             # issuersteamid - string
             # issuerclass - Role
             # issuerteam - Team
-            message: "Player <var:playername> (<var:playersteamid>) was kicked by <var:issuer> (<var:issuersteamid>). Reason: <var:reason>"
+            message: "Player <var:playername> (<var:playersteamid>) was kicked by <var:issuername> (<var:issuersteamid>). Reason: <var:reason>"
             regex: [ ]
         server:
             # reason - string
