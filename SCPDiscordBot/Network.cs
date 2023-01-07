@@ -97,7 +97,6 @@ namespace SCPDiscord
 						networkStream = new NetworkStream(clientSocket, true);
 						Logger.Log("Plugin connected.", LogID.NETWORK);
 					}
-					Thread.Sleep(1000);
 				}
 				catch (Exception e)
 				{
