@@ -368,7 +368,7 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent(ServerEventType.PlayerLeft)]
 		public void OnPlayerLeave(Player player)
 		{
-			if (player.PlayerId == Server.Instance.PlayerId) return;
+			if (player.PlayerId == Server.Instance.PlayerId || player.UserId == null) return;
 
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
@@ -377,7 +377,7 @@ namespace SCPDiscord.EventListeners
 				{ "steamid", player.GetParsedUserID()     },
 				{ "playerid", player.PlayerId.ToString()  }
 			};
-			this.plugin.SendMessage("messages.onplayerleave", variables);
+			plugin.SendMessage("messages.onplayerleave", variables);
 		}
 
 		/*
