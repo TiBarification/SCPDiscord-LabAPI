@@ -552,7 +552,7 @@ namespace SCPDiscord.EventListeners
 					{ "playerclass",        disarmer.Role.ToString()                   },
 					{ "playerteam",         disarmer.ReferenceHub.GetTeam().ToString() }
 				};
-				plugin.SendMessage("messages.onhandcuff.default", variables);
+				plugin.SendMessage("messages.onhandcuffremoved.default", variables);
 			}
 			else
 			{
@@ -565,7 +565,7 @@ namespace SCPDiscord.EventListeners
 					{ "targetclass",        target.Role.ToString()                     },
 					{ "targetteam",         target.ReferenceHub.GetTeam().ToString()   },
 				};
-				plugin.SendMessage("messages.onhandcuff.nootherplayer", variables);
+				plugin.SendMessage("messages.onhandcuffremoved.nootherplayer", variables);
 			}
 		}
 

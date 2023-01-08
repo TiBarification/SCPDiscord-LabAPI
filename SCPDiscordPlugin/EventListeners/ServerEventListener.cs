@@ -80,24 +80,42 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent(ServerEventType.PlayerKicked)]
 		public void OnKick(Player player, Player issuer, string reason)
 		{
-			Dictionary<string, string> variables = new Dictionary<string, string>
+			if (issuer != null)
 			{
-				{ "reason",                 reason                                   },
-				{ "playeripaddress",        player.IpAddress                         },
-				{ "playername",             player.Nickname                          },
-				{ "playerplayerid",         player.PlayerId.ToString()               },
-				{ "playersteamid",          player.GetParsedUserID()                 },
-				{ "playerclass",            player.Role.ToString()                   },
-				{ "playerteam",             player.ReferenceHub.GetTeam().ToString() },
-				{ "issueripaddress",        issuer.IpAddress                         },
-				{ "issuername",             issuer.Nickname                          },
-				{ "issuerplayerid",         issuer.PlayerId.ToString()               },
-				{ "issuersteamid",          issuer.GetParsedUserID()                 },
-				{ "issuerclass",            issuer.Role.ToString()                   },
-				{ "issuerteam",             issuer.ReferenceHub.GetTeam().ToString() }
-			};
+				Dictionary<string, string> variables = new Dictionary<string, string>
+				{
+					{ "reason",                 reason                                   },
+					{ "playeripaddress",        player.IpAddress                         },
+					{ "playername",             player.Nickname                          },
+					{ "playerplayerid",         player.PlayerId.ToString()               },
+					{ "playersteamid",          player.GetParsedUserID()                 },
+					{ "playerclass",            player.Role.ToString()                   },
+					{ "playerteam",             player.ReferenceHub.GetTeam().ToString() },
+					{ "issueripaddress",        issuer.IpAddress                         },
+					{ "issuername",             issuer.Nickname                          },
+					{ "issuerplayerid",         issuer.PlayerId.ToString()               },
+					{ "issuersteamid",          issuer.GetParsedUserID()                 },
+					{ "issuerclass",            issuer.Role.ToString()                   },
+					{ "issuerteam",             issuer.ReferenceHub.GetTeam().ToString() }
+				};
 
-			plugin.SendMessage("messages.onkick", variables);
+				plugin.SendMessage("messages.onkick.player", variables);
+			}
+			else
+			{
+				Dictionary<string, string> variables = new Dictionary<string, string>
+				{
+					{ "reason",                 reason                                   },
+					{ "playeripaddress",        player.IpAddress                         },
+					{ "playername",             player.Nickname                          },
+					{ "playerplayerid",         player.PlayerId.ToString()               },
+					{ "playersteamid",          player.GetParsedUserID()                 },
+					{ "playerclass",            player.Role.ToString()                   },
+					{ "playerteam",             player.ReferenceHub.GetTeam().ToString() }
+				};
+
+				plugin.SendMessage("messages.onkick.server", variables);
+			}
 		}
 
 		[PluginEvent(ServerEventType.RemoteAdminCommandExecuted)]

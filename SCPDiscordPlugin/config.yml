@@ -72,7 +72,6 @@ messages:
     onroundstart: []
     onconnect: []
     onplayerleave: [ "default" ]
-    oncheckroundend: []
     onroundend: [ "default", "staff" ]
     onwaitingforplayers: [ "default" ]
     onroundrestart: [ "default", "staff" ]
@@ -140,9 +139,6 @@ messages:
         denied: []
 
     # SCP Events
-    on079door:
-        closed: [ ]
-        opened: [ ]
     on079lockdoor: [ ]
     on079elevator:
         up: [ ]
@@ -173,16 +169,11 @@ messages:
     onplayerdropammo: []
     onplayerjoin: [ "default", "staff" ]
     onnicknameset: []
-    onassignteam: []
     onsetrole: []
     onspawn: [ "staff" ]
     onthrowprojectile: [ "default", "staff" ]
     onspawnragdoll: []
     onitemuse: [ "default" ]
-    onshoot:
-        default: []
-        friendlyfire: []
-        notarget: []
     onhandcuff:
         default: [ "default" ]
         nootherplayer: [ "default" ]
@@ -196,5 +187,4 @@ messages:
     onteamrespawn:
         mtf: []
         ci: [ "default" ]
-    onsetntfunitname: [ "default" ]
 
