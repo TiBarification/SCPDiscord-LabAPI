@@ -28,7 +28,7 @@ namespace SCPDiscord.EventListeners
 				{ "doorname",       door.name                                },
 				{ "permission",     door.RequiredPermissions.RequiredPermissions.ToString()    },
 				//{ "locked",         ev.Door.IsLocked.ToString()              },
-				//{ "open",           door.TargetState.ToString()              },
+				{ "open",           door.TargetState.ToString()              },
 				{ "ipaddress",      player.IpAddress                         },
 				{ "name",           player.Nickname                          },
 				{ "playerid",       player.PlayerId.ToString()               },
@@ -114,7 +114,7 @@ namespace SCPDiscord.EventListeners
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "elevatorname",   elevator.name                            },
+				{ "elevatorname",   elevator.AssignedGroup.ToString()        },
 				{ "ipaddress",      player.IpAddress                         },
 				{ "name",           player.Nickname                          },
 				{ "playerid",       player.PlayerId.ToString()               },
@@ -236,7 +236,7 @@ namespace SCPDiscord.EventListeners
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				//{ "room",           ev.Generator.Room.RoomType.ToString()            },
+				{ "room",                       generator.GetComponentInParent<RoomIdentifier>().Name.ToString() },
 				//{ "ipaddress",   player.IpAddress                         },
 				//{ "name",        player.Nickname                          },
 				//{ "playerid",    player.PlayerId.ToString()               },

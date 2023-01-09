@@ -55,81 +55,40 @@ namespace SCPDiscord.EventListeners
 			return false;
 		}
 
-		public enum DamageType
-		{
-			NONE = -1, // 0xFFFFFFFF
-			RECONTAINED = 0,
-			WARHEAD = 1,
-			SCP_049 = 2,
-			UNKNOWN = 3,
-			ASPHYXIATED = 4,
-			BLEEDING = 5,
-			FALLING = 6,
-			POCKET_DECAY = 7,
-			DECONTAMINATION = 8,
-			POISON = 9,
-			SCP_207 = 10, // 0x0000000A
-			SEVERED_HANDS = 11, // 0x0000000B
-			MICRO_HID = 12, // 0x0000000C
-			TESLA = 13, // 0x0000000D
-			EXPLOSION = 14, // 0x0000000E
-			SCP_096 = 15, // 0x0000000F
-			SCP_173 = 16, // 0x00000010
-			SCP_939 = 17, // 0x00000011
-			SCP_049_2 = 18, // 0x00000012
-			UNKNOWN_FIREARM = 19, // 0x00000013
-			CRUSHED = 20, // 0x00000014
-			FEMUR_BREAKER = 21, // 0x00000015
-			FRIENDLY_FIRE_PUNISHMENT = 22, // 0x00000016
-			HYPOTHERMIA = 23, // 0x00000017
-			SCP_106 = 24, // 0x00000018
-			SCP_018 = 25, // 0x00000019
-			COM15 = 26, // 0x0000001A
-			E11_SR = 27, // 0x0000001B
-			CROSSVEC = 28, // 0x0000001C
-			FSP9 = 29, // 0x0000001D
-			LOGICER = 30, // 0x0000001E
-			COM18 = 31, // 0x0000001F
-			REVOLVER = 32, // 0x00000020
-			AK = 33, // 0x00000021
-			SHOTGUN = 34, // 0x00000022
-			DISRUPTOR = 35, // 0x00000023
-		}
-
 		// Convert damage handler to smod style damage type
 		private string GetDamageType(DamageHandlerBase handler)
 		{
 			switch (handler)
 			{
 				case DisruptorDamageHandler _:
-					return "DISRUPTOR";
+					return "disruptor";
 
 				case ExplosionDamageHandler explosionDamageHandler:
-					return "EXPLOSION";
+					return "an explosion";
 
 				case FirearmDamageHandler firearmDamageHandler:
 					return firearmDamageHandler.WeaponType.ToString();
 
 				case MicroHidDamageHandler microHidDamageHandler:
-					return "MICRO_HID";
+					return "Micro-HID";
 
 				case RecontainmentDamageHandler recontainmentDamageHandler:
-					return "RECONTAINED";
+					return "recontainment";
 
 				case Scp018DamageHandler scp018DamageHandler:
-					return "SCP_018";
+					return "SCP-018";
 
 				case Scp049DamageHandler scp049DamageHandler:
-					return "SCP_049";
+					return "SCP-049";
 
 				case Scp096DamageHandler scp096DamageHandler:
-					return "SCP_096";
+					return "SCP-096";
 
 				case ScpDamageHandler scpDamageHandler:
-					return "SCP_ATTACK";
+					return "SCP attack";
 
 				case Scp939DamageHandler scp939DamageHandler:
-					return "SCP_939";
+					return "SCP-939";
 
 				//case AttackerDamageHandler attackerDamageHandler:
 				//	break;
@@ -141,7 +100,7 @@ namespace SCPDiscord.EventListeners
 					return "UNKNOWN";
 
 				case WarheadDamageHandler warheadDamageHandler:
-					return "WARHEAD";
+					return "alpha warhead";
 
 				//case StandardDamageHandler standardDamageHandler:
 				//	break;
@@ -163,7 +122,7 @@ namespace SCPDiscord.EventListeners
 			{
 				Dictionary<string, string> noAttackerVar = new Dictionary<string, string>
 				{
-					{ "damage",             stdHandler.Damage.ToString()             },
+					{ "damage",             stdHandler.Damage.ToString("0.##")             },
 					{ "damagetype",         GetDamageType(damageHandler)             },
 					{ "playeripaddress",    target.IpAddress                         },
 					{ "playername",         target.Nickname                          },
@@ -178,7 +137,7 @@ namespace SCPDiscord.EventListeners
 
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "damage",             stdHandler.Damage.ToString()               },
+				{ "damage",             stdHandler.Damage.ToString("0.##")               },
 				{ "damagetype",         GetDamageType(damageHandler)               },
 				{ "attackeripaddress",  attacker.IpAddress                         },
 				{ "attackername",       attacker.Nickname                          },
@@ -412,7 +371,7 @@ namespace SCPDiscord.EventListeners
 				{ "name",           player.Nickname                           },
 				{ "playerid",       player.PlayerId.ToString()                },
 				{ "steamid",        player.GetParsedUserID()                  },
-				{ "class",          player.Role.ToString()                    },
+				{ "class",          newRole.ToString()                    },
 				{ "team",           player.ReferenceHub.GetTeam().ToString()  }
 			};
 			plugin.SendMessage("messages.onsetrole", variables);

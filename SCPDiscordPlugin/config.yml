@@ -185,6 +185,6 @@ messages:
     ongrenadeexplosion: []
     ongrenadehitplayer: []
     onteamrespawn:
-        mtf: []
+        mtf: [ "default" ]
         ci: [ "default" ]
 
