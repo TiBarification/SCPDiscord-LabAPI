@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Footprinting;
 using InventorySystem.Items;
@@ -364,23 +365,62 @@ namespace SCPDiscord.EventListeners
 				return;
 			}
 
-			// TODO: Split into different reasons
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "ipaddress",      player.IpAddress                          },
-				{ "name",           player.Nickname                           },
-				{ "playerid",       player.PlayerId.ToString()                },
-				{ "steamid",        player.GetParsedUserID()                  },
-				{ "class",          newRole.ToString()                    },
-				{ "team",           player.ReferenceHub.GetTeam().ToString()  }
+				{ "oldrole",        oldRole.RoleTypeId.ToString()            },
+				{ "ipaddress",      player.IpAddress                         },
+				{ "name",           player.Nickname                          },
+				{ "playerid",       player.PlayerId.ToString()               },
+				{ "steamid",        player.GetParsedUserID()                 },
+				{ "class",          newRole.ToString()                       },
+				{ "team",           player.ReferenceHub.GetTeam().ToString() }
 			};
-			plugin.SendMessage("messages.onsetrole", variables);
+
+			switch (changeReason)
+			{
+				case RoleChangeReason.RoundStart:
+					plugin.SendMessage("messages.onsetrole.roundstart", variables);
+					return;
+				case RoleChangeReason.LateJoin:
+					if (newRole == RoleTypeId.Spectator)
+					{
+						plugin.SendMessage("messages.onsetrole.other", variables);
+					}
+					else
+					{
+						plugin.SendMessage("messages.onsetrole.latejoin", variables);
+					}
+					return;
+				case RoleChangeReason.Respawn:
+					plugin.SendMessage("messages.onsetrole.respawn", variables);
+					return;
+				case RoleChangeReason.Died:
+					plugin.SendMessage("messages.onsetrole.died", variables);
+					return;
+				case RoleChangeReason.Escaped:
+					plugin.SendMessage("messages.onsetrole.escaped", variables);
+					return;
+				case RoleChangeReason.Revived:
+					plugin.SendMessage("messages.onsetrole.revived", variables);
+					return;
+				case RoleChangeReason.RemoteAdmin:
+					plugin.SendMessage("messages.onsetrole.remoteadmin", variables);
+					return;
+				case RoleChangeReason.Destroyed:
+					plugin.SendMessage("messages.onsetrole.left", variables);
+					return;
+				case RoleChangeReason.None:
+					plugin.SendMessage("messages.onsetrole.other", variables);
+					return;
+				default:
+					return;
+			}
 		}
 
 		[PluginEvent(ServerEventType.PlayerSpawn)]
 		public void OnSpawn(Player player, RoleTypeId role)
 		{
-			if (player == null || player.UserId == "server" || role == RoleTypeId.None) return;
+			if (player == null || player.UserId == "server" || player.UserId == null || role == RoleTypeId.None || role == RoleTypeId.Spectator || role == RoleTypeId.Overwatch) return;
 
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{

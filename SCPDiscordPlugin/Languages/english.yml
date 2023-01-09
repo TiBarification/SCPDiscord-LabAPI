@@ -37,7 +37,7 @@ global_regex: [
     "Scp079":"SCP-079",
     "ChaosConscript":"Chaos Conscript",
     "Scp096":"SCP-096",
-    "Scp0492":"SCP-049-2",
+    "SCP-0492":"SCP-049-2",
     "NtfSergeant":"MTF Sergeant",
     "NtfCaptain":"MTF Captain",
     "NtfPrivate":"MTF Private",
@@ -331,13 +331,13 @@ messages:
         # playerteam - Team
         default:
             message: "<var:playername> (<var:playersteamid>) was hurt by <var:attackername> (<var:attackersteamid>) using <var:damagetype> (<var:damage> hp)."
-            regex: ["using UNKNOWN":"using unknown means"]
+            regex: ["using UNKNOWN":"using unknown means", "-1 damage":"immense damage"]
         friendlyfire:
             message: "**<var:playerteam> <var:playername> (<var:playersteamid>) was attacked by teammate <var:attackerteam> <var:attackername> (<var:attackersteamid>) using <var:damagetype> (<var:damage> hp).**"
-            regex: ["using UNKNOWN":"using unknown means"]
+            regex: ["using UNKNOWN":"using unknown means", "-1 damage":"immense damage"]
         noattacker:
             message: "<var:playername> (<var:playersteamid>) took <var:damage> damage by <var:damagetype>."
-            regex: ["damage by UNKNOWN":"damage from unknown causes"]
+            regex: ["damage by UNKNOWN":"damage from unknown causes", "-1 damage":"immense damage"]
 
     onplayerdie:
         # damagetype - DamageType
@@ -451,14 +451,40 @@ messages:
         regex: []
 
     onsetrole:
+        # oldrole - Role
         # ipaddress - string
         # name - string
         # playerid - int
         # steamid - string
         # class - Role
         # team - Team
-        message: "<var:name> (<var:steamid>) has become a <var:class>."
-        regex: []
+        roundstart:
+            message: "<var:name> (<var:steamid>) has spawned as a <var:class>."
+            regex: [ ]
+        latejoin:
+            message: "<var:name> (<var:steamid>) has spawned as a <var:class> (Latejoin)."
+            regex: [ ]
+        respawn:
+            message: "<var:name> (<var:steamid>) has respawned as a <var:class>."
+            regex: [ ]
+        died:
+            message: "<var:name> (<var:steamid>) died and became a <var:class>."
+            regex: [ ]
+        escaped:
+            message: "<var:name> (<var:steamid>) has escaped the facility and become a <var:class>."
+            regex: [ ]
+        revived:
+            message: "<var:name> (<var:steamid>) was revived as an <var:class>."
+            regex: [ ]
+        remoteadmin:
+            message: "<var:name> (<var:steamid>) was changed to <var:class> via remote admin."
+            regex: [ ]
+        left:
+            message: "<var:name> (<var:steamid>) left the server."
+            regex: [ ]
+        other:
+            message: "<var:name> (<var:steamid>) has become a <var:class>."
+            regex: []
 
     onspawn:
         # ipaddress - string
