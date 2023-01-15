@@ -261,7 +261,7 @@ messages:
         # steamid
         # class
         # team
-        message: " <var:name> (<var:steamid>) activated SCP-914 on the setting <var:knobsetting>."
+        message: "<var:name> (<var:steamid>) activated SCP-914 on the setting <var:knobsetting>."
         regex: []
 
     onstartcountdown:

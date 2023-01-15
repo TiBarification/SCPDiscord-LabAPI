@@ -59,6 +59,13 @@ namespace SCPDiscord.Properties {
             }
         }
         
+        internal static byte[] english_emote {
+            get {
+                object obj = ResourceManager.GetObject("english-emote", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
         internal static byte[] overrides {
             get {
                 object obj = ResourceManager.GetObject("overrides", resourceCulture);

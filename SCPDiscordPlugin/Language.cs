@@ -32,7 +32,7 @@ namespace SCPDiscord
 			//{ "polish",             Encoding.UTF8.GetString(Resources.polish)           },
 			//{ "italian",            Encoding.UTF8.GetString(Resources.italian)          },
 			//{ "finnish",            Encoding.UTF8.GetString(Resources.finnish)          },
-			//{ "english-emote",      Encoding.UTF8.GetString(Resources.english_emote)    },
+			{ "english-emote",      Encoding.UTF8.GetString(Resources.english_emote)    },
 			//{ "russian-emote",      Encoding.UTF8.GetString(Resources.russian_emote)    },
 			//{ "french-emote",       Encoding.UTF8.GetString(Resources.french_emote)     },
 			//{ "polish-emote",       Encoding.UTF8.GetString(Resources.polish_emote)     },
