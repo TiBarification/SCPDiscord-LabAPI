@@ -6,12 +6,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
+using GameCore;
 using Mirror.LiteNetLib4Mirror;
 using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
 using PluginAPI.Events;
 using YamlDotNet.Core;
+using Log = PluginAPI.Core.Log;
 
 namespace SCPDiscord
 {
@@ -50,6 +52,13 @@ namespace SCPDiscord
 
 			if (!LoadConfig())
 				return;
+
+			// Add the invisible SCPD marker at the end of the server name if the server has metrics on
+			if (Config.GetBool("settings.metrics") && !string.IsNullOrWhiteSpace(ConfigFile.ServerConfig.GetString("server_name", "")))
+			{
+				ConfigFile.ServerConfig.SetString(ConfigFile.ServerConfig.GetString("server_name", "") + "<color=#ffffff00><size=1>SCPD:" + VERSION + "</size></color>");
+				ServerConsole.ReloadServerName();
+			}
 
 			roleSync = new RoleSync(this);
 			if (Server.Port == Config.GetInt("bot.port"))
