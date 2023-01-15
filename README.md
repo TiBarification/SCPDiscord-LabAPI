@@ -2,9 +2,30 @@
 
 SCPDiscord links features from your SCP:SL server console to Discord channels, such as printing out server events to Discord and using server commands through Discord. It is incredibly customisable as you can read more about below.
 
-Prereleases: https://github.com/KarlOfDuty/SCPDiscord/releases
+## Features
 
-## The NorthWood version of SCPDiscord is in a very early alpha! The config will change a lot during this time so don't install it yet unless you are prepared to redo the config several times!
+* Ability to log any Northwood API event to Discord. All are optional and can be toggled individually.
+
+* Complete multi-channel support letting you post different events to different channels. All can be individually re-routed.
+
+* Support for MultiAdmin managed servers, each sub-server can post to the same channel, different channels or even different Discord servers.
+
+* You can for instance have one public channel for each of your servers where things like player joins, kills, round starts and round ends are posted. 
+You could then add one channel for each server visible only to moderators, showing things like admin actions and logging who attacks who on each server to check for teamkillers.
+
+* Ability to run server commands from discord channels, with command permissions limited to specific roles of your choice.
+
+* The ability to completely customise every single message from the plugin and use different languages. More info [here](docs/Languages.md).
+
+* Player count is displayed in the bot activity field. The bot's status changes from red when the scp server is off but the bot server is on, yellow when there are no players on a server and green when a server has players.
+
+* You can sync ranks from discord to the game, letting you automate things like supporter rewards and moderator positions.
+
+* You can also grant reserved slot automatically for specific discord roles, and automatically remove them if they lose their role.
+
+## Download
+
+You can download the latest release [here](https://github.com/KarlOfDuty/SCPDiscord/releases) or the latest dev build [here](https://jenkins.karlofduty.com/blue/organizations/jenkins/CI%2FSCPDiscord/activity);
 
 ## Guides
 
