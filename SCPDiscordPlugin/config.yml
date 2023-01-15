@@ -66,6 +66,12 @@ channels:
     - "default": "add-channel-id-here"
     - "staff": "add-channel-id-here"
 
+
+channelsettings:
+    # Removes online players' IPs from discord messages in the following channels
+    # Set to [] to disable
+    filterips: [ "default" ]
+
 # Using the channel aliases above you can direct events to different channels here
 # Set to [] to disable an event.
 messages:

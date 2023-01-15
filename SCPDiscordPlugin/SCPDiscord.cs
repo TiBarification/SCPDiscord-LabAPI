@@ -190,37 +190,6 @@ namespace SCPDiscord
 			}
 		}
 
-		public void SendString(IEnumerable<string> channelAliases, string message)
-		{
-			foreach (string channel in channelAliases)
-			{
-				if (Config.GetDict("channels").ContainsKey(channel))
-				{
-					MessageWrapper wrapper = new MessageWrapper
-					{
-						ChatMessage = new ChatMessage
-						{
-							ChannelID = Config.GetDict("channels")[channel],
-							Content = message
-						}
-					};
-					NetworkSystem.QueueMessage(wrapper);
-				}
-			}
-		}
-
-		public void SendEmbed(IEnumerable<string> channelAliases, EmbedMessage message)
-		{
-			foreach (string channel in channelAliases)
-			{
-				if (Config.GetDict("channels").ContainsKey(channel))
-				{
-					message.ChannelID = Config.GetDict("channels")[channel];
-					NetworkSystem.QueueMessage(new MessageWrapper { EmbedMessage = message });
-				}
-			}
-		}
-
 		public void SendStringByID(ulong channelID, string message)
 		{
 			MessageWrapper wrapper = new MessageWrapper

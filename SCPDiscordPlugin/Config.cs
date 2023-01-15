@@ -46,8 +46,14 @@ namespace SCPDiscord
 			{ "bot.port", 8888 }
 		};
 
+		// The message arrays have to be entered separately as they are used in the language files as well
+		private static readonly Dictionary<string, string[]> generalConfigArrays = new Dictionary<string, string[]>
+		{
+			{ "channelsettings.filterips", new string[]{} }
+		};
+
 		// The following four are a bit messed up but the language and config systems need slightly different versions of this list so it had to be this way
-		private static readonly List<string> configAndLanguageNodes = new List<string>
+		private static readonly IReadOnlyList<string> configMessageArrays = new List<string>
 		{
 			"messages.connectedtobot",
 			"messages.on079addexp",
@@ -148,7 +154,7 @@ namespace SCPDiscord
 			"messages.onwaitingforplayers",
 		};
 
-		private static readonly List<string> languageOnlyNodes = new List<string>
+		private static readonly IReadOnlyList<string> languageOnlyNodes = new List<string>
 		{
 			"messages.botstatus",
 			"messages.invalidsteamid",
@@ -162,18 +168,21 @@ namespace SCPDiscord
 			"messages.kickall"
 		};
 
-		public static readonly List<string> languageNodes = configAndLanguageNodes.Concat(languageOnlyNodes).ToList();
+		internal static readonly IReadOnlyList<string> languageNodes = configMessageArrays.Concat(languageOnlyNodes).ToList();
 
-		// Convert message nodes to a dictionary to hold the settings from the config
-		private static readonly Dictionary<string, string[]> configArrays = configAndLanguageNodes.Zip(new string[configAndLanguageNodes.Count][],
-			(name, emptyArray) => (name: name, emptyArray: emptyArray)).ToDictionary(ns => ns.name, ns => ns.emptyArray);
+		// Convert message nodes to a dictionary and combine it with the other config arrays, I am aware this is jank af
+		private static readonly Dictionary<string, string[]> configArrays =
+			// Convert the config message array to a dictionary of arrays
+			configMessageArrays.Zip(new string[configMessageArrays.Count][], (name, emptyArray) => (name: name, emptyArray: emptyArray)).ToDictionary(ns => ns.name, ns => ns.emptyArray)
+			// Add general config arrays
+			.Concat(generalConfigArrays).ToDictionary(e => e.Key, e => e.Value);
 
 		private static readonly Dictionary<string, Dictionary<string, ulong>> configDicts = new Dictionary<string, Dictionary<string, ulong>>
 		{
 			{ "channels", new Dictionary<string, ulong>() }
 		};
 
-		public static Dictionary<ulong, string[]> roleDictionary = new Dictionary<ulong, string[]>();
+		internal static Dictionary<ulong, string[]> roleDictionary = new Dictionary<ulong, string[]>();
 
 		internal static void Reload(SCPDiscord plugin)
 		{
@@ -493,6 +502,19 @@ namespace SCPDiscord
 
 			sb.Append("|||||||||||| End of config validation ||||||||||||");
 			plugin.Info(sb.ToString());
+		}
+
+		public static List<ulong> GetChannelIDs(string path)
+		{
+			List<ulong> channelIDs = new List<ulong>();
+			foreach (string alias in GetArray(path))
+			{
+				if (GetDict("channels").TryGetValue(alias, out ulong channelID))
+				{
+					channelIDs.Add(channelID);
+				}
+			}
+			return channelIDs;
 		}
 	}
 }

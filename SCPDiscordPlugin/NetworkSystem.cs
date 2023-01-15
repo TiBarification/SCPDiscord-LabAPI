@@ -31,20 +31,17 @@ namespace SCPDiscord
 				processedMessage = "[" + DateTime.Now.ToString(Config.GetString("settings.timestamp")) + "]: " + processedMessage;
 			}
 
-			foreach (string channel in Config.GetArray(messagePath))
+			foreach (ulong channelID in Config.GetChannelIDs(messagePath))
 			{
-				if (Config.GetDict("channels").ContainsKey(channel))
+				MessageWrapper wrapper = new MessageWrapper
 				{
-					MessageWrapper wrapper = new MessageWrapper
+					ChatMessage = new ChatMessage
 					{
-						ChatMessage = new ChatMessage
-						{
-							ChannelID = Config.GetDict("channels")[channel],
-							Content = processedMessage
-						}
-					};
-					NetworkSystem.QueueMessage(wrapper);
-				}
+						ChannelID = channelID,
+						Content = processedMessage
+					}
+				};
+				NetworkSystem.QueueMessage(wrapper);
 			}
 		}
 	}
@@ -87,18 +84,15 @@ namespace SCPDiscord
 				embed.Timestamp = DateTimeOffset.Now.ToUnixTimeSeconds();
 			}
 
-			foreach (string channel in Config.GetArray(messagePath))
+			foreach (ulong channelID in Config.GetChannelIDs(messagePath))
 			{
-				if (Config.GetDict("channels").ContainsKey(channel))
+				// Create copy to avoid pointer issues
+				EmbedMessage embedCopy = new EmbedMessage(embed)
 				{
-					// Create copy to avoid pointer issues
-					EmbedMessage embedCopy = new EmbedMessage(embed)
-					{
-						ChannelID = Config.GetDict("channels")[channel]
-					};
-					MessageWrapper wrapper = new MessageWrapper { EmbedMessage = embedCopy };
-					NetworkSystem.QueueMessage(wrapper);
-				}
+					ChannelID = channelID
+				};
+				MessageWrapper wrapper = new MessageWrapper { EmbedMessage = embedCopy };
+				NetworkSystem.QueueMessage(wrapper);
 			}
 		}
 	}
@@ -420,6 +414,47 @@ namespace SCPDiscord
 				plugin.Warn("Message was null: \n" + new StackTrace());
                 return;
 			}
+
+			switch (message.MessageCase)
+			{
+				case MessageWrapper.MessageOneofCase.EmbedMessage:
+					if (Config.GetChannelIDs("channelsettings.filterips").Contains(message.EmbedMessage.ChannelID))
+					{
+						foreach (Player player in Player.GetPlayers())
+						{
+							message.EmbedMessage.Description = message.EmbedMessage.Description.Replace(
+								player.IpAddress,
+								new string('#', player.IpAddress.Length));
+						}
+					}
+					break;
+				case MessageWrapper.MessageOneofCase.ChatMessage:
+					if (Config.GetChannelIDs("channelsettings.filterips").Contains(message.ChatMessage.ChannelID))
+					{
+						foreach (Player player in Player.GetPlayers())
+						{
+							message.ChatMessage.Content = message.ChatMessage.Content.Replace(
+								player.IpAddress,
+								new string('#', player.IpAddress.Length));
+						}
+					}
+					break;
+				case MessageWrapper.MessageOneofCase.BanCommand:
+				case MessageWrapper.MessageOneofCase.BotActivity:
+				case MessageWrapper.MessageOneofCase.ConsoleCommand:
+				case MessageWrapper.MessageOneofCase.KickCommand:
+				case MessageWrapper.MessageOneofCase.KickallCommand:
+				case MessageWrapper.MessageOneofCase.ListCommand:
+				case MessageWrapper.MessageOneofCase.None:
+				case MessageWrapper.MessageOneofCase.SyncRoleCommand:
+				case MessageWrapper.MessageOneofCase.UnbanCommand:
+				case MessageWrapper.MessageOneofCase.UnsyncRoleCommand:
+				case MessageWrapper.MessageOneofCase.UserInfo:
+				case MessageWrapper.MessageOneofCase.UserQuery:
+				default:
+					break;
+			}
+
 			messageQueue.Add(message);
 		}
 
