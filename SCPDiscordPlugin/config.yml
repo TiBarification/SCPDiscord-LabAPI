@@ -52,9 +52,11 @@ settings:
 rolesync:
     - "add-role-id-here":
         - "scpd_grantvanillarank <var:userid> moderator"
+        - "scpd_grantreservedslot <var:userid> <var:discordusernamewithdiscriminator> (<var:discordid>)"
         - "/pbc <var:playerid> 3 Moderator role synced from Discord."
     - "add-another-role-id-here":
         - "scpd_grantvanillarank <var:userid> donator"
+        - "scpd_grantreservedslot <var:userid> <var:discordusernamewithdiscriminator> (<var:discordid>)"
         - "/pbc <var:playerid> 3 Donator role synced from Discord."
     - "add-everyone-role-id-here":
         - "scpd_removereservedslot <var:userid>"

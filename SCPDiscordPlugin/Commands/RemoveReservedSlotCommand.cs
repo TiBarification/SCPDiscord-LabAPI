@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using CommandSystem;
 
 namespace SCPDiscord.Commands
@@ -8,12 +11,10 @@ namespace SCPDiscord.Commands
 	public class RemoveReservedSlotCommand : ICommand
 	{
 		public string Command => "scpdiscord_removereservedslot";
-		public string[] Aliases => new string[] { "scpd_removereservedslot", "scpd_rrs" };
-		public string Description => "Removes a reserved slot from a player.";
+		public string[] Aliases => new[] { "scpd_removereservedslot", "scpd_rrs" };
+		public string Description => "Removes a player from the reserved slots list.";
 		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
 		{
-			response = "This command doesn't work in this version.";
-			return false;
 			/*
 			if (sender is Player player)
 			{
@@ -22,21 +23,45 @@ namespace SCPDiscord.Commands
 					return new[] { "You don't have permission to use that command." };
 				}
 			}
-
-			if (args.Length <= 0)
-			{
-				return new[] { "Invalid arguments." };
-			}
-
-			if (ReservedSlot.GetSlots().All(slot => slot.SteamID != args[0].Trim()))
-			{
-				return new[] { "This user does not have a reserved slot." };
-			}
-
-			ReservedSlot.GetSlots().First(slot => slot.SteamID == args[0])?.RemoveSlotFromFile();
-
-			return new[] { "Reserved slot removed." };
 			*/
+
+			if (arguments.Count < 1 || arguments.At(0).Length < 10)
+			{
+				response = "Invalid arguments.";
+				return false;
+			}
+
+			bool found = false;
+			string steamID = arguments.At(0);
+			List<string> reservedSlotsFileRows = File.ReadAllLines(Config.GetReservedSlotPath()).ToList();
+			for (int i = 0; i < reservedSlotsFileRows.Count; ++i)
+			{
+				if (reservedSlotsFileRows[i].Trim().StartsWith(steamID))
+				{
+					found = true;
+					reservedSlotsFileRows.RemoveAt(i);
+					--i;
+
+					// Remove SCPDiscord comment if there is one
+					if (i >= 0 && reservedSlotsFileRows[i].Trim().StartsWith("# SCPDiscord"))
+					{
+						reservedSlotsFileRows.RemoveAt(i);
+						--i;
+					}
+				}
+			}
+
+			if (found)
+			{
+				File.WriteAllLines(Config.GetReservedSlotPath(), reservedSlotsFileRows);
+				response = "Reserved slot removed.";
+				return true;
+			}
+			else
+			{
+				response = "Could not find a reserved slot with that Steam ID.";
+				return false;
+			}
 		}
 	}
 }

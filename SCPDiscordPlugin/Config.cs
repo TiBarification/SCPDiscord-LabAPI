@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using GameCore;
 using PluginAPI.Helpers;
 using YamlDotNet.Serialization;
 using Resources = SCPDiscord.Properties.Resources;
@@ -424,6 +425,12 @@ namespace SCPDiscord
 		public static string GetRolesyncPath()
 		{
 			return GetRolesyncDir() + "rolesync.json";
+		}
+
+		public static string GetReservedSlotPath()
+		{
+			// From ConfigSharing.Reload
+			return ConfigSharing.Paths[3] + "UserIDReservedSlots.txt";
 		}
 
 		public static void ValidateConfig(SCPDiscord plugin)
