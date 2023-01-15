@@ -53,12 +53,14 @@ namespace SCPDiscord
 			if (!LoadConfig())
 				return;
 
+			/*
 			// Add the invisible SCPD marker at the end of the server name if the server has metrics on
 			if (Config.GetBool("settings.metrics") && !string.IsNullOrWhiteSpace(ConfigFile.ServerConfig.GetString("server_name", "")))
 			{
 				ConfigFile.ServerConfig.SetString("server_name", ConfigFile.ServerConfig.GetString("server_name", "") + "<color=#ffffff00><size=1>SCPD:" + VERSION + "</size></color>");
 				ServerConsole.ReloadServerName();
 			}
+			*/
 
 			roleSync = new RoleSync(this);
 			if (Server.Port == Config.GetInt("bot.port"))
