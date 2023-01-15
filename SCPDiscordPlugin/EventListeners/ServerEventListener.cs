@@ -78,10 +78,11 @@ namespace SCPDiscord.EventListeners
 		}
 
 		[PluginEvent(ServerEventType.PlayerKicked)]
-		public void OnKick(Player player, Player issuer, string reason)
+		public void OnKick(Player player, ICommandSender commandSender, string reason)
 		{
-			if (issuer != null)
+			if (commandSender is PlayerCommandSender playerSender && Player.Get(playerSender.ReferenceHub) != null)
 			{
+				Player issuer = Player.Get(playerSender.ReferenceHub);
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
 					{ "reason",                 reason                                   },
