@@ -66,7 +66,6 @@ channels:
     - "default": "add-channel-id-here"
     - "staff": "add-channel-id-here"
 
-
 channelsettings:
     # Removes online players' IPs from discord messages in the following channels
     # Set to [] to disable
@@ -138,8 +137,8 @@ messages:
     ongeneratordeactivated: [ "default" ]
     onscp914changeknob: []
     onplayertriggertesla:
-        default: [ ]
-        ignored: [ ]
+        default: []
+        ignored: []
     onpocketdimensionexit: [ "default" ]
     onpocketdimensionenter: [ "default" ]
     ondooraccess:
@@ -147,16 +146,16 @@ messages:
         denied: []
 
     # SCP Events
-    on079lockdoor: [ ]
+    on079lockdoor: []
     on079elevator:
-        up: [ ]
-        down: [ ]
-    on079teslagate: [ ]
-    on079addexp: [ ]
+        up: []
+        down: []
+    on079teslagate: []
+    on079addexp: []
     on079levelup: [ "default" ]
-    on079unlockdoor: [ ]
-    on079lockdown: [ ]
-    on079cancellockdown: [ ]
+    on079unlockdoor: []
+    on079lockdown: []
+    on079cancellockdown: []
     onrecallzombie: []
     onplayerinfected: [ "default" ]
 
@@ -181,13 +180,13 @@ messages:
         roundstart: [ "default" ]
         latejoin: [ "default" ]
         respawn: [ "default" ]
-        died: [ "default" ]
+        died: []
         escaped: [ "default" ]
         revived: [ "default" ]
         remoteadmin: [ "default" ]
         left: []
         other: [ "default" ]
-    onspawn: [ "staff" ]
+    onspawn: []
     onthrowprojectile: [ "default", "staff" ]
     onspawnragdoll: []
     onitemuse: [ "default" ]
@@ -204,4 +203,3 @@ messages:
     onteamrespawn:
         mtf: [ "default" ]
         ci: [ "default" ]
-
