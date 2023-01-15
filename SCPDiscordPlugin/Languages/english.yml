@@ -162,6 +162,25 @@ global_regex: [
     "OneToOne":"1:1",
     "VeryFine":"very fine",
     "Fine":"fine",
+
+  # KeycardPermissions
+    #"None":"",
+    #"Checkpoints":"",
+    "ExitGates":"exit gates",
+    #"Intercom":"",
+    "AlphaWarhead":"Alpha warhead",
+    "ContainmentLevelOne":"Containment level 1",
+    "ContainmentLevelTwo":"Containment level 2",
+    "ContainmentLevelThree":"Containment level 3",
+    "ArmoryLevelOne":"Armory level one",
+    "ArmoryLevelTwo":"Armory level two",
+    "ArmoryLevelThree":"Armory level three",
+    "ScpOverride":"SCP-override",
+
+  # Some door things
+    "PortallessBreakableDoor":"door",
+    "BreakableDoor":"door",
+    "door\\(Clone\\)":"door"
 ]
 
 # Executes on the final version of the message, this is the only regex that affects player names
@@ -509,11 +528,11 @@ messages:
         # class - Role
         # team - Team
         allowed:
-            message: "<var:name> (<var:steamid>) isopen:<var:open> a door (<var:doorname>) requiring the permission <var:permission>."
-            regex: ["isopen:True":"closed", "isopen:False":"opened", " requiring the permission \\.":"."," requiring the permission None\\.":"."]
+            message: "<var:name> (<var:steamid>) isopen:<var:open> a door (<var:doorname>) requiring \"<var:permission>\" permission."
+            regex: ["isopen:True":"closed", "isopen:False":"opened", " requiring \"\" permission\\.":"."," requiring \"None\" permission\\.":"."]
         denied:
-            message: "<var:name> (<var:steamid>) tried to isopen:<var:open> a locked door (<var:doorname>) requiring the permission <var:permission>."
-            regex: ["isopen:True":"close", "isopen:False":"open"," requiring the permission \\.":"."," requiring the permission None\\.":"."]
+            message: "<var:name> (<var:steamid>) tried to isopen:<var:open> a locked door (<var:doorname>) requiring \"<var:permission>\" permission."
+            regex: ["isopen:True":"close", "isopen:False":"open"," requiring \"\" permission \\.":"."," requiring \"None\" permission\\.":"."]
 
     onpocketdimensionexit:
         # ipaddress - string
