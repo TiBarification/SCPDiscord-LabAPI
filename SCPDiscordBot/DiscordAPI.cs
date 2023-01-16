@@ -181,6 +181,7 @@ namespace SCPDiscord
 					}
 				};
 				message.UserInfo.RoleIDs.AddRange(member.Roles.Select(role => role.Id));
+				message.UserInfo.RoleIDs.Add(member.Guild.EveryoneRole.Id);
 				NetworkSystem.SendMessage(message);
 			}
 			catch (Exception e)
