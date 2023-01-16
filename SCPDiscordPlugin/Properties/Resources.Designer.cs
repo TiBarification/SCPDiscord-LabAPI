@@ -72,5 +72,19 @@ namespace SCPDiscord.Properties {
                 return ((byte[])(obj));
             }
         }
+        
+        internal static byte[] russian {
+            get {
+                object obj = ResourceManager.GetObject("russian", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        internal static byte[] russian_emote {
+            get {
+                object obj = ResourceManager.GetObject("russian-emote", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }
