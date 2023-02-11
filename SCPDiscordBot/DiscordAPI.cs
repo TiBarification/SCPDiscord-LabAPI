@@ -287,7 +287,7 @@ namespace SCPDiscord
 		{
 			return attr switch
 			{
-				CooldownAttribute _ => "You cannot use do that so often!",
+				CooldownAttribute _ => "You cannot do that so often!",
 				RequireOwnerAttribute _ => "Only the server owner can use that command!",
 				RequirePermissionsAttribute _ => "You don't have permission to do that!",
 				RequireRolesAttribute _ => "You do not have a required role!",
