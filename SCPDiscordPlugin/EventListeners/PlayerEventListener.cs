@@ -163,7 +163,7 @@ namespace SCPDiscord.EventListeners
 			plugin.SendMessage("messages.onplayerhurt.default", variables);
 		}
 
-		[PluginEvent(ServerEventType.PlayerDeath)]
+		[PluginEvent(ServerEventType.PlayerDying)]
 		public void OnPlayerDie(Player target, Player attacker, DamageHandlerBase damageHandler)
 		{
 			if (target == null || target.Role == RoleTypeId.None || !(damageHandler is StandardDamageHandler stdHandler))
