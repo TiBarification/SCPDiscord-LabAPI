@@ -7,8 +7,8 @@ namespace SCPDiscord.Commands
 	public class ServerCommand : ApplicationCommandModule
 	{
 		[SlashRequireGuild]
-		[SlashCommand("ban", "Bans a user from the server")]
-		public async Task OnExecute(InteractionContext command, [Option("Command", "Server console command to run, use / prefix for RA and . for client commands, no prefix for server commands.")]  string serverCommand = "")
+		[SlashCommand("server", "Runs a server console command.")]
+		public async Task OnExecute(InteractionContext command, [Option("Command", "Server console command to run.")]  string serverCommand = "")
 		{
 			Interface.MessageWrapper message = new Interface.MessageWrapper
 			{

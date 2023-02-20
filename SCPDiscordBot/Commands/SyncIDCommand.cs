@@ -9,9 +9,9 @@ namespace SCPDiscord.Commands
 	{
 		[SlashRequireGuild]
 		[SlashCommand("syncid", "Syncs your Discord role to the server using your SteamID.")]
-		public async Task OnExecute(InteractionContext command, [Option("SteamID", "Your Steam ID.")] ulong steamID)
+		public async Task OnExecute(InteractionContext command, [Option("SteamID", "Your Steam ID.")] string steamID)
 		{
-			if (steamID.ToString().Length < 17)
+			if (steamID.Length < 17)
 			{
 				DiscordEmbed error = new DiscordEmbedBuilder
 				{
@@ -29,7 +29,7 @@ namespace SCPDiscord.Commands
 					ChannelID = command.Channel.Id,
 					DiscordID = command.Member?.Id ?? 0,
 					DiscordTag = command.Member?.Username,
-					SteamIDOrIP = steamID.ToString()
+					SteamIDOrIP = steamID
 				}
 			};
 			NetworkSystem.SendMessage(message);
