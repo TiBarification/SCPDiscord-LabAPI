@@ -105,14 +105,6 @@ namespace SCPDiscord
 			}
 		}
 
-		/// <summary>
-		/// Handles a ban command from Discord.
-		/// </summary>
-		/// <param name="channelID">ChannelID of the channel the command was used in.</param>
-		/// <param name="steamID">SteamID of player to be banned.</param>
-		/// <param name="duration">Duration of ban expressed as xu where x is a number and u is a character representing a unit of time.</param>
-		/// <param name="reason">Optional reason for the ban.</param>
-		/// <param name="adminTag">Discord tag of the user who created the ban.</param>
 		private void BanCommand(ulong channelID, string steamID, string duration, string reason, string adminTag)
 		{
 			EmbedMessage embed = new EmbedMessage
@@ -170,8 +162,8 @@ namespace SCPDiscord
 			}
 
 			// Add the player to the SteamIDBans file.
-			StreamWriter streamWriter = new StreamWriter(Paths.SecretLab + "UserIdBans.txt", true);
-			streamWriter.WriteLine(name + ';' + steamID + ';' + endTime.Ticks + ';' + reason + ";" + adminTag + ";" + DateTime.UtcNow.Ticks);
+			StreamWriter streamWriter = new StreamWriter(Config.GetUserIDBansFile(), true);
+			streamWriter.WriteLine(name + ';' + (steamID.EndsWith("@steam") ? steamID : steamID + "@steam") + ';' + endTime.Ticks + ';' + reason + ";" + adminTag + ";" + DateTime.UtcNow.Ticks);
 			streamWriter.Dispose();
 
 			// Kicks the player if they are online.
@@ -190,11 +182,6 @@ namespace SCPDiscord
 			plugin.SendEmbedWithMessageByID(embed, "messages.playerbanned", banVars);
 		}
 
-		/// <summary>
-		/// Handles an unban command from Discord.
-		/// </summary>
-		/// <param name="channelID">ChannelID of discord channel command was used in.</param>
-		/// <param name="steamIDOrIP">SteamID of player to be unbanned.</param>
 		private void UnbanCommand(ulong channelID, string steamIDOrIP)
 		{
 			EmbedMessage embed = new EmbedMessage
@@ -214,19 +201,38 @@ namespace SCPDiscord
 				return;
 			}
 
-			// Get all ban entries in the files.
-			List<string> ipBans = File.ReadAllLines(Paths.SecretLab + "IpBans.txt").ToList();
-			List<string> steamIDBans = File.ReadAllLines(Paths.SecretLab + "UserIdBans.txt").ToList();
+			// Read ip bans if the file exists
+			List<string> ipBans = new List<string>();
+			if (File.Exists(Config.GetIPBansFile()))
+			{
+				 ipBans = File.ReadAllLines(Config.GetIPBansFile()).ToList();
+			}
+			else
+			{
+				plugin.Warn(Config.GetIPBansFile() + " does not exist, could not check it for banned players.");
+			}
 
-			// Get all ban entries to be removed.
-			List<string> matchingIPBans = ipBans.FindAll(s => s.Contains(steamIDOrIP));
-			List<string> matchingSteamIDBans = steamIDBans.FindAll(s => s.Contains(steamIDOrIP));
+			// Read steam id bans if the file exists
+			List<string> steamIDBans = new List<string>();
+			if (File.Exists(Config.GetUserIDBansFile()))
+			{
+				steamIDBans = File.ReadAllLines(Config.GetUserIDBansFile()).ToList();
+			}
+			else
+			{
+				plugin.Warn(Config.GetUserIDBansFile() + " does not exist, could not check it for banned players.");
+			}
+
+			// Get all ban entries to be removed. (Splits the string and only checks the steam id and ip of the banned players instead of entire strings)
+			List<string> matchingIPBans = ipBans.FindAll(s => s.Split(';').ElementAtOrDefault(1)?.Contains(steamIDOrIP) ?? false);
+			List<string> matchingSteamIDBans = steamIDBans.FindAll(s => s.Split(';').ElementAtOrDefault(1)?.Contains(steamIDOrIP) ?? false);
 
 			// Delete the entries from the original containers now that there is a backup of them
-			ipBans.RemoveAll(s => s.Contains(steamIDOrIP));
-			steamIDBans.RemoveAll(s => s.Contains(steamIDOrIP));
+			ipBans.RemoveAll(s => matchingIPBans.Any(str => str == s));
+			steamIDBans.RemoveAll(s => matchingSteamIDBans.Any(str => str == s));
 
-			// Check if either ban file has a ban with a time stamp matching the one removed and remove it too as most servers create both a steamid-ban entry and an ip-ban entry.
+			// Check if either ban file has a ban with a time stamp matching the one removed and remove it too as
+			// most servers create both a steamid-ban entry and an ip-ban entry.
 			foreach (var row in matchingIPBans)
 			{
 				steamIDBans.RemoveAll(s => s.Contains(row.Split(';').Last()));
@@ -237,9 +243,15 @@ namespace SCPDiscord
 				ipBans.RemoveAll(s => s.Contains(row.Split(';').Last()));
 			}
 
-			// Save the edited ban files
-			File.WriteAllLines(Paths.SecretLab + "IpBans.txt", ipBans);
-			File.WriteAllLines(Paths.SecretLab + "UserIdBans.txt", steamIDBans);
+			// Save the edited ban files if they exist
+			if (File.Exists(Config.GetIPBansFile()))
+			{
+				File.WriteAllLines(Config.GetIPBansFile(), ipBans);
+			}
+			if (File.Exists(Config.GetUserIDBansFile()))
+			{
+				File.WriteAllLines(Config.GetUserIDBansFile(), steamIDBans);
+			}
 
 			// Send response message to Discord
 			Dictionary<string, string> unbanVars = new Dictionary<string, string>
@@ -250,13 +262,6 @@ namespace SCPDiscord
 			plugin.SendEmbedWithMessageByID(embed, "messages.playerunbanned", unbanVars);
 		}
 
-		/// <summary>
-		/// Handles the kick command.
-		/// </summary>
-		/// <param name="channelID">Channel ID for response message.</param>
-		/// <param name="steamID">SteamID of player to be kicked.</param>
-		/// <param name="reason">The kick reason.</param>
-		/// <param name="adminTag">Discord tag of the user who kicked the player.</param>
 		private void KickCommand(ulong channelID, string steamID, string reason, string adminTag)
 		{
 			EmbedMessage embed = new EmbedMessage
@@ -302,12 +307,6 @@ namespace SCPDiscord
 			}
 		}
 
-		/// <summary>
-		/// Kicks all players from the server
-		/// </summary>
-		/// <param name="channelID">The channel to send the message in</param>
-		/// <param name="reason">Reason displayed to kicked players</param>
-		/// <param name="adminTag">Discord tag of the user who created kicked the players.</param>
 		private void KickAllCommand(ulong channelID, string reason, string adminTag)
 		{
 			if (reason == "")
@@ -332,12 +331,6 @@ namespace SCPDiscord
 			plugin.SendEmbedWithMessageByID(embed, "messages.kickall", variables);
 		}
 
-		/// <summary>
-		/// Returns a timestamp of the duration's end, and outputs a human readable duration for command feedback.
-		/// </summary>
-		/// <param name="duration">Duration of ban in format 'xu' where x is a number and u is a character representing a unit of time.</param>
-		/// <param name="humanReadableDuration">String to be filled by the function with the duration in human readable form.</param>
-		/// <returns>Returns a timestamp of the duration's end.</returns>
 		private static DateTime ParseBanDuration(string duration, ref string humanReadableDuration)
 		{
 			//Check if the amount is a number
@@ -395,14 +388,9 @@ namespace SCPDiscord
 			return DateTime.UtcNow.Add(timeSpanDuration);
 		}
 
-		/// <summary>
-		/// Does very basic validation of a SteamID.
-		/// </summary>
-		/// <param name="steamID">A SteamID.</param>
-		/// <returns>True if a possible SteamID, false if not.</returns>
 		private static bool IsPossibleSteamID(string steamID)
 		{
-			return steamID.Length >= 17 && ulong.TryParse(steamID, out ulong _);
+			return steamID.Length >= 17 && ulong.TryParse(steamID.Replace("@steam", ""), out ulong _);
 		}
 	}
 }

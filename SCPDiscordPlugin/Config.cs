@@ -397,6 +397,21 @@ namespace SCPDiscord
 			configDicts[key] = value;
 		}
 
+		public static string GetSCPSLConfigDir()
+		{
+			return Paths.SecretLab + "/";
+		}
+
+		public static string GetUserIDBansFile()
+		{
+			return GetSCPSLConfigDir() + "UserIdBans.txt";
+		}
+
+		public static string GetIPBansFile()
+		{
+			return GetSCPSLConfigDir() + "IpBans.txt";
+		}
+
 		public static string GetConfigDir()
 		{
 			return Paths.LocalPlugins.Plugins + "/SCPDiscord/";
