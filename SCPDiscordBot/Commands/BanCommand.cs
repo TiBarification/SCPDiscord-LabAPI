@@ -1,18 +1,17 @@
-﻿using DSharpPlus.CommandsNext;
-using DSharpPlus.CommandsNext.Attributes;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using DSharpPlus.SlashCommands;
+using DSharpPlus.SlashCommands.Attributes;
 
 namespace SCPDiscord.Commands
 {
-	public class BanCommand : BaseCommandModule
+	public class BanCommand : ApplicationCommandModule
 	{
-		[Command("ban")]
-		[Cooldown(1, 5, CooldownBucketType.User)]
-		public async Task OnExecute(CommandContext command, string steamID, string duration, [RemainingText] string reason = "")
+		[SlashRequireGuild]
+		[SlashCommand("ban", "Bans a user from the server")]
+		public async Task OnExecute(InteractionContext command, [Option("SteamID", "Steam ID of the user to ban.")] string steamID,
+			[Option("Duration", "User to add to ticket.")] string duration,
+			[Option("Reason", "Reason for the ban.")] string reason = "")
 		{
-			if (!ConfigParser.IsCommandChannel(command.Channel.Id)) return;
-			if (!ConfigParser.ValidatePermission(command)) return;
-
 			Interface.MessageWrapper message = new Interface.MessageWrapper
 			{
 				BanCommand = new Interface.BanCommand
@@ -25,7 +24,7 @@ namespace SCPDiscord.Commands
 				}
 			};
 			NetworkSystem.SendMessage(message);
-			Logger.Debug("Sending '" + command.Message.Content + "' to plugin from " + command.Member?.Username + "#" + command.Member?.Discriminator, LogID.DISCORD);
+			Logger.Debug("Sending BanCommand to plugin from " + command.Member?.Username + "#" + command.Member?.Discriminator, LogID.DISCORD);
 		}
 	}
 }

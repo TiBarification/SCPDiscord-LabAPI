@@ -1,18 +1,15 @@
-﻿using DSharpPlus.CommandsNext;
-using DSharpPlus.CommandsNext.Attributes;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using DSharpPlus.SlashCommands;
+using DSharpPlus.SlashCommands.Attributes;
 
 namespace SCPDiscord.Commands
 {
-	public class ListCommand : BaseCommandModule
+	public class ListCommand : ApplicationCommandModule
 	{
-		[Command("list")]
-		[Cooldown(1, 5, CooldownBucketType.User)]
-		public async Task OnExecute(CommandContext command)
+		[SlashRequireGuild]
+		[SlashCommand("list", "Lists online players.")]
+		public async Task OnExecute(InteractionContext command)
 		{
-			if (!ConfigParser.IsCommandChannel(command.Channel.Id)) return;
-			if (!ConfigParser.ValidatePermission(command)) return;
-
 			Interface.MessageWrapper message = new Interface.MessageWrapper
 			{
 				ListCommand = new Interface.ListCommand
@@ -21,7 +18,7 @@ namespace SCPDiscord.Commands
 				}
 			};
 			NetworkSystem.SendMessage(message);
-			Logger.Debug("Sending '" + command.Message.Content + "' to plugin from " + command.Member?.Username + "#" + command.Member?.Discriminator, LogID.DISCORD);
+			Logger.Debug("Sending ListCommand to plugin from " + command.Member?.Username + "#" + command.Member?.Discriminator, LogID.DISCORD);
 		}
 	}
 }

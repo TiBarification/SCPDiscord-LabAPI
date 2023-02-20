@@ -1,7 +1,5 @@
 ﻿using DSharpPlus;
-using DSharpPlus.CommandsNext;
-using DSharpPlus.CommandsNext.Attributes;
-using DSharpPlus.CommandsNext.Exceptions;
+using DSharpPlus.SlashCommands;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
 using DSharpPlus.Exceptions;
@@ -10,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DSharpPlus.SlashCommands.Attributes;
+using DSharpPlus.SlashCommands.EventArgs;
 
 namespace SCPDiscord
 {
@@ -18,7 +18,7 @@ namespace SCPDiscord
 		public static DiscordAPI instance = null;
 		public bool connected = false;
 		public static DiscordClient client = new DiscordClient(new DiscordConfiguration { Token = "DUMMY_TOKEN", TokenType = TokenType.Bot, MinimumLogLevel = LogLevel.Debug });
-		private CommandsNextExtension commands = null;
+		private SlashCommandsExtension commands = null;
 
 		public static async Task Init()
 		{
@@ -58,10 +58,7 @@ namespace SCPDiscord
 				ConfigParser.PrintConfig();
 
 				Logger.Log("Registering commands...", LogID.DISCORD);
-				instance.commands = client.UseCommandsNext(new CommandsNextConfiguration
-				{
-					StringPrefixes = new[] { ConfigParser.config.bot.prefix }
-				});
+				instance.commands = client.UseSlashCommands();
 
 				instance.commands.RegisterCommands<Commands.SyncSteamIDCommand>();
 				instance.commands.RegisterCommands<Commands.SyncIPCommand>();
@@ -80,7 +77,7 @@ namespace SCPDiscord
 				client.SocketErrored += instance.OnSocketError;
 
 				Logger.Log("Hooking command events...", LogID.DISCORD);
-				instance.commands.CommandErrored += instance.OnCommandError;
+				instance.commands.SlashCommandErrored += instance.OnCommandError;
 
 				Logger.Log("Connecting to Discord...", LogID.DISCORD);
 				await client.ConnectAsync();
@@ -196,16 +193,6 @@ namespace SCPDiscord
 			instance.connected = true;
 			Logger.Log("Connected to Discord.", LogID.DISCORD);
 			SetDisconnectedActivity();
-
-			foreach (ulong channelID in ConfigParser.config.bot.statusChannels)
-			{
-				DiscordEmbed message = new DiscordEmbedBuilder
-				{
-					Color = DiscordColor.Green,
-					Description = "**Bot online**"
-				};
-				await SendMessage(channelID, message);
-			}
 		}
 
 		public Task OnSocketError(DiscordClient discordClient, SocketErrorEventArgs e)
@@ -234,16 +221,12 @@ namespace SCPDiscord
 			return Task.CompletedTask;
 		}
 
-		public Task OnCommandError(CommandsNextExtension commandSystem, CommandErrorEventArgs e)
+		public Task OnCommandError(SlashCommandsExtension commandSystem, SlashCommandErrorEventArgs e)
 		{
 			switch (e.Exception)
 			{
-				case CommandNotFoundException:
-					return Task.CompletedTask;
-
 				case ArgumentException:
 				{
-					if (!ConfigParser.IsCommandChannel(e.Context.Channel.Id)) return Task.CompletedTask;
 					DiscordEmbed error = new DiscordEmbedBuilder
 					{
 						Color = DiscordColor.Red,
@@ -253,10 +236,9 @@ namespace SCPDiscord
 					return Task.CompletedTask;
 				}
 
-				case ChecksFailedException ex:
+				case SlashExecutionChecksFailedException ex:
 				{
-					if (!ConfigParser.IsCommandChannel(e.Context.Channel.Id)) return Task.CompletedTask;
-					foreach (CheckBaseAttribute attr in ex.FailedChecks)
+					foreach (SlashCheckBaseAttribute attr in ex.FailedChecks)
 					{
 						DiscordEmbed error = new DiscordEmbedBuilder
 						{
@@ -271,7 +253,6 @@ namespace SCPDiscord
 				default:
 				{
 					Logger.Error("Exception occured: " + e.Exception, LogID.DISCORD);
-					if (!ConfigParser.IsCommandChannel(e.Context.Channel.Id)) return Task.CompletedTask;
 					DiscordEmbed error = new DiscordEmbedBuilder
 					{
 						Color = DiscordColor.Red,
@@ -283,17 +264,17 @@ namespace SCPDiscord
 			}
 		}
 
-		private string ParseFailedCheck(CheckBaseAttribute attr)
+		private static string ParseFailedCheck(SlashCheckBaseAttribute attr)
 		{
 			return attr switch
 			{
-				CooldownAttribute _ => "You cannot do that so often!",
-				RequireOwnerAttribute _ => "Only the server owner can use that command!",
-				RequirePermissionsAttribute _ => "You don't have permission to do that!",
-				RequireRolesAttribute _ => "You do not have a required role!",
-				RequireUserPermissionsAttribute _ => "You don't have permission to do that!",
-				RequireNsfwAttribute _ => "This command can only be used in an NSFW channel!",
-				_ => "Unknown Discord API error occured, please try again later.",
+				SlashRequireDirectMessageAttribute => "This command can only be used in direct messages!",
+				SlashRequireOwnerAttribute => "Only the server owner can use that command!",
+				SlashRequirePermissionsAttribute => "You don't have permission to do that!",
+				SlashRequireBotPermissionsAttribute => "The bot doesn't have the required permissions to do that!",
+				SlashRequireUserPermissionsAttribute => "You don't have permission to do that!",
+				SlashRequireGuildAttribute => "This command has to be used in a Discord server!",
+				_ => "Unknown Discord API error occured, please try again later."
 			};
 		}
 	}

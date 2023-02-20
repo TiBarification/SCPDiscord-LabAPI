@@ -1,18 +1,15 @@
-﻿using DSharpPlus.CommandsNext;
-using DSharpPlus.CommandsNext.Attributes;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using DSharpPlus.SlashCommands;
+using DSharpPlus.SlashCommands.Attributes;
 
 namespace SCPDiscord.Commands
 {
-	public class KickAllCommand : BaseCommandModule
+	public class KickAllCommand : ApplicationCommandModule
 	{
-		[Command("kickall")]
-		[Cooldown(1, 5, CooldownBucketType.User)]
-		public async Task OnExecute(CommandContext command, [RemainingText] string kickReason = "")
+		[SlashRequireGuild]
+		[SlashCommand("kickall", "Kicks all players on the server.")]
+		public async Task OnExecute(InteractionContext command, [Option("Reason", "Kick reason.")] string kickReason = "")
 		{
-			if (!ConfigParser.IsCommandChannel(command.Channel.Id)) return;
-			if (!ConfigParser.ValidatePermission(command)) return;
-
 			Interface.MessageWrapper message = new Interface.MessageWrapper
 			{
 				KickallCommand = new Interface.KickallCommand
@@ -23,7 +20,7 @@ namespace SCPDiscord.Commands
 				}
 			};
 			NetworkSystem.SendMessage(message);
-			Logger.Debug("Sending '" + command.Message.Content + "' to plugin from " + command.Member?.Username + "#" + command.Member?.Discriminator, LogID.DISCORD);
+			Logger.Debug("Sending KickallCommand to plugin from " + command.Member?.Username + "#" + command.Member?.Discriminator, LogID.DISCORD);
 		}
 	}
 }

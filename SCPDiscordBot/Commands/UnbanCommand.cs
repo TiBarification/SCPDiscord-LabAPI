@@ -1,18 +1,15 @@
-﻿using DSharpPlus.CommandsNext;
-using DSharpPlus.CommandsNext.Attributes;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using DSharpPlus.SlashCommands;
+using DSharpPlus.SlashCommands.Attributes;
 
 namespace SCPDiscord.Commands
 {
-	public class UnbanCommand : BaseCommandModule
+	public class UnbanCommand : ApplicationCommandModule
 	{
-		[Command("unban")]
-		[Cooldown(1, 5, CooldownBucketType.User)]
-		public async Task OnExecute(CommandContext command, string steamIDOrIP)
+		[SlashRequireGuild]
+		[SlashCommand("unban", "Unbans a user from the server")]
+		public async Task OnExecute(InteractionContext command, [Option("SteamIDorIP", "Steam ID or IP of the user to unban.")] string steamIDOrIP)
 		{
-			if (!ConfigParser.IsCommandChannel(command.Channel.Id)) return;
-			if (!ConfigParser.ValidatePermission(command)) return;
-
 			Interface.MessageWrapper message = new Interface.MessageWrapper
 			{
 				UnbanCommand = new Interface.UnbanCommand
@@ -22,7 +19,7 @@ namespace SCPDiscord.Commands
 				}
 			};
 			NetworkSystem.SendMessage(message);
-			Logger.Debug("Sending '" + command.Message.Content + "' to plugin from " + command.Member?.Username + "#" + command.Member?.Discriminator, LogID.DISCORD);
+			Logger.Debug("Sending UnbanCommand to plugin from " + command.Member?.Username + "#" + command.Member?.Discriminator, LogID.DISCORD);
 		}
 	}
 }

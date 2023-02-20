@@ -1,12 +1,6 @@
-﻿using DSharpPlus.CommandsNext;
-using DSharpPlus.Entities;
-using SCPDiscordBot.Properties;
-using System.Collections.Generic;
+﻿using SCPDiscordBot.Properties;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
@@ -19,8 +13,6 @@ namespace SCPDiscord
 			public string token = "";
 			public ulong serverId = 0;
 			public string prefix = "";
-			public List<ulong> statusChannels = new List<ulong>();
-			public List<ulong> commandChannels = new List<ulong>();
 			public string logLevel = "Information";
 			public string presenceType = "Watching";
 			public string presenceText = "for server startup...";
@@ -33,8 +25,6 @@ namespace SCPDiscord
 			public int port = 8888;
 		}
 		public Plugin plugin;
-
-		public Dictionary<ulong, string[]> permissions = new Dictionary<ulong, string[]>();
 	}
 
 	public static class ConfigParser
@@ -76,65 +66,12 @@ namespace SCPDiscord
 			// Token skipped
 			Logger.Debug("bot.server-id: " + config.bot.serverId, LogID.CONFIG);
 			Logger.Debug("bot.prefix: " + config.bot.prefix, LogID.CONFIG);
-			Logger.Debug("bot.status-channels: " + string.Join(", ", config.bot.statusChannels), LogID.CONFIG);
-			Logger.Debug("bot.command-channels: " + string.Join(", ", config.bot.commandChannels), LogID.CONFIG);
 			Logger.Debug("bot.log-level: " + config.bot.logLevel, LogID.CONFIG);
 			Logger.Debug("bot.presence-type: " + config.bot.presenceType, LogID.CONFIG);
 			Logger.Debug("bot.presence-text: " + config.bot.presenceText, LogID.CONFIG);
 
 			Logger.Debug("plugin.address: " + config.plugin.address, LogID.CONFIG);
 			Logger.Debug("plugin.port: " + config.plugin.port, LogID.CONFIG);
-
-			Logger.Debug("permissions:", LogID.CONFIG);
-			foreach (KeyValuePair<ulong, string[]> role in config.permissions)
-			{
-				Logger.Debug("  " + role.Key + ":", LogID.CONFIG);
-				foreach (string permission in role.Value)
-				{
-					Logger.Debug("    " + permission, LogID.CONFIG);
-				}
-			}
-		}
-
-		public static bool ValidatePermission(CommandContext command)
-		{
-			if (HasPermission(command.Member, command.Message.Content.Substring(config.bot.prefix.Length))) return true;
-
-			DiscordEmbed deniedMessage = new DiscordEmbedBuilder
-			{
-				Color = DiscordColor.Red,
-				Description = "You do not have permission to do that!"
-			};
-			Task.Run(async () => await command.RespondAsync(deniedMessage));
-			Logger.Log(command.Member?.Username + "#" + command.Member?.Discriminator + " tried to use '" + command.Message.Content + "' but did not have permission.", LogID.COMMAND);
-			return false;
-		}
-
-		public static bool HasPermission(DiscordMember member, string permission)
-		{
-			// If a specific role is allowed to use the command
-			if (member.Roles.Any(role => config.permissions.ContainsKey(role.Id) && config.permissions[role.Id].Any(node => Regex.IsMatch(permission, "^" + node, RegexOptions.IgnoreCase | RegexOptions.Singleline))))
-			{
-				return true;
-			}
-
-			// If everyone is allowed to use the command
-			if (config.permissions.ContainsKey(0) && config.permissions[0].Any(node => Regex.IsMatch(permission, node, RegexOptions.IgnoreCase | RegexOptions.Singleline)))
-			{
-				return true;
-			}
-
-			return false;
-		}
-
-		public static bool IsCommandChannel(ulong channelID)
-		{
-			return config.bot.commandChannels.Any(id => id == channelID);
-		}
-
-		public static bool IsStatusChannel(ulong channelID)
-		{
-			return config.bot.statusChannels.Any(id => id == channelID);
 		}
 	}
 }

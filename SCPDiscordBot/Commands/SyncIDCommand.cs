@@ -1,19 +1,16 @@
-﻿using DSharpPlus.CommandsNext;
-using DSharpPlus.CommandsNext.Attributes;
-using DSharpPlus.Entities;
+﻿using DSharpPlus.Entities;
 using System.Threading.Tasks;
+using DSharpPlus.SlashCommands;
+using DSharpPlus.SlashCommands.Attributes;
 
 namespace SCPDiscord.Commands
 {
-	public class SyncSteamIDCommand : BaseCommandModule
+	public class SyncSteamIDCommand : ApplicationCommandModule
 	{
-		[Command("syncsteamid")]
-		[Cooldown(1, 5, CooldownBucketType.User)]
-		public async Task OnExecute(CommandContext command, ulong steamID)
+		[SlashRequireGuild]
+		[SlashCommand("syncid", "Syncs your Discord role to the server using your SteamID.")]
+		public async Task OnExecute(InteractionContext command, [Option("SteamID", "Your Steam ID.")] ulong steamID)
 		{
-			if (!ConfigParser.IsCommandChannel(command.Channel.Id)) return;
-			if (!ConfigParser.ValidatePermission(command)) return;
-
 			if (steamID.ToString().Length < 17)
 			{
 				DiscordEmbed error = new DiscordEmbedBuilder
@@ -21,7 +18,7 @@ namespace SCPDiscord.Commands
 					Color = DiscordColor.Red,
 					Description = "That SteamID doesn't seem to be the right length."
 				};
-				await command.RespondAsync(error);
+				await command.CreateResponseAsync(error);
 				return;
 			}
 
@@ -36,7 +33,7 @@ namespace SCPDiscord.Commands
 				}
 			};
 			NetworkSystem.SendMessage(message);
-			Logger.Debug("Sending '" + command.Message.Content + "' to plugin from " + command.Member?.Username + "#" + command.Member?.Discriminator, LogID.DISCORD);
+			Logger.Debug("Sending SyncRoleCommand to plugin from " + command.Member?.Username + "#" + command.Member?.Discriminator, LogID.DISCORD);
 		}
 	}
 }

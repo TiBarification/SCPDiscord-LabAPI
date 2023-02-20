@@ -1,23 +1,20 @@
 ﻿using System.Text.RegularExpressions;
-using DSharpPlus.CommandsNext;
-using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 using System.Threading.Tasks;
+using DSharpPlus.SlashCommands;
+using DSharpPlus.SlashCommands.Attributes;
 
 namespace SCPDiscord.Commands
 {
-	public class SyncIPCommand : BaseCommandModule
+	public class SyncIPCommand : ApplicationCommandModule
 	{
 
 		private static readonly string IPV4_PATTERN = "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.){3}(25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)$";
-		
-		[Command("syncip")]
-		[Cooldown(1, 5, CooldownBucketType.User)]
-		public async Task OnExecute(CommandContext command, string ip)
-		{
-			if (!ConfigParser.IsCommandChannel(command.Channel.Id)) return;
-			if (!ConfigParser.ValidatePermission(command)) return;
 
+		[SlashRequireGuild]
+		[SlashCommand("syncip", "Syncs your Discord role to the server using your IP (non-northwood servers only)")]
+		public async Task OnExecute(InteractionContext command, [Option("IP", "Your IP address (IPv4 only).")] string ip)
+		{
 			if (!Regex.IsMatch(ip, IPV4_PATTERN))
 			{
 				DiscordEmbed error = new DiscordEmbedBuilder
@@ -25,7 +22,7 @@ namespace SCPDiscord.Commands
 					Color = DiscordColor.Red,
 					Description = "That IP doesn't seem to be in the right format, it should look something like \"255.255.255.255\"."
 				};
-				await command.RespondAsync(error);
+				await command.CreateResponseAsync(error);
 				return;
 			}
 
@@ -40,7 +37,7 @@ namespace SCPDiscord.Commands
 				}
 			};
 			NetworkSystem.SendMessage(message);
-			Logger.Debug("Sending '" + command.Message.Content + "' to plugin from " + command.Member?.Username + "#" + command.Member?.Discriminator, LogID.DISCORD);
+			Logger.Debug("Sending SyncRoleCommand to plugin from " + command.Member?.Username + "#" + command.Member?.Discriminator, LogID.DISCORD);
 		}
 	}
 }
