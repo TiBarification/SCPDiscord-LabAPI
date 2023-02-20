@@ -348,8 +348,8 @@ namespace SCPDiscord.EventListeners
 					{ "zombieschanged",     Statistics.CurrentRound.ZombiesChanged.ToString()    }
 				};
 				plugin.SendMessage("messages.onroundend", variables);
-				plugin.roundStarted = false;
 			}
+			plugin.roundStarted = false;
 		}
 
 		[PluginEvent(ServerEventType.WaitingForPlayers)]

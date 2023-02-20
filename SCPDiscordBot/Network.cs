@@ -132,7 +132,7 @@ namespace SCPDiscord
 				case MessageWrapper.MessageOneofCase.ChatMessage:
 					try
 					{
-						foreach (string content in SplitString(wrapper.ChatMessage.Content, 2000))
+						foreach (string content in SplitString(wrapper.ChatMessage.Content, 1999))
 						{
 							MessageScheduler.QueueMessage(wrapper.ChatMessage.ChannelID, content);
 						}

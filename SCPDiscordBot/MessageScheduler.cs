@@ -37,7 +37,7 @@ public static class MessageScheduler
 						// If message is too long, abort and send the rest next time
 						if (finalMessage.Length + nextMessage.Length >= 2000)
 						{
-							Logger.Warn("Tried to send too much at once, waiting one second to send the rest.", LogID.DISCORD);
+							Logger.Warn("Tried to send too much at once (Current: " + finalMessage.Length + " Next: " +  nextMessage.Length + "), waiting one second to send the rest.", LogID.DISCORD);
 							break;
 						}
 
