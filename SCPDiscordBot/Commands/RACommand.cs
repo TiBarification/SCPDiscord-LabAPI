@@ -4,11 +4,11 @@ using DSharpPlus.SlashCommands.Attributes;
 
 namespace SCPDiscord.Commands
 {
-	public class ServerCommand : ApplicationCommandModule
+	public class RACommand : ApplicationCommandModule
 	{
 		[SlashRequireGuild]
-		[SlashCommand("server", "Runs a server console command.")]
-		public async Task OnExecute(InteractionContext command, [Option("Command", "Server console command to run.")] string serverCommand = "")
+		[SlashCommand("ra", "Runs a remote admin command.")]
+		public async Task OnExecute(InteractionContext command, [Option("Command", "Remote admin command to run.")] string serverCommand = "")
 		{
 			Interface.MessageWrapper message = new Interface.MessageWrapper
 			{
@@ -16,7 +16,7 @@ namespace SCPDiscord.Commands
 				{
 					ChannelID = command.Channel.Id,
 					DiscordID = command.Member?.Id ?? 0,
-					Command = serverCommand
+					Command = "/" + serverCommand
 				}
 			};
 			NetworkSystem.SendMessage(message);
