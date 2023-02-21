@@ -478,8 +478,8 @@ namespace SCPDiscord.EventListeners
 			plugin.SendMessage("messages.onspawnragdoll", variables);
 		}
 
-		[PluginEvent(ServerEventType.PlayerUseItem)]
-		public void OnItemUse(Player player, UsableItem item)
+		[PluginEvent(ServerEventType.PlayerUsedItem)]
+		public void OnItemUse(Player player, ItemBase item)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
