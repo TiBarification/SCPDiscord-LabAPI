@@ -185,7 +185,7 @@ namespace SCPDiscord
 			message.WriteDelimitedTo(networkStream);
 		}
 
-		private static bool IsConnected()
+		public static bool IsConnected()
 		{
 			if (clientSocket == null)
 			{
