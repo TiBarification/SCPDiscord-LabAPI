@@ -33,4 +33,4 @@ You can download the latest release [here](https://github.com/KarlOfDuty/SCPDisc
 
 - [Editing messages and languages](docs/Languages.md)
 
-- [Commands and permissions](docs/CommandsAndPermissions.md) (Outdated Smod version)
+- [Commands](docs/Commands.md)
