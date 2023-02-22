@@ -422,9 +422,14 @@ namespace SCPDiscord
 					{
 						foreach (Player player in Player.GetPlayers())
 						{
-							message.EmbedMessage.Description = message.EmbedMessage.Description.Replace(
-								player.IpAddress,
-								new string('#', player.IpAddress.Length));
+							message.EmbedMessage.Description = message.EmbedMessage.Description.Replace(player.IpAddress, new string('#', player.IpAddress.Length));
+						}
+					}
+					if (Config.GetChannelIDs("channelsettings.filtersteamids").Contains(message.EmbedMessage.ChannelID))
+					{
+						foreach (Player player in Player.GetPlayers())
+						{
+							message.EmbedMessage.Description = message.EmbedMessage.Description.Replace(player.GetParsedUserID(), "Player " + player.PlayerId);
 						}
 					}
 					break;
@@ -433,9 +438,14 @@ namespace SCPDiscord
 					{
 						foreach (Player player in Player.GetPlayers())
 						{
-							message.ChatMessage.Content = message.ChatMessage.Content.Replace(
-								player.IpAddress,
-								new string('#', player.IpAddress.Length));
+							message.ChatMessage.Content = message.ChatMessage.Content.Replace(player.IpAddress, new string('#', player.IpAddress.Length));
+						}
+					}
+					if (Config.GetChannelIDs("channelsettings.filtersteamids").Contains(message.ChatMessage.ChannelID))
+					{
+						foreach (Player player in Player.GetPlayers())
+						{
+							message.ChatMessage.Content = message.ChatMessage.Content.Replace(player.GetParsedUserID(), "Player " + player.PlayerId);
 						}
 					}
 					break;

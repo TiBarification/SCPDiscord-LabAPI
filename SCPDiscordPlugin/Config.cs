@@ -49,7 +49,8 @@ namespace SCPDiscord
 		// The message arrays have to be entered separately as they are used in the language files as well
 		private static readonly Dictionary<string, string[]> generalConfigArrays = new Dictionary<string, string[]>
 		{
-			{ "channelsettings.filterips", new string[]{} }
+			{ "channelsettings.filterips", new string[]{} },
+			{ "channelsettings.filtersteamids", new string[]{} }
 		};
 
 		// The following four are a bit messed up but the language and config systems need slightly different versions of this list so it had to be this way

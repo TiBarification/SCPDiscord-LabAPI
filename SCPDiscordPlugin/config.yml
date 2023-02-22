@@ -70,6 +70,9 @@ channelsettings:
     # Removes online players' IPs from discord messages in the following channels
     # Set to [] to disable
     filterips: [ "default" ]
+    # Replaces online players' SteamIDs with PlayerIDs in discord messages in the following channels
+    # Set to [] to disable
+    filtersteamids: []
 
 # Using the channel aliases above you can direct events to different channels here
 # Set to [] to disable an event.
@@ -185,7 +188,7 @@ messages:
         revived: [ "default" ]
         remoteadmin: [ "default" ]
         left: []
-        other: [ "default" ]
+        other: []
     onspawn: []
     onthrowprojectile: [ "default", "staff" ]
     onspawnragdoll: []
