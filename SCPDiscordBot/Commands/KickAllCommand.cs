@@ -11,6 +11,7 @@ namespace SCPDiscord.Commands
 		[SlashCommand("kickall", "Kicks all players on the server.")]
 		public async Task OnExecute(InteractionContext command, [Option("Reason", "Kick reason.")] string kickReason = "")
 		{
+			await command.DeferAsync();
 			Interface.MessageWrapper message = new Interface.MessageWrapper
 			{
 				KickallCommand = new Interface.KickallCommand
@@ -22,7 +23,6 @@ namespace SCPDiscord.Commands
 					InteractionToken = command.Token
 				}
 			};
-			await command.CreateResponseAsync(InteractionResponseType.DeferredChannelMessageWithSource);
 			NetworkSystem.SendMessage(message);
 			Logger.Debug("Sending KickallCommand to plugin from " + command.Member?.Username + "#" + command.Member?.Discriminator, LogID.DISCORD);
 		}
