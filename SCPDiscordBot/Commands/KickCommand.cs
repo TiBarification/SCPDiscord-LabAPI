@@ -10,6 +10,7 @@ namespace SCPDiscord.Commands
 		[SlashCommand("kick", "Kicks a player from the server.")]
 		public async Task OnExecute(InteractionContext command, [Option("SteamID", "Steam ID of the user to kick.")] string steamID, [Option("Reason", "Reason for the kick.")] string reason = "")
 		{
+			await command.DeferAsync();
 			Interface.MessageWrapper message = new Interface.MessageWrapper
 			{
 				KickCommand = new Interface.KickCommand
@@ -17,7 +18,9 @@ namespace SCPDiscord.Commands
 					ChannelID = command.Channel.Id,
 					SteamID = steamID,
 					AdminTag = command.Member?.Username + "#" + command.Member?.Discriminator,
-					Reason = reason
+					Reason = reason,
+					InteractionID = command.InteractionId,
+					InteractionToken = command.Token
 				}
 			};
 			NetworkSystem.SendMessage(message);

@@ -4,9 +4,11 @@ package SCPDiscord.Interface;
 
 message BanCommand
 {
-	uint64 ChannelID = 1;
-	string SteamID = 2;
-	string Duration = 3;
-	string Reason = 4;
-	string AdminTag = 5;
+	uint64 channelID = 1;
+	string steamID = 2;
+	string duration = 3;
+	string reason = 4;
+	string adminTag = 5;
+	uint64 interactionID = 6;
+	string interactionToken = 7;
 }

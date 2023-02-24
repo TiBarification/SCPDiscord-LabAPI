@@ -1,4 +1,6 @@
 ﻿using System.Threading.Tasks;
+using DSharpPlus;
+using DSharpPlus.Entities;
 using DSharpPlus.SlashCommands;
 using DSharpPlus.SlashCommands.Attributes;
 
@@ -12,6 +14,7 @@ namespace SCPDiscord.Commands
 			[Option("Duration", "User to add to ticket.")] string duration,
 			[Option("Reason", "Reason for the ban.")] string reason = "")
 		{
+			await command.DeferAsync();
 			Interface.MessageWrapper message = new Interface.MessageWrapper
 			{
 				BanCommand = new Interface.BanCommand
@@ -20,9 +23,12 @@ namespace SCPDiscord.Commands
 					SteamID = steamID,
 					Duration = duration,
 					AdminTag = command.Member?.Username + "#" + command.Member?.Discriminator,
-					Reason = reason
+					Reason = reason,
+					InteractionID = command.InteractionId,
+					InteractionToken = command.Token
 				}
 			};
+
 			NetworkSystem.SendMessage(message);
 			Logger.Debug("Sending BanCommand to plugin from " + command.Member?.Username + "#" + command.Member?.Discriminator, LogID.DISCORD);
 		}

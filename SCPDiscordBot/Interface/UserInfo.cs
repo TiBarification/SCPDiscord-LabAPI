@@ -25,9 +25,9 @@ namespace SCPDiscord.Interface {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChpCb3RUb1BsdWdpbi9Vc2VySW5mby5wcm90bxIUU0NQRGlzY29yZC5JbnRl",
-            "cmZhY2UiogEKCFVzZXJJbmZvEhMKC1N0ZWFtSURPcklQGAEgASgJEhEKCURp",
-            "c2NvcmRJRBgCIAEoBBIPCgdSb2xlSURzGAMgAygEEhoKEkRpc2NvcmREaXNw",
-            "bGF5TmFtZRgEIAEoCRIXCg9EaXNjb3JkVXNlcm5hbWUYBSABKAkSKAogRGlz",
+            "cmZhY2UiogEKCFVzZXJJbmZvEhMKC3N0ZWFtSURPcklQGAEgASgJEhEKCWRp",
+            "c2NvcmRJRBgCIAEoBBIPCgdyb2xlSURzGAMgAygEEhoKEmRpc2NvcmREaXNw",
+            "bGF5TmFtZRgEIAEoCRIXCg9kaXNjb3JkVXNlcm5hbWUYBSABKAkSKAogZGlz",
             "Y29yZFVzZXJuYW1lV2l0aERpc2NyaW1pbmF0b3IYBiABKAliBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
@@ -88,7 +88,7 @@ namespace SCPDiscord.Interface {
       return new UserInfo(this);
     }
 
-    /// <summary>Field number for the "SteamIDOrIP" field.</summary>
+    /// <summary>Field number for the "steamIDOrIP" field.</summary>
     public const int SteamIDOrIPFieldNumber = 1;
     private string steamIDOrIP_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -100,7 +100,7 @@ namespace SCPDiscord.Interface {
       }
     }
 
-    /// <summary>Field number for the "DiscordID" field.</summary>
+    /// <summary>Field number for the "discordID" field.</summary>
     public const int DiscordIDFieldNumber = 2;
     private ulong discordID_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -112,7 +112,7 @@ namespace SCPDiscord.Interface {
       }
     }
 
-    /// <summary>Field number for the "RoleIDs" field.</summary>
+    /// <summary>Field number for the "roleIDs" field.</summary>
     public const int RoleIDsFieldNumber = 3;
     private static readonly pb::FieldCodec<ulong> _repeated_roleIDs_codec
         = pb::FieldCodec.ForUInt64(26);
@@ -123,7 +123,7 @@ namespace SCPDiscord.Interface {
       get { return roleIDs_; }
     }
 
-    /// <summary>Field number for the "DiscordDisplayName" field.</summary>
+    /// <summary>Field number for the "discordDisplayName" field.</summary>
     public const int DiscordDisplayNameFieldNumber = 4;
     private string discordDisplayName_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -135,7 +135,7 @@ namespace SCPDiscord.Interface {
       }
     }
 
-    /// <summary>Field number for the "DiscordUsername" field.</summary>
+    /// <summary>Field number for the "discordUsername" field.</summary>
     public const int DiscordUsernameFieldNumber = 5;
     private string discordUsername_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -147,7 +147,7 @@ namespace SCPDiscord.Interface {
       }
     }
 
-    /// <summary>Field number for the "DiscordUsernameWithDiscriminator" field.</summary>
+    /// <summary>Field number for the "discordUsernameWithDiscriminator" field.</summary>
     public const int DiscordUsernameWithDiscriminatorFieldNumber = 6;
     private string discordUsernameWithDiscriminator_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

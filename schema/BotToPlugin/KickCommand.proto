@@ -4,8 +4,10 @@ package SCPDiscord.Interface;
 
 message KickCommand
 {
-	uint64 ChannelID = 1;
-	string SteamID = 2;
-	string Reason = 3;
-	string AdminTag = 4;
+	uint64 channelID = 1;
+	string steamID = 2;
+	string reason = 3;
+	string adminTag = 4;
+	uint64 interactionID = 5;
+	string interactionToken = 6;
 }

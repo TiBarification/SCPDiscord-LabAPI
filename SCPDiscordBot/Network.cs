@@ -155,11 +155,18 @@ namespace SCPDiscord
 				case MessageWrapper.MessageOneofCase.EmbedMessage:
 					try
 					{
-						await DiscordAPI.SendMessage(wrapper.EmbedMessage.ChannelID, Utilities.GetDiscordEmbed(wrapper.EmbedMessage));
+						if (wrapper.EmbedMessage.InteractionID == 0 || string.IsNullOrWhiteSpace(wrapper.EmbedMessage.InteractionToken))
+						{
+							await DiscordAPI.SendMessage(wrapper.EmbedMessage.ChannelID, Utilities.GetDiscordEmbed(wrapper.EmbedMessage));
+						}
+						else
+						{
+							await DiscordAPI.SendInteractionResponse(wrapper.EmbedMessage.InteractionID, wrapper.EmbedMessage.InteractionToken, Utilities.GetDiscordEmbed(wrapper.EmbedMessage));
+						}
 					}
-					catch (Exception)
+					catch (Exception e)
 					{
-						Logger.Error("Could not send embed in text channel '" + wrapper.EmbedMessage.ChannelID + "'", LogID.DISCORD);
+						Logger.Error("Could not send embed in text channel '" + wrapper.EmbedMessage.ChannelID + "' Exception: " + e, LogID.DISCORD);
 					}
 					break;
 				case MessageWrapper.MessageOneofCase.BanCommand:

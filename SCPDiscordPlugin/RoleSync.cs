@@ -178,79 +178,93 @@ namespace SCPDiscord
 			}
 		}
 
-		public EmbedMessage AddPlayer(string steamIDOrIP, ulong discordID, ulong channelID)
+		public EmbedMessage AddPlayer(SyncRoleCommand command)
 		{
 			if (CharacterClassManager.OnlineMode)
 			{
-				if (syncedPlayers.ContainsKey(steamIDOrIP + "@steam"))
+				if (syncedPlayers.ContainsKey(command.SteamIDOrIP + "@steam"))
 				{
 					return new EmbedMessage
 					{
 						Colour = EmbedMessage.Types.DiscordColour.Red,
-						ChannelID = channelID,
-						Description = "SteamID is already linked to a Discord account. You will have to remove it first."
+						ChannelID = command.ChannelID,
+						Description = "SteamID is already linked to a Discord account. You will have to remove it first.",
+						InteractionID = command.InteractionID,
+						InteractionToken = command.InteractionToken
 					};
 				}
 
-				if (syncedPlayers.ContainsValue(discordID))
+				if (syncedPlayers.ContainsValue(command.DiscordID))
 				{
 					return new EmbedMessage
 					{
 						Colour = EmbedMessage.Types.DiscordColour.Red,
-						ChannelID = channelID,
-						Description = "Discord user ID is already linked to a Steam account. You will have to remove it first."
+						ChannelID = command.ChannelID,
+						Description = "Discord user ID is already linked to a Steam account. You will have to remove it first.",
+						InteractionID = command.InteractionID,
+						InteractionToken = command.InteractionToken
 					};
 				}
 
 				string response = "";
-				if (!CheckSteamAccount(steamIDOrIP, ref response))
+				if (!CheckSteamAccount(command.SteamIDOrIP, ref response))
 				{
 					return new EmbedMessage
 					{
 						Colour = EmbedMessage.Types.DiscordColour.Red,
-						ChannelID = channelID,
-						Description = response
+						ChannelID = command.ChannelID,
+						Description = response,
+						InteractionID = command.InteractionID,
+						InteractionToken = command.InteractionToken
 					};
 				}
 
-				syncedPlayers.Add(steamIDOrIP + "@steam", discordID);
+				syncedPlayers.Add(command.SteamIDOrIP + "@steam", command.DiscordID);
 				SavePlayers();
 				return new EmbedMessage
 				{
 					Colour = EmbedMessage.Types.DiscordColour.Green,
-					ChannelID = channelID,
-					Description = "Successfully linked accounts."
+					ChannelID = command.ChannelID,
+					Description = "Successfully linked accounts.",
+					InteractionID = command.InteractionID,
+					InteractionToken = command.InteractionToken
 				};
 			}
 			else
 			{
-				if (syncedPlayers.ContainsKey(steamIDOrIP))
+				if (syncedPlayers.ContainsKey(command.SteamIDOrIP))
 				{
 					return new EmbedMessage
 					{
 						Colour = EmbedMessage.Types.DiscordColour.Red,
-						ChannelID = channelID,
-						Description = "IP is already linked to a Discord account. You will have to remove it first."
+						ChannelID = command.DiscordID,
+						Description = "IP is already linked to a Discord account. You will have to remove it first.",
+						InteractionID = command.InteractionID,
+						InteractionToken = command.InteractionToken
 					};
 				}
 
-				if (syncedPlayers.ContainsValue(discordID))
+				if (syncedPlayers.ContainsValue(command.DiscordID))
 				{
 					return new EmbedMessage
 					{
 						Colour = EmbedMessage.Types.DiscordColour.Red,
-						ChannelID = channelID,
-						Description = "Discord user ID is already linked to an IP. You will have to remove it first."
+						ChannelID = command.ChannelID,
+						Description = "Discord user ID is already linked to an IP. You will have to remove it first.",
+						InteractionID = command.InteractionID,
+						InteractionToken = command.InteractionToken
 					};
 				}
 
-				syncedPlayers.Add(steamIDOrIP, discordID);
+				syncedPlayers.Add(command.SteamIDOrIP, command.DiscordID);
 				SavePlayers();
 				return new EmbedMessage
 				{
 					Colour = EmbedMessage.Types.DiscordColour.Green,
-					ChannelID = channelID,
-					Description = "Successfully linked accounts."
+					ChannelID = command.ChannelID,
+					Description = "Successfully linked accounts.",
+					InteractionID = command.InteractionID,
+					InteractionToken = command.InteractionToken
 				};
 			}
 		}
@@ -332,26 +346,30 @@ namespace SCPDiscord
 			return true;
 		}
 
-		public EmbedMessage RemovePlayer(ulong discordID, ulong channelID)
+		public EmbedMessage RemovePlayer(UnsyncRoleCommand command)
 		{
-			if (!syncedPlayers.ContainsValue(discordID))
+			if (!syncedPlayers.ContainsValue(command.DiscordID))
 			{
 				return new EmbedMessage
 				{
 					Colour = EmbedMessage.Types.DiscordColour.Red,
-					ChannelID = channelID,
-					Description = "Discord user ID is not linked to a Steam account or IP"
+					ChannelID = command.ChannelID,
+					Description = "Discord user ID is not linked to a Steam account or IP",
+					InteractionID = command.InteractionID,
+					InteractionToken = command.InteractionToken
 				};
 			}
 
-			KeyValuePair<string, ulong> player = syncedPlayers.First(kvp => kvp.Value == discordID);
+			KeyValuePair<string, ulong> player = syncedPlayers.First(kvp => kvp.Value == command.DiscordID);
 			syncedPlayers.Remove(player.Key);
 			SavePlayers();
 			return new EmbedMessage
 			{
 				Colour = EmbedMessage.Types.DiscordColour.Green,
-				ChannelID = channelID,
-				Description = "Discord user ID link has been removed."
+				ChannelID = command.ChannelID,
+				Description = "Discord user ID link has been removed.",
+				InteractionID = command.InteractionID,
+				InteractionToken = command.InteractionToken
 			};
 		}
 

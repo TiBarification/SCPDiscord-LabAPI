@@ -4,7 +4,9 @@ package SCPDiscord.Interface;
 
 message ConsoleCommand
 {
-	uint64 ChannelID = 1;
-	uint64 DiscordID = 2;
-	string Command = 3;
+	uint64 channelID = 1;
+	uint64 discordID = 2;
+	string command = 3;
+	uint64 interactionID = 4;
+	string interactionToken = 5;
 }

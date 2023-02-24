@@ -6,4 +6,5 @@ message ChatMessage
 {
 	uint64 channelID = 1;
 	string content = 2;
+	uint64 interactionID = 3;
 }

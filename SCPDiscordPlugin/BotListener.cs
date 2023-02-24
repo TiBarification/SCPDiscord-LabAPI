@@ -43,11 +43,11 @@ namespace SCPDiscord
 						switch (data.MessageCase)
 						{
 							case MessageWrapper.MessageOneofCase.SyncRoleCommand:
-								plugin.SendEmbedByID(plugin.roleSync.AddPlayer(data.SyncRoleCommand.SteamIDOrIP, data.SyncRoleCommand.DiscordID, data.SyncRoleCommand.ChannelID));
+								plugin.SendEmbedByID(plugin.roleSync.AddPlayer(data.SyncRoleCommand));
 								break;
 
 							case MessageWrapper.MessageOneofCase.UnsyncRoleCommand:
-								plugin.SendEmbedByID(plugin.roleSync.RemovePlayer(data.UnsyncRoleCommand.DiscordID, data.UnsyncRoleCommand.ChannelID));
+								plugin.SendEmbedByID(plugin.roleSync.RemovePlayer(data.UnsyncRoleCommand));
 								break;
 
 							case MessageWrapper.MessageOneofCase.ConsoleCommand:
@@ -59,19 +59,19 @@ namespace SCPDiscord
 								break;
 
 							case MessageWrapper.MessageOneofCase.BanCommand:
-								BanCommand(data.BanCommand.ChannelID, data.BanCommand.SteamID, data.BanCommand.Duration, data.BanCommand.Reason, data.BanCommand.AdminTag);
+								BanCommand(data.BanCommand);
 								break;
 
 							case MessageWrapper.MessageOneofCase.UnbanCommand:
-								UnbanCommand(data.UnbanCommand.ChannelID, data.UnbanCommand.SteamIDOrIP);
+								UnbanCommand(data.UnbanCommand);
 								break;
 
 							case MessageWrapper.MessageOneofCase.KickCommand:
-								KickCommand(data.KickCommand.ChannelID, data.KickCommand.SteamID, data.KickCommand.Reason, data.KickCommand.AdminTag);
+								KickCommand(data.KickCommand);
 								break;
 
 							case MessageWrapper.MessageOneofCase.KickallCommand:
-								KickAllCommand(data.KickallCommand.ChannelID, data.KickallCommand.Reason, data.KickallCommand.AdminTag);
+								KickAllCommand(data.KickallCommand);
 								break;
 
 							case MessageWrapper.MessageOneofCase.ListCommand:
@@ -105,20 +105,22 @@ namespace SCPDiscord
 			}
 		}
 
-		private void BanCommand(ulong channelID, string steamID, string duration, string reason, string adminTag)
+		private void BanCommand(BanCommand command)
 		{
 			EmbedMessage embed = new EmbedMessage
 			{
 				Colour = EmbedMessage.Types.DiscordColour.Red,
-				ChannelID = channelID
+				ChannelID = command.ChannelID,
+				InteractionID = command.InteractionID,
+				InteractionToken = command.InteractionToken
 			};
 
 			// Perform very basic SteamID validation.
-			if (!IsPossibleSteamID(steamID))
+			if (!IsPossibleSteamID(command.SteamID))
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "steamid", steamID }
+					{ "steamid", command.SteamID }
 				};
 				plugin.SendEmbedWithMessageByID(embed, "messages.invalidsteamid", variables);
 				return;
@@ -129,7 +131,7 @@ namespace SCPDiscord
 			DateTime endTime;
 			try
 			{
-				endTime = ParseBanDuration(duration, ref humanReadableDuration);
+				endTime = ParseBanDuration(command.Duration, ref humanReadableDuration);
 			}
 			catch (IndexOutOfRangeException)
 			{
@@ -140,62 +142,64 @@ namespace SCPDiscord
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "duration", duration }
+					{ "duration", command.Duration }
 				};
 				plugin.SendEmbedWithMessageByID(embed, "messages.invalidduration", variables);
 				return;
 			}
 
 			string name = "";
-			if (!plugin.GetPlayerName(steamID, ref name))
+			if (!plugin.GetPlayerName(command.SteamID, ref name))
 			{
 				name = "Offline player";
 			}
 
 			//Semicolons are separators in the ban file so cannot be part of strings
 			name = name.Replace(";", "");
-			reason = reason.Replace(";", "");
+			command.Reason = command.Reason.Replace(";", "");
 
-			if (reason == "")
+			if (command.Reason == "")
 			{
-				reason = "No reason provided.";
+				command.Reason = "No reason provided.";
 			}
 
 			// Add the player to the SteamIDBans file.
 			StreamWriter streamWriter = new StreamWriter(Config.GetUserIDBansFile(), true);
-			streamWriter.WriteLine(name + ';' + (steamID.EndsWith("@steam") ? steamID : steamID + "@steam") + ';' + endTime.Ticks + ';' + reason + ";" + adminTag + ";" + DateTime.UtcNow.Ticks);
+			streamWriter.WriteLine(name + ';' + (command.SteamID.EndsWith("@steam") ? command.SteamID : command.SteamID + "@steam") + ';' + endTime.Ticks + ';' + command.Reason + ";" + command.AdminTag + ";" + DateTime.UtcNow.Ticks);
 			streamWriter.Dispose();
 
 			// Kicks the player if they are online.
-			plugin.KickPlayer(steamID, "Banned for the following reason: '" + reason + "'");
+			plugin.KickPlayer(command.SteamID, "Banned for the following reason: '" + command.Reason + "'");
 
 			Dictionary<string, string> banVars = new Dictionary<string, string>
 			{
 				{ "name",       name                    },
-				{ "steamid",    steamID                 },
-				{ "reason",     reason                  },
+				{ "steamid",    command.SteamID                 },
+				{ "reason",     command.Reason                  },
 				{ "duration",   humanReadableDuration   },
-				{ "admintag",   adminTag                }
+				{ "admintag",   command.AdminTag                }
 			};
 
 			embed.Colour = EmbedMessage.Types.DiscordColour.Green;
 			plugin.SendEmbedWithMessageByID(embed, "messages.playerbanned", banVars);
 		}
 
-		private void UnbanCommand(ulong channelID, string steamIDOrIP)
+		private void UnbanCommand(UnbanCommand command)
 		{
 			EmbedMessage embed = new EmbedMessage
 			{
 				Colour = EmbedMessage.Types.DiscordColour.Red,
-				ChannelID = channelID
+				ChannelID = command.ChannelID,
+				InteractionID = command.InteractionID,
+				InteractionToken = command.InteractionToken
 			};
 
 			// Perform very basic SteamID and ip validation.
-			if (!IsPossibleSteamID(steamIDOrIP) && !IPAddress.TryParse(steamIDOrIP, out IPAddress _))
+			if (!IsPossibleSteamID(command.SteamIDOrIP) && !IPAddress.TryParse(command.SteamIDOrIP, out IPAddress _))
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "steamidorip", steamIDOrIP }
+					{ "steamidorip", command.SteamIDOrIP }
 				};
 				plugin.SendEmbedWithMessageByID(embed, "messages.invalidsteamidorip", variables);
 				return;
@@ -224,8 +228,8 @@ namespace SCPDiscord
 			}
 
 			// Get all ban entries to be removed. (Splits the string and only checks the steam id and ip of the banned players instead of entire strings)
-			List<string> matchingIPBans = ipBans.FindAll(s => s.Split(';').ElementAtOrDefault(1)?.Contains(steamIDOrIP) ?? false);
-			List<string> matchingSteamIDBans = steamIDBans.FindAll(s => s.Split(';').ElementAtOrDefault(1)?.Contains(steamIDOrIP) ?? false);
+			List<string> matchingIPBans = ipBans.FindAll(s => s.Split(';').ElementAtOrDefault(1)?.Contains(command.SteamIDOrIP) ?? false);
+			List<string> matchingSteamIDBans = steamIDBans.FindAll(s => s.Split(';').ElementAtOrDefault(1)?.Contains(command.SteamIDOrIP) ?? false);
 
 			// Delete the entries from the original containers now that there is a backup of them
 			ipBans.RemoveAll(s => matchingIPBans.Any(str => str == s));
@@ -256,26 +260,28 @@ namespace SCPDiscord
 			// Send response message to Discord
 			Dictionary<string, string> unbanVars = new Dictionary<string, string>
 			{
-				{ "steamidorip", steamIDOrIP }
+				{ "steamidorip", command.SteamIDOrIP }
 			};
 			embed.Colour = EmbedMessage.Types.DiscordColour.Green;
 			plugin.SendEmbedWithMessageByID(embed, "messages.playerunbanned", unbanVars);
 		}
 
-		private void KickCommand(ulong channelID, string steamID, string reason, string adminTag)
+		private void KickCommand(KickCommand command)
 		{
 			EmbedMessage embed = new EmbedMessage
 			{
 				Colour = EmbedMessage.Types.DiscordColour.Red,
-				ChannelID = channelID
+				ChannelID = command.ChannelID,
+				InteractionID = command.InteractionID,
+				InteractionToken = command.InteractionToken
 			};
 
 			//Perform very basic SteamID validation
-			if (!IsPossibleSteamID(steamID))
+			if (!IsPossibleSteamID(command.SteamID))
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "steamid", steamID }
+					{ "steamid", command.SteamID }
 				};
 				plugin.SendEmbedWithMessageByID(embed, "messages.invalidsteamid", variables);
 				return;
@@ -283,16 +289,16 @@ namespace SCPDiscord
 
 			//Get player name for feedback message
 			string playerName = "";
-			plugin.GetPlayerName(steamID, ref playerName);
+			plugin.GetPlayerName(command.SteamID, ref playerName);
 
 			//Kicks the player
-			if (plugin.KickPlayer(steamID, reason))
+			if (plugin.KickPlayer(command.SteamID, command.Reason))
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
 					{ "name", playerName },
-					{ "steamid", steamID },
-					{ "admintag", adminTag }
+					{ "steamid", command.SteamID },
+					{ "admintag", command.AdminTag }
 				};
 				embed.Colour = EmbedMessage.Types.DiscordColour.Green;
 				plugin.SendEmbedWithMessageByID(embed, "messages.playerkicked", variables);
@@ -301,32 +307,34 @@ namespace SCPDiscord
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "steamid", steamID }
+					{ "steamid", command.SteamID }
 				};
 				plugin.SendEmbedWithMessageByID(embed, "messages.playernotfound", variables);
 			}
 		}
 
-		private void KickAllCommand(ulong channelID, string reason, string adminTag)
+		private void KickAllCommand(KickallCommand command)
 		{
-			if (reason == "")
+			if (command.Reason == "")
 			{
-				reason = "All players kicked by Admin";
+				command.Reason = "All players kicked by Admin";
 			}
 			foreach (Player player in Player.GetPlayers<Player>())
 			{
-				player.Ban(reason, 0);
+				player.Ban(command.Reason, 0);
 			}
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "reason", reason },
-				{ "admintag", adminTag}
+				{ "reason", command.Reason },
+				{ "admintag", command.AdminTag}
 			};
 
 			EmbedMessage embed = new EmbedMessage
 			{
 				Colour = EmbedMessage.Types.DiscordColour.Green,
-				ChannelID = channelID
+				ChannelID = command.ChannelID,
+				InteractionID = command.InteractionID,
+				InteractionToken = command.InteractionToken
 			};
 			plugin.SendEmbedWithMessageByID(embed, "messages.kickall", variables);
 		}

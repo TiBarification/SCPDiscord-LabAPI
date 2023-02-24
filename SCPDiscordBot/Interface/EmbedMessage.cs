@@ -25,7 +25,7 @@ namespace SCPDiscord.Interface {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "Ch5QbHVnaW5Ub0JvdC9FbWJlZE1lc3NhZ2UucHJvdG8SFFNDUERpc2NvcmQu",
-            "SW50ZXJmYWNlIvkLCgxFbWJlZE1lc3NhZ2USEQoJY2hhbm5lbElEGAEgASgE",
+            "SW50ZXJmYWNlIv0LCgxFbWJlZE1lc3NhZ2USEQoJY2hhbm5lbElEGAEgASgE",
             "EhIKBXRpdGxlGAIgASgJSACIAQESEwoLZGVzY3JpcHRpb24YAyABKAkSEAoD",
             "dXJsGAQgASgJSAGIAQESFgoJdGltZXN0YW1wGAUgASgDSAKIAQESQAoGY29s",
             "b3VyGAYgASgOMjAuU0NQRGlzY29yZC5JbnRlcmZhY2UuRW1iZWRNZXNzYWdl",
@@ -36,37 +36,37 @@ namespace SCPDiscord.Interface {
             "Ym5haWwSRQoGYXV0aG9yGAogASgLMjUuU0NQRGlzY29yZC5JbnRlcmZhY2Uu",
             "RW1iZWRNZXNzYWdlLkRpc2NvcmRFbWJlZEF1dGhvchJECgZmaWVsZHMYCyAD",
             "KAsyNC5TQ1BEaXNjb3JkLkludGVyZmFjZS5FbWJlZE1lc3NhZ2UuRGlzY29y",
-            "ZEVtYmVkRmllbGQaUgoSRGlzY29yZEVtYmVkRm9vdGVyEhEKBHRleHQYASAB",
-            "KAlIAIgBARIUCgdpY29uVVJMGAIgASgJSAGIAQFCBwoFX3RleHRCCgoIX2lj",
-            "b25VUkwaQwoVRGlzY29yZEVtYmVkVGh1bWJuYWlsEgsKA3VybBgBIAEoCRIO",
-            "CgZoZWlnaHQYAiABKAUSDQoFd2lkdGgYAyABKAUabAoSRGlzY29yZEVtYmVk",
-            "QXV0aG9yEhEKBG5hbWUYASABKAlIAIgBARIQCgN1cmwYAiABKAlIAYgBARIU",
-            "CgdpY29uVVJMGAMgASgJSAKIAQFCBwoFX25hbWVCBgoEX3VybEIKCghfaWNv",
-            "blVSTBptChFEaXNjb3JkRW1iZWRGaWVsZBIRCgRuYW1lGAEgASgJSACIAQES",
-            "EgoFdmFsdWUYAiABKAlIAYgBARITCgZpbmxpbmUYAyABKAhIAogBAUIHCgVf",
-            "bmFtZUIICgZfdmFsdWVCCQoHX2lubGluZSLlBAoNRGlzY29yZENvbG91chII",
-            "CgROT05FEAASCQoFQkxBQ0sQARIJCgVXSElURRACEggKBEdSQVkQAxINCglE",
-            "QVJLX0dSQVkQBBIOCgpMSUdIVF9HUkFZEAUSEgoOVkVSWV9EQVJLX0dSQVkQ",
-            "BhILCgdCTFVSUExFEAcSCwoHR1JBWVBMRRAIEhYKEkRBUktfQlVUX05PVF9C",
-            "TEFDSxAJEhMKD05PVF9RVUlURV9CTEFDSxAKEgcKA1JFRBALEgwKCERBUktf",
-            "UkVEEAwSCQoFR1JFRU4QDRIOCgpEQVJLX0dSRUVOEA4SCAoEQkxVRRAPEg0K",
-            "CURBUktfQkxVRRAQEgoKBllFTExPVxAREggKBENZQU4QEhILCgdNQUdFTlRB",
-            "EBMSCAoEVEVBTBAUEg4KCkFRVUFNQVJJTkUQFRIICgRHT0xEEBYSDQoJR09M",
-            "REVOUk9EEBcSCQoFQVpVUkUQGBIICgRST1NFEBkSEAoMU1BSSU5HX0dSRUVO",
-            "EBoSDgoKQ0hBUlRSRVVTRRAbEgoKBk9SQU5HRRAcEgoKBlBVUlBMRRAdEgoK",
-            "BlZJT0xFVBAeEgkKBUJST1dOEB8SDAoISE9UX1BJTksQIBIJCgVMSUxBQxAh",
-            "EhMKD0NPUk5GTE9XRVJfQkxVRRAiEhEKDU1JRE5JR0hUX0JMVUUQIxIJCgVX",
-            "SEVBVBAkEg4KCklORElBTl9SRUQQJRINCglUVVJRVU9JU0UQJhINCglTQVBf",
-            "R1JFRU4QJxIQCgxQSFRIQUxPX0JMVUUQKBIRCg1QSFRIQUxPX0dSRUVOECkS",
-            "CgoGU0lFTk5BECpCCAoGX3RpdGxlQgYKBF91cmxCDAoKX3RpbWVzdGFtcEIL",
-            "CglfaW1hZ2VVUkxiBnByb3RvMw=="));
+            "ZEVtYmVkRmllbGQSFQoNaW50ZXJhY3Rpb25JRBgMIAEoBBIYChBpbnRlcmFj",
+            "dGlvblRva2VuGA0gASgJGlIKEkRpc2NvcmRFbWJlZEZvb3RlchIRCgR0ZXh0",
+            "GAEgASgJSACIAQESFAoHaWNvblVSTBgCIAEoCUgBiAEBQgcKBV90ZXh0QgoK",
+            "CF9pY29uVVJMGkMKFURpc2NvcmRFbWJlZFRodW1ibmFpbBILCgN1cmwYASAB",
+            "KAkSDgoGaGVpZ2h0GAIgASgFEg0KBXdpZHRoGAMgASgFGmwKEkRpc2NvcmRF",
+            "bWJlZEF1dGhvchIRCgRuYW1lGAEgASgJSACIAQESEAoDdXJsGAIgASgJSAGI",
+            "AQESFAoHaWNvblVSTBgDIAEoCUgCiAEBQgcKBV9uYW1lQgYKBF91cmxCCgoI",
+            "X2ljb25VUkwaQAoRRGlzY29yZEVtYmVkRmllbGQSDAoEbmFtZRgBIAEoCRIN",
+            "CgV2YWx1ZRgCIAEoCRIOCgZpbmxpbmUYAyABKAgi5QQKDURpc2NvcmRDb2xv",
+            "dXISCAoETk9ORRAAEgkKBUJMQUNLEAESCQoFV0hJVEUQAhIICgRHUkFZEAMS",
+            "DQoJREFSS19HUkFZEAQSDgoKTElHSFRfR1JBWRAFEhIKDlZFUllfREFSS19H",
+            "UkFZEAYSCwoHQkxVUlBMRRAHEgsKB0dSQVlQTEUQCBIWChJEQVJLX0JVVF9O",
+            "T1RfQkxBQ0sQCRITCg9OT1RfUVVJVEVfQkxBQ0sQChIHCgNSRUQQCxIMCghE",
+            "QVJLX1JFRBAMEgkKBUdSRUVOEA0SDgoKREFSS19HUkVFThAOEggKBEJMVUUQ",
+            "DxINCglEQVJLX0JMVUUQEBIKCgZZRUxMT1cQERIICgRDWUFOEBISCwoHTUFH",
+            "RU5UQRATEggKBFRFQUwQFBIOCgpBUVVBTUFSSU5FEBUSCAoER09MRBAWEg0K",
+            "CUdPTERFTlJPRBAXEgkKBUFaVVJFEBgSCAoEUk9TRRAZEhAKDFNQUklOR19H",
+            "UkVFThAaEg4KCkNIQVJUUkVVU0UQGxIKCgZPUkFOR0UQHBIKCgZQVVJQTEUQ",
+            "HRIKCgZWSU9MRVQQHhIJCgVCUk9XThAfEgwKCEhPVF9QSU5LECASCQoFTElM",
+            "QUMQIRITCg9DT1JORkxPV0VSX0JMVUUQIhIRCg1NSUROSUdIVF9CTFVFECMS",
+            "CQoFV0hFQVQQJBIOCgpJTkRJQU5fUkVEECUSDQoJVFVSUVVPSVNFECYSDQoJ",
+            "U0FQX0dSRUVOECcSEAoMUEhUSEFMT19CTFVFECgSEQoNUEhUSEFMT19HUkVF",
+            "ThApEgoKBlNJRU5OQRAqQggKBl90aXRsZUIGCgRfdXJsQgwKCl90aW1lc3Rh",
+            "bXBCCwoJX2ltYWdlVVJMYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::SCPDiscord.Interface.EmbedMessage), global::SCPDiscord.Interface.EmbedMessage.Parser, new[]{ "ChannelID", "Title", "Description", "Url", "Timestamp", "Colour", "Footer", "ImageURL", "Thumbnail", "Author", "Fields" }, new[]{ "Title", "Url", "Timestamp", "ImageURL" }, new[]{ typeof(global::SCPDiscord.Interface.EmbedMessage.Types.DiscordColour) }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::SCPDiscord.Interface.EmbedMessage.Types.DiscordEmbedFooter), global::SCPDiscord.Interface.EmbedMessage.Types.DiscordEmbedFooter.Parser, new[]{ "Text", "IconURL" }, new[]{ "Text", "IconURL" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::SCPDiscord.Interface.EmbedMessage), global::SCPDiscord.Interface.EmbedMessage.Parser, new[]{ "ChannelID", "Title", "Description", "Url", "Timestamp", "Colour", "Footer", "ImageURL", "Thumbnail", "Author", "Fields", "InteractionID", "InteractionToken" }, new[]{ "Title", "Url", "Timestamp", "ImageURL" }, new[]{ typeof(global::SCPDiscord.Interface.EmbedMessage.Types.DiscordColour) }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::SCPDiscord.Interface.EmbedMessage.Types.DiscordEmbedFooter), global::SCPDiscord.Interface.EmbedMessage.Types.DiscordEmbedFooter.Parser, new[]{ "Text", "IconURL" }, new[]{ "Text", "IconURL" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::SCPDiscord.Interface.EmbedMessage.Types.DiscordEmbedThumbnail), global::SCPDiscord.Interface.EmbedMessage.Types.DiscordEmbedThumbnail.Parser, new[]{ "Url", "Height", "Width" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::SCPDiscord.Interface.EmbedMessage.Types.DiscordEmbedAuthor), global::SCPDiscord.Interface.EmbedMessage.Types.DiscordEmbedAuthor.Parser, new[]{ "Name", "Url", "IconURL" }, new[]{ "Name", "Url", "IconURL" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::SCPDiscord.Interface.EmbedMessage.Types.DiscordEmbedField), global::SCPDiscord.Interface.EmbedMessage.Types.DiscordEmbedField.Parser, new[]{ "Name", "Value", "Inline" }, new[]{ "Name", "Value", "Inline" }, null, null, null)})
+            new pbr::GeneratedClrTypeInfo(typeof(global::SCPDiscord.Interface.EmbedMessage.Types.DiscordEmbedField), global::SCPDiscord.Interface.EmbedMessage.Types.DiscordEmbedField.Parser, new[]{ "Name", "Value", "Inline" }, null, null, null, null)})
           }));
     }
     #endregion
@@ -120,6 +120,8 @@ namespace SCPDiscord.Interface {
       thumbnail_ = other.thumbnail_ != null ? other.thumbnail_.Clone() : null;
       author_ = other.author_ != null ? other.author_.Clone() : null;
       fields_ = other.fields_.Clone();
+      interactionID_ = other.interactionID_;
+      interactionToken_ = other.interactionToken_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -309,6 +311,30 @@ namespace SCPDiscord.Interface {
       get { return fields_; }
     }
 
+    /// <summary>Field number for the "interactionID" field.</summary>
+    public const int InteractionIDFieldNumber = 12;
+    private ulong interactionID_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ulong InteractionID {
+      get { return interactionID_; }
+      set {
+        interactionID_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "interactionToken" field.</summary>
+    public const int InteractionTokenFieldNumber = 13;
+    private string interactionToken_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string InteractionToken {
+      get { return interactionToken_; }
+      set {
+        interactionToken_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -335,6 +361,8 @@ namespace SCPDiscord.Interface {
       if (!object.Equals(Thumbnail, other.Thumbnail)) return false;
       if (!object.Equals(Author, other.Author)) return false;
       if(!fields_.Equals(other.fields_)) return false;
+      if (InteractionID != other.InteractionID) return false;
+      if (InteractionToken != other.InteractionToken) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -353,6 +381,8 @@ namespace SCPDiscord.Interface {
       if (thumbnail_ != null) hash ^= Thumbnail.GetHashCode();
       if (author_ != null) hash ^= Author.GetHashCode();
       hash ^= fields_.GetHashCode();
+      if (InteractionID != 0UL) hash ^= InteractionID.GetHashCode();
+      if (InteractionToken.Length != 0) hash ^= InteractionToken.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -412,6 +442,14 @@ namespace SCPDiscord.Interface {
         output.WriteMessage(Author);
       }
       fields_.WriteTo(output, _repeated_fields_codec);
+      if (InteractionID != 0UL) {
+        output.WriteRawTag(96);
+        output.WriteUInt64(InteractionID);
+      }
+      if (InteractionToken.Length != 0) {
+        output.WriteRawTag(106);
+        output.WriteString(InteractionToken);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -463,6 +501,14 @@ namespace SCPDiscord.Interface {
         output.WriteMessage(Author);
       }
       fields_.WriteTo(ref output, _repeated_fields_codec);
+      if (InteractionID != 0UL) {
+        output.WriteRawTag(96);
+        output.WriteUInt64(InteractionID);
+      }
+      if (InteractionToken.Length != 0) {
+        output.WriteRawTag(106);
+        output.WriteString(InteractionToken);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -504,6 +550,12 @@ namespace SCPDiscord.Interface {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Author);
       }
       size += fields_.CalculateSize(_repeated_fields_codec);
+      if (InteractionID != 0UL) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(InteractionID);
+      }
+      if (InteractionToken.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(InteractionToken);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -556,6 +608,12 @@ namespace SCPDiscord.Interface {
         Author.MergeFrom(other.Author);
       }
       fields_.Add(other.fields_);
+      if (other.InteractionID != 0UL) {
+        InteractionID = other.InteractionID;
+      }
+      if (other.InteractionToken.Length != 0) {
+        InteractionToken = other.InteractionToken;
+      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -624,6 +682,14 @@ namespace SCPDiscord.Interface {
             fields_.AddEntriesFrom(input, _repeated_fields_codec);
             break;
           }
+          case 96: {
+            InteractionID = input.ReadUInt64();
+            break;
+          }
+          case 106: {
+            InteractionToken = input.ReadString();
+            break;
+          }
         }
       }
     #endif
@@ -690,6 +756,14 @@ namespace SCPDiscord.Interface {
           }
           case 90: {
             fields_.AddEntriesFrom(ref input, _repeated_fields_codec);
+            break;
+          }
+          case 96: {
+            InteractionID = input.ReadUInt64();
+            break;
+          }
+          case 106: {
+            InteractionToken = input.ReadString();
             break;
           }
         }
@@ -1567,7 +1641,6 @@ namespace SCPDiscord.Interface {
       {
         private static readonly pb::MessageParser<DiscordEmbedField> _parser = new pb::MessageParser<DiscordEmbedField>(() => new DiscordEmbedField());
         private pb::UnknownFieldSet _unknownFields;
-        private int _hasBits0;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public static pb::MessageParser<DiscordEmbedField> Parser { get { return _parser; } }
@@ -1595,7 +1668,6 @@ namespace SCPDiscord.Interface {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public DiscordEmbedField(DiscordEmbedField other) : this() {
-          _hasBits0 = other._hasBits0;
           name_ = other.name_;
           value_ = other.value_;
           inline_ = other.inline_;
@@ -1610,50 +1682,26 @@ namespace SCPDiscord.Interface {
 
         /// <summary>Field number for the "name" field.</summary>
         public const int NameFieldNumber = 1;
-        private string name_;
+        private string name_ = "";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public string Name {
-          get { return name_ ?? ""; }
+          get { return name_; }
           set {
             name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
           }
         }
-        /// <summary>Gets whether the "name" field is set</summary>
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-        public bool HasName {
-          get { return name_ != null; }
-        }
-        /// <summary>Clears the value of the "name" field</summary>
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-        public void ClearName() {
-          name_ = null;
-        }
 
         /// <summary>Field number for the "value" field.</summary>
         public const int ValueFieldNumber = 2;
-        private string value_;
+        private string value_ = "";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public string Value {
-          get { return value_ ?? ""; }
+          get { return value_; }
           set {
             value_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
           }
-        }
-        /// <summary>Gets whether the "value" field is set</summary>
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-        public bool HasValue {
-          get { return value_ != null; }
-        }
-        /// <summary>Clears the value of the "value" field</summary>
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-        public void ClearValue() {
-          value_ = null;
         }
 
         /// <summary>Field number for the "inline" field.</summary>
@@ -1662,23 +1710,10 @@ namespace SCPDiscord.Interface {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public bool Inline {
-          get { if ((_hasBits0 & 1) != 0) { return inline_; } else { return false; } }
+          get { return inline_; }
           set {
-            _hasBits0 |= 1;
             inline_ = value;
           }
-        }
-        /// <summary>Gets whether the "inline" field is set</summary>
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-        public bool HasInline {
-          get { return (_hasBits0 & 1) != 0; }
-        }
-        /// <summary>Clears the value of the "inline" field</summary>
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-        public void ClearInline() {
-          _hasBits0 &= ~1;
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1706,9 +1741,9 @@ namespace SCPDiscord.Interface {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public override int GetHashCode() {
           int hash = 1;
-          if (HasName) hash ^= Name.GetHashCode();
-          if (HasValue) hash ^= Value.GetHashCode();
-          if (HasInline) hash ^= Inline.GetHashCode();
+          if (Name.Length != 0) hash ^= Name.GetHashCode();
+          if (Value.Length != 0) hash ^= Value.GetHashCode();
+          if (Inline != false) hash ^= Inline.GetHashCode();
           if (_unknownFields != null) {
             hash ^= _unknownFields.GetHashCode();
           }
@@ -1727,15 +1762,15 @@ namespace SCPDiscord.Interface {
         #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
           output.WriteRawMessage(this);
         #else
-          if (HasName) {
+          if (Name.Length != 0) {
             output.WriteRawTag(10);
             output.WriteString(Name);
           }
-          if (HasValue) {
+          if (Value.Length != 0) {
             output.WriteRawTag(18);
             output.WriteString(Value);
           }
-          if (HasInline) {
+          if (Inline != false) {
             output.WriteRawTag(24);
             output.WriteBool(Inline);
           }
@@ -1749,15 +1784,15 @@ namespace SCPDiscord.Interface {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-          if (HasName) {
+          if (Name.Length != 0) {
             output.WriteRawTag(10);
             output.WriteString(Name);
           }
-          if (HasValue) {
+          if (Value.Length != 0) {
             output.WriteRawTag(18);
             output.WriteString(Value);
           }
-          if (HasInline) {
+          if (Inline != false) {
             output.WriteRawTag(24);
             output.WriteBool(Inline);
           }
@@ -1771,13 +1806,13 @@ namespace SCPDiscord.Interface {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public int CalculateSize() {
           int size = 0;
-          if (HasName) {
+          if (Name.Length != 0) {
             size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
           }
-          if (HasValue) {
+          if (Value.Length != 0) {
             size += 1 + pb::CodedOutputStream.ComputeStringSize(Value);
           }
-          if (HasInline) {
+          if (Inline != false) {
             size += 1 + 1;
           }
           if (_unknownFields != null) {
@@ -1792,13 +1827,13 @@ namespace SCPDiscord.Interface {
           if (other == null) {
             return;
           }
-          if (other.HasName) {
+          if (other.Name.Length != 0) {
             Name = other.Name;
           }
-          if (other.HasValue) {
+          if (other.Value.Length != 0) {
             Value = other.Value;
           }
-          if (other.HasInline) {
+          if (other.Inline != false) {
             Inline = other.Inline;
           }
           _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);

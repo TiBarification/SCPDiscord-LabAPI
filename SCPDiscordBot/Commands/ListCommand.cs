@@ -10,11 +10,14 @@ namespace SCPDiscord.Commands
 		[SlashCommand("list", "Lists online players.")]
 		public async Task OnExecute(InteractionContext command)
 		{
+			await command.DeferAsync();
 			Interface.MessageWrapper message = new Interface.MessageWrapper
 			{
 				ListCommand = new Interface.ListCommand
 				{
-					ChannelID = command.Channel.Id
+					ChannelID = command.Channel.Id,
+					InteractionID = command.InteractionId,
+					InteractionToken = command.Token
 				}
 			};
 			NetworkSystem.SendMessage(message);

@@ -4,5 +4,7 @@ package SCPDiscord.Interface;
 
 message ListCommand
 {
-	uint64 ChannelID = 1;
+	uint64 channelID = 1;
+	uint64 interactionID = 2;
+	string interactionToken = 3;
 }

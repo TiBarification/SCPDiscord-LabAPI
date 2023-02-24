@@ -22,6 +22,7 @@ namespace SCPDiscord.Commands
 				return;
 			}
 
+			await command.DeferAsync();
 			Interface.MessageWrapper message = new Interface.MessageWrapper
 			{
 				SyncRoleCommand = new Interface.SyncRoleCommand
@@ -29,7 +30,9 @@ namespace SCPDiscord.Commands
 					ChannelID = command.Channel.Id,
 					DiscordID = command.Member?.Id ?? 0,
 					DiscordTag = command.Member?.Username,
-					SteamIDOrIP = steamID
+					SteamIDOrIP = steamID,
+					InteractionID = command.InteractionId,
+					InteractionToken = command.Token
 				}
 			};
 			NetworkSystem.SendMessage(message);

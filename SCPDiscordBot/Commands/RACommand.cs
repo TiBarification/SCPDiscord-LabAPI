@@ -10,13 +10,16 @@ namespace SCPDiscord.Commands
 		[SlashCommand("ra", "Runs a remote admin command.")]
 		public async Task OnExecute(InteractionContext command, [Option("Command", "Remote admin command to run.")] string serverCommand = "")
 		{
+			await command.DeferAsync();
 			Interface.MessageWrapper message = new Interface.MessageWrapper
 			{
 				ConsoleCommand = new Interface.ConsoleCommand
 				{
 					ChannelID = command.Channel.Id,
 					DiscordID = command.Member?.Id ?? 0,
-					Command = "/" + serverCommand
+					Command = "/" + serverCommand,
+					InteractionID = command.InteractionId,
+					InteractionToken = command.Token
 				}
 			};
 			NetworkSystem.SendMessage(message);

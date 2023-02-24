@@ -18,6 +18,7 @@ namespace SCPDiscord
 		public static DiscordAPI instance = null;
 		public bool connected = false;
 		public static DiscordClient client = new DiscordClient(new DiscordConfiguration { Token = "DUMMY_TOKEN", TokenType = TokenType.Bot, MinimumLogLevel = LogLevel.Debug });
+		private static DiscordRestClient restClient = null;
 		private SlashCommandsExtension commands = null;
 
 		public static async Task Init()
@@ -43,7 +44,7 @@ namespace SCPDiscord
 				}
 
 				// Setting up client configuration
-				DiscordConfiguration cfg = new DiscordConfiguration
+				client = new DiscordClient(new DiscordConfiguration
 				{
 					Token = ConfigParser.config.bot.token,
 					TokenType = TokenType.Bot,
@@ -51,9 +52,7 @@ namespace SCPDiscord
 					AutoReconnect = true,
 					Intents = DiscordIntents.AllUnprivileged | DiscordIntents.MessageContents,
 					LogTimestampFormat = "yyyy-MM-dd HH:mm:ss"
-				};
-
-				client = new DiscordClient(cfg);
+				});
 
 				ConfigParser.PrintConfig();
 
@@ -62,7 +61,7 @@ namespace SCPDiscord
 
 				instance.commands.RegisterCommands<Commands.SyncSteamIDCommand>();
 				instance.commands.RegisterCommands<Commands.SyncIPCommand>();
-				instance.commands.RegisterCommands<Commands.UnsyncRoleCommand>();
+				instance.commands.RegisterCommands<Commands.UnsyncCommand>();
 				instance.commands.RegisterCommands<Commands.ServerCommand>();
 				instance.commands.RegisterCommands<Commands.ListCommand>();
 				instance.commands.RegisterCommands<Commands.KickAllCommand>();
@@ -71,6 +70,7 @@ namespace SCPDiscord
 				instance.commands.RegisterCommands<Commands.UnbanCommand>();
 				instance.commands.RegisterCommands<Commands.RACommand>();
 				instance.commands.RegisterCommands<Commands.HelpCommand>();
+				instance.commands.RegisterCommands<Commands.UnsyncPlayerCommand>();
 
 				Logger.Log("Hooking events...", LogID.DISCORD);
 				client.Ready += instance.OnReady;
@@ -83,6 +83,18 @@ namespace SCPDiscord
 
 				Logger.Log("Connecting to Discord...", LogID.DISCORD);
 				await client.ConnectAsync();
+
+				Logger.Log("Initializing REST API...", LogID.DISCORD);
+				restClient = new DiscordRestClient(new DiscordConfiguration
+				{
+					Token = ConfigParser.config.bot.token,
+					TokenType = TokenType.Bot,
+					MinimumLogLevel = logLevel,
+					AutoReconnect = true,
+					Intents = DiscordIntents.AllUnprivileged | DiscordIntents.MessageContents,
+					LogTimestampFormat = "yyyy-MM-dd HH:mm:ss"
+				});
+				await restClient.InitializeAsync();
 			}
 			catch (Exception e)
 			{
@@ -152,6 +164,28 @@ namespace SCPDiscord
 				Logger.Error("Could not send embed in text channel '" + channelID + "'", LogID.DISCORD);
 			}
 		}
+
+		public static async Task SendInteractionResponse(ulong interactionID, string interactionToken, DiscordEmbed message)
+		{
+			if (!instance.connected) return;
+
+			try
+			{
+				try
+				{
+					await restClient.EditOriginalInteractionResponseAsync(interactionToken, new DiscordWebhookBuilder().AddEmbed(message));
+				}
+				catch (UnauthorizedException)
+				{
+					Logger.Error("No permissions to send command response.", LogID.DISCORD);
+				}
+			}
+			catch (Exception e)
+			{
+				Logger.Error("Could not send command response.\n" + e.StackTrace, LogID.DISCORD);
+			}
+		}
+
 
 		public static async void GetPlayerRoles(ulong userID, string steamID)
 		{

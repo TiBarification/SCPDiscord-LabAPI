@@ -4,6 +4,8 @@ package SCPDiscord.Interface;
 
 message UnbanCommand
 {
-	uint64 ChannelID = 1;
-	string SteamIDOrIP = 2;
+	uint64 channelID = 1;
+	string steamIDOrIP = 2;
+	uint64 interactionID = 3;
+	string interactionToken = 4;
 }

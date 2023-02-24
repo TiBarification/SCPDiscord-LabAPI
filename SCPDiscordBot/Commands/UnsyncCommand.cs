@@ -4,23 +4,26 @@ using DSharpPlus.SlashCommands.Attributes;
 
 namespace SCPDiscord.Commands
 {
-	public class UnsyncRoleCommand : ApplicationCommandModule
+	public class UnsyncCommand : ApplicationCommandModule
 	{
 		[SlashRequireGuild]
-		[SlashCommand("unsyncrole", "Unsyncs your Discord account from the SCP:SL server.")]
+		[SlashCommand("unsync", "Unsyncs your Discord account from the SCP:SL server.")]
 		public async Task OnExecute(InteractionContext command)
 		{
+			await command.DeferAsync();
 			Interface.MessageWrapper message = new Interface.MessageWrapper
 			{
 				UnsyncRoleCommand = new Interface.UnsyncRoleCommand
 				{
 					ChannelID = command.Channel.Id,
 					DiscordID = command.Member?.Id ?? 0,
-					DiscordTag = command.Member?.Username
+					DiscordTag = command.Member?.Username,
+					InteractionID = command.InteractionId,
+					InteractionToken = command.Token
 				}
 			};
 			NetworkSystem.SendMessage(message);
-			Logger.Debug("Sending UnsyncRoleCommand to plugin from " + command.Member?.Username + "#" + command.Member?.Discriminator, LogID.DISCORD);
+			Logger.Debug("Sending UnsyncCommand to plugin from " + command.Member?.Username + "#" + command.Member?.Discriminator, LogID.DISCORD);
 		}
 	}
 }

@@ -25,13 +25,14 @@ namespace SCPDiscord.Interface {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChxCb3RUb1BsdWdpbi9CYW5Db21tYW5kLnByb3RvEhRTQ1BEaXNjb3JkLklu",
-            "dGVyZmFjZSJkCgpCYW5Db21tYW5kEhEKCUNoYW5uZWxJRBgBIAEoBBIPCgdT",
-            "dGVhbUlEGAIgASgJEhAKCER1cmF0aW9uGAMgASgJEg4KBlJlYXNvbhgEIAEo",
-            "CRIQCghBZG1pblRhZxgFIAEoCWIGcHJvdG8z"));
+            "dGVyZmFjZSKVAQoKQmFuQ29tbWFuZBIRCgljaGFubmVsSUQYASABKAQSDwoH",
+            "c3RlYW1JRBgCIAEoCRIQCghkdXJhdGlvbhgDIAEoCRIOCgZyZWFzb24YBCAB",
+            "KAkSEAoIYWRtaW5UYWcYBSABKAkSFQoNaW50ZXJhY3Rpb25JRBgGIAEoBBIY",
+            "ChBpbnRlcmFjdGlvblRva2VuGAcgASgJYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::SCPDiscord.Interface.BanCommand), global::SCPDiscord.Interface.BanCommand.Parser, new[]{ "ChannelID", "SteamID", "Duration", "Reason", "AdminTag" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::SCPDiscord.Interface.BanCommand), global::SCPDiscord.Interface.BanCommand.Parser, new[]{ "ChannelID", "SteamID", "Duration", "Reason", "AdminTag", "InteractionID", "InteractionToken" }, null, null, null, null)
           }));
     }
     #endregion
@@ -77,6 +78,8 @@ namespace SCPDiscord.Interface {
       duration_ = other.duration_;
       reason_ = other.reason_;
       adminTag_ = other.adminTag_;
+      interactionID_ = other.interactionID_;
+      interactionToken_ = other.interactionToken_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -86,7 +89,7 @@ namespace SCPDiscord.Interface {
       return new BanCommand(this);
     }
 
-    /// <summary>Field number for the "ChannelID" field.</summary>
+    /// <summary>Field number for the "channelID" field.</summary>
     public const int ChannelIDFieldNumber = 1;
     private ulong channelID_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -98,7 +101,7 @@ namespace SCPDiscord.Interface {
       }
     }
 
-    /// <summary>Field number for the "SteamID" field.</summary>
+    /// <summary>Field number for the "steamID" field.</summary>
     public const int SteamIDFieldNumber = 2;
     private string steamID_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -110,7 +113,7 @@ namespace SCPDiscord.Interface {
       }
     }
 
-    /// <summary>Field number for the "Duration" field.</summary>
+    /// <summary>Field number for the "duration" field.</summary>
     public const int DurationFieldNumber = 3;
     private string duration_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -122,7 +125,7 @@ namespace SCPDiscord.Interface {
       }
     }
 
-    /// <summary>Field number for the "Reason" field.</summary>
+    /// <summary>Field number for the "reason" field.</summary>
     public const int ReasonFieldNumber = 4;
     private string reason_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -134,7 +137,7 @@ namespace SCPDiscord.Interface {
       }
     }
 
-    /// <summary>Field number for the "AdminTag" field.</summary>
+    /// <summary>Field number for the "adminTag" field.</summary>
     public const int AdminTagFieldNumber = 5;
     private string adminTag_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -143,6 +146,30 @@ namespace SCPDiscord.Interface {
       get { return adminTag_; }
       set {
         adminTag_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "interactionID" field.</summary>
+    public const int InteractionIDFieldNumber = 6;
+    private ulong interactionID_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ulong InteractionID {
+      get { return interactionID_; }
+      set {
+        interactionID_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "interactionToken" field.</summary>
+    public const int InteractionTokenFieldNumber = 7;
+    private string interactionToken_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string InteractionToken {
+      get { return interactionToken_; }
+      set {
+        interactionToken_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -166,6 +193,8 @@ namespace SCPDiscord.Interface {
       if (Duration != other.Duration) return false;
       if (Reason != other.Reason) return false;
       if (AdminTag != other.AdminTag) return false;
+      if (InteractionID != other.InteractionID) return false;
+      if (InteractionToken != other.InteractionToken) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -178,6 +207,8 @@ namespace SCPDiscord.Interface {
       if (Duration.Length != 0) hash ^= Duration.GetHashCode();
       if (Reason.Length != 0) hash ^= Reason.GetHashCode();
       if (AdminTag.Length != 0) hash ^= AdminTag.GetHashCode();
+      if (InteractionID != 0UL) hash ^= InteractionID.GetHashCode();
+      if (InteractionToken.Length != 0) hash ^= InteractionToken.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -216,6 +247,14 @@ namespace SCPDiscord.Interface {
         output.WriteRawTag(42);
         output.WriteString(AdminTag);
       }
+      if (InteractionID != 0UL) {
+        output.WriteRawTag(48);
+        output.WriteUInt64(InteractionID);
+      }
+      if (InteractionToken.Length != 0) {
+        output.WriteRawTag(58);
+        output.WriteString(InteractionToken);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -246,6 +285,14 @@ namespace SCPDiscord.Interface {
         output.WriteRawTag(42);
         output.WriteString(AdminTag);
       }
+      if (InteractionID != 0UL) {
+        output.WriteRawTag(48);
+        output.WriteUInt64(InteractionID);
+      }
+      if (InteractionToken.Length != 0) {
+        output.WriteRawTag(58);
+        output.WriteString(InteractionToken);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -270,6 +317,12 @@ namespace SCPDiscord.Interface {
       }
       if (AdminTag.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(AdminTag);
+      }
+      if (InteractionID != 0UL) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(InteractionID);
+      }
+      if (InteractionToken.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(InteractionToken);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -297,6 +350,12 @@ namespace SCPDiscord.Interface {
       }
       if (other.AdminTag.Length != 0) {
         AdminTag = other.AdminTag;
+      }
+      if (other.InteractionID != 0UL) {
+        InteractionID = other.InteractionID;
+      }
+      if (other.InteractionToken.Length != 0) {
+        InteractionToken = other.InteractionToken;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -333,6 +392,14 @@ namespace SCPDiscord.Interface {
             AdminTag = input.ReadString();
             break;
           }
+          case 48: {
+            InteractionID = input.ReadUInt64();
+            break;
+          }
+          case 58: {
+            InteractionToken = input.ReadString();
+            break;
+          }
         }
       }
     #endif
@@ -366,6 +433,14 @@ namespace SCPDiscord.Interface {
           }
           case 42: {
             AdminTag = input.ReadString();
+            break;
+          }
+          case 48: {
+            InteractionID = input.ReadUInt64();
+            break;
+          }
+          case 58: {
+            InteractionToken = input.ReadString();
             break;
           }
         }

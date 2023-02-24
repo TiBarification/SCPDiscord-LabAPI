@@ -4,8 +4,10 @@ package SCPDiscord.Interface;
 
 message SyncRoleCommand
 {
-	uint64 ChannelID = 1;
-	uint64 DiscordID = 2;
-	string SteamIDOrIP = 3;
-	string DiscordTag = 4;
+	uint64 channelID = 1;
+	uint64 discordID = 2;
+	string steamIDOrIP = 3;
+	string discordTag = 4;
+	uint64 interactionID = 5;
+	string interactionToken = 6;
 }

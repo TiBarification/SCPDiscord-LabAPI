@@ -4,7 +4,9 @@ package SCPDiscord.Interface;
 
 message KickallCommand
 {
-	uint64 ChannelID = 1;
-	string Reason = 2;
-	string AdminTag = 3;
+	uint64 channelID = 1;
+	string reason = 2;
+	string adminTag = 3;
+	uint64 interactionID = 4;
+	string interactionToken = 5;
 }
