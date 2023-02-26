@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using DSharpPlus.Entities;
+using DSharpPlus.Interactivity;
 using SCPDiscord.Interface;
 
 namespace SCPDiscord;
@@ -55,6 +57,16 @@ public static class Utilities
 		}
 
 		return embed;
+	}
+
+	public static List<Page> GetPaginatedMessage(PaginatedMessage message)
+	{
+		List<Page> listPages = new List<Page>();
+		foreach (EmbedMessage embed in message.Pages)
+		{
+			listPages.Add(new Page("", new DiscordEmbedBuilder(GetDiscordEmbed(embed))));
+		}
+		return listPages;
 	}
 
 	public static DiscordColor GetDiscordColour(EmbedMessage.Types.DiscordColour colour)

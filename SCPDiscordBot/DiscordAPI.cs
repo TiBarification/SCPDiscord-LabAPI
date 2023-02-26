@@ -8,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DSharpPlus.Interactivity;
+using DSharpPlus.Interactivity.Enums;
+using DSharpPlus.Interactivity.Extensions;
 using DSharpPlus.SlashCommands.Attributes;
 using DSharpPlus.SlashCommands.EventArgs;
 
@@ -55,6 +58,14 @@ namespace SCPDiscord
 				});
 
 				ConfigParser.PrintConfig();
+
+				client.UseInteractivity(new InteractivityConfiguration
+				{
+					AckPaginationButtons = true,
+					PaginationBehaviour = PaginationBehaviour.Ignore,
+					PaginationDeletion = PaginationDeletion.DeleteMessage,
+					Timeout = TimeSpan.FromMinutes(15)
+				});
 
 				Logger.Log("Registering commands...", LogID.DISCORD);
 				instance.commands = client.UseSlashCommands();
@@ -186,6 +197,50 @@ namespace SCPDiscord
 			}
 		}
 
+		public static async Task SendPaginatedResponse(ulong interactionID, string interactionToken, List<Page> message)
+		{
+			if (!instance.connected) return;
+
+			try
+			{
+				try
+				{
+					//await restClient.EditOriginalInteractionResponseAsync(interactionToken, );
+				}
+				catch (UnauthorizedException)
+				{
+					Logger.Error("No permissions to send command response.", LogID.DISCORD);
+				}
+			}
+			catch (Exception e)
+			{
+				Logger.Error("Could not send command response.\n" + e.StackTrace, LogID.DISCORD);
+			}
+		}
+
+		public static async Task SendPaginatedMessage(ulong channelID, ulong userID, IEnumerable<Page> pages)
+		{
+			if (!instance.connected) return;
+
+			try
+			{
+				try
+				{
+					DiscordChannel channel = await client.GetChannelAsync(channelID);
+					DiscordUser user = await client.GetUserAsync(userID);
+
+					await channel.SendPaginatedMessageAsync(user, pages);
+				}
+				catch (UnauthorizedException)
+				{
+					Logger.Error("No permissions to send command response.", LogID.DISCORD);
+				}
+			}
+			catch (Exception e)
+			{
+				Logger.Error("Could not send command response.\n" + e.StackTrace, LogID.DISCORD);
+			}
+		}
 
 		public static async void GetPlayerRoles(ulong userID, string steamID)
 		{

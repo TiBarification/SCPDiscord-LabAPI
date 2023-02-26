@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Footprinting;
 using InventorySystem.Items;
@@ -6,7 +5,6 @@ using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Pickups;
 using InventorySystem.Items.Radio;
 using InventorySystem.Items.ThrowableProjectiles;
-using InventorySystem.Items.Usables;
 using PlayerRoles;
 using PlayerRoles.PlayableScps.Scp939;
 using PlayerStatsSystem;

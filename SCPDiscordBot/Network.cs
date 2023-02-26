@@ -169,6 +169,27 @@ namespace SCPDiscord
 						Logger.Error("Could not send embed in text channel '" + wrapper.EmbedMessage.ChannelID + "' Exception: " + e, LogID.DISCORD);
 					}
 					break;
+				case MessageWrapper.MessageOneofCase.PaginatedMessage:
+					try
+					{
+						//if (wrapper.PaginatedMessage.InteractionID == 0 || string.IsNullOrWhiteSpace(wrapper.PaginatedMessage.InteractionToken))
+						//{
+							await DiscordAPI.SendPaginatedMessage(wrapper.PaginatedMessage.ChannelID,
+								wrapper.PaginatedMessage.UserID,
+								Utilities.GetPaginatedMessage(wrapper.PaginatedMessage));
+						//}
+						//else
+						//{
+						//	await DiscordAPI.SendPaginatedResponse(wrapper.PaginatedMessage.InteractionID,
+						//										   wrapper.PaginatedMessage.InteractionToken,
+						//									       Utilities.GetPaginatedMessage(wrapper.PaginatedMessage));
+						//}
+					}
+					catch (Exception e)
+					{
+						Logger.Error("Could not send paginated message in text channel '" + wrapper.EmbedMessage.ChannelID + "' Exception: " + e, LogID.DISCORD);
+					}
+					break;
 				case MessageWrapper.MessageOneofCase.BanCommand:
 				case MessageWrapper.MessageOneofCase.UnbanCommand:
 				case MessageWrapper.MessageOneofCase.KickCommand:

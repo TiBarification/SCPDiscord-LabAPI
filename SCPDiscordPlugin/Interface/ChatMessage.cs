@@ -25,12 +25,12 @@ namespace SCPDiscord.Interface {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "Ch1QbHVnaW5Ub0JvdC9DaGF0TWVzc2FnZS5wcm90bxIUU0NQRGlzY29yZC5J",
-            "bnRlcmZhY2UiSAoLQ2hhdE1lc3NhZ2USEQoJY2hhbm5lbElEGAEgASgEEg8K",
-            "B2NvbnRlbnQYAiABKAkSFQoNaW50ZXJhY3Rpb25JRBgDIAEoBGIGcHJvdG8z"));
+            "bnRlcmZhY2UiMQoLQ2hhdE1lc3NhZ2USEQoJY2hhbm5lbElEGAEgASgEEg8K",
+            "B2NvbnRlbnQYAiABKAliBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::SCPDiscord.Interface.ChatMessage), global::SCPDiscord.Interface.ChatMessage.Parser, new[]{ "ChannelID", "Content", "InteractionID" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::SCPDiscord.Interface.ChatMessage), global::SCPDiscord.Interface.ChatMessage.Parser, new[]{ "ChannelID", "Content" }, null, null, null, null)
           }));
     }
     #endregion
@@ -73,7 +73,6 @@ namespace SCPDiscord.Interface {
     public ChatMessage(ChatMessage other) : this() {
       channelID_ = other.channelID_;
       content_ = other.content_;
-      interactionID_ = other.interactionID_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -107,18 +106,6 @@ namespace SCPDiscord.Interface {
       }
     }
 
-    /// <summary>Field number for the "interactionID" field.</summary>
-    public const int InteractionIDFieldNumber = 3;
-    private ulong interactionID_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ulong InteractionID {
-      get { return interactionID_; }
-      set {
-        interactionID_ = value;
-      }
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -136,7 +123,6 @@ namespace SCPDiscord.Interface {
       }
       if (ChannelID != other.ChannelID) return false;
       if (Content != other.Content) return false;
-      if (InteractionID != other.InteractionID) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -146,7 +132,6 @@ namespace SCPDiscord.Interface {
       int hash = 1;
       if (ChannelID != 0UL) hash ^= ChannelID.GetHashCode();
       if (Content.Length != 0) hash ^= Content.GetHashCode();
-      if (InteractionID != 0UL) hash ^= InteractionID.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -173,10 +158,6 @@ namespace SCPDiscord.Interface {
         output.WriteRawTag(18);
         output.WriteString(Content);
       }
-      if (InteractionID != 0UL) {
-        output.WriteRawTag(24);
-        output.WriteUInt64(InteractionID);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -195,10 +176,6 @@ namespace SCPDiscord.Interface {
         output.WriteRawTag(18);
         output.WriteString(Content);
       }
-      if (InteractionID != 0UL) {
-        output.WriteRawTag(24);
-        output.WriteUInt64(InteractionID);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -214,9 +191,6 @@ namespace SCPDiscord.Interface {
       }
       if (Content.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Content);
-      }
-      if (InteractionID != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(InteractionID);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -235,9 +209,6 @@ namespace SCPDiscord.Interface {
       }
       if (other.Content.Length != 0) {
         Content = other.Content;
-      }
-      if (other.InteractionID != 0UL) {
-        InteractionID = other.InteractionID;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -262,10 +233,6 @@ namespace SCPDiscord.Interface {
             Content = input.ReadString();
             break;
           }
-          case 24: {
-            InteractionID = input.ReadUInt64();
-            break;
-          }
         }
       }
     #endif
@@ -287,10 +254,6 @@ namespace SCPDiscord.Interface {
           }
           case 18: {
             Content = input.ReadString();
-            break;
-          }
-          case 24: {
-            InteractionID = input.ReadUInt64();
             break;
           }
         }

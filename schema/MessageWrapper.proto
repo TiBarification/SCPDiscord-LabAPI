@@ -14,6 +14,7 @@ import "PluginToBot/BotActivity.proto";
 import "PluginToBot/ChatMessage.proto";
 import "PluginToBot/UserQuery.proto";
 import "PluginToBot/EmbedMessage.proto";
+import "PluginToBot/PaginatedMessage.proto";
 
 package SCPDiscord.Interface;
 
@@ -34,5 +35,6 @@ message MessageWrapper
 		KickallCommand kickallCommand = 12;
 		ListCommand listCommand = 13;
 		EmbedMessage embedMessage = 14;
+		PaginatedMessage paginatedMessage = 15;
 	}
 }

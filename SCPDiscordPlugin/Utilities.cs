@@ -36,5 +36,38 @@ namespace SCPDiscord
 			}
 			return null;
 		}
+
+		public static bool IsPossibleSteamID(string steamID)
+		{
+			return steamID.Length >= 17 && ulong.TryParse(steamID.Replace("@steam", ""), out ulong _);
+		}
+
+		public static string EscapeDiscordFormatting(string input)
+		{
+			input = input.Replace("`", "\\`");
+			input = input.Replace("*", "\\*");
+			input = input.Replace("_", "\\_");
+			input = input.Replace("~", "\\~");
+			return input;
+		}
+
+		public static LinkedList<string> ParseListIntoMessages(List<string> listItems)
+		{
+			LinkedList<string> messages = new LinkedList<string>();
+
+			foreach (string listItem in listItems)
+			{
+				if (messages.Last?.Value?.Length + listItem?.Length < 2048)
+				{
+					messages.Last.Value += listItem;
+				}
+				else
+				{
+					messages.AddLast(listItem);
+				}
+			}
+
+			return messages;
+		}
 	}
 }

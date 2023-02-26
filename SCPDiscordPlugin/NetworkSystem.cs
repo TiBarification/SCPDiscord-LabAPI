@@ -23,7 +23,7 @@ namespace SCPDiscord
 	{
 		public ProcessMessageAsync(string messagePath, Dictionary<string, string> variables)
 		{
-			string processedMessage = NetworkSystem.GetProcessedMessage(messagePath, variables);
+			string processedMessage = Language.GetProcessedMessage(messagePath, variables);
 
 			// Add time stamp
 			if (Config.GetString("settings.timestamp") != "off" && Config.GetString("settings.timestamp") != "")
@@ -50,7 +50,7 @@ namespace SCPDiscord
 	{
 		public ProcessMessageByIDAsync(ulong channelID, string messagePath, Dictionary<string, string> variables)
 		{
-			string processedMessage = NetworkSystem.GetProcessedMessage(messagePath, variables);
+			string processedMessage = Language.GetProcessedMessage(messagePath, variables);
 
 			// Add time stamp
 			if (Config.GetString("settings.timestamp") != "off" && Config.GetString("settings.timestamp") != "")
@@ -75,7 +75,7 @@ namespace SCPDiscord
 	{
 		public ProcessEmbedMessageAsync(EmbedMessage embed, string messagePath, Dictionary<string, string> variables)
 		{
-			string processedMessage = NetworkSystem.GetProcessedMessage(messagePath, variables);
+			string processedMessage = Language.GetProcessedMessage(messagePath, variables);
 			embed.Description = processedMessage;
 
 			// Add time stamp
@@ -101,7 +101,7 @@ namespace SCPDiscord
 	{
 		public ProcessEmbedMessageByIDAsync(EmbedMessage embed, string messagePath, Dictionary<string, string> variables)
 		{
-			string processedMessage = NetworkSystem.GetProcessedMessage(messagePath, variables);
+			string processedMessage = Language.GetProcessedMessage(messagePath, variables);
 			embed.Description = processedMessage;
 
 			// Add time stamp
@@ -295,118 +295,6 @@ namespace SCPDiscord
 			return false;
 		}
 
-		public static string GetProcessedMessage(string messagePath, Dictionary<string, string> variables)
-		{
-			// Get unparsed message from config
-			string message;
-			try
-			{
-				message = Language.GetString(messagePath + ".message");
-			}
-			catch (Exception e)
-			{
-				plugin.Error("Error reading base message" + e);
-				return null;
-			}
-
-			switch (message)
-			{
-				// An error message is already sent in the language function if this is null, so this just returns
-				case null:
-					return null;
-				// Abort on empty message
-				case "":
-				case " ":
-				case ".":
-					plugin.VerboseWarn("Tried to send empty message " + messagePath + " to discord. Verify your language files.");
-					return null;
-			}
-
-			// Re-add newlines
-			message = message.Replace("\\n", "\n");
-
-			// Add variables //////////////////////////////
-			if (variables != null)
-			{
-				// Variable insertion
-				foreach (KeyValuePair<string, string> variable in variables)
-				{
-					// Wait until after the regex replacements to add the player names
-					if (variable.Key == "servername" || variable.Key == "name" || variable.Key == "attackername" || variable.Key == "playername" || variable.Key == "adminname" || variable.Key == "feedback" || variable.Key == "admintag")
-					{
-						continue;
-					}
-					message = message.Replace("<var:" + variable.Key + ">", variable.Value);
-				}
-			}
-			///////////////////////////////////////////////
-
-			// Global regex replacements //////////////////
-			Dictionary<string, string> globalRegex;
-			try
-			{
-				globalRegex = Language.GetRegexDictionary("global_regex");
-			}
-			catch (Exception e)
-			{
-				plugin.Error("Error reading global regex" + e);
-				return null;
-			}
-			// Run the global regex replacements
-			foreach (KeyValuePair<string, string> entry in globalRegex)
-			{
-				message = Regex.Replace(message, entry.Key, entry.Value);
-			}
-			///////////////////////////////////////////////
-
-			// Local regex replacements ///////////////////
-			Dictionary<string, string> localRegex;
-			try
-			{
-				localRegex = Language.GetRegexDictionary(messagePath + ".regex");
-			}
-			catch (Exception e)
-			{
-				plugin.Error("Error reading local regex" + e);
-				return null;
-			}
-			// Run the local regex replacements
-			foreach (KeyValuePair<string, string> entry in localRegex)
-			{
-				message = Regex.Replace(message, entry.Key, entry.Value);
-			}
-			///////////////////////////////////////////////
-
-			if (variables != null)
-			{
-				// Add names/command feedback to the message //
-				foreach (KeyValuePair<string, string> variable in variables)
-				{
-					message = message.Replace("<var:" + variable.Key + ">", EscapeDiscordFormatting(variable.Value ?? "null"));
-				}
-				///////////////////////////////////////////////
-
-				// Final regex replacements ///////////////////
-				Dictionary<string, string> finalRegex;
-				try
-				{
-					finalRegex = Language.GetRegexDictionary("final_regex");
-				}
-				catch (Exception e)
-				{
-					plugin.Error("Error reading final regex" + e);
-					return null;
-				}
-				// Run the final regex replacements
-				foreach (KeyValuePair<string, string> entry in finalRegex)
-				{
-					message = Regex.Replace(message, entry.Key, entry.Value);
-				}
-				///////////////////////////////////////////////
-			}
-			return message;
-		}
-
 		public static void QueueMessage(MessageWrapper message)
 		{
 			if (message == null)
@@ -468,14 +356,6 @@ namespace SCPDiscord
 			messageQueue.Add(message);
 		}
 
-		private static string EscapeDiscordFormatting(string input)
-		{
-			input = input.Replace("`", "\\`");
-			input = input.Replace("*", "\\*");
-			input = input.Replace("_", "\\_");
-			input = input.Replace("~", "\\~");
-			return input;
-		}
 		/// ///////////////////////////////////////////////
 
 		/// Status refreshing //////////////////////
@@ -502,7 +382,7 @@ namespace SCPDiscord
 					{
 						StatusType = Player.Count <= 0 ? BotActivity.Types.Status.Idle : BotActivity.Types.Status.Online,
 						ActivityType = BotActivity.Types.Activity.Playing,
-						ActivityText = GetProcessedMessage("messages.botstatus", variables)
+						ActivityText = Language.GetProcessedMessage("messages.botstatus", variables)
 					}
 				};
 

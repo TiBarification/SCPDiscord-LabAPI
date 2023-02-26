@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading;
+using PlayerRoles;
 using PluginAPI.Core;
 using PluginAPI.Helpers;
 
@@ -59,34 +60,29 @@ namespace SCPDiscord
 								break;
 
 							case MessageWrapper.MessageOneofCase.BanCommand:
-								BanCommand(data.BanCommand);
+								Execute(data.BanCommand);
 								break;
 
 							case MessageWrapper.MessageOneofCase.UnbanCommand:
-								UnbanCommand(data.UnbanCommand);
+								Execute(data.UnbanCommand);
 								break;
 
 							case MessageWrapper.MessageOneofCase.KickCommand:
-								KickCommand(data.KickCommand);
+								Execute(data.KickCommand);
 								break;
 
 							case MessageWrapper.MessageOneofCase.KickallCommand:
-								KickAllCommand(data.KickallCommand);
+								Execute(data.KickallCommand);
 								break;
 
 							case MessageWrapper.MessageOneofCase.ListCommand:
-								var reply = "```md\n# Players online (" + (Player.Count - 1) + "):\n";
-								foreach (Player player in Player.GetPlayers<Player>())
-								{
-									reply += player.Nickname.PadRight(35) + "<" + player.UserId + ">" + "\n";
-								}
-								reply += "```";
-								plugin.SendStringByID(data.ListCommand.ChannelID, reply);
+								Execute(data.ListCommand);
 								break;
 
 							case MessageWrapper.MessageOneofCase.BotActivity:
 							case MessageWrapper.MessageOneofCase.ChatMessage:
 							case MessageWrapper.MessageOneofCase.UserQuery:
+							case MessageWrapper.MessageOneofCase.PaginatedMessage:
 								plugin.Warn("Received packet meant for bot: " + Google.Protobuf.JsonFormatter.Default.Format(data));
 								break;
 
@@ -96,7 +92,7 @@ namespace SCPDiscord
 								break;
 						}
 					}
-					Thread.Sleep(1000);
+					Thread.Sleep(500);
 				}
 				catch (Exception ex)
 				{
@@ -105,7 +101,7 @@ namespace SCPDiscord
 			}
 		}
 
-		private void BanCommand(BanCommand command)
+		private void Execute(BanCommand command)
 		{
 			EmbedMessage embed = new EmbedMessage
 			{
@@ -116,7 +112,7 @@ namespace SCPDiscord
 			};
 
 			// Perform very basic SteamID validation.
-			if (!IsPossibleSteamID(command.SteamID))
+			if (!Utilities.IsPossibleSteamID(command.SteamID))
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
@@ -184,7 +180,7 @@ namespace SCPDiscord
 			plugin.SendEmbedWithMessageByID(embed, "messages.playerbanned", banVars);
 		}
 
-		private void UnbanCommand(UnbanCommand command)
+		private void Execute(UnbanCommand command)
 		{
 			EmbedMessage embed = new EmbedMessage
 			{
@@ -195,7 +191,7 @@ namespace SCPDiscord
 			};
 
 			// Perform very basic SteamID and ip validation.
-			if (!IsPossibleSteamID(command.SteamIDOrIP) && !IPAddress.TryParse(command.SteamIDOrIP, out IPAddress _))
+			if (!Utilities.IsPossibleSteamID(command.SteamIDOrIP) && !IPAddress.TryParse(command.SteamIDOrIP, out IPAddress _))
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
@@ -266,7 +262,7 @@ namespace SCPDiscord
 			plugin.SendEmbedWithMessageByID(embed, "messages.playerunbanned", unbanVars);
 		}
 
-		private void KickCommand(KickCommand command)
+		private void Execute(KickCommand command)
 		{
 			EmbedMessage embed = new EmbedMessage
 			{
@@ -277,7 +273,7 @@ namespace SCPDiscord
 			};
 
 			//Perform very basic SteamID validation
-			if (!IsPossibleSteamID(command.SteamID))
+			if (!Utilities.IsPossibleSteamID(command.SteamID))
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
@@ -313,7 +309,7 @@ namespace SCPDiscord
 			}
 		}
 
-		private void KickAllCommand(KickallCommand command)
+		private void Execute(KickallCommand command)
 		{
 			if (command.Reason == "")
 			{
@@ -337,6 +333,53 @@ namespace SCPDiscord
 				InteractionToken = command.InteractionToken
 			};
 			plugin.SendEmbedWithMessageByID(embed, "messages.kickall", variables);
+		}
+
+		private void Execute(ListCommand command)
+		{
+			if (Player.Count == 0)
+			{
+				EmbedMessage embed = new EmbedMessage
+				{
+					Title = Player.Count + " / " + Server.MaxPlayers + " players",
+					Description = "No players online.",
+					Colour = EmbedMessage.Types.DiscordColour.Red,
+					ChannelID = command.ChannelID,
+					InteractionID = command.InteractionID,
+					InteractionToken = command.InteractionToken
+				};
+				plugin.SendEmbedByID(embed);
+				return;
+			}
+
+			List<string> listItems = new List<string>();
+			foreach (Player player in Player.GetPlayers())
+			{
+				// TODO: Add userid filtering
+				listItems.Add("**" + player.Nickname + "** | **" + player.Role.ToString() + "** | " + player.GetParsedUserID());
+			}
+
+			List<EmbedMessage> embeds = new List<EmbedMessage>();
+			foreach (string message in Utilities.ParseListIntoMessages(listItems))
+			{
+				embeds.Add(new EmbedMessage
+				{
+					Title = Player.Count + " / " + Server.MaxPlayers + " players",
+					Colour = EmbedMessage.Types.DiscordColour.Cyan,
+					Description = message
+				});
+			}
+
+			PaginatedMessage response = new PaginatedMessage
+			{
+				ChannelID = command.ChannelID,
+				UserID = command.UserID,
+				InteractionID = command.InteractionID,
+				InteractionToken = command.InteractionToken
+			};
+			response.Pages.Add(embeds);
+
+			NetworkSystem.QueueMessage(new MessageWrapper { PaginatedMessage = response });
 		}
 
 		private static DateTime ParseBanDuration(string duration, ref string humanReadableDuration)
@@ -394,11 +437,6 @@ namespace SCPDiscord
 			}
 
 			return DateTime.UtcNow.Add(timeSpanDuration);
-		}
-
-		private static bool IsPossibleSteamID(string steamID)
-		{
-			return steamID.Length >= 17 && ulong.TryParse(steamID.Replace("@steam", ""), out ulong _);
 		}
 	}
 }

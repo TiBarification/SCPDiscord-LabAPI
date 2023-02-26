@@ -359,6 +359,7 @@
     <Compile Include="Interface\KickCommand.cs" />
     <Compile Include="Interface\ListCommand.cs" />
     <Compile Include="Interface\MessageWrapper.cs" />
+    <Compile Include="Interface\PaginatedMessage.cs" />
     <Compile Include="Interface\SyncRoleCommand.cs" />
     <Compile Include="Interface\UnbanCommand.cs" />
     <Compile Include="Interface\UnsyncRoleCommand.cs" />

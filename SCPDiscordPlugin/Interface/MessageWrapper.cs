@@ -34,29 +34,31 @@ namespace SCPDiscord.Interface {
             "Z2luL0xpc3RDb21tYW5kLnByb3RvGh1QbHVnaW5Ub0JvdC9Cb3RBY3Rpdml0",
             "eS5wcm90bxodUGx1Z2luVG9Cb3QvQ2hhdE1lc3NhZ2UucHJvdG8aG1BsdWdp",
             "blRvQm90L1VzZXJRdWVyeS5wcm90bxoeUGx1Z2luVG9Cb3QvRW1iZWRNZXNz",
-            "YWdlLnByb3RvIqUGCg5NZXNzYWdlV3JhcHBlchI4Cgtib3RBY3Rpdml0eRgB",
-            "IAEoCzIhLlNDUERpc2NvcmQuSW50ZXJmYWNlLkJvdEFjdGl2aXR5SAASOAoL",
-            "Y2hhdE1lc3NhZ2UYAyABKAsyIS5TQ1BEaXNjb3JkLkludGVyZmFjZS5DaGF0",
-            "TWVzc2FnZUgAEjQKCXVzZXJRdWVyeRgEIAEoCzIfLlNDUERpc2NvcmQuSW50",
-            "ZXJmYWNlLlVzZXJRdWVyeUgAEkAKD3N5bmNSb2xlQ29tbWFuZBgFIAEoCzIl",
-            "LlNDUERpc2NvcmQuSW50ZXJmYWNlLlN5bmNSb2xlQ29tbWFuZEgAEkQKEXVu",
-            "c3luY1JvbGVDb21tYW5kGAYgASgLMicuU0NQRGlzY29yZC5JbnRlcmZhY2Uu",
-            "VW5zeW5jUm9sZUNvbW1hbmRIABI+Cg5jb25zb2xlQ29tbWFuZBgHIAEoCzIk",
-            "LlNDUERpc2NvcmQuSW50ZXJmYWNlLkNvbnNvbGVDb21tYW5kSAASMgoIdXNl",
-            "ckluZm8YCCABKAsyHi5TQ1BEaXNjb3JkLkludGVyZmFjZS5Vc2VySW5mb0gA",
-            "EjYKCmJhbkNvbW1hbmQYCSABKAsyIC5TQ1BEaXNjb3JkLkludGVyZmFjZS5C",
-            "YW5Db21tYW5kSAASOgoMdW5iYW5Db21tYW5kGAogASgLMiIuU0NQRGlzY29y",
-            "ZC5JbnRlcmZhY2UuVW5iYW5Db21tYW5kSAASOAoLa2lja0NvbW1hbmQYCyAB",
-            "KAsyIS5TQ1BEaXNjb3JkLkludGVyZmFjZS5LaWNrQ29tbWFuZEgAEj4KDmtp",
-            "Y2thbGxDb21tYW5kGAwgASgLMiQuU0NQRGlzY29yZC5JbnRlcmZhY2UuS2lj",
-            "a2FsbENvbW1hbmRIABI4CgtsaXN0Q29tbWFuZBgNIAEoCzIhLlNDUERpc2Nv",
-            "cmQuSW50ZXJmYWNlLkxpc3RDb21tYW5kSAASOgoMZW1iZWRNZXNzYWdlGA4g",
-            "ASgLMiIuU0NQRGlzY29yZC5JbnRlcmZhY2UuRW1iZWRNZXNzYWdlSABCCQoH",
-            "bWVzc2FnZWIGcHJvdG8z"));
+            "YWdlLnByb3RvGiJQbHVnaW5Ub0JvdC9QYWdpbmF0ZWRNZXNzYWdlLnByb3Rv",
+            "IukGCg5NZXNzYWdlV3JhcHBlchI4Cgtib3RBY3Rpdml0eRgBIAEoCzIhLlND",
+            "UERpc2NvcmQuSW50ZXJmYWNlLkJvdEFjdGl2aXR5SAASOAoLY2hhdE1lc3Nh",
+            "Z2UYAyABKAsyIS5TQ1BEaXNjb3JkLkludGVyZmFjZS5DaGF0TWVzc2FnZUgA",
+            "EjQKCXVzZXJRdWVyeRgEIAEoCzIfLlNDUERpc2NvcmQuSW50ZXJmYWNlLlVz",
+            "ZXJRdWVyeUgAEkAKD3N5bmNSb2xlQ29tbWFuZBgFIAEoCzIlLlNDUERpc2Nv",
+            "cmQuSW50ZXJmYWNlLlN5bmNSb2xlQ29tbWFuZEgAEkQKEXVuc3luY1JvbGVD",
+            "b21tYW5kGAYgASgLMicuU0NQRGlzY29yZC5JbnRlcmZhY2UuVW5zeW5jUm9s",
+            "ZUNvbW1hbmRIABI+Cg5jb25zb2xlQ29tbWFuZBgHIAEoCzIkLlNDUERpc2Nv",
+            "cmQuSW50ZXJmYWNlLkNvbnNvbGVDb21tYW5kSAASMgoIdXNlckluZm8YCCAB",
+            "KAsyHi5TQ1BEaXNjb3JkLkludGVyZmFjZS5Vc2VySW5mb0gAEjYKCmJhbkNv",
+            "bW1hbmQYCSABKAsyIC5TQ1BEaXNjb3JkLkludGVyZmFjZS5CYW5Db21tYW5k",
+            "SAASOgoMdW5iYW5Db21tYW5kGAogASgLMiIuU0NQRGlzY29yZC5JbnRlcmZh",
+            "Y2UuVW5iYW5Db21tYW5kSAASOAoLa2lja0NvbW1hbmQYCyABKAsyIS5TQ1BE",
+            "aXNjb3JkLkludGVyZmFjZS5LaWNrQ29tbWFuZEgAEj4KDmtpY2thbGxDb21t",
+            "YW5kGAwgASgLMiQuU0NQRGlzY29yZC5JbnRlcmZhY2UuS2lja2FsbENvbW1h",
+            "bmRIABI4CgtsaXN0Q29tbWFuZBgNIAEoCzIhLlNDUERpc2NvcmQuSW50ZXJm",
+            "YWNlLkxpc3RDb21tYW5kSAASOgoMZW1iZWRNZXNzYWdlGA4gASgLMiIuU0NQ",
+            "RGlzY29yZC5JbnRlcmZhY2UuRW1iZWRNZXNzYWdlSAASQgoQcGFnaW5hdGVk",
+            "TWVzc2FnZRgPIAEoCzImLlNDUERpc2NvcmQuSW50ZXJmYWNlLlBhZ2luYXRl",
+            "ZE1lc3NhZ2VIAEIJCgdtZXNzYWdlYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::SCPDiscord.Interface.ConsoleCommandReflection.Descriptor, global::SCPDiscord.Interface.UserInfoReflection.Descriptor, global::SCPDiscord.Interface.SyncRoleCommandReflection.Descriptor, global::SCPDiscord.Interface.UnsyncRoleCommandReflection.Descriptor, global::SCPDiscord.Interface.BanCommandReflection.Descriptor, global::SCPDiscord.Interface.UnbanCommandReflection.Descriptor, global::SCPDiscord.Interface.KickCommandReflection.Descriptor, global::SCPDiscord.Interface.KickallCommandReflection.Descriptor, global::SCPDiscord.Interface.ListCommandReflection.Descriptor, global::SCPDiscord.Interface.BotActivityReflection.Descriptor, global::SCPDiscord.Interface.ChatMessageReflection.Descriptor, global::SCPDiscord.Interface.UserQueryReflection.Descriptor, global::SCPDiscord.Interface.EmbedMessageReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::SCPDiscord.Interface.ConsoleCommandReflection.Descriptor, global::SCPDiscord.Interface.UserInfoReflection.Descriptor, global::SCPDiscord.Interface.SyncRoleCommandReflection.Descriptor, global::SCPDiscord.Interface.UnsyncRoleCommandReflection.Descriptor, global::SCPDiscord.Interface.BanCommandReflection.Descriptor, global::SCPDiscord.Interface.UnbanCommandReflection.Descriptor, global::SCPDiscord.Interface.KickCommandReflection.Descriptor, global::SCPDiscord.Interface.KickallCommandReflection.Descriptor, global::SCPDiscord.Interface.ListCommandReflection.Descriptor, global::SCPDiscord.Interface.BotActivityReflection.Descriptor, global::SCPDiscord.Interface.ChatMessageReflection.Descriptor, global::SCPDiscord.Interface.UserQueryReflection.Descriptor, global::SCPDiscord.Interface.EmbedMessageReflection.Descriptor, global::SCPDiscord.Interface.PaginatedMessageReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::SCPDiscord.Interface.MessageWrapper), global::SCPDiscord.Interface.MessageWrapper.Parser, new[]{ "BotActivity", "ChatMessage", "UserQuery", "SyncRoleCommand", "UnsyncRoleCommand", "ConsoleCommand", "UserInfo", "BanCommand", "UnbanCommand", "KickCommand", "KickallCommand", "ListCommand", "EmbedMessage" }, new[]{ "Message" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::SCPDiscord.Interface.MessageWrapper), global::SCPDiscord.Interface.MessageWrapper.Parser, new[]{ "BotActivity", "ChatMessage", "UserQuery", "SyncRoleCommand", "UnsyncRoleCommand", "ConsoleCommand", "UserInfo", "BanCommand", "UnbanCommand", "KickCommand", "KickallCommand", "ListCommand", "EmbedMessage", "PaginatedMessage" }, new[]{ "Message" }, null, null, null)
           }));
     }
     #endregion
@@ -136,6 +138,9 @@ namespace SCPDiscord.Interface {
           break;
         case MessageOneofCase.EmbedMessage:
           EmbedMessage = other.EmbedMessage.Clone();
+          break;
+        case MessageOneofCase.PaginatedMessage:
+          PaginatedMessage = other.PaginatedMessage.Clone();
           break;
       }
 
@@ -307,6 +312,18 @@ namespace SCPDiscord.Interface {
       }
     }
 
+    /// <summary>Field number for the "paginatedMessage" field.</summary>
+    public const int PaginatedMessageFieldNumber = 15;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::SCPDiscord.Interface.PaginatedMessage PaginatedMessage {
+      get { return messageCase_ == MessageOneofCase.PaginatedMessage ? (global::SCPDiscord.Interface.PaginatedMessage) message_ : null; }
+      set {
+        message_ = value;
+        messageCase_ = value == null ? MessageOneofCase.None : MessageOneofCase.PaginatedMessage;
+      }
+    }
+
     private object message_;
     /// <summary>Enum of possible cases for the "message" oneof.</summary>
     public enum MessageOneofCase {
@@ -324,6 +341,7 @@ namespace SCPDiscord.Interface {
       KickallCommand = 12,
       ListCommand = 13,
       EmbedMessage = 14,
+      PaginatedMessage = 15,
     }
     private MessageOneofCase messageCase_ = MessageOneofCase.None;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -367,6 +385,7 @@ namespace SCPDiscord.Interface {
       if (!object.Equals(KickallCommand, other.KickallCommand)) return false;
       if (!object.Equals(ListCommand, other.ListCommand)) return false;
       if (!object.Equals(EmbedMessage, other.EmbedMessage)) return false;
+      if (!object.Equals(PaginatedMessage, other.PaginatedMessage)) return false;
       if (MessageCase != other.MessageCase) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -388,6 +407,7 @@ namespace SCPDiscord.Interface {
       if (messageCase_ == MessageOneofCase.KickallCommand) hash ^= KickallCommand.GetHashCode();
       if (messageCase_ == MessageOneofCase.ListCommand) hash ^= ListCommand.GetHashCode();
       if (messageCase_ == MessageOneofCase.EmbedMessage) hash ^= EmbedMessage.GetHashCode();
+      if (messageCase_ == MessageOneofCase.PaginatedMessage) hash ^= PaginatedMessage.GetHashCode();
       hash ^= (int) messageCase_;
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -459,6 +479,10 @@ namespace SCPDiscord.Interface {
         output.WriteRawTag(114);
         output.WriteMessage(EmbedMessage);
       }
+      if (messageCase_ == MessageOneofCase.PaginatedMessage) {
+        output.WriteRawTag(122);
+        output.WriteMessage(PaginatedMessage);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -521,6 +545,10 @@ namespace SCPDiscord.Interface {
         output.WriteRawTag(114);
         output.WriteMessage(EmbedMessage);
       }
+      if (messageCase_ == MessageOneofCase.PaginatedMessage) {
+        output.WriteRawTag(122);
+        output.WriteMessage(PaginatedMessage);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -569,6 +597,9 @@ namespace SCPDiscord.Interface {
       }
       if (messageCase_ == MessageOneofCase.EmbedMessage) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(EmbedMessage);
+      }
+      if (messageCase_ == MessageOneofCase.PaginatedMessage) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(PaginatedMessage);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -660,6 +691,12 @@ namespace SCPDiscord.Interface {
             EmbedMessage = new global::SCPDiscord.Interface.EmbedMessage();
           }
           EmbedMessage.MergeFrom(other.EmbedMessage);
+          break;
+        case MessageOneofCase.PaginatedMessage:
+          if (PaginatedMessage == null) {
+            PaginatedMessage = new global::SCPDiscord.Interface.PaginatedMessage();
+          }
+          PaginatedMessage.MergeFrom(other.PaginatedMessage);
           break;
       }
 
@@ -795,6 +832,15 @@ namespace SCPDiscord.Interface {
             EmbedMessage = subBuilder;
             break;
           }
+          case 122: {
+            global::SCPDiscord.Interface.PaginatedMessage subBuilder = new global::SCPDiscord.Interface.PaginatedMessage();
+            if (messageCase_ == MessageOneofCase.PaginatedMessage) {
+              subBuilder.MergeFrom(PaginatedMessage);
+            }
+            input.ReadMessage(subBuilder);
+            PaginatedMessage = subBuilder;
+            break;
+          }
         }
       }
     #endif
@@ -925,6 +971,15 @@ namespace SCPDiscord.Interface {
             }
             input.ReadMessage(subBuilder);
             EmbedMessage = subBuilder;
+            break;
+          }
+          case 122: {
+            global::SCPDiscord.Interface.PaginatedMessage subBuilder = new global::SCPDiscord.Interface.PaginatedMessage();
+            if (messageCase_ == MessageOneofCase.PaginatedMessage) {
+              subBuilder.MergeFrom(PaginatedMessage);
+            }
+            input.ReadMessage(subBuilder);
+            PaginatedMessage = subBuilder;
             break;
           }
         }
