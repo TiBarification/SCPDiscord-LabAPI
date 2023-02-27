@@ -21,7 +21,7 @@ You could then add one channel for each server visible only to moderators, showi
 
 * You can sync ranks from discord to the game, letting you automate things like supporter rewards and moderator positions.
 
-* You can also grant reserved slot automatically for specific discord roles, and automatically remove them if they lose their role.
+* You can also grant reserved slots automatically for specific discord roles, and automatically remove them if they lose their role.
 
 ## Download
 
