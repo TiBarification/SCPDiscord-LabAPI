@@ -35,10 +35,10 @@ namespace SCPDiscord.Commands
 					DiscordID = command.Member?.Id ?? 0,
 					DiscordTag = command.Member?.Username,
 					SteamIDOrIP = ip,
-					InteractionID = command.InteractionId,
-					InteractionToken = command.Token
+					InteractionID = command.InteractionId
 				}
 			};
+			MessageScheduler.CacheInteraction(command);
 			NetworkSystem.SendMessage(message);
 			Logger.Debug("Sending SyncRoleCommand to plugin from " + command.Member?.Username + "#" + command.Member?.Discriminator, LogID.DISCORD);
 		}

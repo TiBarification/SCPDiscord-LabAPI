@@ -24,11 +24,11 @@ namespace SCPDiscord.Commands
 					Duration = duration,
 					AdminTag = command.Member?.Username + "#" + command.Member?.Discriminator,
 					Reason = reason,
-					InteractionID = command.InteractionId,
-					InteractionToken = command.Token
+					InteractionID = command.InteractionId
 				}
 			};
 
+			MessageScheduler.CacheInteraction(command);
 			NetworkSystem.SendMessage(message);
 			Logger.Debug("Sending BanCommand to plugin from " + command.Member?.Username + "#" + command.Member?.Discriminator, LogID.DISCORD);
 		}

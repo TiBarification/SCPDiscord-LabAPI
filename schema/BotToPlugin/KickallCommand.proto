@@ -8,5 +8,4 @@ message KickallCommand
 	string reason = 2;
 	string adminTag = 3;
 	uint64 interactionID = 4;
-	string interactionToken = 5;
 }

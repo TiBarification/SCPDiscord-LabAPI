@@ -9,5 +9,4 @@ message KickCommand
 	string reason = 3;
 	string adminTag = 4;
 	uint64 interactionID = 5;
-	string interactionToken = 6;
 }

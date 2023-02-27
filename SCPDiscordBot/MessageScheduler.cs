@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
+using DSharpPlus;
+using DSharpPlus.SlashCommands;
 
 namespace SCPDiscord;
 
@@ -17,6 +20,7 @@ public class StartMessageScheduler
 public static class MessageScheduler
 {
 	private static ConcurrentDictionary<ulong, ConcurrentQueue<string>> messageQueues = new ConcurrentDictionary<ulong, ConcurrentQueue<string>>();
+	private static List<InteractionContext> interactionCache = new List<InteractionContext>();
 
 	public static async void Init()
 	{
@@ -26,6 +30,9 @@ public static class MessageScheduler
 
 			// If we havent connected to discord yet wait until we do
 			if (!DiscordAPI.instance?.connected ?? false) continue;
+
+			// Clean old interactions from cache
+			interactionCache.RemoveAll(x => x.InteractionId.GetSnowflakeTime() < DateTimeOffset.Now - TimeSpan.FromSeconds(30));
 
 			try
 			{
@@ -70,5 +77,16 @@ public static class MessageScheduler
 	{
 		ConcurrentQueue<string> channelQueue = messageQueues.GetOrAdd(channelID, new ConcurrentQueue<string>());
 		channelQueue.Enqueue(message);
+	}
+
+	public static bool TryUncacheInteraction(ulong interactionID, out InteractionContext interaction)
+	{
+		interaction = interactionCache.FirstOrDefault(x => x.InteractionId == interactionID);
+		return interactionCache.Remove(interaction);
+	}
+
+	public static void CacheInteraction(InteractionContext interaction)
+	{
+		interactionCache.Add(interaction);
 	}
 }

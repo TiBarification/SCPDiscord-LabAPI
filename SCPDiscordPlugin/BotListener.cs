@@ -107,8 +107,7 @@ namespace SCPDiscord
 			{
 				Colour = EmbedMessage.Types.DiscordColour.Red,
 				ChannelID = command.ChannelID,
-				InteractionID = command.InteractionID,
-				InteractionToken = command.InteractionToken
+				InteractionID = command.InteractionID
 			};
 
 			// Perform very basic SteamID validation.
@@ -186,8 +185,7 @@ namespace SCPDiscord
 			{
 				Colour = EmbedMessage.Types.DiscordColour.Red,
 				ChannelID = command.ChannelID,
-				InteractionID = command.InteractionID,
-				InteractionToken = command.InteractionToken
+				InteractionID = command.InteractionID
 			};
 
 			// Perform very basic SteamID and ip validation.
@@ -268,8 +266,7 @@ namespace SCPDiscord
 			{
 				Colour = EmbedMessage.Types.DiscordColour.Red,
 				ChannelID = command.ChannelID,
-				InteractionID = command.InteractionID,
-				InteractionToken = command.InteractionToken
+				InteractionID = command.InteractionID
 			};
 
 			//Perform very basic SteamID validation
@@ -329,8 +326,7 @@ namespace SCPDiscord
 			{
 				Colour = EmbedMessage.Types.DiscordColour.Green,
 				ChannelID = command.ChannelID,
-				InteractionID = command.InteractionID,
-				InteractionToken = command.InteractionToken
+				InteractionID = command.InteractionID
 			};
 			plugin.SendEmbedWithMessageByID(embed, "messages.kickall", variables);
 		}
@@ -345,8 +341,7 @@ namespace SCPDiscord
 					Description = "No players online.",
 					Colour = EmbedMessage.Types.DiscordColour.Red,
 					ChannelID = command.ChannelID,
-					InteractionID = command.InteractionID,
-					InteractionToken = command.InteractionToken
+					InteractionID = command.InteractionID
 				};
 				plugin.SendEmbedByID(embed);
 				return;
@@ -374,8 +369,7 @@ namespace SCPDiscord
 			{
 				ChannelID = command.ChannelID,
 				UserID = command.UserID,
-				InteractionID = command.InteractionID,
-				InteractionToken = command.InteractionToken
+				InteractionID = command.InteractionID
 			};
 			response.Pages.Add(embeds);
 

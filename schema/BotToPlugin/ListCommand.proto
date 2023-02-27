@@ -7,5 +7,4 @@ message ListCommand
 	uint64 channelID = 1;
 	uint64 userID = 2;
 	uint64 interactionID = 3;
-	string interactionToken = 4;
 }

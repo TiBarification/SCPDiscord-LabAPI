@@ -18,10 +18,10 @@ namespace SCPDiscord.Commands
 					ChannelID = command.Channel.Id,
 					DiscordID = command.Member?.Id ?? 0,
 					Command = "/" + serverCommand,
-					InteractionID = command.InteractionId,
-					InteractionToken = command.Token
+					InteractionID = command.InteractionId
 				}
 			};
+			MessageScheduler.CacheInteraction(command);
 			NetworkSystem.SendMessage(message);
 			Logger.Debug("Sending ConsoleCommand to plugin from " + command.Member?.Username + "#" + command.Member?.Discriminator, LogID.DISCORD);
 		}

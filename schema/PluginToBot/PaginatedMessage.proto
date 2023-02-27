@@ -9,6 +9,5 @@ message PaginatedMessage
 	uint64 channelID = 1;
 	uint64 userID = 2;
 	uint64 interactionID = 3;
-	string interactionToken = 4;
-	repeated EmbedMessage pages = 5;
+	repeated EmbedMessage pages = 4;
 }

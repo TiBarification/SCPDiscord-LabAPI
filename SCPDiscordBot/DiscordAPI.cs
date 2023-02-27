@@ -176,7 +176,7 @@ namespace SCPDiscord
 			}
 		}
 
-		public static async Task SendInteractionResponse(ulong interactionID, string interactionToken, DiscordEmbed message)
+		public static async Task SendInteractionResponse(ulong interactionID, ulong channelID, DiscordEmbed message)
 		{
 			if (!instance.connected) return;
 
@@ -184,7 +184,15 @@ namespace SCPDiscord
 			{
 				try
 				{
-					await restClient.EditOriginalInteractionResponseAsync(interactionToken, new DiscordWebhookBuilder().AddEmbed(message));
+					if (MessageScheduler.TryUncacheInteraction(interactionID, out InteractionContext interaction))
+					{
+						await interaction.EditResponseAsync(new DiscordWebhookBuilder().AddEmbed(message));
+					}
+					else
+					{
+						Logger.Error("Couldn't find interaction in the cache, sending as normal message instead.");
+						await SendMessage(channelID, message);
+					}
 				}
 				catch (UnauthorizedException)
 				{
@@ -193,11 +201,11 @@ namespace SCPDiscord
 			}
 			catch (Exception e)
 			{
-				Logger.Error("Could not send command response.\n" + e.StackTrace, LogID.DISCORD);
+				Logger.Error("Could not send command response.\n" + e, LogID.DISCORD);
 			}
 		}
 
-		public static async Task SendPaginatedResponse(ulong interactionID, string interactionToken, List<Page> message)
+		public static async Task SendPaginatedResponse(ulong interactionID, ulong channelID, ulong userID, List<Page> message)
 		{
 			if (!instance.connected) return;
 
@@ -205,7 +213,16 @@ namespace SCPDiscord
 			{
 				try
 				{
-					//await restClient.EditOriginalInteractionResponseAsync(interactionToken, );
+					if (MessageScheduler.TryUncacheInteraction(interactionID, out InteractionContext interaction))
+					{
+						await interaction.Interaction.SendPaginatedResponseAsync(false, interaction.User, message, default,
+							                                                     default, default, default, true);
+					}
+					else
+					{
+						Logger.Error("Couldn't find interaction in the cache, sending as normal message instead.");
+						await SendPaginatedMessage(channelID, userID, message);
+					}
 				}
 				catch (UnauthorizedException)
 				{
@@ -214,7 +231,7 @@ namespace SCPDiscord
 			}
 			catch (Exception e)
 			{
-				Logger.Error("Could not send command response.\n" + e.StackTrace, LogID.DISCORD);
+				Logger.Error("Could not send command response.\n" + e, LogID.DISCORD);
 			}
 		}
 
@@ -238,7 +255,7 @@ namespace SCPDiscord
 			}
 			catch (Exception e)
 			{
-				Logger.Error("Could not send command response.\n" + e.StackTrace, LogID.DISCORD);
+				Logger.Error("Could not send command response.\n" + e, LogID.DISCORD);
 			}
 		}
 

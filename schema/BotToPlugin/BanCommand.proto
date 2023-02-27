@@ -10,5 +10,4 @@ message BanCommand
 	string reason = 4;
 	string adminTag = 5;
 	uint64 interactionID = 6;
-	string interactionToken = 7;
 }

@@ -19,11 +19,11 @@ namespace SCPDiscord.Commands
 					ChannelID = command.Channel.Id,
 					DiscordID = user.Id,
 					DiscordTag = command.Member?.Username,
-					InteractionID = command.InteractionId,
-					InteractionToken = command.Token
+					InteractionID = command.InteractionId
 				}
 			};
 
+			MessageScheduler.CacheInteraction(command);
 			NetworkSystem.SendMessage(message);
 			Logger.Debug("Sending UnsyncPlayerCommand to plugin from " + command.Member?.Username + "#" + command.Member?.Discriminator, LogID.DISCORD);
 		}

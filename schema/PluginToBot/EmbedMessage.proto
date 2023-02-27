@@ -89,7 +89,4 @@ message EmbedMessage
 	DiscordEmbedAuthor author = 10;
 	repeated DiscordEmbedField fields = 11;
 	uint64 interactionID = 12;
-	string interactionToken = 13;
-
-
 }

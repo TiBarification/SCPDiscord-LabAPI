@@ -25,7 +25,7 @@ namespace SCPDiscord.Interface {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "Ch5QbHVnaW5Ub0JvdC9FbWJlZE1lc3NhZ2UucHJvdG8SFFNDUERpc2NvcmQu",
-            "SW50ZXJmYWNlIv0LCgxFbWJlZE1lc3NhZ2USEQoJY2hhbm5lbElEGAEgASgE",
+            "SW50ZXJmYWNlIuMLCgxFbWJlZE1lc3NhZ2USEQoJY2hhbm5lbElEGAEgASgE",
             "EhIKBXRpdGxlGAIgASgJSACIAQESEwoLZGVzY3JpcHRpb24YAyABKAkSEAoD",
             "dXJsGAQgASgJSAGIAQESFgoJdGltZXN0YW1wGAUgASgDSAKIAQESQAoGY29s",
             "b3VyGAYgASgOMjAuU0NQRGlzY29yZC5JbnRlcmZhY2UuRW1iZWRNZXNzYWdl",
@@ -36,34 +36,33 @@ namespace SCPDiscord.Interface {
             "Ym5haWwSRQoGYXV0aG9yGAogASgLMjUuU0NQRGlzY29yZC5JbnRlcmZhY2Uu",
             "RW1iZWRNZXNzYWdlLkRpc2NvcmRFbWJlZEF1dGhvchJECgZmaWVsZHMYCyAD",
             "KAsyNC5TQ1BEaXNjb3JkLkludGVyZmFjZS5FbWJlZE1lc3NhZ2UuRGlzY29y",
-            "ZEVtYmVkRmllbGQSFQoNaW50ZXJhY3Rpb25JRBgMIAEoBBIYChBpbnRlcmFj",
-            "dGlvblRva2VuGA0gASgJGlIKEkRpc2NvcmRFbWJlZEZvb3RlchIRCgR0ZXh0",
-            "GAEgASgJSACIAQESFAoHaWNvblVSTBgCIAEoCUgBiAEBQgcKBV90ZXh0QgoK",
-            "CF9pY29uVVJMGkMKFURpc2NvcmRFbWJlZFRodW1ibmFpbBILCgN1cmwYASAB",
-            "KAkSDgoGaGVpZ2h0GAIgASgFEg0KBXdpZHRoGAMgASgFGmwKEkRpc2NvcmRF",
-            "bWJlZEF1dGhvchIRCgRuYW1lGAEgASgJSACIAQESEAoDdXJsGAIgASgJSAGI",
-            "AQESFAoHaWNvblVSTBgDIAEoCUgCiAEBQgcKBV9uYW1lQgYKBF91cmxCCgoI",
-            "X2ljb25VUkwaQAoRRGlzY29yZEVtYmVkRmllbGQSDAoEbmFtZRgBIAEoCRIN",
-            "CgV2YWx1ZRgCIAEoCRIOCgZpbmxpbmUYAyABKAgi5QQKDURpc2NvcmRDb2xv",
-            "dXISCAoETk9ORRAAEgkKBUJMQUNLEAESCQoFV0hJVEUQAhIICgRHUkFZEAMS",
-            "DQoJREFSS19HUkFZEAQSDgoKTElHSFRfR1JBWRAFEhIKDlZFUllfREFSS19H",
-            "UkFZEAYSCwoHQkxVUlBMRRAHEgsKB0dSQVlQTEUQCBIWChJEQVJLX0JVVF9O",
-            "T1RfQkxBQ0sQCRITCg9OT1RfUVVJVEVfQkxBQ0sQChIHCgNSRUQQCxIMCghE",
-            "QVJLX1JFRBAMEgkKBUdSRUVOEA0SDgoKREFSS19HUkVFThAOEggKBEJMVUUQ",
-            "DxINCglEQVJLX0JMVUUQEBIKCgZZRUxMT1cQERIICgRDWUFOEBISCwoHTUFH",
-            "RU5UQRATEggKBFRFQUwQFBIOCgpBUVVBTUFSSU5FEBUSCAoER09MRBAWEg0K",
-            "CUdPTERFTlJPRBAXEgkKBUFaVVJFEBgSCAoEUk9TRRAZEhAKDFNQUklOR19H",
-            "UkVFThAaEg4KCkNIQVJUUkVVU0UQGxIKCgZPUkFOR0UQHBIKCgZQVVJQTEUQ",
-            "HRIKCgZWSU9MRVQQHhIJCgVCUk9XThAfEgwKCEhPVF9QSU5LECASCQoFTElM",
-            "QUMQIRITCg9DT1JORkxPV0VSX0JMVUUQIhIRCg1NSUROSUdIVF9CTFVFECMS",
-            "CQoFV0hFQVQQJBIOCgpJTkRJQU5fUkVEECUSDQoJVFVSUVVPSVNFECYSDQoJ",
-            "U0FQX0dSRUVOECcSEAoMUEhUSEFMT19CTFVFECgSEQoNUEhUSEFMT19HUkVF",
-            "ThApEgoKBlNJRU5OQRAqQggKBl90aXRsZUIGCgRfdXJsQgwKCl90aW1lc3Rh",
-            "bXBCCwoJX2ltYWdlVVJMYgZwcm90bzM="));
+            "ZEVtYmVkRmllbGQSFQoNaW50ZXJhY3Rpb25JRBgMIAEoBBpSChJEaXNjb3Jk",
+            "RW1iZWRGb290ZXISEQoEdGV4dBgBIAEoCUgAiAEBEhQKB2ljb25VUkwYAiAB",
+            "KAlIAYgBAUIHCgVfdGV4dEIKCghfaWNvblVSTBpDChVEaXNjb3JkRW1iZWRU",
+            "aHVtYm5haWwSCwoDdXJsGAEgASgJEg4KBmhlaWdodBgCIAEoBRINCgV3aWR0",
+            "aBgDIAEoBRpsChJEaXNjb3JkRW1iZWRBdXRob3ISEQoEbmFtZRgBIAEoCUgA",
+            "iAEBEhAKA3VybBgCIAEoCUgBiAEBEhQKB2ljb25VUkwYAyABKAlIAogBAUIH",
+            "CgVfbmFtZUIGCgRfdXJsQgoKCF9pY29uVVJMGkAKEURpc2NvcmRFbWJlZEZp",
+            "ZWxkEgwKBG5hbWUYASABKAkSDQoFdmFsdWUYAiABKAkSDgoGaW5saW5lGAMg",
+            "ASgIIuUECg1EaXNjb3JkQ29sb3VyEggKBE5PTkUQABIJCgVCTEFDSxABEgkK",
+            "BVdISVRFEAISCAoER1JBWRADEg0KCURBUktfR1JBWRAEEg4KCkxJR0hUX0dS",
+            "QVkQBRISCg5WRVJZX0RBUktfR1JBWRAGEgsKB0JMVVJQTEUQBxILCgdHUkFZ",
+            "UExFEAgSFgoSREFSS19CVVRfTk9UX0JMQUNLEAkSEwoPTk9UX1FVSVRFX0JM",
+            "QUNLEAoSBwoDUkVEEAsSDAoIREFSS19SRUQQDBIJCgVHUkVFThANEg4KCkRB",
+            "UktfR1JFRU4QDhIICgRCTFVFEA8SDQoJREFSS19CTFVFEBASCgoGWUVMTE9X",
+            "EBESCAoEQ1lBThASEgsKB01BR0VOVEEQExIICgRURUFMEBQSDgoKQVFVQU1B",
+            "UklORRAVEggKBEdPTEQQFhINCglHT0xERU5ST0QQFxIJCgVBWlVSRRAYEggK",
+            "BFJPU0UQGRIQCgxTUFJJTkdfR1JFRU4QGhIOCgpDSEFSVFJFVVNFEBsSCgoG",
+            "T1JBTkdFEBwSCgoGUFVSUExFEB0SCgoGVklPTEVUEB4SCQoFQlJPV04QHxIM",
+            "CghIT1RfUElOSxAgEgkKBUxJTEFDECESEwoPQ09STkZMT1dFUl9CTFVFECIS",
+            "EQoNTUlETklHSFRfQkxVRRAjEgkKBVdIRUFUECQSDgoKSU5ESUFOX1JFRBAl",
+            "Eg0KCVRVUlFVT0lTRRAmEg0KCVNBUF9HUkVFThAnEhAKDFBIVEhBTE9fQkxV",
+            "RRAoEhEKDVBIVEhBTE9fR1JFRU4QKRIKCgZTSUVOTkEQKkIICgZfdGl0bGVC",
+            "BgoEX3VybEIMCgpfdGltZXN0YW1wQgsKCV9pbWFnZVVSTGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::SCPDiscord.Interface.EmbedMessage), global::SCPDiscord.Interface.EmbedMessage.Parser, new[]{ "ChannelID", "Title", "Description", "Url", "Timestamp", "Colour", "Footer", "ImageURL", "Thumbnail", "Author", "Fields", "InteractionID", "InteractionToken" }, new[]{ "Title", "Url", "Timestamp", "ImageURL" }, new[]{ typeof(global::SCPDiscord.Interface.EmbedMessage.Types.DiscordColour) }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::SCPDiscord.Interface.EmbedMessage.Types.DiscordEmbedFooter), global::SCPDiscord.Interface.EmbedMessage.Types.DiscordEmbedFooter.Parser, new[]{ "Text", "IconURL" }, new[]{ "Text", "IconURL" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::SCPDiscord.Interface.EmbedMessage), global::SCPDiscord.Interface.EmbedMessage.Parser, new[]{ "ChannelID", "Title", "Description", "Url", "Timestamp", "Colour", "Footer", "ImageURL", "Thumbnail", "Author", "Fields", "InteractionID" }, new[]{ "Title", "Url", "Timestamp", "ImageURL" }, new[]{ typeof(global::SCPDiscord.Interface.EmbedMessage.Types.DiscordColour) }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::SCPDiscord.Interface.EmbedMessage.Types.DiscordEmbedFooter), global::SCPDiscord.Interface.EmbedMessage.Types.DiscordEmbedFooter.Parser, new[]{ "Text", "IconURL" }, new[]{ "Text", "IconURL" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::SCPDiscord.Interface.EmbedMessage.Types.DiscordEmbedThumbnail), global::SCPDiscord.Interface.EmbedMessage.Types.DiscordEmbedThumbnail.Parser, new[]{ "Url", "Height", "Width" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::SCPDiscord.Interface.EmbedMessage.Types.DiscordEmbedAuthor), global::SCPDiscord.Interface.EmbedMessage.Types.DiscordEmbedAuthor.Parser, new[]{ "Name", "Url", "IconURL" }, new[]{ "Name", "Url", "IconURL" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::SCPDiscord.Interface.EmbedMessage.Types.DiscordEmbedField), global::SCPDiscord.Interface.EmbedMessage.Types.DiscordEmbedField.Parser, new[]{ "Name", "Value", "Inline" }, null, null, null, null)})
@@ -121,7 +120,6 @@ namespace SCPDiscord.Interface {
       author_ = other.author_ != null ? other.author_.Clone() : null;
       fields_ = other.fields_.Clone();
       interactionID_ = other.interactionID_;
-      interactionToken_ = other.interactionToken_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -323,18 +321,6 @@ namespace SCPDiscord.Interface {
       }
     }
 
-    /// <summary>Field number for the "interactionToken" field.</summary>
-    public const int InteractionTokenFieldNumber = 13;
-    private string interactionToken_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string InteractionToken {
-      get { return interactionToken_; }
-      set {
-        interactionToken_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -362,7 +348,6 @@ namespace SCPDiscord.Interface {
       if (!object.Equals(Author, other.Author)) return false;
       if(!fields_.Equals(other.fields_)) return false;
       if (InteractionID != other.InteractionID) return false;
-      if (InteractionToken != other.InteractionToken) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -382,7 +367,6 @@ namespace SCPDiscord.Interface {
       if (author_ != null) hash ^= Author.GetHashCode();
       hash ^= fields_.GetHashCode();
       if (InteractionID != 0UL) hash ^= InteractionID.GetHashCode();
-      if (InteractionToken.Length != 0) hash ^= InteractionToken.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -446,10 +430,6 @@ namespace SCPDiscord.Interface {
         output.WriteRawTag(96);
         output.WriteUInt64(InteractionID);
       }
-      if (InteractionToken.Length != 0) {
-        output.WriteRawTag(106);
-        output.WriteString(InteractionToken);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -505,10 +485,6 @@ namespace SCPDiscord.Interface {
         output.WriteRawTag(96);
         output.WriteUInt64(InteractionID);
       }
-      if (InteractionToken.Length != 0) {
-        output.WriteRawTag(106);
-        output.WriteString(InteractionToken);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -552,9 +528,6 @@ namespace SCPDiscord.Interface {
       size += fields_.CalculateSize(_repeated_fields_codec);
       if (InteractionID != 0UL) {
         size += 1 + pb::CodedOutputStream.ComputeUInt64Size(InteractionID);
-      }
-      if (InteractionToken.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(InteractionToken);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -610,9 +583,6 @@ namespace SCPDiscord.Interface {
       fields_.Add(other.fields_);
       if (other.InteractionID != 0UL) {
         InteractionID = other.InteractionID;
-      }
-      if (other.InteractionToken.Length != 0) {
-        InteractionToken = other.InteractionToken;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -686,10 +656,6 @@ namespace SCPDiscord.Interface {
             InteractionID = input.ReadUInt64();
             break;
           }
-          case 106: {
-            InteractionToken = input.ReadString();
-            break;
-          }
         }
       }
     #endif
@@ -760,10 +726,6 @@ namespace SCPDiscord.Interface {
           }
           case 96: {
             InteractionID = input.ReadUInt64();
-            break;
-          }
-          case 106: {
-            InteractionToken = input.ReadString();
             break;
           }
         }

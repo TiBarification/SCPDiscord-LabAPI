@@ -9,5 +9,4 @@ message SyncRoleCommand
 	string steamIDOrIP = 3;
 	string discordTag = 4;
 	uint64 interactionID = 5;
-	string interactionToken = 6;
 }

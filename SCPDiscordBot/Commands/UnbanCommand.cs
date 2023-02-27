@@ -17,10 +17,10 @@ namespace SCPDiscord.Commands
 				{
 					ChannelID = command.Channel.Id,
 					SteamIDOrIP = steamIDOrIP,
-					InteractionID = command.InteractionId,
-					InteractionToken = command.Token
+					InteractionID = command.InteractionId
 				}
 			};
+			MessageScheduler.CacheInteraction(command);
 			NetworkSystem.SendMessage(message);
 			Logger.Debug("Sending UnbanCommand to plugin from " + command.Member?.Username + "#" + command.Member?.Discriminator, LogID.DISCORD);
 		}

@@ -8,5 +8,4 @@ message ConsoleCommand
 	uint64 discordID = 2;
 	string command = 3;
 	uint64 interactionID = 4;
-	string interactionToken = 5;
 }

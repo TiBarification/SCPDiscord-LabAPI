@@ -8,5 +8,4 @@ message UnsyncRoleCommand
 	uint64 discordID = 2;
 	string discordTag = 3;
 	uint64 interactionID = 6;
-	string interactionToken = 7;
 }

@@ -189,8 +189,7 @@ namespace SCPDiscord
 						Colour = EmbedMessage.Types.DiscordColour.Red,
 						ChannelID = command.ChannelID,
 						Description = "SteamID is already linked to a Discord account. You will have to remove it first.",
-						InteractionID = command.InteractionID,
-						InteractionToken = command.InteractionToken
+						InteractionID = command.InteractionID
 					};
 				}
 
@@ -201,8 +200,7 @@ namespace SCPDiscord
 						Colour = EmbedMessage.Types.DiscordColour.Red,
 						ChannelID = command.ChannelID,
 						Description = "Discord user ID is already linked to a Steam account. You will have to remove it first.",
-						InteractionID = command.InteractionID,
-						InteractionToken = command.InteractionToken
+						InteractionID = command.InteractionID
 					};
 				}
 
@@ -214,8 +212,7 @@ namespace SCPDiscord
 						Colour = EmbedMessage.Types.DiscordColour.Red,
 						ChannelID = command.ChannelID,
 						Description = response,
-						InteractionID = command.InteractionID,
-						InteractionToken = command.InteractionToken
+						InteractionID = command.InteractionID
 					};
 				}
 
@@ -226,8 +223,7 @@ namespace SCPDiscord
 					Colour = EmbedMessage.Types.DiscordColour.Green,
 					ChannelID = command.ChannelID,
 					Description = "Successfully linked accounts.",
-					InteractionID = command.InteractionID,
-					InteractionToken = command.InteractionToken
+					InteractionID = command.InteractionID
 				};
 			}
 			else
@@ -239,8 +235,7 @@ namespace SCPDiscord
 						Colour = EmbedMessage.Types.DiscordColour.Red,
 						ChannelID = command.DiscordID,
 						Description = "IP is already linked to a Discord account. You will have to remove it first.",
-						InteractionID = command.InteractionID,
-						InteractionToken = command.InteractionToken
+						InteractionID = command.InteractionID
 					};
 				}
 
@@ -251,8 +246,7 @@ namespace SCPDiscord
 						Colour = EmbedMessage.Types.DiscordColour.Red,
 						ChannelID = command.ChannelID,
 						Description = "Discord user ID is already linked to an IP. You will have to remove it first.",
-						InteractionID = command.InteractionID,
-						InteractionToken = command.InteractionToken
+						InteractionID = command.InteractionID
 					};
 				}
 
@@ -263,8 +257,7 @@ namespace SCPDiscord
 					Colour = EmbedMessage.Types.DiscordColour.Green,
 					ChannelID = command.ChannelID,
 					Description = "Successfully linked accounts.",
-					InteractionID = command.InteractionID,
-					InteractionToken = command.InteractionToken
+					InteractionID = command.InteractionID
 				};
 			}
 		}
@@ -355,8 +348,7 @@ namespace SCPDiscord
 					Colour = EmbedMessage.Types.DiscordColour.Red,
 					ChannelID = command.ChannelID,
 					Description = "Discord user ID is not linked to a Steam account or IP",
-					InteractionID = command.InteractionID,
-					InteractionToken = command.InteractionToken
+					InteractionID = command.InteractionID
 				};
 			}
 
@@ -368,8 +360,7 @@ namespace SCPDiscord
 				Colour = EmbedMessage.Types.DiscordColour.Green,
 				ChannelID = command.ChannelID,
 				Description = "Discord user ID link has been removed.",
-				InteractionID = command.InteractionID,
-				InteractionToken = command.InteractionToken
+				InteractionID = command.InteractionID
 			};
 		}
 

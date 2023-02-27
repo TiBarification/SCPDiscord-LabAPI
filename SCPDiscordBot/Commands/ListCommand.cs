@@ -10,18 +10,18 @@ namespace SCPDiscord.Commands
 		[SlashCommand("list", "Lists online players.")]
 		public async Task OnExecute(InteractionContext command)
 		{
+			await command.DeferAsync();
 			Interface.MessageWrapper message = new Interface.MessageWrapper
 			{
 				ListCommand = new Interface.ListCommand
 				{
 					ChannelID = command.Channel.Id,
 					UserID = command.User.Id,
-					InteractionID = command.InteractionId,
-					InteractionToken = command.Token
+					InteractionID = command.InteractionId
 				}
 			};
+			MessageScheduler.CacheInteraction(command);
 			NetworkSystem.SendMessage(message);
-			await command.CreateResponseAsync("Processing...", true);
 			Logger.Debug("Sending ListCommand to plugin from " + command.Member?.Username + "#" + command.Member?.Discriminator, LogID.DISCORD);
 		}
 	}

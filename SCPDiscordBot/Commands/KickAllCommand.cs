@@ -19,10 +19,10 @@ namespace SCPDiscord.Commands
 					ChannelID = command.Channel.Id,
 					AdminTag = command.Member?.Username + "#" + command.Member?.Discriminator,
 					Reason = kickReason,
-					InteractionID = command.InteractionId,
-					InteractionToken = command.Token
+					InteractionID = command.InteractionId
 				}
 			};
+			MessageScheduler.CacheInteraction(command);
 			NetworkSystem.SendMessage(message);
 			Logger.Debug("Sending KickallCommand to plugin from " + command.Member?.Username + "#" + command.Member?.Discriminator, LogID.DISCORD);
 		}

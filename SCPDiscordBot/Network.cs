@@ -155,13 +155,13 @@ namespace SCPDiscord
 				case MessageWrapper.MessageOneofCase.EmbedMessage:
 					try
 					{
-						if (wrapper.EmbedMessage.InteractionID == 0 || string.IsNullOrWhiteSpace(wrapper.EmbedMessage.InteractionToken))
+						if (wrapper.EmbedMessage.InteractionID == 0)
 						{
 							await DiscordAPI.SendMessage(wrapper.EmbedMessage.ChannelID, Utilities.GetDiscordEmbed(wrapper.EmbedMessage));
 						}
 						else
 						{
-							await DiscordAPI.SendInteractionResponse(wrapper.EmbedMessage.InteractionID, wrapper.EmbedMessage.InteractionToken, Utilities.GetDiscordEmbed(wrapper.EmbedMessage));
+							await DiscordAPI.SendInteractionResponse(wrapper.EmbedMessage.InteractionID, wrapper.EmbedMessage.ChannelID, Utilities.GetDiscordEmbed(wrapper.EmbedMessage));
 						}
 					}
 					catch (Exception e)
@@ -172,18 +172,19 @@ namespace SCPDiscord
 				case MessageWrapper.MessageOneofCase.PaginatedMessage:
 					try
 					{
-						//if (wrapper.PaginatedMessage.InteractionID == 0 || string.IsNullOrWhiteSpace(wrapper.PaginatedMessage.InteractionToken))
-						//{
+						if (wrapper.PaginatedMessage.InteractionID == 0)
+						{
 							await DiscordAPI.SendPaginatedMessage(wrapper.PaginatedMessage.ChannelID,
 								wrapper.PaginatedMessage.UserID,
 								Utilities.GetPaginatedMessage(wrapper.PaginatedMessage));
-						//}
-						//else
-						//{
-						//	await DiscordAPI.SendPaginatedResponse(wrapper.PaginatedMessage.InteractionID,
-						//										   wrapper.PaginatedMessage.InteractionToken,
-						//									       Utilities.GetPaginatedMessage(wrapper.PaginatedMessage));
-						//}
+						}
+						else
+						{
+							await DiscordAPI.SendPaginatedResponse(wrapper.PaginatedMessage.InteractionID,
+																   wrapper.PaginatedMessage.ChannelID,
+																   wrapper.PaginatedMessage.UserID,
+															       Utilities.GetPaginatedMessage(wrapper.PaginatedMessage));
+						}
 					}
 					catch (Exception e)
 					{

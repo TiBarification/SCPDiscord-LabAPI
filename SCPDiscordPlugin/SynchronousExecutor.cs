@@ -35,8 +35,7 @@ namespace SCPDiscord
 				{
 					Colour = EmbedMessage.Types.DiscordColour.Orange,
 					ChannelID = command.ChannelID,
-					InteractionID = command.InteractionID,
-					InteractionToken = command.InteractionToken
+					InteractionID = command.InteractionID
 				};
 
 				SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.consolecommandfeedback", variables);
