@@ -87,11 +87,26 @@ messages:
     onroundrestart: [ "default", "staff" ]
     onsetservername: []
     onban:
-        player: [ "default", "staff" ]
-        server: [ "default", "staff" ]
+        player: [ "default" ]
+        server: [ "default" ]
+    onbanissued:
+        ip: [ "staff" ]
+        userid: [ "staff" ]
+    onbanupdated:
+        ip: []
+        userid: []
+    onbanrevoked:
+        ip: [ "staff" ]
+        userid: [ "staff" ]
     onkick:
         player: [ "default", "staff" ]
         server: [ "default", "staff" ]
+    onplayermuted:
+        intercom: [ "default", "staff" ]
+        standard: [ "default", "staff" ]
+    onplayerunmuted:
+        intercom: [ "default", "staff" ]
+        standard: [ "default", "staff" ]
     oncallcommand:
         remoteadmin:
             player: []

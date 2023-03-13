@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SCPDiscord
 {
@@ -22,6 +20,11 @@ namespace SCPDiscord
                 where parts[index] > 0
                 select parts[index] + (parts[index] == 1 ? units[index] : units[index] + "s"));
         }
+
+		public static string TicksToCompoundTime(long ticks)
+		{
+			return SecondsToCompoundTime(ticks / TimeSpan.TicksPerSecond);
+		}
 
 		public static string GetParsedUserID(string userID)
 		{

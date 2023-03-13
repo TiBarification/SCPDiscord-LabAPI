@@ -373,14 +373,14 @@ namespace SCPDiscord
 						return backup.SelectToken(path).Value<string>();
 					}
 					// The node also does not exist in the backup file
-					catch (NullReferenceException e)
+					catch (NullReferenceException)
 					{
-						plugin.Error("Error: Language language string '" + path + "' does not exist. Message can not be sent." + e);
+						plugin.Error("Error: Language language string '" + path + "' does not exist. Message can not be sent.");
 						return null;
 					}
-					catch (ArgumentNullException e)
+					catch (ArgumentNullException)
 					{
-						plugin.Error("Error: Language language string '" + path + "' does not exist. Message can not be sent." + e);
+						plugin.Error("Error: Language language string '" + path + "' does not exist. Message can not be sent.");
 						return null;
 					}
 					catch (InvalidCastException e)

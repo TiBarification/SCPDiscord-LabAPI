@@ -20,7 +20,7 @@ namespace SCPDiscord.EventListeners
 		}
 
 		[PluginEvent(ServerEventType.PlayerBanned)]
-		public void OnBan(Player player, ICommandSender commandSender, string reason, long duration)
+		public void OnPlayerBanned(Player player, ICommandSender commandSender, string reason, long duration)
 		{
 			if (commandSender is PlayerCommandSender playerSender && Player.Get(playerSender.ReferenceHub) != null)
 			{
@@ -78,7 +78,7 @@ namespace SCPDiscord.EventListeners
 		}
 
 		[PluginEvent(ServerEventType.PlayerKicked)]
-		public void OnKick(Player player, ICommandSender commandSender, string reason)
+		public void OnPlayerKicked(Player player, ICommandSender commandSender, string reason)
 		{
 			if (commandSender is PlayerCommandSender playerSender && Player.Get(playerSender.ReferenceHub) != null)
 			{
@@ -116,6 +116,139 @@ namespace SCPDiscord.EventListeners
 				};
 
 				plugin.SendMessage("messages.onkick.server", variables);
+			}
+		}
+
+		[PluginEvent(ServerEventType.BanIssued)]
+		public void OnBanIssued(BanDetails banDetails, BanHandler.BanType banType)
+		{
+			if (banType == BanHandler.BanType.IP)
+			{
+				Dictionary<string, string> variables = new Dictionary<string, string>
+				{
+					{ "duration",   Utilities.TicksToCompoundTime(banDetails.Expires - banDetails.IssuanceTime) },
+					{ "expirytime", new DateTime(banDetails.Expires).ToString("yyyy-MM-dd HH:mm:ss")            },
+					{ "issuedtime", new DateTime(banDetails.IssuanceTime).ToString("yyyy-MM-dd HH:mm:ss")       },
+					{ "reason",     banDetails.Reason        },
+					{ "playerip",   banDetails.Id            },
+					{ "playername", banDetails.OriginalName  },
+					{ "issuername", banDetails.Issuer        },
+				};
+				plugin.SendMessage("messages.onbanissued.ip", variables);
+			}
+			else
+			{
+				Dictionary<string, string> variables = new Dictionary<string, string>
+				{
+					{ "duration",     Utilities.TicksToCompoundTime(banDetails.Expires - banDetails.IssuanceTime) },
+					{ "expirytime",   new DateTime(banDetails.Expires).ToString("yyyy-MM-dd HH:mm:ss")            },
+					{ "issuedtime",   new DateTime(banDetails.IssuanceTime).ToString("yyyy-MM-dd HH:mm:ss")       },
+					{ "reason",       banDetails.Reason        },
+					{ "playeruserid", banDetails.Id            },
+					{ "playername",   banDetails.OriginalName  },
+					{ "issuername",   banDetails.Issuer        },
+				};
+				plugin.SendMessage("messages.onbanissued.userid", variables);
+			}
+		}
+
+		[PluginEvent(ServerEventType.BanUpdated)]
+		public void OnBanUpdated(BanDetails banDetails, BanHandler.BanType banType)
+		{
+			if (banType == BanHandler.BanType.IP)
+			{
+				Dictionary<string, string> variables = new Dictionary<string, string>
+				{
+					{ "duration",   Utilities.TicksToCompoundTime(banDetails.Expires - banDetails.IssuanceTime) },
+					{ "expirytime", new DateTime(banDetails.Expires).ToString("yyyy-MM-dd HH:mm:ss")            },
+					{ "issuedtime", new DateTime(banDetails.IssuanceTime).ToString("yyyy-MM-dd HH:mm:ss")       },
+					{ "reason",     banDetails.Reason        },
+					{ "playerip",   banDetails.Id            },
+					{ "playername", banDetails.OriginalName  },
+					{ "issuername", banDetails.Issuer        },
+				};
+				plugin.SendMessage("messages.onbanupdated.ip", variables);
+			}
+			else
+			{
+				Dictionary<string, string> variables = new Dictionary<string, string>
+				{
+					{ "duration",     Utilities.TicksToCompoundTime(banDetails.Expires - banDetails.IssuanceTime) },
+					{ "expirytime",   new DateTime(banDetails.Expires).ToString("yyyy-MM-dd HH:mm:ss")            },
+					{ "issuedtime",   new DateTime(banDetails.IssuanceTime).ToString("yyyy-MM-dd HH:mm:ss")       },
+					{ "reason",       banDetails.Reason        },
+					{ "playeruserid", banDetails.Id            },
+					{ "playername",   banDetails.OriginalName  },
+					{ "issuername",   banDetails.Issuer        },
+				};
+				plugin.SendMessage("messages.onbanupdated.userid", variables);
+			}
+		}
+
+		[PluginEvent(ServerEventType.BanRevoked)]
+		public void OnBanRevoked(string id, BanHandler.BanType banType)
+		{
+			if (banType == BanHandler.BanType.IP)
+			{
+				Dictionary<string, string> variables = new Dictionary<string, string>
+				{
+					{ "ip", id },
+				};
+				plugin.SendMessage("messages.onbanrevoked.ip", variables);
+			}
+			else
+			{
+				Dictionary<string, string> variables = new Dictionary<string, string>
+				{
+					{ "userid", id },
+				};
+				plugin.SendMessage("messages.onbanrevoked.userid", variables);
+			}
+		}
+
+		[PluginEvent(ServerEventType.PlayerMuted)]
+		public void OnPlayerMuted(Player player, bool isIntercom)
+		{
+			Dictionary<string, string> variables = new Dictionary<string, string>
+			{
+				{ "playeripaddress",        player.IpAddress                         },
+				{ "playername",             player.Nickname                          },
+				{ "playerplayerid",         player.PlayerId.ToString()               },
+				{ "playersteamid",          player.GetParsedUserID()                 },
+				{ "playerclass",            player.Role.ToString()                   },
+				{ "playerteam",             player.ReferenceHub.GetTeam().ToString() }
+			};
+
+			if (isIntercom)
+			{
+				plugin.SendMessage("messages.onplayermuted.intercom", variables);
+			}
+			else
+			{
+				plugin.SendMessage("messages.onplayermuted.standard", variables);
+			}
+		}
+
+		[PluginEvent(ServerEventType.PlayerUnmuted)]
+		public void OnPlayerUnmuted(Player player, bool isIntercom)
+		{
+			Dictionary<string, string> variables = new Dictionary<string, string>
+			{
+				{ "playeripaddress",        player.IpAddress                         },
+				{ "playername",             player.Nickname                          },
+				{ "playerplayerid",         player.PlayerId.ToString()               },
+				{ "playersteamid",          player.GetParsedUserID()                 },
+				{ "playerclass",            player.Role.ToString()                   },
+				{ "playerteam",             player.ReferenceHub.GetTeam().ToString() }
+			};
+
+			if (isIntercom)
+			{
+				plugin.SendMessage("messages.onplayerunmuted.intercom", variables);
+			}
+			else
+			{
+				plugin.SendMessage("messages.onplayerunmuted.standard", variables);
 			}
 		}
 

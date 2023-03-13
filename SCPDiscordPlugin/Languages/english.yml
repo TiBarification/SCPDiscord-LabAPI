@@ -1070,6 +1070,100 @@ messages:
             message: "Player <var:playername> (<var:playersteamid>) was banned by the server for `<var:duration>`. Reason: <var:reason>"
             regex: []
 
+    onbanissued:
+        # duration
+        # expirytime
+        # issuedtime
+        # reason
+        # playerip
+        # playername
+        # issuername
+        ip:
+            message: >+
+                **IP-ban issued**
+                ```
+                Player:    <var:playername>\n
+                IP:        <var:playerip>\n
+                Issued:    <var:issuedtime>\n
+                Expires:   <var:expirytime>\n
+                Duration:  <var:duration>\n
+                Issuer:    <var:issuername>\n
+                Reason:    <var:reason>
+                ```
+            regex: []
+        # duration
+        # expirytime
+        # issuedtime
+        # reason
+        # playeruserid
+        # playername
+        # issuername
+        userid:
+            message: >+
+                **UserID-ban issued**
+                ```
+                Player:    <var:playername>\n
+                UserID:    <var:playeruserid>\n
+                Issued:    <var:issuedtime>\n
+                Expires:   <var:expirytime>\n
+                Duration:  <var:duration>\n
+                Issuer:    <var:issuername>\n
+                Reason:    <var:reason>
+                ```
+            regex: []
+
+    onbanupdated:
+        # duration
+        # expirytime
+        # issuedtime
+        # reason
+        # playerip
+        # playername
+        # issuername
+        ip:
+            message: >+
+                **IP-ban updated**
+                ```
+                Player:    <var:playername>\n
+                IP:        <var:playerip>\n
+                Issued:    <var:issuedtime>\n
+                Expires:   <var:expirytime>\n
+                Duration:  <var:duration>\n
+                Issuer:    <var:issuername>\n
+                Reason:    <var:reason>
+                ```
+            regex: []
+        # duration
+        # expirytime
+        # issuedtime
+        # reason
+        # playeruserid
+        # playername
+        # issuername
+        userid:
+            message: >+
+                **UserID-ban updated**
+                ```
+                Player:    <var:playername>\n
+                UserID:    <var:playeruserid>\n
+                Issued:    <var:issuedtime>\n
+                Expires:   <var:expirytime>\n
+                Duration:  <var:duration>\n
+                Issuer:    <var:issuername>\n
+                Reason:    <var:reason>
+                ```
+            regex: []
+
+    onbanrevoked:
+        # ip
+        ip:
+            message: "**IP-ban '<var:ip>' revoked.**"
+            regex: []
+        # userid
+        userid:
+            message: "**UserID-ban '<var:userid>' revoked.**"
+            regex: []
+
     onkick:
         player:
             # reason - string
@@ -1096,6 +1190,46 @@ messages:
             # playerclass - Role
             # playerteam - Team
             message: "Player <var:playername> (<var:playersteamid>) was kicked by the server. Reason: <var:reason>"
+            regex: []
+
+    onplayermuted:
+        intercom:
+            # playeripaddress - string
+            # playername - string
+            # playerplayerid - int
+            # playersteamid - string
+            # playerclass - Role
+            # playerteam - Team
+            message: "<var:playername> (<var:playersteamid>) is no longer allowed to use the intercom."
+            regex: []
+        standard:
+            # playeripaddress - string
+            # playername - string
+            # playerplayerid - int
+            # playersteamid - string
+            # playerclass - Role
+            # playerteam - Team
+            message: "<var:playername> (<var:playersteamid>) was muted."
+            regex: []
+
+    onplayerunmuted:
+        intercom:
+            # playeripaddress - string
+            # playername - string
+            # playerplayerid - int
+            # playersteamid - string
+            # playerclass - Role
+            # playerteam - Team
+            message: "<var:playername> (<var:playersteamid>) is allowed to use the intercom again."
+            regex: []
+        standard:
+            # playeripaddress - string
+            # playername - string
+            # playerplayerid - int
+            # playersteamid - string
+            # playerclass - Role
+            # playerteam - Team
+            message: "<var:playername> (<var:playersteamid>) was unmuted."
             regex: []
 
     onteamrespawn:
