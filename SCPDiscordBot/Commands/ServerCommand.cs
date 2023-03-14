@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using DSharpPlus.Entities;
 using DSharpPlus.SlashCommands;
 using DSharpPlus.SlashCommands.Attributes;
 
@@ -10,6 +11,17 @@ namespace SCPDiscord.Commands
 		[SlashCommand("server", "Runs a server console command.")]
 		public async Task OnExecute(InteractionContext command, [Option("Command", "Server console command to run.")] string serverCommand = "")
 		{
+			if (!ConfigParser.HasPermission(command.Member, serverCommand))
+			{
+				DiscordEmbed error = new DiscordEmbedBuilder
+				{
+					Color = DiscordColor.Red,
+					Description = "You do not have permission to use that command."
+				};
+				await command.CreateResponseAsync(error);
+				return;
+			}
+
 			await command.DeferAsync();
 			Interface.MessageWrapper message = new Interface.MessageWrapper
 			{
@@ -22,7 +34,7 @@ namespace SCPDiscord.Commands
 				}
 			};
 			MessageScheduler.CacheInteraction(command);
-			NetworkSystem.SendMessage(message);
+			await NetworkSystem.SendMessage(message, command);
 			Logger.Debug("Sending ConsoleCommand to plugin from " + command.Member?.Username + "#" + command.Member?.Discriminator, LogID.DISCORD);
 		}
 	}

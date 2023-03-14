@@ -22,7 +22,7 @@ namespace SCPDiscord.Commands
 				}
 			};
 			MessageScheduler.CacheInteraction(command);
-			NetworkSystem.SendMessage(message);
+			await NetworkSystem.SendMessage(message, command);
 			Logger.Debug("Sending UnsyncCommand to plugin from " + command.Member?.Username + "#" + command.Member?.Discriminator, LogID.DISCORD);
 		}
 	}

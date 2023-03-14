@@ -287,7 +287,7 @@ namespace SCPDiscord
 				};
 				message.UserInfo.RoleIDs.AddRange(member.Roles.Select(role => role.Id));
 				message.UserInfo.RoleIDs.Add(member.Guild.EveryoneRole.Id);
-				NetworkSystem.SendMessage(message);
+				await NetworkSystem.SendMessage(message, null);
 			}
 			catch (Exception e)
 			{
@@ -338,7 +338,7 @@ namespace SCPDiscord
 					DiscordEmbed error = new DiscordEmbedBuilder
 					{
 						Color = DiscordColor.Red,
-						Description = "Invalid arguments."
+						Description = "Internal error occurred."
 					};
 					e.Context.Channel.SendMessageAsync(error);
 					return Task.CompletedTask;

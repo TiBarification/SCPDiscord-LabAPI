@@ -1,6 +1,4 @@
 ﻿using System.Threading.Tasks;
-using DSharpPlus;
-using DSharpPlus.Entities;
 using DSharpPlus.SlashCommands;
 using DSharpPlus.SlashCommands.Attributes;
 
@@ -29,7 +27,7 @@ namespace SCPDiscord.Commands
 			};
 
 			MessageScheduler.CacheInteraction(command);
-			NetworkSystem.SendMessage(message);
+			await NetworkSystem.SendMessage(message, command);
 			Logger.Debug("Sending BanCommand to plugin from " + command.Member?.Username + "#" + command.Member?.Discriminator, LogID.DISCORD);
 		}
 	}

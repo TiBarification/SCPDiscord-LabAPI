@@ -7,6 +7,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Linq;
+using System.Threading.Tasks;
+using DSharpPlus.SlashCommands;
 
 namespace SCPDiscord
 {
@@ -209,9 +211,25 @@ namespace SCPDiscord
 			}
 		}
 
-		public static void SendMessage(MessageWrapper message)
+		public static async Task SendMessage(MessageWrapper message, InteractionContext interaction)
 		{
-			message.WriteDelimitedTo(networkStream);
+			try
+			{
+				message.WriteDelimitedTo(networkStream);
+			}
+			catch (Exception)
+			{
+				if (interaction != null)
+				{
+					DiscordEmbed error = new DiscordEmbedBuilder
+					{
+						Color = DiscordColor.Red,
+						Description = "Error communicating with server. Is it running?"
+					};
+					await interaction.EditResponseAsync(new DiscordWebhookBuilder().AddEmbed(error));
+				}
+			}
+
 		}
 
 		public static bool IsConnected()

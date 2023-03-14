@@ -1,6 +1,10 @@
-﻿using SCPDiscordBot.Properties;
+﻿using System.Collections.Generic;
+using SCPDiscordBot.Properties;
 using System.IO;
+using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
+using DSharpPlus.Entities;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
@@ -18,6 +22,8 @@ namespace SCPDiscord
 			public string presenceText = "for server startup...";
 		}
 		public Bot bot;
+
+		public Dictionary<ulong, string[]> permissions = new Dictionary<ulong, string[]>();
 
 		public class Plugin
 		{
@@ -72,6 +78,30 @@ namespace SCPDiscord
 
 			Logger.Debug("plugin.address: " + config.plugin.address, LogID.CONFIG);
 			Logger.Debug("plugin.port: " + config.plugin.port, LogID.CONFIG);
+		}
+
+		public static bool HasPermission(DiscordMember member, string command)
+		{
+			foreach (DiscordRole role in member.Roles)
+			{
+				if (config.permissions.TryGetValue(role.Id, out string[] permissions))
+				{
+					if (permissions.Any(s => Regex.IsMatch(command, s)))
+					{
+						return true;
+					}
+				}
+			}
+
+			if (config.permissions.TryGetValue(0, out string[] everyonePermissions))
+			{
+				if (everyonePermissions.Any(s => Regex.IsMatch(command, s)))
+				{
+					return true;
+				}
+			}
+
+			return false;
 		}
 	}
 }
