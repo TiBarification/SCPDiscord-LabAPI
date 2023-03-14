@@ -86,7 +86,7 @@ namespace SCPDiscord
 			{
 				if (config.permissions.TryGetValue(role.Id, out string[] permissions))
 				{
-					if (permissions.Any(s => Regex.IsMatch(command, s)))
+					if (permissions.Any(s => Regex.IsMatch(command, "^" + s)))
 					{
 						return true;
 					}
@@ -95,7 +95,7 @@ namespace SCPDiscord
 
 			if (config.permissions.TryGetValue(0, out string[] everyonePermissions))
 			{
-				if (everyonePermissions.Any(s => Regex.IsMatch(command, s)))
+				if (everyonePermissions.Any(s => Regex.IsMatch(command, "^" + s)))
 				{
 					return true;
 				}

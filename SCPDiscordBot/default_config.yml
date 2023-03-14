@@ -20,21 +20,22 @@
     presence-text: "for server startup..."
 
 # Sets command permissions for roles, affects the /server and /ra commands.
-# The permissions use regex so "pbc.*" will allow using the pbc command with any arguments while "pbc Karl.*"
-# will only allow people to use the command if the first argument starts with Karl.
-# You can use 0 for the @everyone role
+# The permissions use regex matching, which you can use for more advanced configuration.
+# You can use 0 as the id for the @everyone role.
 permissions:
     # Everyone
     000000000000000000:
         - "hello"
+        - "uptime"
+        - "pbc KarlOfDuty [2-5]"
     # Moderator
     111111111111111111:
-        - "pbc.*"
-        - "bc.*"
+        - "pbc"
+        - "bc"
     # Admin
     222222222222222222:
-        - "pbc.*"
-        - "bc.*"
+        - "pbc"
+        - "bc"
         - "softrestart"
         - "restartnextround"
 
