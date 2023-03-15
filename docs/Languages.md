@@ -1,17 +1,10 @@
 # Switching to another included language
 
-**THE ONLY ONE THAT WORKS IN THE 3.0.0 ALPHA IS ENGLISH**
-
 There are several languages included in the plugin dll. The current languages are:
 * English (default)
 * English with emotes
 * Russian
 * Russian with emotes
-* Polish
-* Polish with emotes
-* Italian
-* French
-* French with emotes
 
 You can choose which language you want to use by setting the config entry `settings.language` to the name of the language file in all lower-case. You can find the language files in `SCPDiscord/Languages` in your plugin directory.
 
