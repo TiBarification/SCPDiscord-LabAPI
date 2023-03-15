@@ -1,4 +1,3 @@
-
 #####################################################################################################################
 #                                                                                                                   #
 #                                                     EVENTS                                                        #
@@ -1071,6 +1070,100 @@ messages:
       message: ":no_entry: Player <var:playername> (<var:playersteamid>) was banned by the server for `<var:duration>`. Reason: <var:reason>"
       regex: []
 
+  onbanissued:
+    # duration
+    # expirytime
+    # issuedtime
+    # reason
+    # playerip
+    # playername
+    # issuername
+    ip:
+      message: >+
+        :no_entry: **IP-ban issued**
+        ```
+        Player:    <var:playername>\n
+        IP:        <var:playerip>\n
+        Issued:    <var:issuedtime>\n
+        Expires:   <var:expirytime>\n
+        Duration:  <var:duration>\n
+        Issuer:    <var:issuername>\n
+        Reason:    <var:reason>
+        ```
+      regex: []
+    # duration
+    # expirytime
+    # issuedtime
+    # reason
+    # playeruserid
+    # playername
+    # issuername
+    userid:
+      message: >+
+        :no_entry: **UserID-ban issued**
+        ```
+        Player:    <var:playername>\n
+        UserID:    <var:playeruserid>\n
+        Issued:    <var:issuedtime>\n
+        Expires:   <var:expirytime>\n
+        Duration:  <var:duration>\n
+        Issuer:    <var:issuername>\n
+        Reason:    <var:reason>
+        ```
+      regex: []
+
+  onbanupdated:
+    # duration
+    # expirytime
+    # issuedtime
+    # reason
+    # playerip
+    # playername
+    # issuername
+    ip:
+      message: >+
+        :no_entry: **IP-ban updated**
+        ```
+        Player:    <var:playername>\n
+        IP:        <var:playerip>\n
+        Issued:    <var:issuedtime>\n
+        Expires:   <var:expirytime>\n
+        Duration:  <var:duration>\n
+        Issuer:    <var:issuername>\n
+        Reason:    <var:reason>
+        ```
+      regex: []
+    # duration
+    # expirytime
+    # issuedtime
+    # reason
+    # playeruserid
+    # playername
+    # issuername
+    userid:
+      message: >+
+        :no_entry: **UserID-ban updated**
+        ```
+        Player:    <var:playername>\n
+        UserID:    <var:playeruserid>\n
+        Issued:    <var:issuedtime>\n
+        Expires:   <var:expirytime>\n
+        Duration:  <var:duration>\n
+        Issuer:    <var:issuername>\n
+        Reason:    <var:reason>
+        ```
+      regex: []
+
+  onbanrevoked:
+    # ip
+    ip:
+      message: ":leftwards_arrow_with_hook: **IP-ban '<var:ip>' revoked.**"
+      regex: []
+    # userid
+    userid:
+      message: ":leftwards_arrow_with_hook: **UserID-ban '<var:userid>' revoked.**"
+      regex: []
+
   onkick:
     player:
       # reason - string
@@ -1099,6 +1192,46 @@ messages:
       message: ":no_entry: Player <var:playername> (<var:playersteamid>) was kicked by the server. Reason: <var:reason>"
       regex: []
 
+  onplayermuted:
+    intercom:
+      # playeripaddress - string
+      # playername - string
+      # playerplayerid - int
+      # playersteamid - string
+      # playerclass - Role
+      # playerteam - Team
+      message: ":mute: <var:playername> (<var:playersteamid>) is no longer allowed to use the intercom."
+      regex: []
+    standard:
+      # playeripaddress - string
+      # playername - string
+      # playerplayerid - int
+      # playersteamid - string
+      # playerclass - Role
+      # playerteam - Team
+      message: ":mute: <var:playername> (<var:playersteamid>) was muted."
+      regex: []
+
+  onplayerunmuted:
+    intercom:
+      # playeripaddress - string
+      # playername - string
+      # playerplayerid - int
+      # playersteamid - string
+      # playerclass - Role
+      # playerteam - Team
+      message: ":speaker: <var:playername> (<var:playersteamid>) is allowed to use the intercom again."
+      regex: []
+    standard:
+      # playeripaddress - string
+      # playername - string
+      # playerplayerid - int
+      # playersteamid - string
+      # playerclass - Role
+      # playerteam - Team
+      message: ":speaker: <var:playername> (<var:playersteamid>) was unmuted."
+      regex: []
+
   onteamrespawn:
     # players - List<Player>
     # spawnchaos - bool
@@ -1108,6 +1241,17 @@ messages:
     ci:
       message: ":spy: **Facility incursion detected, intruders identified as members of hostile GOI \"Chaos Insurgency\".**"
       regex: []
+
+  onplayerescape:
+    # newclass - Role
+    # ipaddress - string
+    # name - string
+    # playerid - int
+    # steamid - string
+    # oldclass - Role
+    # team - Team
+    message: ":door: <var:name> (<var:steamid>) has escaped and become a <var:newclass>"
+    regex: []
 
   #####################################################################################################################
   #                                                                                                                   #

@@ -199,7 +199,7 @@ messages:
         latejoin: [ "default" ]
         respawn: [ "default" ]
         died: []
-        escaped: [ "default" ]
+        escaped: []
         revived: [ "default" ]
         remoteadmin: [ "default" ]
         left: []
@@ -221,3 +221,4 @@ messages:
     onteamrespawn:
         mtf: [ "default" ]
         ci: [ "default" ]
+    onplayerescape: [ "default" ]

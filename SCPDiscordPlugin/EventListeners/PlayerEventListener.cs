@@ -637,5 +637,21 @@ namespace SCPDiscord.EventListeners
 			plugin.SendMessage(Config.GetArray("messages.ongrenadehitplayer"), "messages.ongrenadehitplayer", variables);
 		}
 		*/
+
+		[PluginEvent(ServerEventType.PlayerEscape)]
+		public void OnPlayerEscape(Player player, RoleTypeId newRole)
+		{
+			Dictionary<string, string> variables = new Dictionary<string, string>
+			{
+				{ "newclass",  newRole.ToString()                        },
+				{ "ipaddress", player?.IpAddress                         },
+				{ "name",      player?.Nickname                          },
+				{ "playerid",  player?.PlayerId.ToString()               },
+				{ "steamid",   player?.GetParsedUserID()                 },
+				{ "oldclass",  player?.Role.ToString()                   },
+				{ "team",      player?.ReferenceHub.GetTeam().ToString() }
+			};
+			plugin.SendMessage("messages.onplayerescape", variables);
+		}
 	}
 }

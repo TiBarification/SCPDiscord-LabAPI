@@ -113,6 +113,7 @@ namespace SCPDiscord
 			"messages.onplayerdie.nokiller",
 			"messages.onplayerdropammo",
 			"messages.onplayerdropitem",
+			"messages.onplayerescape",
 			"messages.onplayerhurt.default",
 			"messages.onplayerhurt.friendlyfire",
 			"messages.onplayerhurt.noattacker",
