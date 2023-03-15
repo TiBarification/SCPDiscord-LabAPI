@@ -9,7 +9,7 @@ namespace SCPDiscord.Commands
 	{
 		[SlashRequireGuild]
 		[SlashCommand("ra", "Runs a remote admin command.")]
-		public async Task OnExecute(InteractionContext command, [Option("Command", "Remote admin command to run.")] string serverCommand = "")
+		public async Task OnExecute(InteractionContext command, [Option("Command", "Remote admin command to run.")] string serverCommand)
 		{
 			if (!ConfigParser.HasPermission(command.Member, serverCommand))
 			{

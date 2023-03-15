@@ -1179,7 +1179,7 @@ messages:
       # issuersteamid - string
       # issuerclass - Role
       # issuerteam - Team
-      message: ":no_entry: Player <var:playername> (<var:playersteamid>) was kicked by <var:issuername> (<var:issuersteamid>). Reason: <var:reason>"
+      message: ":no_entry: **Player <var:playername> (<var:playersteamid>) was kicked by <var:issuername> (<var:issuersteamid>). Reason: <var:reason>**"
       regex: [ ]
     server:
       # reason - string
@@ -1189,7 +1189,7 @@ messages:
       # playersteamid - string
       # playerclass - Role
       # playerteam - Team
-      message: ":no_entry: Player <var:playername> (<var:playersteamid>) was kicked by the server. Reason: <var:reason>"
+      message: ":no_entry: **Player <var:playername> (<var:playersteamid>) was kicked by the server. Reason: <var:reason>**"
       regex: []
 
   onplayermuted:
@@ -1200,7 +1200,7 @@ messages:
       # playersteamid - string
       # playerclass - Role
       # playerteam - Team
-      message: ":mute: <var:playername> (<var:playersteamid>) is no longer allowed to use the intercom."
+      message: ":mute: **<var:playername> (<var:playersteamid>) is no longer allowed to use the intercom.**"
       regex: []
     standard:
       # playeripaddress - string
@@ -1209,7 +1209,7 @@ messages:
       # playersteamid - string
       # playerclass - Role
       # playerteam - Team
-      message: ":mute: <var:playername> (<var:playersteamid>) was muted."
+      message: ":mute: **<var:playername> (<var:playersteamid>) was muted.**"
       regex: []
 
   onplayerunmuted:
@@ -1220,7 +1220,7 @@ messages:
       # playersteamid - string
       # playerclass - Role
       # playerteam - Team
-      message: ":speaker: <var:playername> (<var:playersteamid>) is allowed to use the intercom again."
+      message: ":speaker: **<var:playername> (<var:playersteamid>) is allowed to use the intercom again.**"
       regex: []
     standard:
       # playeripaddress - string
@@ -1229,7 +1229,7 @@ messages:
       # playersteamid - string
       # playerclass - Role
       # playerteam - Team
-      message: ":speaker: <var:playername> (<var:playersteamid>) was unmuted."
+      message: ":speaker: **<var:playername> (<var:playersteamid>) was unmuted.**"
       regex: []
 
   onteamrespawn:
@@ -1299,12 +1299,12 @@ messages:
     # reason - string
     # duration - string
     # admintag - string
-    message: "'<var:name>' (<var:steamid>) was banned from the server by <var:admintag> for the reason '<var:reason>' (<var:duration>)."
+    message: "'<var:name>' (<var:steamid>) was banned from the server for (<var:duration>)."
     regex: []
 
   playerunbanned:
     # steamidorip - string
-    message: "All entries with SteamID/IP '<var:steamidorip>' have been cleared from the ban lists."
+    message: "Player with SteamID/IP '<var:steamidorip>' has been unbanned."
     regex: []
 
   kickall:

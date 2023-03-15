@@ -9,7 +9,7 @@ namespace SCPDiscord.Commands
 	{
 		[SlashRequireGuild]
 		[SlashCommand("server", "Runs a server console command.")]
-		public async Task OnExecute(InteractionContext command, [Option("Command", "Server console command to run.")] string serverCommand = "")
+		public async Task OnExecute(InteractionContext command, [Option("Command", "Server console command to run.")] string serverCommand)
 		{
 			if (!ConfigParser.HasPermission(command.Member, serverCommand))
 			{

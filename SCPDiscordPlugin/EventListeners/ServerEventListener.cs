@@ -126,7 +126,7 @@ namespace SCPDiscord.EventListeners
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "duration",   Utilities.TicksToCompoundTime(banDetails.Expires - banDetails.IssuanceTime) },
+					{ "duration",   Utilities.TicksToCompoundTime(banDetails.Expires - banDetails.IssuanceTime + 100000) },
 					{ "expirytime", new DateTime(banDetails.Expires).ToString("yyyy-MM-dd HH:mm:ss")            },
 					{ "issuedtime", new DateTime(banDetails.IssuanceTime).ToString("yyyy-MM-dd HH:mm:ss")       },
 					{ "reason",     banDetails.Reason        },
@@ -140,7 +140,7 @@ namespace SCPDiscord.EventListeners
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "duration",     Utilities.TicksToCompoundTime(banDetails.Expires - banDetails.IssuanceTime) },
+					{ "duration",     Utilities.TicksToCompoundTime(banDetails.Expires - banDetails.IssuanceTime + 100000) },
 					{ "expirytime",   new DateTime(banDetails.Expires).ToString("yyyy-MM-dd HH:mm:ss")            },
 					{ "issuedtime",   new DateTime(banDetails.IssuanceTime).ToString("yyyy-MM-dd HH:mm:ss")       },
 					{ "reason",       banDetails.Reason        },
@@ -159,7 +159,7 @@ namespace SCPDiscord.EventListeners
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "duration",   Utilities.TicksToCompoundTime(banDetails.Expires - banDetails.IssuanceTime) },
+					{ "duration",   Utilities.TicksToCompoundTime(banDetails.Expires - banDetails.IssuanceTime + 100000) },
 					{ "expirytime", new DateTime(banDetails.Expires).ToString("yyyy-MM-dd HH:mm:ss")            },
 					{ "issuedtime", new DateTime(banDetails.IssuanceTime).ToString("yyyy-MM-dd HH:mm:ss")       },
 					{ "reason",     banDetails.Reason        },
@@ -173,7 +173,7 @@ namespace SCPDiscord.EventListeners
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "duration",     Utilities.TicksToCompoundTime(banDetails.Expires - banDetails.IssuanceTime) },
+					{ "duration",     Utilities.TicksToCompoundTime(banDetails.Expires - banDetails.IssuanceTime + 100000) },
 					{ "expirytime",   new DateTime(banDetails.Expires).ToString("yyyy-MM-dd HH:mm:ss")            },
 					{ "issuedtime",   new DateTime(banDetails.IssuanceTime).ToString("yyyy-MM-dd HH:mm:ss")       },
 					{ "reason",       banDetails.Reason        },
