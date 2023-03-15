@@ -177,7 +177,10 @@ namespace SCPDiscord
 			"messages.playerunbanned",
 			"messages.playerkicked",
 			"messages.playernotfound",
-			"messages.kickall"
+			"messages.kickall",
+			"messages.listtitle",
+			"messages.listrow.default",
+			"messages.listrow.empty"
 		};
 
 		internal static readonly IReadOnlyList<string> languageNodes = configMessageArrays.Concat(languageOnlyNodes).ToList();

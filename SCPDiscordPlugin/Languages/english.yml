@@ -1324,3 +1324,22 @@ messages:
     # maxplayers - int
     message: "<var:players> / <var:maxplayers>"
     regex: []
+
+  listtitle:
+    # players
+    # maxplayers
+    message: "<var:players> / <var:maxplayers> players"
+    regex: []
+
+  listrow:
+    default:
+      # ipaddress - string
+      # name - string
+      # playerid - int
+      # steamid - string
+      # class - Role
+      # team - Team
+      message: "**<var:name>** | **<var:class>** | <var:steamid>"
+      regex: []
+    empty:
+      message: "No players online."

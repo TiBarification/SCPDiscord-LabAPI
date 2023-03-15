@@ -337,6 +337,7 @@ namespace SCPDiscord
 						}
 					}
 					break;
+				case MessageWrapper.MessageOneofCase.PaginatedMessage:
 				case MessageWrapper.MessageOneofCase.BanCommand:
 				case MessageWrapper.MessageOneofCase.BotActivity:
 				case MessageWrapper.MessageOneofCase.ConsoleCommand:

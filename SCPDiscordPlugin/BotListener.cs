@@ -297,8 +297,12 @@ namespace SCPDiscord
 			{
 				EmbedMessage embed = new EmbedMessage
 				{
-					Title = Player.Count + " / " + Server.MaxPlayers + " players",
-					Description = "No players online.",
+					Title = Language.GetProcessedMessage("messages.listtitle", new Dictionary<string, string>
+					{
+						{ "players",    Math.Max(0, Player.Count).ToString() },
+						{ "maxplayers", Server.MaxPlayers.ToString()         }
+					}),
+					Description = Language.GetProcessedMessage("messages.listrow.empty", new Dictionary<string, string>()),
 					Colour = EmbedMessage.Types.DiscordColour.Red,
 					ChannelID = command.ChannelID,
 					InteractionID = command.InteractionID
@@ -310,8 +314,27 @@ namespace SCPDiscord
 			List<string> listItems = new List<string>();
 			foreach (Player player in Player.GetPlayers())
 			{
-				// TODO: Add userid filtering
-				listItems.Add("**" + player.Nickname + "** | **" + player.Role.ToString() + "** | " + player.GetParsedUserID());
+				string row = Language.GetProcessedMessage("messages.listrow.default", new Dictionary<string, string>
+				{
+					{ "ipaddress",        player.IpAddress                         },
+					{ "name",             player.Nickname                          },
+					{ "playerid",         player.PlayerId.ToString()               },
+					{ "steamid",          player.GetParsedUserID()                 },
+					{ "class",            player.Role.ToString()                   },
+					{ "team",             player.ReferenceHub.GetTeam().ToString() }
+				});
+
+				// Remove sensitive information if set in config
+				if (Config.GetChannelIDs("channelsettings.filterips").Contains(command.ChannelID))
+				{
+					row = row.Replace(player.IpAddress, new string('#', player.IpAddress.Length));
+				}
+				if (Config.GetChannelIDs("channelsettings.filtersteamids").Contains(command.ChannelID))
+				{
+					row = row.Replace(player.GetParsedUserID(), "Player " + player.PlayerId);
+				}
+
+				listItems.Add(row);
 			}
 
 			List<EmbedMessage> embeds = new List<EmbedMessage>();
@@ -319,7 +342,11 @@ namespace SCPDiscord
 			{
 				embeds.Add(new EmbedMessage
 				{
-					Title = Player.Count + " / " + Server.MaxPlayers + " players",
+					Title = Language.GetProcessedMessage("messages.listtitle", new Dictionary<string, string>
+					{
+						{ "players",    Math.Max(0, Player.Count).ToString() },
+						{ "maxplayers", Server.MaxPlayers.ToString()         }
+					}),
 					Colour = EmbedMessage.Types.DiscordColour.Cyan,
 					Description = message
 				});
