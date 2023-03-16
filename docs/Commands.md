@@ -15,7 +15,7 @@
 | `/syncip <ip>`                       | Syncs your Discord role to the game. (For servers not using steam)             |
 | `/unban <steamid/ip>`                | Unbans a player from the server.                                               |
 | `/unsync`                            | Unsyncs your Discord account.                                                  |
-| `/unsyncplayer (user)`               | Unsyncs a Discord account.                                                     |
+| `/unsyncplayer <user>`               | Unsyncs a Discord account.                                                     |
 
 ## Plugin console commands
 
