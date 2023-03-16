@@ -58,6 +58,14 @@ Run the bot using:
 ```
 If you are unable to run the bot make sure the file has correct permissions and try installing dotnet 7.0.
 
+### Command permissions
+
+Make sure to restrict who is allowed to use the bot's commands in your Discord server settings:
+
+![Image showing a Discord selection box](img/commandPermissions.png)
+
+You can set more specific permissions for /server and /ra in the plugin config.
+
 ----
 
 ### If you have followed all the steps you should now have a working Discord bot, otherwise contact me in Discord.
