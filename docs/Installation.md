@@ -64,7 +64,9 @@ Make sure to restrict who is allowed to use the bot's commands in your Discord s
 
 ![Image showing a Discord selection box](img/commandPermissions.png)
 
-You can set more specific permissions for /server and /ra in the plugin config.
+If your server uses Steam you should turn off the `/syncip` command and if not you should turn off the `/syncid` command.
+
+You can set more specific permissions for `/server` and `/ra` in the bot config.
 
 ----
 
