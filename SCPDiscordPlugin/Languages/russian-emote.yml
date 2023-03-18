@@ -1,12 +1,11 @@
-
-#####################################################################################################################
-#                                                                                                                   #
-#                                                     EVENTS                                                        #
-#                                                                                                                   #
-#   message: The message to be displayed. Variables are inserted in the format <var:name>, such as <var:ipaddress>. #
-#   regex: A regular expression paired with a replacement string to find and replace parts of a message.            #
-#                                                                                                                   #
-#####################################################################################################################
+################################################################################################################################
+#                                                                                                                              #
+#                                                     EVENTS                                                                   #
+#                                                                                                                              #
+#   message: Сообщение, которое будет отпрвлено. Переменные используются в данной форме <var:name>, к примеру <var:ipaddress>. #
+#   regex: Регулярное выражение в паре со строкой замены для поиска и замены частей сообщения.                                 #
+#                                                                                                                              #
+################################################################################################################################
 
 # Executed after variables have been inserted but before the message specific regex replacement and before player names have been added on all messages.
 global_regex: [
@@ -32,7 +31,7 @@ global_regex: [
   #"ClassD":"Класс Д",
   #"Spectator":"Наблюдатель",
   "Scp106":"SCP-106",
-  "NtfSpecialist":"Специались МОГ",
+  "NtfSpecialist":"Специалист МОГ",
   "Scp049":"SCP-049",
   #"Scientist":"Учёный",
   "Scp079":"SCP-079",
@@ -88,7 +87,7 @@ global_regex: [
   "HczArmory":"Оружейная Комната ТЗС",
   "HczServers":"Серверная",
   "HczTesla":"Коридор с Тесла-воротами",
-  "EzCollapsedTunnel":"Обваленный кориор во Входной зоне",
+  "EzCollapsedTunnel":"Обваленный коридор во Входной зоне",
   "EzGateA":"Ворота A",
   "EzGateB":"Ворота B",
   "EzRedroom":"Красная комната",
@@ -168,7 +167,7 @@ global_regex: [
   #"None":"",
   #"Checkpoints":"КПП",
   "ExitGates":"Открытие Ворот",
-  #"Intercom":"Открытие Иниеркома",
+  #"Intercom":"Открытие Интеркома",
   "AlphaWarhead":"Доступ к Боеголовке",
   "ContainmentLevelOne":"Доступ к объектам Безопасным",
   "ContainmentLevelTwo":"Доступ к объектам Евклид",
@@ -1071,6 +1070,100 @@ messages:
       message: ":no_entry: Игрок <var:playername> (<var:playersteamid>) был забанен сервером на `<var:duration>`. Причина: <var:reason>"
       regex: []
 
+  onbanissued:
+    # duration
+    # expirytime
+    # issuedtime
+    # reason
+    # playerip
+    # playername
+    # issuername
+    ip:
+      message: >+
+        :no_entry: **Был выдан бан по IP**
+        ```
+        Игрок:           <var:playername>\n
+        IP-Адрес:        <var:playerip>\n
+        Выдан:           <var:issuedtime>\n
+        Заканчивается:   <var:expirytime>\n
+        Длительность:    <var:duration>\n
+        Администратор:   <var:issuername>\n
+        Причина:         <var:reason>
+        ```
+      regex: []
+    # duration
+    # expirytime
+    # issuedtime
+    # reason
+    # playeruserid
+    # playername
+    # issuername
+    userid:
+      message: >+
+        :no_entry: **Выдан бан по UserID**
+        ```
+        Игрок:           <var:playername>\n
+        UserID:          <var:playerip>\n
+        Выдан:           <var:issuedtime>\n
+        Заканчивается:   <var:expirytime>\n
+        Длительность:    <var:duration>\n
+        Администратор:   <var:issuername>\n
+        Причина:         <var:reason>
+        ```
+      regex: []
+
+  onbanupdated:
+    # duration
+    # expirytime
+    # issuedtime
+    # reason
+    # playerip
+    # playername
+    # issuername
+    ip:
+      message: >+
+        :no_entry: **Бан по IP обновлён**
+        ```
+        Игрок:           <var:playername>\n
+        IP-Адрес:        <var:playerip>\n
+        Выдан:           <var:issuedtime>\n
+        Заканчивается:   <var:expirytime>\n
+        Длительность:    <var:duration>\n
+        Администратор:   <var:issuername>\n
+        Причина:         <var:reason>
+        ```
+      regex: []
+    # duration
+    # expirytime
+    # issuedtime
+    # reason
+    # playeruserid
+    # playername
+    # issuername
+    userid:
+      message: >+
+        :no_entry: **Бан по UserID обновлён**
+        ```
+        Игрок:           <var:playername>\n
+        UserID:          <var:playerip>\n
+        Выдан:           <var:issuedtime>\n
+        Заканчивается:   <var:expirytime>\n
+        Длительность:    <var:duration>\n
+        Администратор:   <var:issuername>\n
+        Причина:         <var:reason>
+        ```
+      regex: []
+
+  onbanrevoked:
+    # ip
+    ip:
+      message: ":leftwards_arrow_with_hook: **Бан по IP '<var:ip>' был снят снят.**"
+      regex: []
+    # userid
+    userid:
+      message: ":leftwards_arrow_with_hook: **Бан по UserID '<var:userid>' был снят.**"
+      regex: []
+
   onkick:
     player:
       # reason - string
@@ -1099,6 +1192,46 @@ messages:
       message: ":no_entry: Игрок <var:playername> (<var:playersteamid>) был кикнут сервером на `<var:duration>`. Причина: <var:reason>"
       regex: []
 
+  onplayermuted:
+    intercom:
+      # playeripaddress - string
+      # playername - string
+      # playerplayerid - int
+      # playersteamid - string
+      # playerclass - Role
+      # playerteam - Team
+      message: ":mute: **<var:playername> (<var:playersteamid>) теперь запрещено пользоваться интеркомом.**"
+      regex: []
+    standard:
+      # playeripaddress - string
+      # playername - string
+      # playerplayerid - int
+      # playersteamid - string
+      # playerclass - Role
+      # playerteam - Team
+      message: ":mute: **<var:playername> (<var:playersteamid>) был замьючен.**"
+      regex: []
+
+  onplayerunmuted:
+    intercom:
+      # playeripaddress - string
+      # playername - string
+      # playerplayerid - int
+      # playersteamid - string
+      # playerclass - Role
+      # playerteam - Team
+      message: ":speaker: **<var:playername> (<var:playersteamid>) теперь снова может использовать интерком.**"
+      regex: []
+    standard:
+      # playeripaddress - string
+      # playername - string
+      # playerplayerid - int
+      # playersteamid - string
+      # playerclass - Role
+      # playerteam - Team
+      message: ":speaker: **<var:playername> (<var:playersteamid>) был размьючен.**"
+      regex: []
+
   onteamrespawn:
     # players - List<Player>
     # spawnchaos - bool
@@ -1109,14 +1242,25 @@ messages:
       message: ":spy: **Обнаружено вторжение в комплекс, злоумышленники идентифицированы как члены группирвки \"Повстанцы Хаоса\".**"
       regex: []
 
-  #####################################################################################################################
-  #                                                                                                                   #
-  #                                                   DISCORD BOT                                                     #
-  #                                                                                                                   #
-  #   message: The message to be displayed. Variables are inserted in the format <var:name>, such as <var:ipaddress>. #
-  #   regex: A regular expression paired with a replacement string to find and replace parts of a message.            #
-  #                                                                                                                   #
-  #####################################################################################################################
+  onplayerescape:
+    # newclass - Role
+    # ipaddress - string
+    # name - string
+    # playerid - int
+    # steamid - string
+    # oldclass - Role
+    # team - Team
+    message: ":door: <var:name> (<var:steamid>) сбежал и стал <var:newclass>"
+    regex: []
+
+  ################################################################################################################################
+  #                                                                                                                              #
+  #                                                   DISCORD BOT                                                                #
+  #                                                                                                                              #
+  #   message: Сообщение, которое будет отпрвлено. Переменные используются в данной форме <var:name>, к примеру <var:ipaddress>. #
+  #   regex: Регулярное выражение в паре со строкой замены для поиска и замены частей сообщения.                                 #
+  #                                                                                                                              #
+  ################################################################################################################################
 
   connectedtobot:
     message: "**SCP:SL сервер подсоединён.**"
@@ -1180,3 +1324,22 @@ messages:
     # maxplayers - int
     message: "<var:players> / <var:maxplayers>"
     regex: []
+
+  listtitle:
+    # players
+    # maxplayers
+    message: "<var:players> / <var:maxplayers> игроков"
+    regex: []
+
+  listrow:
+    default:
+      # ipaddress - string
+      # name - string
+      # playerid - int
+      # steamid - string
+      # class - Role
+      # team - Team
+      message: "**<var:name>** | **<var:class>** | <var:steamid>"
+      regex: []
+    empty:
+      message: "Игроков онлайн нет."
