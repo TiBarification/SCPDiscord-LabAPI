@@ -10,7 +10,7 @@ namespace SCPDiscord.Commands
 		[SlashCommand("ban", "Bans a user from the server")]
 		public async Task OnExecute(InteractionContext command, [Option("SteamID", "Steam ID of the user to ban.")] string steamID,
 			[Option("Duration", "User to add to ticket.")] string duration,
-			[Option("Reason", "Reason for the ban.")] string reason = "")
+			[Option("Reason", "Reason for the ban.")] string reason)
 		{
 			await command.DeferAsync();
 			Interface.MessageWrapper message = new Interface.MessageWrapper

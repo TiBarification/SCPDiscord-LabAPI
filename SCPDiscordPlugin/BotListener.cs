@@ -7,7 +7,8 @@ using System.Net;
 using System.Threading;
 using PlayerRoles;
 using PluginAPI.Core;
-using PluginAPI.Helpers;
+using PluginAPI.Enums;
+using PluginAPI.Events;
 
 namespace SCPDiscord
 {
@@ -123,10 +124,12 @@ namespace SCPDiscord
 
 			// Create duration timestamp.
 			string humanReadableDuration = "";
+			long durationSeconds = 0;
+			long issuanceTime = DateTime.UtcNow.Ticks;
 			DateTime endTime;
 			try
 			{
-				endTime = ParseBanDuration(command.Duration, ref humanReadableDuration);
+				endTime = ParseBanDuration(command.Duration, ref humanReadableDuration, ref durationSeconds);
 			}
 			catch (IndexOutOfRangeException)
 			{
@@ -158,18 +161,35 @@ namespace SCPDiscord
 				command.Reason = "No reason provided.";
 			}
 
+			if (Player.TryGet(command.SteamID.EndsWith("@steam") ? command.SteamID : command.SteamID + "@steam", out Player player))
+			{
+				if (!EventManager.ExecuteEvent(ServerEventType.PlayerBanned, player.ReferenceHub, ServerConsole.Scs, command.Reason, durationSeconds))
+				{
+					return;
+				}
+				BanHandler.IssueBan(new BanDetails()
+				{
+					OriginalName = name,
+					Id = player.ReferenceHub.connectionToClient.address,
+					IssuanceTime = issuanceTime,
+					Expires = endTime.Ticks,
+					Reason = command.Reason,
+					Issuer = command.AdminTag
+				}, BanHandler.BanType.IP);
+				ServerConsole.Disconnect(player.ReferenceHub.gameObject, "You have been banned. Reason: " + command.Reason);
+			}
+
 			BanHandler.IssueBan(new BanDetails()
 			{
 				OriginalName = name,
 				Id = (command.SteamID.EndsWith("@steam") ? command.SteamID : command.SteamID + "@steam"),
-				IssuanceTime = DateTime.UtcNow.Ticks,
+				IssuanceTime = issuanceTime,
 				Expires = endTime.Ticks,
 				Reason = command.Reason,
 				Issuer = command.AdminTag
 			}, BanHandler.BanType.UserId);
 
-			// Kicks the player if they are online.
-			plugin.KickPlayer(command.SteamID, "You have been banned: '" + command.Reason + "'");
+			BanHandler.ValidateBans();
 
 			Dictionary<string, string> banVars = new Dictionary<string, string>
 			{
@@ -208,7 +228,7 @@ namespace SCPDiscord
 			List<string> ipBans = new List<string>();
 			if (File.Exists(Config.GetIPBansFile()))
 			{
-				 ipBans = File.ReadAllLines(Config.GetIPBansFile()).ToList();
+				ipBans = File.ReadAllLines(Config.GetIPBansFile()).ToList();
 			}
 			else
 			{
@@ -255,6 +275,8 @@ namespace SCPDiscord
 			{
 				File.WriteAllLines(Config.GetUserIDBansFile(), steamIDBans);
 			}
+
+			BanHandler.ValidateBans();
 
 			// Send response message to Discord
 			Dictionary<string, string> unbanVars = new Dictionary<string, string>
@@ -408,7 +430,7 @@ namespace SCPDiscord
 			NetworkSystem.QueueMessage(new MessageWrapper { PaginatedMessage = response });
 		}
 
-		private static DateTime ParseBanDuration(string duration, ref string humanReadableDuration)
+		private static DateTime ParseBanDuration(string duration, ref string humanReadableDuration, ref long durationSeconds)
 		{
 			//Check if the amount is a number
 			if (!int.TryParse(new string(duration.Where(char.IsDigit).ToArray()), out int amount))
@@ -462,6 +484,7 @@ namespace SCPDiscord
 				humanReadableDuration += 's';
 			}
 
+			durationSeconds = (long)timeSpanDuration.TotalSeconds;
 			return DateTime.UtcNow.Add(timeSpanDuration);
 		}
 	}

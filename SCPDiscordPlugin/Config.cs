@@ -419,12 +419,12 @@ namespace SCPDiscord
 
 		public static string GetUserIDBansFile()
 		{
-			return GetSCPSLConfigDir() + "UserIdBans.txt";
+			return BanHandler.GetPath(BanHandler.BanType.UserId);
 		}
 
 		public static string GetIPBansFile()
 		{
-			return GetSCPSLConfigDir() + "IpBans.txt";
+			return BanHandler.GetPath(BanHandler.BanType.IP);
 		}
 
 		public static string GetConfigDir()
