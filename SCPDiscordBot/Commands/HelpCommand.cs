@@ -19,7 +19,7 @@ namespace SCPDiscord.Commands
 				.AddField("Connected:", NetworkSystem.IsConnected() ? "Yes" : "No", true)
 				.AddField("\u200b", "\u200b", true)
 				.AddField("Report bugs:", "[Github Issues](https://github.com/KarlofDuty/SCPDiscord/issues)", true)
-				.AddField("Documentation:", "[Github Repository](https://github.com/KarlofDuty/SCPDiscord)", true)
+				.AddField("Commands:", "[Github Repository](https://github.com/KarlOfDuty/SCPDiscord/blob/master/docs/Commands.md)", true)
 				.AddField("Donate:", "[Github Sponsors](https://github.com/sponsors/KarlOfDuty)", true);
 			await command.CreateResponseAsync(botInfo);
 		}

@@ -7,7 +7,8 @@ using System.Net;
 using System.Threading;
 using PlayerRoles;
 using PluginAPI.Core;
-using PluginAPI.Helpers;
+using PluginAPI.Enums;
+using PluginAPI.Events;
 
 namespace SCPDiscord
 {
@@ -123,10 +124,12 @@ namespace SCPDiscord
 
 			// Create duration timestamp.
 			string humanReadableDuration = "";
+			long durationSeconds = 0;
+			long issuanceTime = DateTime.UtcNow.Ticks;
 			DateTime endTime;
 			try
 			{
-				endTime = ParseBanDuration(command.Duration, ref humanReadableDuration);
+				endTime = ParseBanDuration(command.Duration, ref humanReadableDuration, ref durationSeconds);
 			}
 			catch (IndexOutOfRangeException)
 			{
@@ -158,18 +161,35 @@ namespace SCPDiscord
 				command.Reason = "No reason provided.";
 			}
 
+			if (Player.TryGet(command.SteamID.EndsWith("@steam") ? command.SteamID : command.SteamID + "@steam", out Player player))
+			{
+				if (!EventManager.ExecuteEvent(ServerEventType.PlayerBanned, player.ReferenceHub, ServerConsole.Scs, command.Reason, durationSeconds))
+				{
+					return;
+				}
+				BanHandler.IssueBan(new BanDetails()
+				{
+					OriginalName = name,
+					Id = player.ReferenceHub.connectionToClient.address,
+					IssuanceTime = issuanceTime,
+					Expires = endTime.Ticks,
+					Reason = command.Reason,
+					Issuer = command.AdminTag
+				}, BanHandler.BanType.IP);
+				ServerConsole.Disconnect(player.ReferenceHub.gameObject, "You have been banned. Reason: " + command.Reason);
+			}
+
 			BanHandler.IssueBan(new BanDetails()
 			{
 				OriginalName = name,
 				Id = (command.SteamID.EndsWith("@steam") ? command.SteamID : command.SteamID + "@steam"),
-				IssuanceTime = DateTime.UtcNow.Ticks,
+				IssuanceTime = issuanceTime,
 				Expires = endTime.Ticks,
 				Reason = command.Reason,
 				Issuer = command.AdminTag
 			}, BanHandler.BanType.UserId);
 
-			// Kicks the player if they are online.
-			plugin.KickPlayer(command.SteamID, "You have been banned: '" + command.Reason + "'");
+			BanHandler.ValidateBans();
 
 			Dictionary<string, string> banVars = new Dictionary<string, string>
 			{
@@ -194,15 +214,7 @@ namespace SCPDiscord
 			};
 
 			// Perform very basic SteamID and ip validation.
-			if (Utilities.IsPossibleSteamID(command.SteamIDOrIP))
-			{
-				BanHandler.RemoveBan(command.SteamIDOrIP.EndsWith("@steam") ? command.SteamIDOrIP : command.SteamIDOrIP + "@steam", BanHandler.BanType.UserId, true);
-			}
-			else if (IPAddress.TryParse(command.SteamIDOrIP, out IPAddress _))
-			{
-				BanHandler.RemoveBan(command.SteamIDOrIP, BanHandler.BanType.IP, true);
-			}
-			else
+			if (!Utilities.IsPossibleSteamID(command.SteamIDOrIP) && !IPAddress.TryParse(command.SteamIDOrIP, out IPAddress _))
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
@@ -212,6 +224,61 @@ namespace SCPDiscord
 				return;
 			}
 
+			// Read ip bans if the file exists
+			List<string> ipBans = new List<string>();
+			if (File.Exists(Config.GetIPBansFile()))
+			{
+				ipBans = File.ReadAllLines(Config.GetIPBansFile()).ToList();
+			}
+			else
+			{
+				plugin.Warn(Config.GetIPBansFile() + " does not exist, could not check it for banned players.");
+			}
+
+			// Read steam id bans if the file exists
+			List<string> steamIDBans = new List<string>();
+			if (File.Exists(Config.GetUserIDBansFile()))
+			{
+				steamIDBans = File.ReadAllLines(Config.GetUserIDBansFile()).ToList();
+			}
+			else
+			{
+				plugin.Warn(Config.GetUserIDBansFile() + " does not exist, could not check it for banned players.");
+			}
+
+			// Get all ban entries to be removed. (Splits the string and only checks the steam id and ip of the banned players instead of entire strings)
+			List<string> matchingIPBans = ipBans.FindAll(s => s.Split(';').ElementAtOrDefault(1)?.Contains(command.SteamIDOrIP) ?? false);
+			List<string> matchingSteamIDBans = steamIDBans.FindAll(s => s.Split(';').ElementAtOrDefault(1)?.Contains(command.SteamIDOrIP) ?? false);
+
+			// Delete the entries from the original containers now that there is a backup of them
+			ipBans.RemoveAll(s => matchingIPBans.Any(str => str == s));
+			steamIDBans.RemoveAll(s => matchingSteamIDBans.Any(str => str == s));
+
+			// Check if either ban file has a ban with a time stamp matching the one removed and remove it too as
+			// most servers create both a steamid-ban entry and an ip-ban entry.
+			foreach (var row in matchingIPBans)
+			{
+				steamIDBans.RemoveAll(s => s.Contains(row.Split(';').Last()));
+			}
+
+			foreach (var row in matchingSteamIDBans)
+			{
+				ipBans.RemoveAll(s => s.Contains(row.Split(';').Last()));
+			}
+
+			// Save the edited ban files if they exist
+			if (File.Exists(Config.GetIPBansFile()))
+			{
+				File.WriteAllLines(Config.GetIPBansFile(), ipBans);
+			}
+			if (File.Exists(Config.GetUserIDBansFile()))
+			{
+				File.WriteAllLines(Config.GetUserIDBansFile(), steamIDBans);
+			}
+
+			BanHandler.ValidateBans();
+
+			// Send response message to Discord
 			Dictionary<string, string> unbanVars = new Dictionary<string, string>
 			{
 				{ "steamidorip", command.SteamIDOrIP }
@@ -363,7 +430,7 @@ namespace SCPDiscord
 			NetworkSystem.QueueMessage(new MessageWrapper { PaginatedMessage = response });
 		}
 
-		private static DateTime ParseBanDuration(string duration, ref string humanReadableDuration)
+		private static DateTime ParseBanDuration(string duration, ref string humanReadableDuration, ref long durationSeconds)
 		{
 			//Check if the amount is a number
 			if (!int.TryParse(new string(duration.Where(char.IsDigit).ToArray()), out int amount))
@@ -417,6 +484,7 @@ namespace SCPDiscord
 				humanReadableDuration += 's';
 			}
 
+			durationSeconds = (long)timeSpanDuration.TotalSeconds;
 			return DateTime.UtcNow.Add(timeSpanDuration);
 		}
 	}

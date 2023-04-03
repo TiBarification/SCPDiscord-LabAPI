@@ -27,20 +27,20 @@ namespace SCPDiscord.EventListeners
 				Player issuer = Player.Get(playerSender.ReferenceHub);
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "duration",               Utilities.SecondsToCompoundTime(duration)  },
-					{ "reason",                 reason                                     },
-					{ "playeripaddress",        player.IpAddress                           },
-					{ "playername",             player.Nickname                            },
-					{ "playerplayerid",         player.PlayerId.ToString()                 },
-					{ "playersteamid",          player.GetParsedUserID()                   },
-					{ "playerclass",            player.Role.ToString()                     },
-					{ "playerteam",             player.ReferenceHub.GetTeam().ToString()   },
-					{ "issueripaddress",        issuer.IpAddress                           },
-					{ "issuername",             issuer.Nickname                            },
-					{ "issuerplayerid",         issuer.PlayerId.ToString()                 },
-					{ "issuersteamid",          issuer.GetParsedUserID()                   },
-					{ "issuerclass",            issuer.Role.ToString()                     },
-					{ "issuerteam",             issuer.ReferenceHub.GetTeam().ToString()   }
+					{ "duration",        Utilities.SecondsToCompoundTime(duration)  },
+					{ "reason",          reason                                     },
+					{ "playeripaddress", player.IpAddress                           },
+					{ "playername",      player.Nickname                            },
+					{ "playerplayerid",  player.PlayerId.ToString()                 },
+					{ "playersteamid",   player.GetParsedUserID()                   },
+					{ "playerclass",     player.Role.ToString()                     },
+					{ "playerteam",      player.ReferenceHub.GetTeam().ToString()   },
+					{ "issueripaddress", issuer.IpAddress                           },
+					{ "issuername",      issuer.Nickname                            },
+					{ "issuerplayerid",  issuer.PlayerId.ToString()                 },
+					{ "issuersteamid",   issuer.GetParsedUserID()                   },
+					{ "issuerclass",     issuer.Role.ToString()                     },
+					{ "issuerteam",      issuer.ReferenceHub.GetTeam().ToString()   }
 				};
 
 				if (duration == 0)
@@ -56,14 +56,14 @@ namespace SCPDiscord.EventListeners
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "duration",               Utilities.SecondsToCompoundTime(duration)  },
-					{ "reason",                 reason                                     },
-					{ "playeripaddress",        player.IpAddress                           },
-					{ "playername",             player.Nickname                            },
-					{ "playerplayerid",         player.PlayerId.ToString()                 },
-					{ "playersteamid",          player.GetParsedUserID()                   },
-					{ "playerclass",            player.Role.ToString()                     },
-					{ "playerteam",             player.ReferenceHub.GetTeam().ToString()   }
+					{ "duration",        Utilities.SecondsToCompoundTime(duration)  },
+					{ "reason",          reason                                     },
+					{ "playeripaddress", player.IpAddress                           },
+					{ "playername",      player.Nickname                            },
+					{ "playerplayerid",  player.PlayerId.ToString()                 },
+					{ "playersteamid",   player.GetParsedUserID()                   },
+					{ "playerclass",     player.Role.ToString()                     },
+					{ "playerteam",      player.ReferenceHub.GetTeam().ToString()   }
 				};
 
 				if (duration == 0)
@@ -126,7 +126,7 @@ namespace SCPDiscord.EventListeners
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "duration",   Utilities.TicksToCompoundTime(banDetails.Expires - banDetails.IssuanceTime + 100000) },
+					{ "duration",   Utilities.TicksToCompoundTime(banDetails.Expires - banDetails.IssuanceTime + 1000000) },
 					{ "expirytime", new DateTime(banDetails.Expires).ToString("yyyy-MM-dd HH:mm:ss")            },
 					{ "issuedtime", new DateTime(banDetails.IssuanceTime).ToString("yyyy-MM-dd HH:mm:ss")       },
 					{ "reason",     banDetails.Reason        },
@@ -140,7 +140,7 @@ namespace SCPDiscord.EventListeners
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "duration",     Utilities.TicksToCompoundTime(banDetails.Expires - banDetails.IssuanceTime + 100000) },
+					{ "duration",     Utilities.TicksToCompoundTime(banDetails.Expires - banDetails.IssuanceTime + 1000000) },
 					{ "expirytime",   new DateTime(banDetails.Expires).ToString("yyyy-MM-dd HH:mm:ss")            },
 					{ "issuedtime",   new DateTime(banDetails.IssuanceTime).ToString("yyyy-MM-dd HH:mm:ss")       },
 					{ "reason",       banDetails.Reason        },
@@ -159,7 +159,7 @@ namespace SCPDiscord.EventListeners
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "duration",   Utilities.TicksToCompoundTime(banDetails.Expires - banDetails.IssuanceTime + 100000) },
+					{ "duration",   Utilities.TicksToCompoundTime(banDetails.Expires - banDetails.IssuanceTime + 1000000) },
 					{ "expirytime", new DateTime(banDetails.Expires).ToString("yyyy-MM-dd HH:mm:ss")            },
 					{ "issuedtime", new DateTime(banDetails.IssuanceTime).ToString("yyyy-MM-dd HH:mm:ss")       },
 					{ "reason",     banDetails.Reason        },
@@ -173,7 +173,7 @@ namespace SCPDiscord.EventListeners
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "duration",     Utilities.TicksToCompoundTime(banDetails.Expires - banDetails.IssuanceTime + 100000) },
+					{ "duration",     Utilities.TicksToCompoundTime(banDetails.Expires - banDetails.IssuanceTime + 1000000) },
 					{ "expirytime",   new DateTime(banDetails.Expires).ToString("yyyy-MM-dd HH:mm:ss")            },
 					{ "issuedtime",   new DateTime(banDetails.IssuanceTime).ToString("yyyy-MM-dd HH:mm:ss")       },
 					{ "reason",       banDetails.Reason        },
