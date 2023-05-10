@@ -7,14 +7,13 @@ pipeline {
                 sh 'steamcmd +force_install_dir \$HOME/scpsl +login anonymous +app_update 996560 -beta pluginapi-beta validate +quit'
                 sh 'ln -s "\$HOME/scpsl/SCPSL_Data/Managed" ".scpsl_libs"'
                 sh 'cd SCPDiscordBot; dotnet restore'
-                sh 'cd SCPDiscordPlugin; nuget restore -SolutionDirectory .'
             }
         }
         stage('Build') {
             parallel {
                 stage('Plugin') {
                     steps {
-                        sh 'msbuild SCPDiscordPlugin/SCPDiscordPlugin.csproj -p:PostBuildEvent='
+                        sh 'msbuild SCPDiscordPlugin/SCPDiscordPlugin.csproj -restore -p:PostBuildEvent='
                     }
                 }
                 stage('Bot') {
