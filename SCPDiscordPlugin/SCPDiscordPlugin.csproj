@@ -44,16 +44,10 @@
     <Reference Include="CommandSystem.Core">
       <HintPath>..\.scpsl_libs\CommandSystem.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Protobuf, Version=3.21.12.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
-      <HintPath>packages\Google.Protobuf.3.21.12\lib\net45\Google.Protobuf.dll</HintPath>
-    </Reference>
     <Reference Include="Mirror">
       <HintPath>..\.scpsl_libs\Mirror.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="PluginAPI">
       <HintPath>..\.scpsl_libs\PluginAPI.dll</HintPath>
     </Reference>
@@ -138,7 +132,6 @@
     <None Include="Languages\ukrainian.yml" />
     <None Include="Languages\russian-emote.yml" />
     <None Include="Languages\russian.yml" />
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -146,6 +139,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Languages\overrides.yml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.21.12" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.Buffers" Version="4.5.1" />
+    <PackageReference Include="System.Memory" Version="4.5.5" />
+    <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!--<PropertyGroup>
