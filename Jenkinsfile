@@ -37,7 +37,7 @@ pipeline {
                 stage('Plugin') {
                     steps {
                         sh 'mv SCPDiscordPlugin/bin/SCPDiscord.dll ./'
-                        sh 'mv SCPDiscordPlugin/bin/YamlDotNet.dll dependencies'
+                        sh 'mv SCPDiscordPlugin/bin/System.Memory.dll dependencies'
                         sh 'mv SCPDiscordPlugin/bin/Google.Protobuf.dll dependencies'
                         sh 'mv SCPDiscordPlugin/bin/Newtonsoft.Json.dll dependencies'
                     }
