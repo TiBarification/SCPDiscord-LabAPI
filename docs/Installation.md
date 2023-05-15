@@ -12,11 +12,11 @@ Extract the bot anywhere you wish outside of the server directory.
 
 ### **Plugin:**
 
-**Download using the package manager**
+**Download using the package manager:**
 
 `p install KarlOfDuty/SCPDiscord` and restart your server.
 
-**Manual download**
+**Manual download:**
 
 Extract the plugin and dependencies directory into the `PluginAPI/plugins/<port>` directory:
 ```
