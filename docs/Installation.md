@@ -4,7 +4,7 @@
 
 ## 1. Download
 
-Download the SCPDiscord archive, either a [release](https://github.com/KarlOfDuty/SCPDiscord/releases) or [dev build](https://jenkins.karlofduty.com/blue/organizations/jenkins/CI%2FSCPDiscord/activity/).
+Download SCPDiscord, either a [release](https://github.com/KarlOfDuty/SCPDiscord/releases) or [dev build](https://jenkins.karlofduty.com/blue/organizations/jenkins/CI%2FSCPDiscord/activity/).
 
 ### **Bot:**
 
@@ -12,6 +12,11 @@ Extract the bot anywhere you wish outside of the server directory.
 
 ### **Plugin:**
 
+**Download using the package manager**
+
+`p install KarlOfDuty/SCPDiscord` and restart your server.
+
+**Manual download**
 Extract the plugin and dependencies directory into the `PluginAPI/plugins/<port>` directory:
 ```
 plugins/
