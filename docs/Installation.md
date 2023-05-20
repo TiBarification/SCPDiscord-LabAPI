@@ -74,7 +74,7 @@ If your server uses Steam you should turn off the `/syncip` command and if not y
 
 You can set more specific permissions for `/server` and `/ra` in the bot config.
 
-If you have several servers it is recommended that you limit permissions for each bot to the channel they post in. 
+If you have several servers it is recommended that you limit command permissions for each bot to the channel they post in. 
 This way your mods will not have to think about which bot they are executing the command on, they will automatically get the correct one from the channel they are typing in.
 (This does not work for the server owner as they will always have permission to use all commands everywhere)
 
