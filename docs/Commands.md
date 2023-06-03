@@ -19,18 +19,18 @@
 
 ## Plugin console commands
 
-| Command                                                    | Permission (Waiting for API implementation) | Description                                                                                 |
-|------------------------------------------------------------|---------------------------------------------|---------------------------------------------------------------------------------------------|
-| `scpd_debug`                                               | `scpdiscord.debug`                          | Toggles debug console messages.                                                             |
-| `scpd_grantreservedslot/scpd_grs <steamid>`                | `scpdiscord.removereservedslot`             | Gives a player a reserved slot on the server.                                               |
-| `scpd_grantvanillarank/scpd_gvr <steamid/playerid> <rank>` | `scpdiscord.grantreservedslot`              | Gives a player a vanilla rank for their current session.                                    |
-| `scpd_reconnect, scpd_rc`                                  | `scpdiscord.reconnect`                      | Reconnects to the bot.                                                                      |
-| `scpd_reload`                                              | `scpdiscord.reload`                         | Reloads the plugin, all configs and files and reconnects.                                   |
-| `scpd_removereservedslot/scpd_rrs <steamid>`               | `scpdiscord.grantvanillarank`               | Removes a reserved slot from a player.                                                      |
-| `scpd_setnickname <player id/steamid> <nickname>`          | `scpdiscord.setnickname`                    | Sets a player's nickname, useful for the rolesync system if you want to sync discord names. |
-| `scpd_unsync <discordid>`                                  | `scpdiscord.unsync`                         | Manually remove a player from being synced to discord.                                      |
-| `scpd_validate`                                            | `scpdiscord.validate`                       | Creates a config and language validation report in the console.                             |
-| `scpd_verbose`                                             | `scpdiscord.verbose`                        | Toggles verbose console messages.                                                           |
+| Command                                                    | Description                                                                                 |
+|------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| `scpd_debug`                                               | Toggles debug console messages.                                                             |
+| `scpd_grantreservedslot/scpd_grs <steamid>`                | Gives a player a reserved slot on the server.                                               |
+| `scpd_grantvanillarank/scpd_gvr <steamid/playerid> <rank>` | Gives a player a vanilla rank for their current session.                                    |
+| `scpd_reconnect, scpd_rc`                                  | Reconnects to the bot.                                                                      |
+| `scpd_reload`                                              | Reloads the plugin, all configs and files and reconnects.                                   |
+| `scpd_removereservedslot/scpd_rrs <steamid>`               | Removes a reserved slot from a player.                                                      |
+| `scpd_setnickname <player id/steamid> <nickname>`          | Sets a player's nickname, useful for the rolesync system if you want to sync discord names. |
+| `scpd_unsync <discordid>`                                  | Manually remove a player from being synced to discord.                                      |
+| `scpd_validate`                                            | Creates a config and language validation report in the console.                             |
+| `scpd_verbose`                                             | Toggles verbose console messages.                                                           |
 
 ## Time
 
