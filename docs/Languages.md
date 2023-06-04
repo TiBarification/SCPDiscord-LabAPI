@@ -61,7 +61,7 @@ If you are interested in learning how regex works use this link to start learnin
 
 As this config is basically just doing lots of replacements on the same message before sending it, the order of operation may matter to you.
 
-It is as follows:
+The replacements are executed in the following order:
 
 1. The unparsed message is read from the config.
 2. All variables are added to the message except names
@@ -76,6 +76,5 @@ regex: ["isopen:True":"close", "isopen:False":"open"]
 5. The variables representing names are added in, this is to make sure players don't use names with words that get accidentally or deliberately replaced by your above regex replacements.
 6. The `final_regex` is executed and is meant mostly to perform replacements in player names if that is something you wish to do. Example here:
 ```yaml
-# (?i) Is a regex way of making it case-insensitive.
-final_regex: ["(?i)nigger":"Edgy boi"]
+final_regex: ["discord\\.gg":"","http://":"","https://":"","www\\.":"", "<@":"<", "<@!":"<!"]
 ```
