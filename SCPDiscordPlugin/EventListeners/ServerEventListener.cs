@@ -230,11 +230,11 @@ namespace SCPDiscord.EventListeners
 
 				if (ev.IsIntercom)
 				{
-					plugin.SendMessage("messages.onplayermuted.intercom", variables);
+					plugin.SendMessage("messages.onplayermuted.player.intercom", variables);
 				}
 				else
 				{
-					plugin.SendMessage("messages.onplayermuted.standard", variables);
+					plugin.SendMessage("messages.onplayermuted.player.standard", variables);
 				}
 			}
 			else
@@ -251,11 +251,11 @@ namespace SCPDiscord.EventListeners
 
 				if (ev.IsIntercom)
 				{
-					plugin.SendMessage("messages.onplayermuted.intercom", variables);
+					plugin.SendMessage("messages.onplayermuted.server.intercom", variables);
 				}
 				else
 				{
-					plugin.SendMessage("messages.onplayermuted.standard", variables);
+					plugin.SendMessage("messages.onplayermuted.server.standard", variables);
 				}
 			}
 		}
@@ -263,29 +263,53 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent]
 		public void OnPlayerUnmuted(PlayerUnmutedEvent ev)
 		{
-			Dictionary<string, string> variables = new Dictionary<string, string>
+			if (ev.Issuer != null)
 			{
-				{ "playeripaddress",        ev.Player.IpAddress                         },
-				{ "playername",             ev.Player.Nickname                          },
-				{ "playerplayerid",         ev.Player.PlayerId.ToString()               },
-				{ "playersteamid",          ev.Player.GetParsedUserID()                 },
-				{ "playerclass",            ev.Player.Role.ToString()                   },
-				{ "playerteam",             ev.Player.ReferenceHub.GetTeam().ToString() },
-				{ "issueripaddress",        ev.Issuer.IpAddress                         },
-				{ "issuername",             ev.Issuer.Nickname                          },
-				{ "issuerplayerid",         ev.Issuer.PlayerId.ToString()               },
-				{ "issuersteamid",          ev.Issuer.GetParsedUserID()                 },
-				{ "issuerclass",            ev.Issuer.Role.ToString()                   },
-				{ "issuerteam",             ev.Issuer.ReferenceHub.GetTeam().ToString() }
-			};
+				Dictionary<string, string> variables = new Dictionary<string, string>
+				{
+					{ "playeripaddress", ev.Player.IpAddress                    },
+					{ "playername", ev.Player.Nickname                          },
+					{ "playerplayerid", ev.Player.PlayerId.ToString()           },
+					{ "playersteamid", ev.Player.GetParsedUserID()              },
+					{ "playerclass", ev.Player.Role.ToString()                  },
+					{ "playerteam", ev.Player.ReferenceHub.GetTeam().ToString() },
+					{ "issueripaddress", ev.Issuer.IpAddress                    },
+					{ "issuername", ev.Issuer.Nickname                          },
+					{ "issuerplayerid", ev.Issuer.PlayerId.ToString()           },
+					{ "issuersteamid", ev.Issuer.GetParsedUserID()              },
+					{ "issuerclass", ev.Issuer.Role.ToString()                  },
+					{ "issuerteam", ev.Issuer.ReferenceHub.GetTeam().ToString() }
+				};
 
-			if (ev.IsIntercom)
-			{
-				plugin.SendMessage("messages.onplayerunmuted.intercom", variables);
+				if (ev.IsIntercom)
+				{
+					plugin.SendMessage("messages.onplayerunmuted.player.intercom", variables);
+				}
+				else
+				{
+					plugin.SendMessage("messages.onplayerunmuted.player.standard", variables);
+				}
 			}
 			else
 			{
-				plugin.SendMessage("messages.onplayerunmuted.standard", variables);
+				Dictionary<string, string> variables = new Dictionary<string, string>
+				{
+					{ "playeripaddress", ev.Player.IpAddress                    },
+					{ "playername", ev.Player.Nickname                          },
+					{ "playerplayerid", ev.Player.PlayerId.ToString()           },
+					{ "playersteamid", ev.Player.GetParsedUserID()              },
+					{ "playerclass", ev.Player.Role.ToString()                  },
+					{ "playerteam", ev.Player.ReferenceHub.GetTeam().ToString() }
+				};
+
+				if (ev.IsIntercom)
+				{
+					plugin.SendMessage("messages.onplayerunmuted.server.intercom", variables);
+				}
+				else
+				{
+					plugin.SendMessage("messages.onplayerunmuted.server.standard", variables);
+				}
 			}
 		}
 

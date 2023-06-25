@@ -104,11 +104,19 @@ messages:
         player: [ "default", "staff" ]
         server: [ "default", "staff" ]
     onplayermuted:
-        intercom: [ "default", "staff" ]
-        standard: [ "default", "staff" ]
+        player:
+            intercom: [ "default", "staff" ]
+            standard: [ "default", "staff" ]
+        server:
+            intercom: [ "default", "staff" ]
+            standard: [ "default", "staff" ]
     onplayerunmuted:
-        intercom: [ "default", "staff" ]
-        standard: [ "default", "staff" ]
+        player:
+            intercom: [ "default", "staff" ]
+            standard: [ "default", "staff" ]
+        server:
+            intercom: [ "default", "staff" ]
+            standard: [ "default", "staff" ]
     oncallcommand:
         remoteadmin:
             player: []
