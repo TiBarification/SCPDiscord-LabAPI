@@ -1193,24 +1193,56 @@ messages:
       regex: []
 
   onplayermuted:
-    intercom:
-      # playeripaddress - string
-      # playername - string
-      # playerplayerid - int
-      # playersteamid - string
-      # playerclass - Role
-      # playerteam - Team
-      message: ":mute: **<var:playername> (<var:playersteamid>) теперь запрещено пользоваться интеркомом.**"
-      regex: []
-    standard:
-      # playeripaddress - string
-      # playername - string
-      # playerplayerid - int
-      # playersteamid - string
-      # playerclass - Role
-      # playerteam - Team
-      message: ":mute: **<var:playername> (<var:playersteamid>) был замьючен.**"
-      regex: []
+    player:
+      intercom:
+        # playeripaddress - string
+        # playername - string
+        # playerplayerid - int
+        # playersteamid - string
+        # playerclass - Role
+        # playerteam - Team
+        # issueripaddress - string
+        # issuername - string
+        # issuerplayerid - int
+        # issuersteamid - string
+        # issuerclass - Role
+        # issuerteam - Team
+        message: ":mute: **Администратор <var:issuername> (<var:issuersteamid>) запретил игроку <var:playername> (<var:playersteamid>) использовать интерком.**"
+        regex: []
+      standard:
+        # playeripaddress - string
+        # playername - string
+        # playerplayerid - int
+        # playersteamid - string
+        # playerclass - Role
+        # playerteam - Team
+        # issueripaddress - string
+        # issuername - string
+        # issuerplayerid - int
+        # issuersteamid - string
+        # issuerclass - Role
+        # issuerteam - Team
+        message: ":mute: **Администратор <var:issuername> (<var:issuersteamid>) запретил игроку <var:playername> (<var:playersteamid>) говорить.**"
+        regex: []
+    server:
+      intercom:
+        # playeripaddress - string
+        # playername - string
+        # playerplayerid - int
+        # playersteamid - string
+        # playerclass - Role
+        # playerteam - Team
+        message: ":mute: **Сервер запретил игроку <var:playername> (<var:playersteamid>) использовать интерком.**"
+        regex: []
+      standard:
+        # playeripaddress - string
+        # playername - string
+        # playerplayerid - int
+        # playersteamid - string
+        # playerclass - Role
+        # playerteam - Team
+        message: ":mute: **Сервер запретил игроку <var:playername> (<var:playersteamid>) говорить.**"
+        regex: []
 
   onplayerunmuted:
     intercom:
@@ -1231,6 +1263,56 @@ messages:
       # playerteam - Team
       message: ":speaker: **<var:playername> (<var:playersteamid>) был размьючен.**"
       regex: []
+    player:
+      intercom:
+        # playeripaddress - string
+        # playername - string
+        # playerplayerid - int
+        # playersteamid - string
+        # playerclass - Role
+        # playerteam - Team
+        # issueripaddress - string
+        # issuername - string
+        # issuerplayerid - int
+        # issuersteamid - string
+        # issuerclass - Role
+        # issuerteam - Team
+        message: ":speaker: **Администратор <var:issuername> (<var:issuersteamid>) разрешил игроку <var:playername> (<var:playersteamid>) использовать интерком.**"
+        regex: []
+      standard:
+        # playeripaddress - string
+        # playername - string
+        # playerplayerid - int
+        # playersteamid - string
+        # playerclass - Role
+        # playerteam - Team
+        # issueripaddress - string
+        # issuername - string
+        # issuerplayerid - int
+        # issuersteamid - string
+        # issuerclass - Role
+        # issuerteam - Team
+        message: ":speaker: **Администратор <var:issuername> (<var:issuersteamid>) разрешил говорить игроку <var:playername> (<var:playersteamid>).**"
+        regex: []
+    server:
+      intercom:
+        # playeripaddress - string
+        # playername - string
+        # playerplayerid - int
+        # playersteamid - string
+        # playerclass - Role
+        # playerteam - Team
+        message: ":speaker: **Сервер разрешил игроку <var:playername> (<var:playersteamid>) использовать интерком.**"
+        regex: []
+      standard:
+        # playeripaddress - string
+        # playername - string
+        # playerplayerid - int
+        # playersteamid - string
+        # playerclass - Role
+        # playerteam - Team
+        message: ":speaker: **Сервер разрешил говорить игроку <var:playername> (<var:playersteamid>).**"
+        regex: []
 
   onteamrespawn:
     # players - List<Player>
