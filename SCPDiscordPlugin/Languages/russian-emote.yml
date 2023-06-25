@@ -1245,24 +1245,6 @@ messages:
         regex: []
 
   onplayerunmuted:
-    intercom:
-      # playeripaddress - string
-      # playername - string
-      # playerplayerid - int
-      # playersteamid - string
-      # playerclass - Role
-      # playerteam - Team
-      message: ":speaker: **<var:playername> (<var:playersteamid>) теперь снова может использовать интерком.**"
-      regex: []
-    standard:
-      # playeripaddress - string
-      # playername - string
-      # playerplayerid - int
-      # playersteamid - string
-      # playerclass - Role
-      # playerteam - Team
-      message: ":speaker: **<var:playername> (<var:playersteamid>) был размьючен.**"
-      regex: []
     player:
       intercom:
         # playeripaddress - string
