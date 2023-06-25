@@ -6,6 +6,7 @@ using PlayerRoles;
 using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
+using PluginAPI.Events;
 using RemoteAdmin;
 
 namespace SCPDiscord.EventListeners
@@ -19,31 +20,31 @@ namespace SCPDiscord.EventListeners
 			this.plugin = plugin;
 		}
 
-		[PluginEvent(ServerEventType.PlayerBanned)]
-		public void OnPlayerBanned(Player player, ICommandSender commandSender, string reason, long duration)
+		[PluginEvent]
+		public void OnPlayerBanned(PlayerBannedEvent ev)
 		{
-			if (commandSender is PlayerCommandSender playerSender && Player.Get(playerSender.ReferenceHub) != null)
+			Player player = (Player)ev.Player;
+			if (ev.Issuer != null)
 			{
-				Player issuer = Player.Get(playerSender.ReferenceHub);
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "duration",        Utilities.SecondsToCompoundTime(duration)  },
-					{ "reason",          reason                                     },
-					{ "playeripaddress", player.IpAddress                           },
-					{ "playername",      player.Nickname                            },
-					{ "playerplayerid",  player.PlayerId.ToString()                 },
-					{ "playersteamid",   player.GetParsedUserID()                   },
-					{ "playerclass",     player.Role.ToString()                     },
-					{ "playerteam",      player.ReferenceHub.GetTeam().ToString()   },
-					{ "issueripaddress", issuer.IpAddress                           },
-					{ "issuername",      issuer.Nickname                            },
-					{ "issuerplayerid",  issuer.PlayerId.ToString()                 },
-					{ "issuersteamid",   issuer.GetParsedUserID()                   },
-					{ "issuerclass",     issuer.Role.ToString()                     },
-					{ "issuerteam",      issuer.ReferenceHub.GetTeam().ToString()   }
+					{ "duration",        Utilities.SecondsToCompoundTime(ev.Duration)  },
+					{ "reason",          ev.Reason                                     },
+					{ "playeripaddress", player.IpAddress                              },
+					{ "playername",      player.Nickname                               },
+					{ "playerplayerid",  player.PlayerId.ToString()                    },
+					{ "playersteamid",   player.GetParsedUserID()                      },
+					{ "playerclass",     player.Role.ToString()                        },
+					{ "playerteam",      player.ReferenceHub.GetTeam().ToString()      },
+					{ "issueripaddress", ev.Issuer.IpAddress                           },
+					{ "issuername",      ev.Issuer.Nickname                            },
+					{ "issuerplayerid",  ev.Issuer.PlayerId.ToString()                 },
+					{ "issuersteamid",   ev.Issuer.GetParsedUserID()                   },
+					{ "issuerclass",     ev.Issuer.Role.ToString()                     },
+					{ "issuerteam",      ev.Issuer.ReferenceHub.GetTeam().ToString()   }
 				};
 
-				if (duration == 0)
+				if (ev.Duration == 0)
 				{
 					plugin.SendMessage("messages.onkick.player", variables);
 				}
@@ -56,8 +57,8 @@ namespace SCPDiscord.EventListeners
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "duration",        Utilities.SecondsToCompoundTime(duration)  },
-					{ "reason",          reason                                     },
+					{ "duration",        Utilities.SecondsToCompoundTime(ev.Duration)  },
+					{ "reason",          ev.Reason                                     },
 					{ "playeripaddress", player.IpAddress                           },
 					{ "playername",      player.Nickname                            },
 					{ "playerplayerid",  player.PlayerId.ToString()                 },
@@ -66,7 +67,7 @@ namespace SCPDiscord.EventListeners
 					{ "playerteam",      player.ReferenceHub.GetTeam().ToString()   }
 				};
 
-				if (duration == 0)
+				if (ev.Duration == 0)
 				{
 					plugin.SendMessage("messages.onkick.server", variables);
 				}
@@ -206,43 +207,79 @@ namespace SCPDiscord.EventListeners
 			}
 		}
 
-		[PluginEvent(ServerEventType.PlayerMuted)]
-		public void OnPlayerMuted(Player player, bool isIntercom)
+		[PluginEvent]
+		public void OnPlayerMuted(PlayerMutedEvent ev)
 		{
-			Dictionary<string, string> variables = new Dictionary<string, string>
+			if (ev.Issuer != null)
 			{
-				{ "playeripaddress",        player.IpAddress                         },
-				{ "playername",             player.Nickname                          },
-				{ "playerplayerid",         player.PlayerId.ToString()               },
-				{ "playersteamid",          player.GetParsedUserID()                 },
-				{ "playerclass",            player.Role.ToString()                   },
-				{ "playerteam",             player.ReferenceHub.GetTeam().ToString() }
-			};
+				Dictionary<string, string> variables = new Dictionary<string, string>
+				{
+					{ "playeripaddress",        ev.Player.IpAddress                         },
+					{ "playername",             ev.Player.Nickname                          },
+					{ "playerplayerid",         ev.Player.PlayerId.ToString()               },
+					{ "playersteamid",          ev.Player.GetParsedUserID()                 },
+					{ "playerclass",            ev.Player.Role.ToString()                   },
+					{ "playerteam",             ev.Player.ReferenceHub.GetTeam().ToString() },
+					{ "issueripaddress",        ev.Issuer.IpAddress                         },
+					{ "issuername",             ev.Issuer.Nickname                          },
+					{ "issuerplayerid",         ev.Issuer.PlayerId.ToString()               },
+					{ "issuersteamid",          ev.Issuer.GetParsedUserID()                 },
+					{ "issuerclass",            ev.Issuer.Role.ToString()                   },
+					{ "issuerteam",             ev.Issuer.ReferenceHub.GetTeam().ToString() }
+				};
 
-			if (isIntercom)
-			{
-				plugin.SendMessage("messages.onplayermuted.intercom", variables);
+				if (ev.IsIntercom)
+				{
+					plugin.SendMessage("messages.onplayermuted.intercom", variables);
+				}
+				else
+				{
+					plugin.SendMessage("messages.onplayermuted.standard", variables);
+				}
 			}
 			else
 			{
-				plugin.SendMessage("messages.onplayermuted.standard", variables);
+				Dictionary<string, string> variables = new Dictionary<string, string>
+				{
+					{ "playeripaddress",        ev.Player.IpAddress                         },
+					{ "playername",             ev.Player.Nickname                          },
+					{ "playerplayerid",         ev.Player.PlayerId.ToString()               },
+					{ "playersteamid",          ev.Player.GetParsedUserID()                 },
+					{ "playerclass",            ev.Player.Role.ToString()                   },
+					{ "playerteam",             ev.Player.ReferenceHub.GetTeam().ToString() }
+				};
+
+				if (ev.IsIntercom)
+				{
+					plugin.SendMessage("messages.onplayermuted.intercom", variables);
+				}
+				else
+				{
+					plugin.SendMessage("messages.onplayermuted.standard", variables);
+				}
 			}
 		}
 
-		[PluginEvent(ServerEventType.PlayerUnmuted)]
-		public void OnPlayerUnmuted(Player player, bool isIntercom)
+		[PluginEvent]
+		public void OnPlayerUnmuted(PlayerUnmutedEvent ev)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "playeripaddress",        player.IpAddress                         },
-				{ "playername",             player.Nickname                          },
-				{ "playerplayerid",         player.PlayerId.ToString()               },
-				{ "playersteamid",          player.GetParsedUserID()                 },
-				{ "playerclass",            player.Role.ToString()                   },
-				{ "playerteam",             player.ReferenceHub.GetTeam().ToString() }
+				{ "playeripaddress",        ev.Player.IpAddress                         },
+				{ "playername",             ev.Player.Nickname                          },
+				{ "playerplayerid",         ev.Player.PlayerId.ToString()               },
+				{ "playersteamid",          ev.Player.GetParsedUserID()                 },
+				{ "playerclass",            ev.Player.Role.ToString()                   },
+				{ "playerteam",             ev.Player.ReferenceHub.GetTeam().ToString() },
+				{ "issueripaddress",        ev.Issuer.IpAddress                         },
+				{ "issuername",             ev.Issuer.Nickname                          },
+				{ "issuerplayerid",         ev.Issuer.PlayerId.ToString()               },
+				{ "issuersteamid",          ev.Issuer.GetParsedUserID()                 },
+				{ "issuerclass",            ev.Issuer.Role.ToString()                   },
+				{ "issuerteam",             ev.Issuer.ReferenceHub.GetTeam().ToString() }
 			};
 
-			if (isIntercom)
+			if (ev.IsIntercom)
 			{
 				plugin.SendMessage("messages.onplayerunmuted.intercom", variables);
 			}
