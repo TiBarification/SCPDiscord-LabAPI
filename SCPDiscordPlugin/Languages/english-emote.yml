@@ -1193,44 +1193,108 @@ messages:
       regex: []
 
   onplayermuted:
-    intercom:
-      # playeripaddress - string
-      # playername - string
-      # playerplayerid - int
-      # playersteamid - string
-      # playerclass - Role
-      # playerteam - Team
-      message: ":mute: **<var:playername> (<var:playersteamid>) is no longer allowed to use the intercom.**"
-      regex: []
-    standard:
-      # playeripaddress - string
-      # playername - string
-      # playerplayerid - int
-      # playersteamid - string
-      # playerclass - Role
-      # playerteam - Team
-      message: ":mute: **<var:playername> (<var:playersteamid>) was muted.**"
-      regex: []
+    player:
+      intercom:
+        # playeripaddress - string
+        # playername - string
+        # playerplayerid - int
+        # playersteamid - string
+        # playerclass - Role
+        # playerteam - Team
+        # issueripaddress - string
+        # issuername - string
+        # issuerplayerid - int
+        # issuersteamid - string
+        # issuerclass - Role
+        # issuerteam - Team
+        message: ":mute: **<var:playername> (<var:playersteamid>) was intercom-muted by <var:issuername> (<var:issuersteamid>).**"
+        regex: []
+      standard:
+        # playeripaddress - string
+        # playername - string
+        # playerplayerid - int
+        # playersteamid - string
+        # playerclass - Role
+        # playerteam - Team
+        # issueripaddress - string
+        # issuername - string
+        # issuerplayerid - int
+        # issuersteamid - string
+        # issuerclass - Role
+        # issuerteam - Team
+        message: ":mute: **<var:playername> (<var:playersteamid>) was muted by <var:issuername> (<var:issuersteamid>).**"
+        regex: []
+    server:
+      intercom:
+        # playeripaddress - string
+        # playername - string
+        # playerplayerid - int
+        # playersteamid - string
+        # playerclass - Role
+        # playerteam - Team
+        message: ":mute: **<var:playername> (<var:playersteamid>) was intercom-muted by the server.**"
+        regex: []
+      standard:
+        # playeripaddress - string
+        # playername - string
+        # playerplayerid - int
+        # playersteamid - string
+        # playerclass - Role
+        # playerteam - Team
+        message: ":mute: **<var:playername> (<var:playersteamid>) was muted by the server.**"
+        regex: []
 
   onplayerunmuted:
-    intercom:
-      # playeripaddress - string
-      # playername - string
-      # playerplayerid - int
-      # playersteamid - string
-      # playerclass - Role
-      # playerteam - Team
-      message: ":speaker: **<var:playername> (<var:playersteamid>) is allowed to use the intercom again.**"
-      regex: []
-    standard:
-      # playeripaddress - string
-      # playername - string
-      # playerplayerid - int
-      # playersteamid - string
-      # playerclass - Role
-      # playerteam - Team
-      message: ":speaker: **<var:playername> (<var:playersteamid>) was unmuted.**"
-      regex: []
+    player:
+      intercom:
+        # playeripaddress - string
+        # playername - string
+        # playerplayerid - int
+        # playersteamid - string
+        # playerclass - Role
+        # playerteam - Team
+        # issueripaddress - string
+        # issuername - string
+        # issuerplayerid - int
+        # issuersteamid - string
+        # issuerclass - Role
+        # issuerteam - Team
+        message: ":speaker: **<var:playername> (<var:playersteamid>) was intercom-unmuted by <var:issuername> (<var:issuersteamid>).**"
+        regex: []
+      standard:
+        # playeripaddress - string
+        # playername - string
+        # playerplayerid - int
+        # playersteamid - string
+        # playerclass - Role
+        # playerteam - Team
+        # issueripaddress - string
+        # issuername - string
+        # issuerplayerid - int
+        # issuersteamid - string
+        # issuerclass - Role
+        # issuerteam - Team
+        message: ":speaker: **<var:playername> (<var:playersteamid>) was unmuted by <var:issuername> (<var:issuersteamid>).**"
+        regex: []
+    server:
+      intercom:
+        # playeripaddress - string
+        # playername - string
+        # playerplayerid - int
+        # playersteamid - string
+        # playerclass - Role
+        # playerteam - Team
+        message: ":speaker: **<var:playername> (<var:playersteamid>) was intercom-unmuted by the server.**"
+        regex: []
+      standard:
+        # playeripaddress - string
+        # playername - string
+        # playerplayerid - int
+        # playersteamid - string
+        # playerclass - Role
+        # playerteam - Team
+        message: ":speaker: **<var:playername> (<var:playersteamid>) was unmuted by the server.**"
+        regex: []
 
   onteamrespawn:
     # players - List<Player>
