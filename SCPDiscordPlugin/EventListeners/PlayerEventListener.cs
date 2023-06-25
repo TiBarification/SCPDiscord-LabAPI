@@ -357,7 +357,7 @@ namespace SCPDiscord.EventListeners
 		}
 		*/
 
-		[PluginEvent(ServerEventType.PlayerChangeRole)]
+		/*[PluginEvent(ServerEventType.PlayerChangeRole)]
 		public void OnSetRole(Player player, PlayerRoleBase oldRole, RoleTypeId newRole, RoleChangeReason changeReason)
 		{
 			if (newRole == RoleTypeId.None)
@@ -415,7 +415,7 @@ namespace SCPDiscord.EventListeners
 				default:
 					return;
 			}
-		}
+		}*/
 
 		[PluginEvent(ServerEventType.PlayerSpawn)]
 		public void OnSpawn(Player player, RoleTypeId role)
