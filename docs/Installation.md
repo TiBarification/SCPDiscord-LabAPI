@@ -4,13 +4,19 @@
 
 ## 1. Download
 
-Download the SCPDiscord archive, either a [release](https://github.com/KarlOfDuty/SCPDiscord/releases) or [dev build](https://jenkins.karlofduty.com/blue/organizations/jenkins/CI%2FSCPDiscord/activity/).
+Download SCPDiscord, either a [release](https://github.com/KarlOfDuty/SCPDiscord/releases) or [dev build](https://jenkins.karlofduty.com/blue/organizations/jenkins/CI%2FSCPDiscord/activity/).
 
 ### **Bot:**
 
 Extract the bot anywhere you wish outside of the server directory.
 
 ### **Plugin:**
+
+**Download using the package manager:**
+
+`p install KarlOfDuty/SCPDiscord` and restart your server.
+
+**Manual download:**
 
 Extract the plugin and dependencies directory into the `PluginAPI/plugins/<port>` directory:
 ```
@@ -67,6 +73,10 @@ Make sure to restrict who is allowed to use the bot's commands in your Discord s
 If your server uses Steam you should turn off the `/syncip` command and if not you should turn off the `/syncid` command.
 
 You can set more specific permissions for `/server` and `/ra` in the bot config.
+
+If you have several servers it is recommended that you limit command permissions for each bot to the channel they post in. 
+This way your mods will not have to think about which bot they are executing the command on, they will automatically get the correct one from the channel they are typing in.
+(This does not work for the server owner as they will always have permission to use all commands everywhere)
 
 ----
 

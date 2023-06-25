@@ -68,9 +68,11 @@ channels:
 
 channelsettings:
     # Removes online players' IPs from discord messages in the following channels
+    # Warning: This only works on online players, so may fail on player disconnect related events
     # Set to [] to disable
     filterips: [ "default" ]
     # Replaces online players' SteamIDs with PlayerIDs in discord messages in the following channels
+    # Warning: This only works on online players, so may fail on player disconnect related events
     # Set to [] to disable
     filtersteamids: []
 
@@ -102,11 +104,19 @@ messages:
         player: [ "default", "staff" ]
         server: [ "default", "staff" ]
     onplayermuted:
-        intercom: [ "default", "staff" ]
-        standard: [ "default", "staff" ]
+        player:
+            intercom: [ "default", "staff" ]
+            standard: [ "default", "staff" ]
+        server:
+            intercom: [ "default", "staff" ]
+            standard: [ "default", "staff" ]
     onplayerunmuted:
-        intercom: [ "default", "staff" ]
-        standard: [ "default", "staff" ]
+        player:
+            intercom: [ "default", "staff" ]
+            standard: [ "default", "staff" ]
+        server:
+            intercom: [ "default", "staff" ]
+            standard: [ "default", "staff" ]
     oncallcommand:
         remoteadmin:
             player: []

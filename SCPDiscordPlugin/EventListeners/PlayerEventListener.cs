@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Footprinting;
 using InventorySystem.Items;
 using InventorySystem.Items.Firearms;
@@ -11,6 +12,7 @@ using PlayerStatsSystem;
 using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
+using PluginAPI.Events;
 using Respawning;
 using UnityEngine;
 
@@ -433,15 +435,15 @@ namespace SCPDiscord.EventListeners
 			plugin.SendMessage("messages.onspawn", variables);
 		}
 
-		[PluginEvent(ServerEventType.TeamRespawn)]
-		public void OnTeamRespawn(SpawnableTeamType team)
+		[PluginEvent]
+		public void OnTeamRespawn(TeamRespawnEvent ev)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				//{ "players",    ev.PlayerList.ToString()    }
+				{ "players", ev.Players.Select(x => x.Nickname).ToString() }
 			};
 
-			plugin.SendMessage(team == SpawnableTeamType.ChaosInsurgency ? "messages.onteamrespawn.ci" : "messages.onteamrespawn.mtf", variables);
+			plugin.SendMessage(ev.Team == SpawnableTeamType.ChaosInsurgency ? "messages.onteamrespawn.ci" : "messages.onteamrespawn.mtf", variables);
 		}
 
 		[PluginEvent(ServerEventType.PlayerThrowProjectile)]
@@ -529,25 +531,25 @@ namespace SCPDiscord.EventListeners
 			}
 		}
 
-		[PluginEvent(ServerEventType.PlayerRemoveHandcuffs)]
-		public void OnHandcuffsRemoved(Player disarmer, Player target)
+		[PluginEvent]
+		public void OnHandcuffsRemoved(PlayerRemoveHandcuffsEvent ev)
 		{
-			if (disarmer != null)
+			if (ev.Player != null)
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "targetipaddress",    target.IpAddress                           },
-					{ "targetname",         target.Nickname                            },
-					{ "targetplayerid",     target.PlayerId.ToString()                 },
-					{ "targetsteamid",      target.GetParsedUserID()                   },
-					{ "targetclass",        target.Role.ToString()                     },
-					{ "targetteam",         target.ReferenceHub.GetTeam().ToString()   },
-					{ "playeripaddress",    disarmer.IpAddress                         },
-					{ "playername",         disarmer.Nickname                          },
-					{ "playerplayerid",     disarmer.PlayerId.ToString()               },
-					{ "playersteamid",      disarmer.GetParsedUserID()                 },
-					{ "playerclass",        disarmer.Role.ToString()                   },
-					{ "playerteam",         disarmer.ReferenceHub.GetTeam().ToString() }
+					{ "targetipaddress",    ev.Target.IpAddress                           },
+					{ "targetname",         ev.Target.Nickname                            },
+					{ "targetplayerid",     ev.Target.PlayerId.ToString()                 },
+					{ "targetsteamid",      ev.Target.GetParsedUserID()                   },
+					{ "targetclass",        ev.Target.Role.ToString()                     },
+					{ "targetteam",         ev.Target.ReferenceHub.GetTeam().ToString()   },
+					{ "playeripaddress",    ev.Player.IpAddress                         },
+					{ "playername",         ev.Player.Nickname                          },
+					{ "playerplayerid",     ev.Player.PlayerId.ToString()               },
+					{ "playersteamid",      ev.Player.GetParsedUserID()                 },
+					{ "playerclass",        ev.Player.Role.ToString()                   },
+					{ "playerteam",         ev.Player.ReferenceHub.GetTeam().ToString() }
 				};
 				plugin.SendMessage("messages.onhandcuffremoved.default", variables);
 			}
@@ -555,29 +557,29 @@ namespace SCPDiscord.EventListeners
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "targetipaddress",    target.IpAddress                           },
-					{ "targetname",         target.Nickname                            },
-					{ "targetplayerid",     target.PlayerId.ToString()                 },
-					{ "targetsteamid",      target.GetParsedUserID()                   },
-					{ "targetclass",        target.Role.ToString()                     },
-					{ "targetteam",         target.ReferenceHub.GetTeam().ToString()   },
+					{ "targetipaddress",    ev.Target.IpAddress                           },
+					{ "targetname",         ev.Target.Nickname                            },
+					{ "targetplayerid",     ev.Target.PlayerId.ToString()                 },
+					{ "targetsteamid",      ev.Target.GetParsedUserID()                   },
+					{ "targetclass",        ev.Target.Role.ToString()                     },
+					{ "targetteam",         ev.Target.ReferenceHub.GetTeam().ToString()   },
 				};
 				plugin.SendMessage("messages.onhandcuffremoved.nootherplayer", variables);
 			}
 		}
 
-		[PluginEvent(ServerEventType.PlayerChangeRadioRange)]
-		public void OnPlayerRadioSwitch(Player player, RadioItem radio, byte range)
+		[PluginEvent]
+		public void OnPlayerChangeRadioRange(PlayerChangeRadioRangeEvent ev)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "setting",        radio.RangeLevel.ToString()              },
-				{ "ipaddress",      player.IpAddress                         },
-				{ "name",           player.Nickname                          },
-				{ "playerid",       player.PlayerId.ToString()               },
-				{ "steamid",        player.GetParsedUserID()                 },
-				{ "class",          player.Role.ToString()                   },
-				{ "team",           player.ReferenceHub.GetTeam().ToString() }
+				{ "setting",        ev.Range.ToString()                         },
+				{ "ipaddress",      ev.Player.IpAddress                         },
+				{ "name",           ev.Player.Nickname                          },
+				{ "playerid",       ev.Player.PlayerId.ToString()               },
+				{ "steamid",        ev.Player.GetParsedUserID()                 },
+				{ "class",          ev.Player.Role.ToString()                   },
+				{ "team",           ev.Player.ReferenceHub.GetTeam().ToString() }
 			};
 			plugin.SendMessage("messages.onplayerradioswitch", variables);
 		}

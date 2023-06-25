@@ -163,7 +163,8 @@ namespace SCPDiscord
 
 			if (Player.TryGet(command.SteamID.EndsWith("@steam") ? command.SteamID : command.SteamID + "@steam", out Player player))
 			{
-				if (!EventManager.ExecuteEvent(ServerEventType.PlayerBanned, player.ReferenceHub, ServerConsole.Scs, command.Reason, durationSeconds))
+				PlayerBannedEvent eventArgs = new PlayerBannedEvent(player.ReferenceHub, Server.Instance.ReferenceHub, command.Reason, durationSeconds);
+				if (!EventManager.ExecuteEvent<bool>(eventArgs))
 				{
 					return;
 				}
