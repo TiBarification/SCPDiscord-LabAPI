@@ -16,7 +16,6 @@ namespace SCPDiscord
 		{
 			public string token = "";
 			public ulong serverId = 0;
-			public string prefix = "";
 			public string logLevel = "Information";
 			public string presenceType = "Watching";
 			public string presenceText = "for server startup...";
@@ -71,7 +70,6 @@ namespace SCPDiscord
 			Logger.Debug("#### Config settings ####", LogID.CONFIG);
 			// Token skipped
 			Logger.Debug("bot.server-id: " + config.bot.serverId, LogID.CONFIG);
-			Logger.Debug("bot.prefix: " + config.bot.prefix, LogID.CONFIG);
 			Logger.Debug("bot.log-level: " + config.bot.logLevel, LogID.CONFIG);
 			Logger.Debug("bot.presence-type: " + config.bot.presenceType, LogID.CONFIG);
 			Logger.Debug("bot.presence-text: " + config.bot.presenceText, LogID.CONFIG);

@@ -5,9 +5,6 @@
     # Your Discord server's ID.
     server-id: 000000000000000000
 
-    # Prefix for discord commands.
-    prefix: "+"
-
     # Decides what messages are shown in console
     # Possible values are: Critical, Error, Warning, Information, Debug.
     log-level: "Information"
