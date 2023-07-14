@@ -112,25 +112,25 @@ namespace SCPDiscord.EventListeners
 		}
 
 		[PluginEvent(ServerEventType.PlayerDamage)]
-		public void OnPlayerHurt(Player target, Player attacker, DamageHandlerBase damageHandler)
+		public void OnPlayerHurt(PlayerDamageEvent ev)
 		{
-			if (target == null || target.Role == RoleTypeId.None || !(damageHandler is StandardDamageHandler stdHandler))
+			if (ev.Target == null || ev.Target.Role == RoleTypeId.None || !(ev.DamageHandler is StandardDamageHandler stdHandler))
 			{
 				return;
 			}
 
-			if (attacker == null || target.PlayerId == attacker.PlayerId)
+			if (ev.Player == null || ev.Target.PlayerId == ev.Player.PlayerId)
 			{
 				Dictionary<string, string> noAttackerVar = new Dictionary<string, string>
 				{
-					{ "damage",             stdHandler.Damage.ToString("0.##")             },
-					{ "damagetype",         GetDamageType(damageHandler)             },
-					{ "playeripaddress",    target.IpAddress                         },
-					{ "playername",         target.Nickname                          },
-					{ "playerplayerid",     target.PlayerId.ToString()               },
-					{ "playersteamid",      target.GetParsedUserID()                 },
-					{ "playerclass",        target.Role.ToString()                   },
-					{ "playerteam",         target.ReferenceHub.GetTeam().ToString() }
+					{ "damage",             stdHandler.Damage.ToString("0.##")          },
+					{ "damagetype",         GetDamageType(ev.DamageHandler)             },
+					{ "playeripaddress",    ev.Target.IpAddress                         },
+					{ "playername",         ev.Target.Nickname                          },
+					{ "playerplayerid",     ev.Target.PlayerId.ToString()               },
+					{ "playersteamid",      ev.Target.GetParsedUserID()                 },
+					{ "playerclass",        ev.Target.Role.ToString()                   },
+					{ "playerteam",         ev.Target.ReferenceHub.GetTeam().ToString() }
 				};
 				plugin.SendMessage("messages.onplayerhurt.noattacker", noAttackerVar);
 				return;
@@ -138,23 +138,23 @@ namespace SCPDiscord.EventListeners
 
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "damage",             stdHandler.Damage.ToString("0.##")               },
-				{ "damagetype",         GetDamageType(damageHandler)               },
-				{ "attackeripaddress",  attacker.IpAddress                         },
-				{ "attackername",       attacker.Nickname                          },
-				{ "attackerplayerid",   attacker.PlayerId.ToString()               },
-				{ "attackersteamid",    attacker.GetParsedUserID()                 },
-				{ "attackerclass",      attacker.Role.ToString()                   },
-				{ "attackerteam",       attacker.ReferenceHub.GetTeam().ToString() },
-				{ "playeripaddress",    target.IpAddress                           },
-				{ "playername",         target.Nickname                            },
-				{ "playerplayerid",     target.PlayerId.ToString()                 },
-				{ "playersteamid",      target.GetParsedUserID()                   },
-				{ "playerclass",        target.Role.ToString()                     },
-				{ "playerteam",         target.ReferenceHub.GetTeam().ToString()   }
+				{ "damage",             stdHandler.Damage.ToString("0.##")          },
+				{ "damagetype",         GetDamageType(ev.DamageHandler)             },
+				{ "attackeripaddress",  ev.Player.IpAddress                         },
+				{ "attackername",       ev.Player.Nickname                          },
+				{ "attackerplayerid",   ev.Player.PlayerId.ToString()               },
+				{ "attackersteamid",    ev.Player.GetParsedUserID()                 },
+				{ "attackerclass",      ev.Player.Role.ToString()                   },
+				{ "attackerteam",       ev.Player.ReferenceHub.GetTeam().ToString() },
+				{ "playeripaddress",    ev.Target.IpAddress                         },
+				{ "playername",         ev.Target.Nickname                          },
+				{ "playerplayerid",     ev.Target.PlayerId.ToString()               },
+				{ "playersteamid",      ev.Target.GetParsedUserID()                 },
+				{ "playerclass",        ev.Target.Role.ToString()                   },
+				{ "playerteam",         ev.Target.ReferenceHub.GetTeam().ToString() }
 			};
 
-			if (IsTeamDamage(attacker.ReferenceHub.GetTeam(), target.ReferenceHub.GetTeam()))
+			if (IsTeamDamage(ev.Player.ReferenceHub.GetTeam(), ev.Target.ReferenceHub.GetTeam()))
 			{
 				plugin.SendMessage("messages.onplayerhurt.friendlyfire", variables);
 				return;
@@ -164,24 +164,24 @@ namespace SCPDiscord.EventListeners
 		}
 
 		[PluginEvent(ServerEventType.PlayerDying)]
-		public void OnPlayerDie(Player target, Player attacker, DamageHandlerBase damageHandler)
+		public void OnPlayerDie(PlayerDyingEvent ev)
 		{
-			if (target == null || target.Role == RoleTypeId.None || !(damageHandler is StandardDamageHandler stdHandler))
+			if (ev.Player == null || ev.Player.Role == RoleTypeId.None || !(ev.DamageHandler is StandardDamageHandler stdHandler))
 			{
 				return;
 			}
 
-			if (attacker == null || target.PlayerId == attacker.PlayerId)
+			if (ev.Attacker == null || ev.Player.PlayerId == ev.Attacker.PlayerId)
 			{
 				Dictionary<string, string> noKillerVar = new Dictionary<string, string>
 				{
-					{ "damagetype",         GetDamageType(damageHandler)         },
-					{ "playeripaddress",    target.IpAddress                 },
-					{ "playername",         target.Nickname                      },
-					{ "playerplayerid",     target.PlayerId.ToString()       },
-					{ "playersteamid",      target.GetParsedUserID()         },
-					{ "playerclass",        target.Role.ToString()  },
-					{ "playerteam",         target.ReferenceHub.GetTeam().ToString()  }
+					{ "damagetype",         GetDamageType(ev.DamageHandler)             },
+					{ "playeripaddress",    ev.Player.IpAddress                         },
+					{ "playername",         ev.Player.Nickname                          },
+					{ "playerplayerid",     ev.Player.PlayerId.ToString()               },
+					{ "playersteamid",      ev.Player.GetParsedUserID()                 },
+					{ "playerclass",        ev.Player.Role.ToString()                   },
+					{ "playerteam",         ev.Player.ReferenceHub.GetTeam().ToString() }
 				};
 				plugin.SendMessage("messages.onplayerdie.nokiller", noKillerVar);
 				return;
@@ -189,22 +189,22 @@ namespace SCPDiscord.EventListeners
 
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "damagetype",         GetDamageType(damageHandler)         },
-				{ "attackeripaddress",  attacker.IpAddress                 },
-				{ "attackername",       attacker.Nickname                      },
-				{ "attackerplayerid",   attacker.PlayerId.ToString()       },
-				{ "attackersteamid",    attacker.GetParsedUserID()         },
-				{ "attackerclass",      attacker.Role.ToString()  },
-				{ "attackerteam",       attacker.ReferenceHub.GetTeam().ToString()  },
-				{ "playeripaddress",    target.IpAddress                 },
-				{ "playername",         target.Nickname                      },
-				{ "playerplayerid",     target.PlayerId.ToString()       },
-				{ "playersteamid",      target.GetParsedUserID()         },
-				{ "playerclass",        target.Role.ToString()  },
-				{ "playerteam",         target.ReferenceHub.GetTeam().ToString()  }
+				{ "damagetype",         GetDamageType(ev.DamageHandler)               },
+				{ "attackeripaddress",  ev.Attacker.IpAddress                         },
+				{ "attackername",       ev.Attacker.Nickname                          },
+				{ "attackerplayerid",   ev.Attacker.PlayerId.ToString()               },
+				{ "attackersteamid",    ev.Attacker.GetParsedUserID()                 },
+				{ "attackerclass",      ev.Attacker.Role.ToString()                   },
+				{ "attackerteam",       ev.Attacker.ReferenceHub.GetTeam().ToString() },
+				{ "playeripaddress",    ev.Player.IpAddress                           },
+				{ "playername",         ev.Player.Nickname                            },
+				{ "playerplayerid",     ev.Player.PlayerId.ToString()                 },
+				{ "playersteamid",      ev.Player.GetParsedUserID()                   },
+				{ "playerclass",        ev.Player.Role.ToString()                     },
+				{ "playerteam",         ev.Player.ReferenceHub.GetTeam().ToString()   }
 			};
 
-			if (IsTeamDamage(attacker.ReferenceHub.GetTeam(), target.ReferenceHub.GetTeam()))
+			if (IsTeamDamage(ev.Attacker.ReferenceHub.GetTeam(), ev.Player.ReferenceHub.GetTeam()))
 			{
 				plugin.SendMessage("messages.onplayerdie.friendlyfire", variables);
 				return;
