@@ -61,7 +61,6 @@ namespace SCPDiscord
 
 				client.UseInteractivity(new InteractivityConfiguration
 				{
-					AckPaginationButtons = true,
 					PaginationBehaviour = PaginationBehaviour.Ignore,
 					PaginationDeletion = PaginationDeletion.DeleteMessage,
 					Timeout = TimeSpan.FromMinutes(15)
@@ -84,7 +83,7 @@ namespace SCPDiscord
 				instance.commands.RegisterCommands<Commands.UnsyncPlayerCommand>();
 
 				Logger.Log("Hooking events...", LogID.DISCORD);
-				client.Ready += instance.OnReady;
+				client.SessionCreated += instance.OnReady;
 				client.GuildAvailable += instance.OnGuildAvailable;
 				client.ClientErrored += instance.OnClientError;
 				client.SocketErrored += instance.OnSocketError;
@@ -296,11 +295,12 @@ namespace SCPDiscord
 			}
 		}
 
-		public async Task OnReady(DiscordClient discordClient, ReadyEventArgs e)
+		public Task OnReady(DiscordClient discordClient, SessionReadyEventArgs e)
 		{
 			instance.connected = true;
 			Logger.Log("Connected to Discord.", LogID.DISCORD);
 			SetDisconnectedActivity();
+			return Task.CompletedTask;
 		}
 
 		public Task OnSocketError(DiscordClient discordClient, SocketErrorEventArgs e)

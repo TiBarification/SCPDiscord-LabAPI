@@ -11,13 +11,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DSharpPlus" Version="4.4.2" />
-    <PackageReference Include="DSharpPlus.Interactivity" Version="4.4.2" />
-    <PackageReference Include="DSharpPlus.Rest" Version="4.4.2" />
-    <PackageReference Include="DSharpPlus.SlashCommands" Version="4.4.2" />
+    <PackageReference Include="DSharpPlus" Version="5.0.0-nightly-01694" />
+    <PackageReference Include="DSharpPlus.Interactivity" Version="5.0.0-nightly-01694" />
+    <PackageReference Include="DSharpPlus.Rest" Version="5.0.0-nightly-01694" />
+    <PackageReference Include="DSharpPlus.SlashCommands" Version="5.0.0-nightly-01694" />
     <PackageReference Include="Google.Protobuf" Version="3.22.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="YamlDotNet" Version="13.1.1" />
+    <PackageReference Include="YamlDotNet" Version="13.2.0" />
   </ItemGroup>
 
   <ItemGroup>
