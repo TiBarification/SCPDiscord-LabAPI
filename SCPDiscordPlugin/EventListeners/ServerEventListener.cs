@@ -23,7 +23,8 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent]
 		public void OnPlayerBanned(PlayerBannedEvent ev)
 		{
-			Player player = (Player)ev.Player;
+			if (!(ev.Player is Player player)) return;
+
 			if (ev.Issuer != null)
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
@@ -81,6 +82,8 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent(ServerEventType.PlayerKicked)]
 		public void OnPlayerKicked(Player player, ICommandSender commandSender, string reason)
 		{
+			if (player == null) return;
+
 			if (commandSender is PlayerCommandSender playerSender && Player.Get(playerSender.ReferenceHub) != null)
 			{
 				Player issuer = Player.Get(playerSender.ReferenceHub);
@@ -210,6 +213,8 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent]
 		public void OnPlayerMuted(PlayerMutedEvent ev)
 		{
+			if (ev.Player == null) return;
+
 			if (ev.Issuer != null)
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
@@ -263,6 +268,8 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent]
 		public void OnPlayerUnmuted(PlayerUnmutedEvent ev)
 		{
+			if (ev.Player == null) return;
+
 			if (ev.Issuer != null)
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
