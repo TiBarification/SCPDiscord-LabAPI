@@ -30,7 +30,7 @@ namespace SCPDiscord
 
 		public bool shutdown;
 
-		public const string VERSION = "3.1.2";
+		public const string VERSION = "3.1.3";
 
 		[PluginEntryPoint("SCPDiscord", VERSION, "SCP:SL - Discord bridge.", "Karl Essinger")]
 		public void Start()
