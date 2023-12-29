@@ -328,7 +328,7 @@ namespace SCPDiscord.EventListeners
 				Player player = Player.Get(playerSender.ReferenceHub);
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "command",       command + " " + string.Join(" ", args)   },
+					{ "command",       (command + " " + string.Join(" ", args)).Trim()   },
 					{ "result",        result.ToString()                        },
 					{ "returnmessage", response                                 },
 					{ "ipaddress",     player.IpAddress                         },
@@ -344,7 +344,7 @@ namespace SCPDiscord.EventListeners
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "command",       command + " " + string.Join(" ", args)   },
+					{ "command",       (command + " " + string.Join(" ", args)).Trim()   },
 					{ "result",        result.ToString()                        },
 					{ "returnmessage", response                                 }
 				};
@@ -359,7 +359,7 @@ namespace SCPDiscord.EventListeners
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "command",       command + " " + string.Join(" ", args)   },
+					{ "command",       (command + " " + string.Join(" ", args)).Trim()   },
 					//{ "result",        result.ToString()                        },
 					{ "returnmessage", response                                 },
 					{ "ipaddress",     player.IpAddress                         },
@@ -375,7 +375,7 @@ namespace SCPDiscord.EventListeners
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "command",       command + " " + string.Join(" ", args) },
+					{ "command",       (command + " " + string.Join(" ", args)).Trim() },
 					//{ "result",        result.ToString()                      },
 					{ "returnmessage", response                               }
 				};
@@ -391,7 +391,7 @@ namespace SCPDiscord.EventListeners
 				Player player = Player.Get(playerSender.ReferenceHub);
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "command",       command + " " + string.Join(" ", args)   },
+					{ "command",       (command + " " + string.Join(" ", args)).Trim()   },
 					{ "result",        result.ToString()                        },
 					{ "ipaddress",     player.IpAddress                         },
 					{ "name",          player.Nickname                          },
@@ -408,7 +408,7 @@ namespace SCPDiscord.EventListeners
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "command",       command + " " + string.Join(" ", args)   },
+					{ "command",       (command + " " + string.Join(" ", args)).Trim()   },
 					{ "result",        result.ToString()                        },
 					{ "returnmessage", response                                 }
 				};
@@ -424,7 +424,7 @@ namespace SCPDiscord.EventListeners
 				Player player = Player.Get(playerSender.ReferenceHub);
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "command",   command + " " + string.Join(" ", args)   },
+					{ "command",   (command + " " + string.Join(" ", args)).Trim()   },
 					{ "ipaddress", player.IpAddress                         },
 					{ "name",      player.Nickname                          },
 					{ "playerid",  player.PlayerId.ToString()               },
@@ -438,7 +438,7 @@ namespace SCPDiscord.EventListeners
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "command",   command + " " + string.Join(" ", args)   }
+					{ "command",   (command + " " + string.Join(" ", args)).Trim()   }
 				};
 				plugin.SendMessage("messages.oncallcommand.remoteadmin.server", variables);
 			}
@@ -451,7 +451,7 @@ namespace SCPDiscord.EventListeners
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "command",   command + " " + string.Join(" ", args)   },
+					{ "command",   (command + " " + string.Join(" ", args)).Trim()   },
 					{ "ipaddress", player.IpAddress                         },
 					{ "name",      player.Nickname                          },
 					{ "playerid",  player.PlayerId.ToString()               },
@@ -465,7 +465,7 @@ namespace SCPDiscord.EventListeners
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "command",   command + " " + string.Join(" ", args)   }
+					{ "command",   (command + " " + string.Join(" ", args)).Trim()   }
 				};
 				plugin.SendMessage("messages.oncallcommand.game.server", variables);
 			}
@@ -479,7 +479,7 @@ namespace SCPDiscord.EventListeners
 				Player player = Player.Get(playerSender.ReferenceHub);
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "command",   command + " " + string.Join(" ", args)   },
+					{ "command",   (command + " " + string.Join(" ", args)).Trim()   },
 					{ "ipaddress", player.IpAddress                         },
 					{ "name",      player.Nickname                          },
 					{ "playerid",  player.PlayerId.ToString()               },
@@ -493,7 +493,7 @@ namespace SCPDiscord.EventListeners
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "command", command + " " + string.Join(" ", args)   }
+					{ "command", (command + " " + string.Join(" ", args)).Trim()   }
 				};
 				plugin.SendMessage("messages.oncallcommand.console.server", variables);
 			}

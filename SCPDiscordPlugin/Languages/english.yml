@@ -785,13 +785,13 @@ messages:
         # steamid
         # class
         # team
-        message: "<var:name> (<var:steamid>) used the command '<var:command>'. Result: '<var:returnmessage>'"
+        message: "<var:name> (<var:steamid>) used the command `<var:command>`:\n```<var:returnmessage>```"
         regex: [ ]
       server:
         # command
         # result
         # returnmessage
-        message: "Server used the command '<var:command>'. Result: '<var:returnmessage>'"
+        message: "Server used the command `<var:command>`:\n```<var:returnmessage>```"
         regex: [ ]
     game:
       player:
@@ -804,13 +804,13 @@ messages:
         # steamid
         # class
         # team
-        message: "<var:name> (<var:steamid>) used the command '<var:command>'. Result: '<var:returnmessage>'"
+        message: "<var:name> (<var:steamid>) used the command `<var:command>`:\n```<var:returnmessage>```"
         regex: [ ]
       server:
         # command
         # result
         # returnmessage
-        message: "Server used the command '<var:command>'. Result: '<var:returnmessage>'"
+        message: "Server used the command `<var:command>`:\n```<var:returnmessage>```"
         regex: [ ]
     console:
       player:
@@ -823,13 +823,13 @@ messages:
         # steamid
         # class
         # team
-        message: "<var:name> (<var:steamid>) used the command '<var:command>'. Result: '<var:returnmessage>'"
+        message: "<var:name> (<var:steamid>) used the command `<var:command>`:\n```<var:returnmessage>```"
         regex: [ ]
       server:
         # command
         # result
         # returnmessage
-        message: "Server used the command '<var:command>'. Result: '<var:returnmessage>'"
+        message: "Server used the command `<var:command>`:\n```<var:returnmessage>```"
         regex: [ ]
 
   onreload:
