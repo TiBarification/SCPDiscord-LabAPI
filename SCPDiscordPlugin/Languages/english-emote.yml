@@ -49,6 +49,11 @@ global_regex: [
   "ChaosRepressor":"Chaos Repressor",
   "ChaosMarauder":"Chaos Marauder",
   #"Overwatch":"",
+  #"Filmmaker":"",
+  "Scp3114":"SCP-3114",
+  #"Flamingo":"",
+  "AlphaFlamingo":"Alpha Flamingo",
+  "ZombieFlamingo":"Zombie Flamingo",
 
   # Elevators
   "GateA":"gate A",
@@ -152,10 +157,16 @@ global_regex: [
   "ParticleDisruptor":"particle disruptor",
   "GunCom45":"COM-45",
   "SCP1576":"SCP-1576",
-  "Coal":"coal",
-  "Scp2536_2":"SCP-2536-2",
   "Jailbird":"jailbird",
-
+  "AntiSCP207":"SCP-207?",
+  "GunFRMG0":"FR-MG-0",
+  "GunA7":"A7",
+  "Lantern":"lantern",
+  "Snowball":"snowball",
+  "Coal":"coal",
+  "SpecialCoal":"coal?",
+  "Tape":"tape",
+  
   # 914 settings
   "Rough":"rough",
   "Coarse":"coarse",
