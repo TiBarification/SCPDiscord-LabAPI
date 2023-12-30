@@ -25,13 +25,13 @@ namespace SCPDiscord.Commands
 			}
 			*/
 
-			if (arguments.Count != 1)
+			if (arguments.Count < 2)
 			{
 				response = "Invalid arguments.";
 				return false;
 			}
 
-			string steamIDOrPlayerID = arguments.At(2).Replace("@steam", ""); // Remove steam suffix if there is one
+			string steamIDOrPlayerID = arguments.At(0).Replace("@steam", ""); // Remove steam suffix if there is one
 
 			List<Player> matchingPlayers = new List<Player>();
 			try
@@ -56,7 +56,7 @@ namespace SCPDiscord.Commands
 
 			if (!matchingPlayers.Any())
 			{
-				response = "Player \"" + arguments.At(2) + "\"not found.";
+				response = "Player \"" + arguments.At(0) + "\"not found.";
 				return false;
 			}
 

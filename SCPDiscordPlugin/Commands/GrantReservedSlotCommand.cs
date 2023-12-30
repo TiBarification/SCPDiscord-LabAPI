@@ -26,13 +26,13 @@ namespace SCPDiscord.Commands
 			}
 			*/
 
-			if (arguments.Count != 1)
+			if (arguments.Count < 1)
 			{
 				response = "Invalid arguments.";
 				return false;
 			}
 
-			string steamID = arguments.At(2).Trim();
+			string steamID = arguments.At(0).Trim();
 			if (!steamID.EndsWith("@steam") && long.TryParse(steamID, out _))
 			{
 				steamID += "@steam";

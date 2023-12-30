@@ -25,14 +25,14 @@ namespace SCPDiscord.Commands
 			}
 			*/
 
-			if (arguments.Count != 1 || arguments.At(2).Length < 10)
+			if (arguments.Count < 1 || arguments.At(0).Length < 10)
 			{
 				response = "Invalid arguments.";
 				return false;
 			}
 
 			bool found = false;
-			string steamID = arguments.At(2);
+			string steamID = arguments.At(0);
 			List<string> reservedSlotsFileRows = File.ReadAllLines(Config.GetReservedSlotPath()).ToList();
 			for (int i = 0; i < reservedSlotsFileRows.Count; ++i)
 			{

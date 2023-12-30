@@ -33,7 +33,7 @@ namespace SCPDiscord.Commands
 
         protected override bool ExecuteParent(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
-            response = "Usage: " + arguments.Array?[0] + " [COMMAND]";
+            response = "Usage: " + arguments.At(0) + " [COMMAND]";
             foreach (SCPDiscordCommand command in AllCommands.OfType<SCPDiscordCommand>())
             {
                 string line = "\n" + command.Command;
@@ -47,7 +47,6 @@ namespace SCPDiscord.Commands
                     line += " " + string.Join(" ", command.ArgumentList);
                 }
 
-                //line += "";
                 response += line.PadRight(50, '.') + command.Description;
             }
             return false;

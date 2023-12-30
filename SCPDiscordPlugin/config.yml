@@ -1,4 +1,4 @@
-
+﻿
 ############# SCPDiscord configuration file #############
 
 
@@ -59,15 +59,15 @@ settings:
 # Turn on debug above to see console feedback when the commands are used
 rolesync:
     - "add-role-id-here":
-        - "scpd_grantvanillarank <var:userid> moderator"
-        - "scpd_grantreservedslot <var:userid> <var:discordusernamewithdiscriminator> (<var:discordid>)"
+        - "scpd grantvanillarank <var:userid> moderator"
+        - "scpd grantreservedslot <var:userid> <var:discordusernamewithdiscriminator> (<var:discordid>)"
         - "/pbc <var:playerid> 3 Moderator role synced from Discord."
     - "add-another-role-id-here":
-        - "scpd_grantvanillarank <var:userid> donator"
-        - "scpd_grantreservedslot <var:userid> <var:discordusernamewithdiscriminator> (<var:discordid>)"
+        - "scpd grantvanillarank <var:userid> donator"
+        - "scpd grantreservedslot <var:userid> <var:discordusernamewithdiscriminator> (<var:discordid>)"
         - "/pbc <var:playerid> 3 Donator role synced from Discord."
     - "add-everyone-role-id-here":
-        - "scpd_removereservedslot <var:userid>"
+        - "scpd removereservedslot <var:userid>"
 
 # Name your channels here, this name is used in the channels section below. The left value is a name of your choice and the right is a channel id you want it to represent.
 channels:

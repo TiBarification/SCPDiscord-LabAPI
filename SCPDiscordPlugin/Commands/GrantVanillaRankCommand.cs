@@ -29,7 +29,7 @@ namespace SCPDiscord.Commands
 				return false;
 			}
 
-			string steamIDOrPlayerID = arguments.At(2).Replace("@steam", ""); // Remove steam suffix if there is one
+			string steamIDOrPlayerID = arguments.At(0).Replace("@steam", ""); // Remove steam suffix if there is one
 
 			List<Player> matchingPlayers = new List<Player>();
 			try
@@ -54,7 +54,7 @@ namespace SCPDiscord.Commands
 
 			if (!matchingPlayers.Any())
 			{
-				response = "Player \"" + arguments.At(2) + "\"not found.";
+				response = "Player \"" + arguments.At(0) + "\"not found.";
 				return false;
 			}
 
@@ -62,12 +62,12 @@ namespace SCPDiscord.Commands
 			{
 				foreach (Player matchingPlayer in matchingPlayers)
 				{
-					matchingPlayer.SetRank(null, null, arguments.At(3));
+					matchingPlayer.SetRank(null, null, arguments.At(1));
 				}
 			}
 			catch (Exception)
 			{
-				response = "Vanilla rank \"" + arguments.At(3) + "\" not found. Are you sure you are using the RA config role name and not the role title/badge?";
+				response = "Vanilla rank \"" + arguments.At(1) + "\" not found. Are you sure you are using the RA config role name and not the role title/badge?";
 				return false;
 			}
 
