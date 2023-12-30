@@ -1,4 +1,4 @@
-﻿
+
 ############# SCPDiscord configuration file #############
 
 
@@ -145,6 +145,8 @@ messages:
         console:
             player: [ "staff" ]
             server: [ "staff" ]
+    onplayercheaterreport: [ "staff" ]
+    onplayerreport: [ "staff" ]
 
     # Environment events
     onscp914activate: []

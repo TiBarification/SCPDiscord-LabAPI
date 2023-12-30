@@ -506,15 +506,15 @@ namespace SCPDiscord.EventListeners
 			plugin.roundStarted = true;
 		}
 
-		[PluginEvent(ServerEventType.PlayerPreauth)]
-		public void OnConnect(string userID, string ipAddress, long expiration, CentralAuthPreauthFlags flags, string region, byte[] signature, ConnectionRequest connectionRequest, int readerStartPosition)
+		[PluginEvent]
+		public void OnConnect(PlayerPreauthEvent ev)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "ipaddress", ipAddress       },
-				{ "steamid", userID.Replace("@steam", "") },
-				{ "jointype", flags.ToString() },
-				{ "region", region             }
+				{ "ipaddress", ev.IpAddress                    },
+				{ "steamid",   ev.UserId.Replace("@steam", "") },
+				{ "jointype",  ev.CentralFlags.ToString()      },
+				{ "region",    ev.Region                       }
 			};
 			plugin.SendMessage("messages.onconnect", variables);
 		}
@@ -578,5 +578,49 @@ namespace SCPDiscord.EventListeners
 			this.plugin.SendMessage(Config.GetArray("messages.onsetservername"), "messages.onsetservername", variables);
 		}
 		*/
+
+		[PluginEvent]
+		public void OnPlayerCheaterReport(PlayerCheaterReportEvent ev)
+		{
+			Dictionary<string, string> variables = new Dictionary<string, string>
+			{
+				{ "playeripaddress", ev.Player.IpAddress                         },
+				{ "playername",      ev.Player.Nickname                          },
+				{ "playerplayerid",  ev.Player.PlayerId.ToString()               },
+				{ "playersteamid",   ev.Player.GetParsedUserID()                 },
+				{ "playerclass",     ev.Player.Role.ToString()                   },
+				{ "playerteam",      ev.Player.ReferenceHub.GetTeam().ToString() },
+				{ "targetipaddress", ev.Target.IpAddress                         },
+				{ "targetname",      ev.Target.Nickname                          },
+				{ "targetplayerid",  ev.Target.PlayerId.ToString()               },
+				{ "targetsteamid",   ev.Target.GetParsedUserID()                 },
+				{ "targetclass",     ev.Target.Role.ToString()                   },
+				{ "targetteam",      ev.Target.ReferenceHub.GetTeam().ToString() },
+				{ "reason",          ev.Reason                                   }
+			};
+			plugin.SendMessage("messages.onplayercheaterreport", variables);
+		}
+
+		[PluginEvent]
+		public void OnPlayerReport(PlayerReportEvent ev)
+		{
+			Dictionary<string, string> variables = new Dictionary<string, string>
+			{
+				{ "playeripaddress", ev.Player.IpAddress                         },
+				{ "playername",      ev.Player.Nickname                          },
+				{ "playerplayerid",  ev.Player.PlayerId.ToString()               },
+				{ "playersteamid",   ev.Player.GetParsedUserID()                 },
+				{ "playerclass",     ev.Player.Role.ToString()                   },
+				{ "playerteam",      ev.Player.ReferenceHub.GetTeam().ToString() },
+				{ "targetipaddress", ev.Target.IpAddress                         },
+				{ "targetname",      ev.Target.Nickname                          },
+				{ "targetplayerid",  ev.Target.PlayerId.ToString()               },
+				{ "targetsteamid",   ev.Target.GetParsedUserID()                 },
+				{ "targetclass",     ev.Target.Role.ToString()                   },
+				{ "targetteam",      ev.Target.ReferenceHub.GetTeam().ToString() },
+				{ "reason",          ev.Reason                                   }
+			};
+			plugin.SendMessage("messages.onplayerreport", variables);
+		}
 	}
 }

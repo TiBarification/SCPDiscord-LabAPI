@@ -1330,6 +1330,40 @@ messages:
     message: "<var:name> (<var:steamid>) has escaped and become a <var:newclass>"
     regex: []
 
+  onplayercheaterreport:
+    # playeripaddress - string
+    # playername - string
+    # playerplayerid - int
+    # playersteamid - string
+    # playerclass - Role
+    # playerteam - Team
+    # targetipaddress - string
+    # targetname - string
+    # targetplayerid - int
+    # targetsteamid - string
+    # targetclass - Role
+    # issuerteam - Team
+    # reason - string
+    message: "**<var:playername> (<var:playersteamid>) reported <var:targetname> (<var:targetsteamid>) as a cheater:**\n```<var:reason>```"
+    regex: []
+
+  onplayerreport:
+    # playeripaddress - string
+    # playername - string
+    # playerplayerid - int
+    # playersteamid - string
+    # playerclass - Role
+    # playerteam - Team
+    # targetipaddress - string
+    # targetname - string
+    # targetplayerid - int
+    # targetsteamid - string
+    # targetclass - Role
+    # targetteam - Team
+    # reason - string
+    message: "**<var:playername> (<var:playersteamid>) reported <var:targetname> (<var:targetsteamid>) for breaking server rules:**\n```<var:reason>```"
+    regex: []
+
   #####################################################################################################################
   #                                                                                                                   #
   #                                                   DISCORD BOT                                                     #

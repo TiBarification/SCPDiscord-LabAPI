@@ -336,3 +336,4 @@ SCPDiscordBot/config\.yml
 SCPDiscordBot_Old/config.yml
 
 .scpsl_libs
+current_config.yml
