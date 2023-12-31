@@ -1,6 +1,6 @@
 pipeline {
     agent any
-        
+
     stages {
         stage('Dependencies') {
             steps {
@@ -26,16 +26,11 @@ pipeline {
                 }
             }
         }
-        stage('Setup Output Dir') {
-            steps {
-                sh 'mkdir dependencies'
-                sh 'mkdir bot'
-            }
-        }
         stage('Package') {
             parallel {
                 stage('Plugin') {
                     steps {
+                        sh 'mkdir dependencies'
                         sh 'mv SCPDiscordPlugin/bin/SCPDiscord.dll ./'
                         sh 'mv SCPDiscordPlugin/bin/System.Memory.dll dependencies'
                         sh 'mv SCPDiscordPlugin/bin/Google.Protobuf.dll dependencies'
