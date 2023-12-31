@@ -280,8 +280,7 @@ namespace SCPDiscord
 						DiscordID = userID,
 						SteamIDOrIP = steamID,
 						DiscordDisplayName = member.DisplayName,
-						DiscordUsername = member.Username,
-						DiscordUsernameWithDiscriminator = member.Username + '#' + member.Discriminator
+						DiscordUsername = member.Username
 					}
 				};
 				message.UserInfo.RoleIDs.AddRange(member.Roles.Select(role => role.Id));
