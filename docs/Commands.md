@@ -19,18 +19,21 @@
 
 ## Plugin console commands
 
-| Command                                                    | Description                                                                                 |
-|------------------------------------------------------------|---------------------------------------------------------------------------------------------|
-| `scpd_debug`                                               | Toggles debug console messages.                                                             |
-| `scpd_grantreservedslot/scpd_grs <steamid>`                | Gives a player a reserved slot on the server.                                               |
-| `scpd_grantvanillarank/scpd_gvr <steamid/playerid> <rank>` | Gives a player a vanilla rank for their current session.                                    |
-| `scpd_reconnect, scpd_rc`                                  | Reconnects to the bot.                                                                      |
-| `scpd_reload`                                              | Reloads the plugin, all configs and files and reconnects.                                   |
-| `scpd_removereservedslot/scpd_rrs <steamid>`               | Removes a reserved slot from a player.                                                      |
-| `scpd_setnickname <player id/steamid> <nickname>`          | Sets a player's nickname, useful for the rolesync system if you want to sync discord names. |
-| `scpd_unsync <discordid>`                                  | Manually remove a player from being synced to discord.                                      |
-| `scpd_validate`                                            | Creates a config and language validation report in the console.                             |
-| `scpd_verbose`                                             | Toggles verbose console messages.                                                           |
+Base command:
+`scpdiscord <subcommand>` or `scpd <subcommand>`
+
+| Subcommand                                                                             | Description                                                                                 |
+|----------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| `debug`                                                                                | Toggles debug console messages.                                                             |
+| `grantreservedslot <steamid>`<br/>`grs <steamid>`                                      | Gives a player a reserved slot on the server.                                               |
+| `grantvanillarank <steamid/playerid> <rank>`<br/>`gvr <steamid/playerid> <rank>`       | Gives a player a vanilla rank for their current session.                                    |
+| `reconnect`'<br/>`rc`                                                                  | Reconnects to the bot.                                                                      |
+| `reload`                                                                               | Reloads the plugin, all configs and files and reconnects.                                   |
+| `removereservedslot <steamid>`<br/>`rrs <steamid>`                                     | Removes a reserved slot from a player.                                                      |
+| `setnickname <player id/steamid> <nickname>`<br/>`nick <player id/steamid> <nickname>` | Sets a player's nickname, useful for the rolesync system if you want to sync discord names. |
+| `unsync <discordid>`                                                                   | Manually remove a player from being synced to discord.                                      |
+| `validate`                                                                             | Creates a config and language validation report in the console.                             |
+| `verbose`                                                                              | Toggles verbose console messages.                                                           |
 
 ## Time
 

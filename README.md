@@ -11,6 +11,8 @@ You can download the latest release [here](https://github.com/KarlOfDuty/SCPDisc
 
 - [Commands](docs/Commands.md)
 
+- [Building SCPDiscord](docs/Building.md)
+
 ## Main features
 
 ### Event logging
@@ -41,7 +43,7 @@ More information about bot commands are available [here](docs/Commands.md).
 ![helpcommand.png](docs%2Fimg%2Fhelpcommand.png)
 
 ### Languages and messages
-There are several languages to choose from and every single individual messsage can also be edited seperately from the language settings using the `overrides.yml` file. More info [here](docs/Languages.md).
+There are several languages to choose from and every single individual message can also be edited separately from the language settings using the `overrides.yml` file. More info [here](docs/Languages.md).
 
 ### Bot activity info
 Player count is displayed in the bot activity field. The bot's status changes from red when the scp server is off but the bot server is on, yellow when there are no players on a server and green when a server has players.

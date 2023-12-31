@@ -31,7 +31,7 @@ If you want to find out more about how the language files work you can read the 
 
 # Editing or adding a new language (usually for contributing to the plugin)
 
-**Make sure the file encoding is UTF-8, other encodings like UTF-8 BOM do not work. Also, make sure the line endings match your operating system.**
+**Make sure the file encoding is UTF-8, other encodings like UTF-8 BOM do not work.**
 
 In notepad++:
 
@@ -59,7 +59,7 @@ If you are interested in learning how regex works use this link to start learnin
 
 ### Order of operations
 
-As this config is basically just doing lots of replacements on the same message before sending it, the order of operation may matter to you.
+As this config is basically just doing lots of replacements on the same message before sending it, the order of operations may matter to you.
 
 The replacements are executed in the following order:
 
