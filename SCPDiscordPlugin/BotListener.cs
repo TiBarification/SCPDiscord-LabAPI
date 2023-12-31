@@ -83,7 +83,8 @@ namespace SCPDiscord
 							case MessageWrapper.MessageOneofCase.ChatMessage:
 							case MessageWrapper.MessageOneofCase.UserQuery:
 							case MessageWrapper.MessageOneofCase.PaginatedMessage:
-								plugin.Warn("Received packet meant for bot: " + Google.Protobuf.JsonFormatter.Default.Format(data));
+							case MessageWrapper.MessageOneofCase.EmbedMessage:
+								plugin.Error("Received packet meant for bot: " + Google.Protobuf.JsonFormatter.Default.Format(data));
 								break;
 
 							case MessageWrapper.MessageOneofCase.None:

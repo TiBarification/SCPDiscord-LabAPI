@@ -25,10 +25,11 @@ namespace SCPDiscord.Interface {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChpCb3RUb1BsdWdpbi9Vc2VySW5mby5wcm90bxIUU0NQRGlzY29yZC5JbnRl",
-            "cmZhY2UiogEKCFVzZXJJbmZvEhMKC3N0ZWFtSURPcklQGAEgASgJEhEKCWRp",
+            "cmZhY2UipgEKCFVzZXJJbmZvEhMKC3N0ZWFtSURPcklQGAEgASgJEhEKCWRp",
             "c2NvcmRJRBgCIAEoBBIPCgdyb2xlSURzGAMgAygEEhoKEmRpc2NvcmREaXNw",
-            "bGF5TmFtZRgEIAEoCRIXCg9kaXNjb3JkVXNlcm5hbWUYBSABKAkSKAogZGlz",
-            "Y29yZFVzZXJuYW1lV2l0aERpc2NyaW1pbmF0b3IYBiABKAliBnByb3RvMw=="));
+            "bGF5TmFtZRgEIAEoCRIXCg9kaXNjb3JkVXNlcm5hbWUYBSABKAkSLAogZGlz",
+            "Y29yZFVzZXJuYW1lV2l0aERpc2NyaW1pbmF0b3IYBiABKAlCAhgBYgZwcm90",
+            "bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -39,6 +40,7 @@ namespace SCPDiscord.Interface {
 
   }
   #region Messages
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class UserInfo : pb::IMessage<UserInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -150,6 +152,7 @@ namespace SCPDiscord.Interface {
     /// <summary>Field number for the "discordUsernameWithDiscriminator" field.</summary>
     public const int DiscordUsernameWithDiscriminatorFieldNumber = 6;
     private string discordUsernameWithDiscriminator_ = "";
+    [global::System.ObsoleteAttribute]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public string DiscordUsernameWithDiscriminator {

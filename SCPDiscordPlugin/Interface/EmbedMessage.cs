@@ -72,6 +72,7 @@ namespace SCPDiscord.Interface {
 
   }
   #region Messages
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class EmbedMessage : pb::IMessage<EmbedMessage>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -143,11 +144,13 @@ namespace SCPDiscord.Interface {
 
     /// <summary>Field number for the "title" field.</summary>
     public const int TitleFieldNumber = 2;
+    private readonly static string TitleDefaultValue = "";
+
     private string title_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public string Title {
-      get { return title_ ?? ""; }
+      get { return title_ ?? TitleDefaultValue; }
       set {
         title_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
@@ -179,11 +182,13 @@ namespace SCPDiscord.Interface {
 
     /// <summary>Field number for the "url" field.</summary>
     public const int UrlFieldNumber = 4;
+    private readonly static string UrlDefaultValue = "";
+
     private string url_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public string Url {
-      get { return url_ ?? ""; }
+      get { return url_ ?? UrlDefaultValue; }
       set {
         url_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
@@ -203,11 +208,13 @@ namespace SCPDiscord.Interface {
 
     /// <summary>Field number for the "timestamp" field.</summary>
     public const int TimestampFieldNumber = 5;
+    private readonly static long TimestampDefaultValue = 0L;
+
     private long timestamp_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public long Timestamp {
-      get { if ((_hasBits0 & 1) != 0) { return timestamp_; } else { return 0L; } }
+      get { if ((_hasBits0 & 1) != 0) { return timestamp_; } else { return TimestampDefaultValue; } }
       set {
         _hasBits0 |= 1;
         timestamp_ = value;
@@ -252,11 +259,13 @@ namespace SCPDiscord.Interface {
 
     /// <summary>Field number for the "imageURL" field.</summary>
     public const int ImageURLFieldNumber = 8;
+    private readonly static string ImageURLDefaultValue = "";
+
     private string imageURL_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public string ImageURL {
-      get { return imageURL_ ?? ""; }
+      get { return imageURL_ ?? ImageURLDefaultValue; }
       set {
         imageURL_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
@@ -784,6 +793,7 @@ namespace SCPDiscord.Interface {
         [pbr::OriginalName("SIENNA")] Sienna = 42,
       }
 
+      [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
       public sealed partial class DiscordEmbedFooter : pb::IMessage<DiscordEmbedFooter>
       #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
           , pb::IBufferMessage
@@ -831,11 +841,13 @@ namespace SCPDiscord.Interface {
 
         /// <summary>Field number for the "text" field.</summary>
         public const int TextFieldNumber = 1;
+        private readonly static string TextDefaultValue = "";
+
         private string text_;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public string Text {
-          get { return text_ ?? ""; }
+          get { return text_ ?? TextDefaultValue; }
           set {
             text_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
           }
@@ -855,11 +867,13 @@ namespace SCPDiscord.Interface {
 
         /// <summary>Field number for the "iconURL" field.</summary>
         public const int IconURLFieldNumber = 2;
+        private readonly static string IconURLDefaultValue = "";
+
         private string iconURL_;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public string IconURL {
-          get { return iconURL_ ?? ""; }
+          get { return iconURL_ ?? IconURLDefaultValue; }
           set {
             iconURL_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
           }
@@ -1034,6 +1048,7 @@ namespace SCPDiscord.Interface {
 
       }
 
+      [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
       public sealed partial class DiscordEmbedThumbnail : pb::IMessage<DiscordEmbedThumbnail>
       #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
           , pb::IBufferMessage
@@ -1297,6 +1312,7 @@ namespace SCPDiscord.Interface {
 
       }
 
+      [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
       public sealed partial class DiscordEmbedAuthor : pb::IMessage<DiscordEmbedAuthor>
       #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
           , pb::IBufferMessage
@@ -1345,11 +1361,13 @@ namespace SCPDiscord.Interface {
 
         /// <summary>Field number for the "name" field.</summary>
         public const int NameFieldNumber = 1;
+        private readonly static string NameDefaultValue = "";
+
         private string name_;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public string Name {
-          get { return name_ ?? ""; }
+          get { return name_ ?? NameDefaultValue; }
           set {
             name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
           }
@@ -1369,11 +1387,13 @@ namespace SCPDiscord.Interface {
 
         /// <summary>Field number for the "url" field.</summary>
         public const int UrlFieldNumber = 2;
+        private readonly static string UrlDefaultValue = "";
+
         private string url_;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public string Url {
-          get { return url_ ?? ""; }
+          get { return url_ ?? UrlDefaultValue; }
           set {
             url_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
           }
@@ -1393,11 +1413,13 @@ namespace SCPDiscord.Interface {
 
         /// <summary>Field number for the "iconURL" field.</summary>
         public const int IconURLFieldNumber = 3;
+        private readonly static string IconURLDefaultValue = "";
+
         private string iconURL_;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public string IconURL {
-          get { return iconURL_ ?? ""; }
+          get { return iconURL_ ?? IconURLDefaultValue; }
           set {
             iconURL_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
           }
@@ -1596,6 +1618,7 @@ namespace SCPDiscord.Interface {
 
       }
 
+      [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
       public sealed partial class DiscordEmbedField : pb::IMessage<DiscordEmbedField>
       #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
           , pb::IBufferMessage

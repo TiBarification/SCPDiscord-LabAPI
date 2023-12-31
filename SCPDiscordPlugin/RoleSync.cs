@@ -152,7 +152,6 @@ namespace SCPDiscord
 								{ "steamid",                          player.GetParsedUserID()                  },
 								{ "discorddisplayname",               userInfo.DiscordDisplayName               },
 								{ "discordusername",                  userInfo.DiscordUsername                  },
-								{ "discordusernamewithdiscriminator", userInfo.DiscordUsernameWithDiscriminator },
 								{ "discordid",                        userInfo.DiscordID.ToString()             }
 							};
 							foreach (string unparsedCommand in keyValuePair.Value)

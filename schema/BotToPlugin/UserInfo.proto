@@ -9,5 +9,5 @@ message UserInfo
 	repeated uint64 roleIDs = 3;
 	string discordDisplayName = 4;
 	string discordUsername = 5;
-	string discordUsernameWithDiscriminator = 6;
+	string discordUsernameWithDiscriminator = 6 [deprecated = true];
 }
