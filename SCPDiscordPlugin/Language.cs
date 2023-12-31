@@ -171,7 +171,7 @@ namespace SCPDiscord
 				case "":
 				case " ":
 				case ".":
-					plugin.VerboseWarn("Tried to send empty message " + messagePath + " to discord. Verify your language files.");
+					plugin.Warn("Tried to send empty message " + messagePath + " to discord. Verify your language files.");
 					return null;
 			}
 

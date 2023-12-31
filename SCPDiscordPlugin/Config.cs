@@ -31,7 +31,6 @@ namespace SCPDiscord
 		private static readonly Dictionary<string, bool> configBools = new Dictionary<string, bool>
 		{
 			{ "settings.playercount",                 true  },
-			{ "settings.verbose",                     true  },
 			{ "settings.debug",                       true  },
 			{ "settings.metrics",                     true  },
 			{ "settings.configvalidation",            true  },
@@ -235,7 +234,7 @@ namespace SCPDiscord
 
 			JObject json = JObject.Parse(jsonString);
 
-			plugin.Verbose("Reading config validation");
+			plugin.Debug("Reading config validation");
 
 			// Reads the configvalidation node first as it is used for reading the others
 			try

@@ -167,7 +167,7 @@ namespace SCPDiscord
 								plugin.sync.ScheduleRoleSyncCommand(command);
 							}
 
-							plugin.Verbose("Synced " + player.Nickname + " (" + userInfo.SteamIDOrIP + ") with Discord role id " + keyValuePair.Key);
+							plugin.Info("Synced " + player.Nickname + " (" + userInfo.SteamIDOrIP + ") with Discord role id " + keyValuePair.Key);
 							return;
 						}
 					}

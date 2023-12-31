@@ -25,9 +25,6 @@ settings:
     # The message timestamp, see syntax guide here: https://docs.microsoft.com/en-us/previous-versions/dotnet/netframework-3.0/8kb3ddd4(v=vs.85)
     # Set to "" to disable.
     timestamp: "HH:mm:ss"
-    # Whether or not the plugin should send more detailed console messages
-    # Set to true to turn on.
-    verbose: false
     # Whether or not the plugin should send debug information in the console
     # Set to true to turn on.
     debug: false

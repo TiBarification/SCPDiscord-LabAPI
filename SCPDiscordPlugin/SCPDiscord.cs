@@ -152,30 +152,6 @@ namespace SCPDiscord
 			Log.Error(message);
 		}
 
-		public void Verbose(string message)
-		{
-			if (Config.GetBool("settings.verbose") || Config.GetBool("settings.debug"))
-			{
-				Log.Info(message);
-			}
-		}
-
-		public void VerboseWarn(string message)
-		{
-			if (Config.GetBool("settings.verbose") || Config.GetBool("settings.debug"))
-			{
-				Log.Warning(message);
-			}
-		}
-
-		public void VerboseError(string message)
-		{
-			if (Config.GetBool("settings.verbose") || Config.GetBool("settings.debug"))
-			{
-				Log.Error(message);
-			}
-		}
-
 		public void Debug(string message)
 		{
 			if (Config.GetBool("settings.debug"))

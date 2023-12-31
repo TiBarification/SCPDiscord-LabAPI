@@ -171,7 +171,7 @@ namespace SCPDiscord
 
 			if (messageQueue.Count != 0)
 			{
-				plugin.VerboseWarn("Could not send all messages.");
+				plugin.DebugWarn("Could not send all messages.");
 			}
 		}
 
@@ -189,16 +189,16 @@ namespace SCPDiscord
 			}
 			catch (ObjectDisposedException e)
 			{
-				plugin.VerboseError("TCP client was unexpectedly closed.");
-				plugin.VerboseError(e.ToString());
+				plugin.Error("TCP client was unexpectedly closed.");
+				plugin.DebugError(e.ToString());
 				return false;
 			}
 		}
 
 		private static void Connect()
 		{
-			plugin.Verbose("Attempting Bot Connection...");
-			plugin.Verbose("Your Bot IP: " + Config.GetString("bot.ip") + ". Your Bot Port: " + Config.GetInt("bot.port") + ".");
+			plugin.Info("Attempting Bot Connection...");
+			plugin.Debug("Your Bot IP: " + Config.GetString("bot.ip") + ". Your Bot Port: " + Config.GetInt("bot.port") + ".");
 
 			while (!IsConnected())
 			{
@@ -229,25 +229,25 @@ namespace SCPDiscord
 				}
 				catch (SocketException e)
 				{
-					plugin.VerboseError("Error occured while connecting to discord bot server: " + e.Message.Trim());
+					plugin.Error("Error occured while connecting to discord bot server: " + e.Message.Trim());
 					plugin.DebugError(e.ToString());
 					Thread.Sleep(5000);
 				}
 				catch (ObjectDisposedException e)
 				{
-					plugin.VerboseError("TCP client was unexpectedly closed.");
+					plugin.Error("TCP client was unexpectedly closed.");
 					plugin.DebugError(e.ToString());
 					Thread.Sleep(5000);
 				}
 				catch (ArgumentOutOfRangeException e)
 				{
-					plugin.VerboseError("Invalid port.");
+					plugin.Error("Invalid port.");
 					plugin.DebugError(e.ToString());
 					Thread.Sleep(5000);
 				}
 				catch (ArgumentNullException e)
 				{
-					plugin.VerboseError("IP address is null.");
+					plugin.Error("IP address is null.");
 					plugin.DebugError(e.ToString());
 					Thread.Sleep(5000);
 				}
@@ -272,7 +272,7 @@ namespace SCPDiscord
 			// Abort if client is dead
 			if (socket == null || networkStream == null || !socket.Connected)
 			{
-				plugin.VerboseWarn("Error sending message '" + message.MessageCase + "' to bot: Not connected.");
+				plugin.DebugWarn("Error sending message '" + message.MessageCase + "' to bot: Not connected.");
 				return false;
 			}
 

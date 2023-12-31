@@ -7,7 +7,6 @@ using System.Net;
 using System.Threading;
 using PlayerRoles;
 using PluginAPI.Core;
-using PluginAPI.Enums;
 using PluginAPI.Events;
 
 namespace SCPDiscord
