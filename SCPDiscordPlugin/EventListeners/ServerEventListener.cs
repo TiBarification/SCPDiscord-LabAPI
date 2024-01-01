@@ -213,7 +213,7 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent]
 		public void OnPlayerMuted(PlayerMutedEvent ev)
 		{
-			if (ev.Player == null) return;
+			if (ev?.Player.UserId == null) return;
 
 			if (ev.Issuer != null)
 			{
