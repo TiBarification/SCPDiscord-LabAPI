@@ -190,7 +190,7 @@ namespace SCPDiscord
 					}
 					catch (Exception e)
 					{
-						Logger.Error("Could not send paginated message in text channel '" + wrapper.EmbedMessage.ChannelID + "' Exception: " + e, LogID.DISCORD);
+						Logger.Error("Could not send paginated message in text channel '" + wrapper?.PaginatedMessage?.ChannelID + "' Exception: " + e, LogID.DISCORD);
 					}
 					break;
 				case MessageWrapper.MessageOneofCase.BanCommand:

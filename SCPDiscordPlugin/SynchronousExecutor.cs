@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using PluginAPI.Core;
 using SCPDiscord.Interface;
 using UnityEngine;
+using System;
+using System.Linq;
 
 namespace SCPDiscord
 {
@@ -26,6 +28,16 @@ namespace SCPDiscord
 			while(queuedCommands.TryDequeue(out ConsoleCommand command))
 			{
 				string response = Server.RunCommand(command.Command);
+
+				// Return help command feedback in list form instead
+				if (command.Command.StartsWith("help") ||
+				    command.Command.StartsWith("/help") ||
+				    command.Command.StartsWith(".help"))
+				{
+					SendListResponse(command, response);
+					continue;
+				}
+
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
 					{ "feedback", response }
@@ -45,6 +57,47 @@ namespace SCPDiscord
 			{
 				SCPDiscord.plugin.Debug("RoleSync command response: " + Server.RunCommand(stringCommand));
 			}
+		}
+
+		private void SendListResponse(ConsoleCommand command, string response)
+		{
+			List<string> listItems = response.Split('\n').ToList();
+
+			List<EmbedMessage> embeds = new List<EmbedMessage>();
+
+			string title;
+			switch (command.Command)
+			{
+				case string client when client.StartsWith("."):
+					title = "Client commands:";
+					break;
+				case string ra when ra.StartsWith("/"):
+					title = "Remote admin commands:";
+					break;
+				default:
+					title = "Server commands:";
+					break;
+			}
+
+			foreach (string message in Utilities.ParseListIntoMessages(listItems))
+			{
+				embeds.Add(new EmbedMessage
+				{
+					Title = title,
+					Colour = EmbedMessage.Types.DiscordColour.Cyan,
+					Description = message
+				});
+			}
+
+			PaginatedMessage responsePages = new PaginatedMessage
+			{
+				ChannelID = command.ChannelID,
+				UserID = command.DiscordID,
+				InteractionID = command.InteractionID
+			};
+			responsePages.Pages.Add(embeds);
+
+			NetworkSystem.QueueMessage(new MessageWrapper { PaginatedMessage = responsePages });
 		}
 	}
 }

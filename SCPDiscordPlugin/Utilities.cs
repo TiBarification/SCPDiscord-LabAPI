@@ -57,16 +57,15 @@ namespace SCPDiscord
 		public static LinkedList<string> ParseListIntoMessages(List<string> listItems)
 		{
 			LinkedList<string> messages = new LinkedList<string>();
-
 			foreach (string listItem in listItems)
 			{
 				if (messages.Last?.Value?.Length + listItem?.Length < 2048)
 				{
-					messages.Last.Value += listItem;
+					messages.Last.Value += listItem + "\n";
 				}
 				else
 				{
-					messages.AddLast(listItem);
+					messages.AddLast(listItem?.Trim());
 				}
 			}
 
