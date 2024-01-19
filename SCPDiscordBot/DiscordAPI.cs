@@ -20,7 +20,19 @@ namespace SCPDiscord
 	{
 		public static DiscordAPI instance = null;
 		public bool connected = false;
-		public static DiscordClient client = new DiscordClient(new DiscordConfiguration { Token = "DUMMY_TOKEN", TokenType = TokenType.Bot, MinimumLogLevel = LogLevel.Debug });
+
+		private static readonly DiscordConfiguration config = new()
+		{
+			Token = "DUMMY_TOKEN",
+			TokenType = TokenType.Bot,
+			MinimumLogLevel = LogLevel.Debug,
+			AutoReconnect = true,
+			Intents = DiscordIntents.AllUnprivileged | DiscordIntents.MessageContents,
+			LogTimestampFormat = "HH:mm:ss",
+			LogUnknownAuditlogs = false,
+			LogUnknownEvents = false
+		};
+		public static DiscordClient client = new DiscordClient(config);
 		private static DiscordRestClient restClient = null;
 		private SlashCommandsExtension commands = null;
 
@@ -47,15 +59,9 @@ namespace SCPDiscord
 				}
 
 				// Setting up client configuration
-				client = new DiscordClient(new DiscordConfiguration
-				{
-					Token = ConfigParser.config.bot.token,
-					TokenType = TokenType.Bot,
-					MinimumLogLevel = logLevel,
-					AutoReconnect = true,
-					Intents = DiscordIntents.AllUnprivileged | DiscordIntents.MessageContents,
-					LogTimestampFormat = "yyyy-MM-dd HH:mm:ss"
-				});
+				config.Token = ConfigParser.config.bot.token;
+				config.MinimumLogLevel = logLevel;
+				client = new DiscordClient(config);
 
 				ConfigParser.PrintConfig();
 
