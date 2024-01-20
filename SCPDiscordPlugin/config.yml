@@ -43,27 +43,30 @@ settings:
     regeneratelanguagefiles: true
 
 # Sets commands which are run whenever someone with a synced Discord rank joins the server, only the highest one in the list that matches the player is executed
+# Turn on debug above to see console feedback when the commands are used
 # Valid variables:
-# steamid
-# userid
-# playerid
-# name
-# ipaddress
+# player-userid
+# player-id
+# player-name
+# player-ipaddress
+# player-role
+# player-team
 # discorddisplayname
 # discordusername
+# discordusernamewithdiscriminator
 # discordid
-# Turn on debug above to see console feedback when the commands are used
+# There are some more player variables you can use here but they are mostly irrelevant, check the list in APIExtensions.cs on github for the full list.
 rolesync:
     - "add-role-id-here":
-        - "scpd grantvanillarank <var:userid> moderator"
-        - "scpd grantreservedslot <var:userid> @<var:discordusername> (<var:discordid>)"
-        - "/pbc <var:playerid> 3 Moderator role synced from Discord."
+        - "scpd grantvanillarank <var:player-userid> moderator"
+        - "scpd grantreservedslot <var:player-userid> @<var:discordusername> (<var:discordid>)"
+        - "/pbc <var:player-id> 3 Moderator role synced from Discord."
     - "add-another-role-id-here":
-        - "scpd grantvanillarank <var:userid> donator"
-        - "scpd grantreservedslot <var:userid> @<var:discordusername> (<var:discordid>)"
-        - "/pbc <var:playerid> 3 Donator role synced from Discord."
+        - "scpd grantvanillarank <var:player-userid> donator"
+        - "scpd grantreservedslot <var:player-userid> @<var:discordusername> (<var:discordid>)"
+        - "/pbc <var:player-id> 3 Donator role synced from Discord."
     - "add-everyone-role-id-here":
-        - "scpd removereservedslot <var:userid>"
+        - "scpd removereservedslot <var:player-userid>"
 
 # Name your channels here, this name is used in the channels section below. The left value is a name of your choice and the right is a channel id you want it to represent.
 channels:
@@ -181,9 +184,6 @@ messages:
 
     # SCP Events
     on079lockdoor: []
-    on079elevator:
-        up: []
-        down: []
     on079teslagate: []
     on079addexp: []
     on079levelup: [ "default" ]

@@ -1,21 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
-using Footprinting;
-using InventorySystem.Items;
-using InventorySystem.Items.Firearms;
-using InventorySystem.Items.Pickups;
-using InventorySystem.Items.Radio;
-using InventorySystem.Items.ThrowableProjectiles;
 using PlayerRoles;
 using PlayerRoles.PlayableScps.Scp939;
-using PlayerRoles.Ragdolls;
 using PlayerStatsSystem;
 using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
-using PluginAPI.Enums;
 using PluginAPI.Events;
 using Respawning;
-using UnityEngine;
 
 namespace SCPDiscord.EventListeners
 {
@@ -190,7 +181,7 @@ namespace SCPDiscord.EventListeners
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "ammo", ev.Item.ToString() }
+				{ "ammo", ev.Item.Info.ItemId.ToString() }
 			};
 			variables.AddPlayerVariables(ev.Player, "player");
 
@@ -202,7 +193,7 @@ namespace SCPDiscord.EventListeners
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "armor", ev.Item.ToString() }
+				{ "armor", ev.Item.Info.ItemId.ToString() }
 			};
 			variables.AddPlayerVariables(ev.Player, "player");
 			plugin.SendMessage("messages.onplayerpickuparmor", variables);
@@ -221,7 +212,7 @@ namespace SCPDiscord.EventListeners
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "item", ev.Item.ToString() }
+				{ "item", ev.Item.Info.ItemId.ToString() }
 			};
 			variables.AddPlayerVariables(ev.Player, "player");
 			plugin.SendMessage("messages.onplayerpickupitem", variables);
@@ -244,7 +235,7 @@ namespace SCPDiscord.EventListeners
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "item", ev.Item.ToString() }
+				{ "item", ev.Item.ItemTypeId.ToString() }
 			};
 			variables.AddPlayerVariables(ev.Player, "player");
 			plugin.SendMessage("messages.onplayerdropitem", variables);
@@ -382,7 +373,7 @@ namespace SCPDiscord.EventListeners
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "weapon",      ev.Firearm.name                                 },
+				{ "weapon",      ev.Firearm.ItemTypeId.ToString()                },
 				{ "maxclipsize", ev.Firearm.AmmoManagerModule.MaxAmmo.ToString() }
 			};
 			variables.AddPlayerVariables(ev.Player, "player");
@@ -394,7 +385,7 @@ namespace SCPDiscord.EventListeners
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "type", ev.Grenade.name }
+				{ "type", ev.Grenade.Info.ItemId.ToString() }
 			};
 			variables.AddPlayerVariables(new Player(ev.Thrower.Hub), "player");
 			plugin.SendMessage("messages.ongrenadeexplosion", variables);

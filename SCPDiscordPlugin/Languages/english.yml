@@ -114,10 +114,10 @@ global_regex: [
   "KeycardResearchCoordinator":"Research Coordinator keycard",
   "KeycardZoneManager":"Zone Manager keycard",
   "KeycardGuard":"Guard keycard",
-  "KeycardNTFOfficer":"MTF Officer keycard",
+  "KeycardMTFPrivate":"MTF Private keycard",
   "KeycardContainmentEngineer":"Containment Engineer keycard",
-  "KeycardNTFLieutenant":"MTF Lieutenant keycard",
-  "KeycardNTFCommander":"MTF Commander keycard",
+  "KeycardMTFOperative":"MTF Operative keycard",
+  "KeycardMTFCaptain":"MTF Captain keycard",
   "KeycardFacilityManager":"Facility Manager keycard",
   "KeycardChaosInsurgency":"Chaos Insurgency device",
   "KeycardO5":"O5 keycard",
@@ -125,14 +125,14 @@ global_regex: [
   "GunCOM15":"COM-15",
   "Medkit":"medkit",
   "Flashlight":"flashlight",
-  "MicroHID":"Micro-HID",
+  "MicroHID":"Micro-H.I.D.",
   "SCP500":"SCP-500",
   "SCP207":"SCP-207",
   "Ammo12gauge":"12 gauge ammo",
   "GunE11SR":"Epsilon-11 SR",
   "GunCrossvec":"Crossvec",
   "Ammo556x45":"5.56mm ammo",
-  "GunFSP9":"FSP9",
+  "GunFSP9":"FSP-9",
   "GunLogicer":"Logicer",
   "GrenadeHE":"grenade",
   "GrenadeFlash":"flashbang",
@@ -193,7 +193,7 @@ global_regex: [
   # Some door things
   "PortallessBreakableDoor":"door",
   "BreakableDoor":"door",
-  "door\\(Clone\\)":"door"
+  "\\(Clone\\)":""
 ]
 
 # Executes on the final version of the message, this is the only regex that affects player names
@@ -206,10 +206,10 @@ messages:
 
   onconnect:
     # ipaddress - string
-    # steamid - string
+    # userid - string
     # jointype - CentralAuthPreauthFlags
     # region - string
-    message: "Player (<var:player-userid>) attempting connection..."
+    message: "Player (<var:userid>) attempting connection..."
     regex: []
 
   onplayerleave:
@@ -323,7 +323,7 @@ messages:
   ongeneratorfinish:
     # room
     # player - Player
-    message: "Generator in <var:room> has been activated by <var:player-name> (<var:player-userid>)."
+    message: "Generator in <var:room> has been activated."
     regex: [ ]
 
   onplayerhurt:
@@ -527,9 +527,10 @@ messages:
       regex: []
 
   onscp914changeknob:
-    # setting - KnobSetting
+    # newsetting - KnobSetting
+    # oldsetting - KnobSetting
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) set the SCP-914 knob to \"<var:setting>\"."
+    message: "<var:player-name> (<var:player-userid>) set the SCP-914 knob to \"<var:newsetting>\"."
     regex: []
 
   onplayerradioswitch:
@@ -703,7 +704,7 @@ messages:
     # starttime - float
     # timeleft - float
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) deactivated the generator in <var:room>."
+    message: "The generator in <var:room> was deactivated."
     regex: [
       "Micro-HID":"the Micro-HID room",
       "nuke":"the nuke silo" ]

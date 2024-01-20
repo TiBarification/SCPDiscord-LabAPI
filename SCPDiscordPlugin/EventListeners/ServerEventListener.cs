@@ -411,7 +411,7 @@ namespace SCPDiscord.EventListeners
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
 				{ "ipaddress", ev.IpAddress                    },
-				{ "steamid",   ev.UserId.Replace("@steam", "") },
+				{ "userid",    ev.UserId.Replace("@steam", "") },
 				{ "jointype",  ev.CentralFlags.ToString()      },
 				{ "region",    ev.Region                       }
 			};

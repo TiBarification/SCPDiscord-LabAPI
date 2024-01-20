@@ -117,10 +117,10 @@ global_regex: [
   "KeycardResearchCoordinator":"研究主管钥匙卡",
   "KeycardZoneManager":"区域经理钥匙卡",
   "KeycardGuard":"设施警卫钥匙卡",
-  "KeycardNTFOfficer":"九尾狐列兵钥匙卡",
+  "KeycardMTFPrivate":"九尾狐列兵钥匙卡",
   "KeycardContainmentEngineer":"九尾狐收容工程师钥匙卡",
-  "KeycardNTFLieutenant":"九尾狐中士钥匙卡",
-  "KeycardNTFCommander":"九尾狐指挥官钥匙卡",
+  "KeycardMTFOperative":"九尾狐中士钥匙卡",
+  "KeycardMTFCaptain":"九尾狐指挥官钥匙卡",
   "KeycardFacilityManager":"设施主管钥匙卡",
   "KeycardChaosInsurgency":"混沌分裂者破解装置",
   "KeycardO5":"O5钥匙卡",
@@ -128,14 +128,14 @@ global_regex: [
   "GunCOM15":"COM-15",
   "Medkit":"急救包",
   "Flashlight":"手电筒",
-  "MicroHID":"Micro-HID",
+  "MicroHID":"Micro-H.I.D.",
   "SCP500":"SCP-500",
   "SCP207":"SCP-207",
   "Ammo12gauge":".12号子弹",
   "GunE11SR":"Epsilon-11标准步枪",
   "GunCrossvec":"Crossvec冲锋枪",
   "Ammo556x45":"5.56mm子弹",
-  "GunFSP9":"FSP9",
+  "GunFSP9":"FSP-9",
   "GunLogicer":"轻机枪",
   "GrenadeHE":"手榴弹",
   "GrenadeFlash":"闪光弹",
@@ -190,7 +190,7 @@ global_regex: [
   # 某些门的设置
   "PortallessBreakableDoor":"可破坏门",
   "BreakableDoor":"不可破坏门",
-  "door\\(Clone\\)":"克隆门"
+  "\\(Clone\\)":""
 ]
 
 # 对最终版本的消息进行处理，这是唯一影响玩家名称的正则表达式。
@@ -203,10 +203,10 @@ messages:
 
   onconnect:
     # ipaddress - 字符串(string)
-    # steamid - 字符串(string)
+    # userid - 字符串(string)
     # jointype - CentralAuthPreauthFlags
     # region - 字符串(string)
-    message: "玩家 <var:player-userid> 正在尝试连接..."
+    message: "玩家 <var:userid> 正在尝试连接..."
     regex: []
 
   onplayerleave:
@@ -513,9 +513,10 @@ messages:
       regex: []
 
   onscp914changeknob:
-    # setting - KnobSetting
+    # newsetting - KnobSetting
+    # oldsetting - KnobSetting
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) 将SCP-914的按钮设置为了 \"<var:setting>\"."
+    message: "<var:player-name> (<var:player-userid>) 将SCP-914的按钮设置为了 \"<var:newsetting>\"."
     regex: []
 
   onplayerradioswitch:

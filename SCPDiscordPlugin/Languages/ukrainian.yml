@@ -107,10 +107,10 @@ global_regex: [
   "KeycardResearchCoordinator":"Ключ-карта Наукового Керівника",
   "KeycardZoneManager":"Ключ-карта Менеджера зони",
   "KeycardGuard":"Ключ-карта Охоронця",
-  "KeycardNTFOfficer":"Ключ-карта Сержанта МОГ",
+  "KeycardMTFPrivate":"Ключ-карта Сержанта МОГ",
   "KeycardContainmentEngineer":"Ключ-карта Інженера",
-  "KeycardNTFLieutenant":"Ключ-карта Рядового МОГ",
-  "KeycardNTFCommander":"Ключ-карта Капітана МОГ",
+  "KeycardMTFOperative":"Ключ-карта Рядового МОГ",
+  "KeycardMTFCaptain":"Ключ-карта Капітана МОГ",
   "KeycardFacilityManager":"Ключ-карта Менеджера Комплексу",
   "KeycardChaosInsurgency":"Пристрій злому Повстанців Хаосу",
   "KeycardO5":"Ключ-карта О5",
@@ -118,14 +118,14 @@ global_regex: [
   "GunCOM15":"COM-15",
   "Medkit":"аптечка",
   "Flashlight":"ліхтарик",
-  "MicroHID":"Micro-HID",
+  "MicroHID":"Micro-H.I.D.",
   "SCP500":"SCP-500",
   "SCP207":"SCP-207",
   "Ammo12gauge":"набої 12 gauge",
   "GunE11SR":"Epsilon-11 SR",
   "GunCrossvec":"Crossvec",
   "Ammo556x45":"набої 5.56mm",
-  "GunFSP9":"FSP9",
+  "GunFSP9":"FSP-9",
   "GunLogicer":"Logicer",
   "GrenadeHE":"граната",
   "GrenadeFlash":"світлошумова",
@@ -180,7 +180,7 @@ global_regex: [
   # Some door things
   "PortallessBreakableDoor":"дверь",
   "BreakableDoor":"дверь",
-  "door\\(Clone\\)":"дверь"
+  "\\(Clone\\)":""
 ]
 
 # Executes on the final version of the message, this is the only regex that affects player names
@@ -193,10 +193,10 @@ messages:
 
   onconnect:
     # ipaddress - string
-    # steamid - string
+    # userid - string
     # jointype - CentralAuthPreauthFlags
     # region - string
-    message: "Гравць (<var:player-userid>) намагається приєднатись..."
+    message: "Гравць (<var:userid>) намагається приєднатись..."
     regex: []
 
   onplayerleave:
@@ -504,9 +504,10 @@ messages:
       regex: []
 
   onscp914changeknob:
-    # setting - KnobSetting
+    # newsetting - KnobSetting
+    # oldsetting - KnobSetting
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) встановив SCP-914 на \"<var:setting>\"."
+    message: "<var:player-name> (<var:player-userid>) встановив SCP-914 на \"<var:newsetting>\"."
     regex: []
 
   onplayerradioswitch:

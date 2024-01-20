@@ -42,7 +42,7 @@ namespace SCPDiscord
 
 			variables.AddIfNotExist(prefix + "-ipaddress",        player?.IpAddress);
 			variables.AddIfNotExist(prefix + "-name",             player?.Nickname);
-			variables.AddIfNotExist(prefix + "-playerid",         player?.PlayerId.ToString());
+			variables.AddIfNotExist(prefix + "-id",               player?.PlayerId.ToString());
 			variables.AddIfNotExist(prefix + "-userid",           player?.GetParsedUserID());
 			variables.AddIfNotExist(prefix + "-role",             player?.Role.ToString());
 			variables.AddIfNotExist(prefix + "-team",             player?.ReferenceHub.GetTeam().ToString());
