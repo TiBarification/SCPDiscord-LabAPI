@@ -196,7 +196,7 @@ messages:
     # steamid - string
     # jointype - CentralAuthPreauthFlags
     # region - string
-    message: "Гравць (<var:steamid>) намагається приєднатись..."
+    message: "Гравць (<var:player-userid>) намагається приєднатись..."
     regex: []
 
   onplayerleave:
@@ -204,7 +204,7 @@ messages:
     # playerid - int
     # steamid - string
     # name - string
-    message: "**<var:name> (<var:steamid>) покинув сервер.**"
+    message: "**<var:player-name> (<var:player-userid>) покинув сервер.**"
     regex: []
 
   onroundend:
@@ -255,30 +255,20 @@ messages:
 
   onscp914activate:
     # knobsetting - KnobSetting
-    # ipaddress
-    # name
-    # playerid
-    # steamid
-    # class
-    # team
-    message: "<var:name> (<var:steamid>) активував SCP-914 на режимі <var:knobsetting>."
+    # player - Player
+    message: "<var:player-name> (<var:player-userid>) активував SCP-914 на режимі <var:knobsetting>."
     regex: []
 
   onstartcountdown:
     player:
       # isAutomatic - bool
       # timeleft - float
-      # ipaddress - string
-      # name - string
-      # playerid - int
-      # steamid - string
-      # class - Role
-      # team - Team
+      # player - Player
       initiated:
-        message: "**Зворотній відлік Альфа-боєголовки було розпочатий <var:name> (<var:steamid>), <var:timeleft> секунд до детонації. Весь персонал повинен негайно евакуюватися.**"
+        message: "**Зворотній відлік Альфа-боєголовки було розпочатий <var:player-name> (<var:player-userid>), <var:timeleft> секунд до детонації. Весь персонал повинен негайно евакуюватися.**"
         regex: [ ]
       resumed:
-        message: "**Зворотній відлік Альфа-боєголовки було відновлений <var:name> (<var:steamid>), <var:timeleft> секунд до детонації.**"
+        message: "**Зворотній відлік Альфа-боєголовки було відновлений <var:player-name> (<var:player-userid>), <var:timeleft> секунд до детонації.**"
         regex: [ ]
     server:
       # isAutomatic - bool
@@ -293,13 +283,8 @@ messages:
   onstopcountdown:
     default:
       # timeleft
-      # ipaddress
-      # name
-      # playerid
-      # steamid
-      # class
-      # team
-      message: "**Зворотній відлік Альфа-боєголовки було скасовано <var:name> (<var:steamid>) за <var:timeleft> секунд до кінця.**"
+      # player - Player
+      message: "**Зворотній відлік Альфа-боєголовки було скасовано <var:player-name> (<var:player-userid>) за <var:timeleft> секунд до кінця.**"
       regex: []
     noplayer:
       # timeleft
@@ -324,195 +309,120 @@ messages:
 
   ongeneratorfinish:
     # room
-    # ipaddress
-    # name
-    # playerid
-    # steamid
-    # class
-    # team
-    message: "Генератор у <var:room> було активовано <var:name> (<var:steamid>)."
+    # player - Player
+    message: "Генератор у <var:room> було активовано <var:player-name> (<var:player-userid>)."
     regex: [ ]
 
   onplayerhurt:
     # damage - float
     # damagetype - DamageType
-    # attackeripaddress - string
-    # attackername - string
-    # attackerplayerid - int
-    # attackersteamid - string
-    # attackerclass - Role
-    # attackerteam - Team
-    # playeripaddress - string
-    # playername - string
-    # playerplayerid - int
-    # playersteamid - string
-    # playerclass - Role
-    # playerteam - Team
+    # attacker - Player
+    # target - Player
     default:
-      message: "<var:playername> (<var:playersteamid>) був поранений <var:attackername> (<var:attackersteamid>) використовуючи <var:damagetype> (<var:damage> hp)."
+      message: "<var:target-name> (<var:target-userid>) був поранений <var:attacker-name> (<var:attacker-userid>) використовуючи <var:damagetype> (<var:damage> hp)."
       regex: ["using UNKNOWN":"невідомий предмет", "-1 damage":"величезні збитки"]
     friendlyfire:
-      message: "**<var:playerteam> <var:playername> (<var:playersteamid>) був атакований союзником <var:attackerteam> <var:attackername> (<var:attackersteamid>) використовуючи <var:damagetype> (<var:damage> hp).**"
+      message: "**<var:target-team> <var:target-name> (<var:target-userid>) був атакований союзником <var:attacker-team> <var:attacker-name> (<var:attacker-userid>) використовуючи <var:damagetype> (<var:damage> hp).**"
       regex: ["using UNKNOWN":"невідомий предмет", "-1 damage":"величезні збитки"]
     noattacker:
-      message: "<var:playername> (<var:playersteamid>) отримва <var:damage> пошкодження від <var:damagetype>."
+      message: "<var:target-name> (<var:target-userid>) отримва <var:damage> пошкодження від <var:damagetype>."
       regex: ["damage by UNKNOWN":"невідомої причини", "-1 damage":"величезні збитки"]
 
   onplayerdie:
     # damagetype - DamageType
-    # attackeripaddress - string
-    # attackername - string
-    # attackerplayerid - int
-    # attackersteamid - string
-    # attackerclass - Role
-    # attackerteam - Team
-    # playeripaddress - string
-    # playername - string
-    # playerplayerid - int
-    # playersteamid - string
-    # playerclass - Role
-    # playerteam - Team
+    # attacker - Player
+    # target - Player
     default:
-      message: "<var:playername> (<var:playersteamid>) був вбитий <var:attackername> (<var:attackersteamid>) використовуючи <var:damagetype>."
+      message: "<var:target-name> (<var:target-userid>) був вбитий <var:attacker-name> (<var:attacker-userid>) використовуючи <var:damagetype>."
       regex: ["using UNKNOWN":"невідомий предмет"]
     friendlyfire:
-      message: "**<var:playerteam> <var:playername> (<var:playersteamid>) був вбитий союзником <var:attackerteam> <var:attackername> (<var:attackersteamid>) використовуючи <var:damagetype>.**"
+      message: "**<var:target-team> <var:target-name> (<var:target-userid>) був вбитий союзником <var:attacker-team> <var:attacker-name> (<var:attacker-userid>) використовуючи <var:damagetype>.**"
       regex: ["using UNKNOWN":"невідомий предмет"]
     nokiller:
-      message: "<var:playername> (<var:playersteamid>) помер від <var:damagetype>."
+      message: "<var:target-name> (<var:target-userid>) помер від <var:damagetype>."
       regex: ["died by UNKNOWN":"невідомої причини"]
 
   onplayerpickupitem:
     # item - Item
-    # ipaddress - string
-    # name - string
-    # playerid - int
-    # steamid - string
-    # class - Role
-    # team - Team
-    message: "<var:name> (<var:steamid>) взяв <var:item>."
+    # player - Player
+    message: "<var:player-name> (<var:player-userid>) взяв <var:item>."
     regex: []
 
   onplayerpickupammo:
     # ammo - Item
-    # ipaddress - string
-    # name - string
-    # playerid - int
-    # steamid - string
-    # class - Role
-    # team - Team
-    message: "<var:name> (<var:steamid>) взяв <var:ammo>."
+    # player - Player
+    message: "<var:player-name> (<var:player-userid>) взяв <var:ammo>."
     regex: []
 
   onplayerpickuparmor:
     # item - Item
-    # ipaddress - string
-    # name - string
-    # playerid - int
-    # steamid - string
-    # class - Role
-    # team - Team
-    message: "<var:name> (<var:steamid>) взяв <var:armor>."
+    # player - Player
+    message: "<var:player-name> (<var:player-userid>) взяв <var:armor>."
     regex: []
 
   onplayerpickupscp330:
-    # ipaddress - string
-    # name - string
-    # playerid - int
-    # steamid - string
-    # class - Role
-    # team - Team
-    message: "<var:name> (<var:steamid>) взяв SCP-330."
+    # player - Player
+    message: "<var:player-name> (<var:player-userid>) взяв SCP-330."
     regex: []
 
   onplayerdropitem:
     # item - Item
-    # ipaddress - string
-    # name - string
-    # playerid - int
-    # steamid - string
-    # class - Role
-    # team - Team
-    message: "<var:name> (<var:steamid>) викинув <var:item>."
+    # player - Player
+    message: "<var:player-name> (<var:player-userid>) викинув <var:item>."
     regex: []
 
   onplayerdropammo:
     # ammo - Item
     # amount - int
-    # ipaddress - string
-    # name - string
-    # playerid - int
-    # steamid - string
-    # class - Role
-    # team - Team
-    message: "<var:name> (<var:steamid>) викинув <var:amount> <var:ammo>."
+    # player - Player
+    message: "<var:player-name> (<var:player-userid>) викинув <var:amount> <var:ammo>."
     regex: []
 
   onplayerjoin:
-    # ipaddress - string
-    # name - string
-    # playerid - int
-    # steamid - string
-    # class - Role
-    # team - Team
-    message: "**<var:name> (<var:steamid>) приєднався на сервер.**"
+    # player - Player
+    message: "**<var:player-name> (<var:player-userid>) приєднався на сервер.**"
     regex: []
 
   onnicknameset:
     # nickname - string
-    # ipaddress - string
-    # name - string
-    # playerid - int
-    # steamid - string
-    # class - Role
-    # team - Team
-    message: "Гравць '<var:name> (<var:steamid>)' встановив свій нік на <var:nickname>."
+    # player - Player
+    message: "Гравць '<var:player-name> (<var:player-userid>)' встановив свій нік на <var:nickname>."
     regex: []
 
   onsetrole:
     # oldrole - Role
-    # ipaddress - string
-    # name - string
-    # playerid - int
-    # steamid - string
-    # class - Role
-    # team - Team
+    # player - Player
     roundstart:
-      message: "<var:name> (<var:steamid>) заспавнився за <var:class>."
+      message: "<var:player-name> (<var:player-userid>) заспавнився за <var:player-role>."
       regex: [ ]
     latejoin:
-      message: "<var:name> (<var:steamid>) заспавнився за <var:class> (Latejoin)."
+      message: "<var:player-name> (<var:player-userid>) заспавнився за <var:player-role> (Latejoin)."
       regex: [ ]
     respawn:
-      message: "<var:name> (<var:steamid>) зареспавнився за <var:class>."
+      message: "<var:player-name> (<var:player-userid>) зареспавнився за <var:player-role>."
       regex: [ ]
     died:
-      message: "<var:name> (<var:steamid>) помер і став <var:class>."
+      message: "<var:player-name> (<var:player-userid>) помер і став <var:player-role>."
       regex: [ ]
     escaped:
-      message: "<var:name> (<var:steamid>) втік з комплексу і став <var:class>."
+      message: "<var:player-name> (<var:player-userid>) втік з комплексу і став <var:player-role>."
       regex: [ ]
     revived:
-      message: "<var:name> (<var:steamid>) переродився за <var:class>."
+      message: "<var:player-name> (<var:player-userid>) переродився за <var:player-role>."
       regex: [ ]
     remoteadmin:
-      message: "<var:name> (<var:steamid>) змінив роль на <var:class> через адмін панель."
+      message: "<var:player-name> (<var:player-userid>) змінив роль на <var:player-role> через адмін панель."
       regex: [ ]
     left:
-      message: "<var:name> (<var:steamid>) покинув сервер."
+      message: "<var:player-name> (<var:player-userid>) покинув сервер."
       regex: [ ]
     other:
-      message: "<var:name> (<var:steamid>) став <var:class>."
+      message: "<var:player-name> (<var:player-userid>) став <var:player-role>."
       regex: []
 
   onspawn:
-    # ipaddress - string
-    # name - string
-    # playerid - int
-    # steamid - string
-    # class - Role
-    # team - Team
-    message: "<var:name> (<var:steamid>) заспавнився <var:class>."
+    # player - Player
+    message: "<var:player-name> (<var:player-userid>) заспавнився <var:player-role>."
     regex: []
 
   ondooraccess:
@@ -521,211 +431,102 @@ messages:
     # locked - bool
     # lockcooldown - float
     # open - bool
-    # ipaddress - string
-    # name - string
-    # playerid - int
-    # steamid - string
-    # class - Role
-    # team - Team
+    # player - Player
     allowed:
-      message: "<var:name> (<var:steamid>) isopen:<var:open> двері (<var:doorname>) вимагаючи \"<var:permission>\" доступ."
+      message: "<var:player-name> (<var:player-userid>) isopen:<var:open> двері (<var:doorname>) вимагаючи \"<var:permission>\" доступ."
       regex: ["isopen:True":"зачинив", "isopen:False":"відчинив", " requiring \"\" permission\\.":"."," requiring \"None\" permission\\.":"."]
     denied:
-      message: "<var:name> (<var:steamid>) намагався isopen:<var:open> заблоковані двері (<var:doorname>) вимагаючи \"<var:permission>\" доступ."
+      message: "<var:player-name> (<var:player-userid>) намагався isopen:<var:open> заблоковані двері (<var:doorname>) вимагаючи \"<var:permission>\" доступ."
       regex: ["isopen:True":"зачинити", "isopen:False":"відчинити"," requiring \"\" permission \\.":"."," requiring \"None\" permission\\.":"."]
 
   onpocketdimensionexit:
-    # ipaddress - string
-    # name - string
-    # playerid - int
-    # steamid - string
-    # class - Role
-    # team - Team
-    message: "<var:name> (<var:steamid>) вибрався з кишенькового виміру SCP-106."
+    # player - Player
+    message: "<var:player-name> (<var:player-userid>) вибрався з кишенькового виміру SCP-106."
     regex: []
 
   onpocketdimensionenter:
-    # attackeripaddress - string
-    # attackername - string
-    # attackerplayerid - int
-    # attackersteamid - string
-    # attackerclass - Role
-    # attackerteam - Team
-    # playeripaddress - string
-    # playername - string
-    # playerplayerid - int
-    # playersteamid - string
-    # playerclass - Role
-    # playerteam - Team
-    message: "<var:playername> (<var:playersteamid>) був перенесений у кишеньковий вимір SCP-106 <var:attackername> (<var:attackersteamid>)."
+    # attacker - Player
+    # target - Player
+    message: "<var:player-name> (<var:player-userid>) був перенесений у кишеньковий вимір SCP-106 <var:attacker-name> (<var:attacker-userid>)."
     regex: []
 
   onthrowprojectile:
     # type - GrenadeType
-    # ipaddress - string
-    # name - string
-    # playerid - int
-    # steamid - string
-    # class - Role
-    # team - Team
-    message: "<var:name> (<var:steamid>) кинув <var:type>."
-    regex: []
-
-  onplayerinfected:
-    # damage - int
-    # infecttime - int
-    # attackeripaddress - string
-    # attackername - string
-    # attackerplayerid - int
-    # attackersteamid - string
-    # attackerclass - Role
-    # attackerteam - Team
-    # playeripaddress - string
-    # playername - string
-    # playerplayerid - int
-    # playersteamid - string
-    # playerclass - Role
-    # playerteam - Team
-    message: "<var:playername> (<var:playersteamid>) був вилікуваний SCP-049."
+    # player - Player
+    message: "<var:player-name> (<var:player-userid>) кинув <var:type>."
     regex: []
 
   onspawnragdoll:
     # damagetype - string
-    # ipaddress - string
-    # name - string
-    # playerid - int
-    # steamid - string
-    # class - Role
-    # team - Team
-    message: "Труп <var:name> (<var:steamid>)'s <var:class> заспавнений."
+    # player - Player
+    message: "Труп <var:player-name> (<var:player-userid>)'s <var:player-role> заспавнений."
     regex: []
 
   onitemuse:
     # item - string
-    # ipaddress - string
-    # name - string
-    # playerid - int
-    # steamid - string
-    # class - Role
-    # team - Team
-    message: "<var:name> (<var:steamid>) використав <var:item>."
+    # player - Player
+    message: "<var:player-name> (<var:player-userid>) використав <var:item>."
     regex: []
 
   onelevatoruse:
     # elevatorname - ElevatorType
-    # ipaddress - string
-    # name - string
-    # playerid - int
-    # steamid - string
-    # class - Role
-    # team - Team
-    message: "<var:name> (<var:steamid>) викликав <var:elevatorname> ліфт."
+    # player - Player
+    message: "<var:player-name> (<var:player-userid>) викликав <var:elevatorname> ліфт."
     regex: []
 
   onhandcuff:
-    # targetipaddress - string
-    # targetname - string
-    # targetplayerid - int
-    # targetsteamid - string
-    # targetclass - Role
-    # targetteam - Team
-    # playeripaddress - string
-    # playername - string
-    # playerplayerid - int
-    # playersteamid - string
-    # playerclass - Role
-    # playerteam - Team
+    # target - Player
+    # disarmer - Player
     default:
-      message: "<var:targetclass> <var:targetname> (<var:targetsteamid>) був зв'язаний <var:playerclass> <var:playername> (<var:playersteamid>)."
+      message: "<var:target-role> <var:target-name> (<var:target-userid>) був зв'язаний <var:player-role> <var:player-name> (<var:player-userid>)."
       regex: []
     nootherplayer:
-      message: "<var:targetclass> <var:targetname> (<var:targetsteamid>) був зв'язаний."
+      message: "<var:target-role> <var:target-name> (<var:target-userid>) був зв'язаний."
       regex: []
 
   onhandcuffremoved:
-    # targetipaddress - string
-    # targetname - string
-    # targetplayerid - int
-    # targetsteamid - string
-    # targetclass - Role
-    # targetteam - Team
-    # playeripaddress - string
-    # playername - string
-    # playerplayerid - int
-    # playersteamid - string
-    # playerclass - Role
-    # playerteam - Team
+    # target - Player
+    # disarmer - Player
     default:
-      message: "<var:targetclass> <var:targetname> (<var:targetsteamid>) був розв'язаний <var:playerclass> <var:playername> (<var:playersteamid>)."
+      message: "<var:target-role> <var:target-name> (<var:target-userid>) був розв'язаний <var:player-role> <var:player-name> (<var:player-userid>)."
       regex: []
     nootherplayer:
-      message: "<var:targetclass> <var:targetname> (<var:targetsteamid>) був розв'язаний."
+      message: "<var:target-role> <var:target-name> (<var:target-userid>) був розв'язаний."
       regex: []
 
   onplayertriggertesla:
-    # ipaddress - string
-    # name - string
-    # playerid - int
-    # steamid - string
-    # class - Role
-    # team - Team
+    # player - Player
     default:
-      message: "<var:team> <var:name> (<var:steamid>) активував ворота Тесла."
+      message: "<var:player-team> <var:player-name> (<var:player-userid>) активував ворота Тесла."
       regex: []
     ignored:
-      message: "<var:team> <var:name> (<var:steamid>) пройшов крізь ворота Тесла, не активувавши їх."
+      message: "<var:player-team> <var:player-name> (<var:player-userid>) пройшов крізь ворота Тесла, не активувавши їх."
       regex: []
 
   onscp914changeknob:
     # setting - KnobSetting
-    # ipaddress - string
-    # name - string
-    # playerid - int
-    # steamid - string
-    # class - Role
-    # team - Team
-    message: "<var:name> (<var:steamid>) встановив SCP-914 на \"<var:setting>\"."
+    # player - Player
+    message: "<var:player-name> (<var:player-userid>) встановив SCP-914 на \"<var:setting>\"."
     regex: []
 
   onplayerradioswitch:
     # setting - RadioStatus
-    # ipaddress - string
-    # name - string
-    # playerid - int
-    # steamid - string
-    # class - Role
-    # team - Team
-    message: "<var:name> (<var:steamid>) перемкнув стан радіо на <var:setting>."
+    # player - Player
+    message: "<var:player-name> (<var:player-userid>) перемкнув стан радіо на <var:setting>."
     regex: []
 
   onrecallzombie:
-    # allowrecall - bool
-    # targetipaddress - string
-    # targetname - string
-    # targetplayerid - int
-    # targetsteamid - string
-    # targetclass - Role
-    # targetteam - Team
-    # playeripaddress - string
-    # playername - string
-    # playerplayerid - int
-    # playersteamid - string
-    # playerclass - Role
-    # playerteam - Team
-    message: "<var:targetname> (<var:targetsteamid>) був відроджений за SCP-049-2 гравцем <var:playername> (<var:playersteamid>)"
+    # target - Player
+    # player - Player
+    message: "<var:target-name> (<var:target-userid>) був відроджений за SCP-049-2 гравцем <var:player-name> (<var:player-userid>)"
     regex: []
 
   oncallcommand:
     remoteadmin:
       player:
         # command
-        # ipaddress
-        # name
-        # playerid
-        # steamid
-        # class
-        # team
-        message: "<var:name> (<var:steamid>) використав команду '<var:command>'."
+        # player - Player
+        message: "<var:player-name> (<var:player-userid>) використав команду '<var:command>'."
         regex: [ ]
       server:
         # command
@@ -734,13 +535,8 @@ messages:
     game:
       player:
         # command
-        # ipaddress
-        # name
-        # playerid
-        # steamid
-        # class
-        # team
-        message: "<var:name> (<var:steamid>) використав команду '<var:command>'."
+        # player - Player
+        message: "<var:player-name> (<var:player-userid>) використав команду '<var:command>'."
         regex: [ ]
       server:
         # command
@@ -749,13 +545,8 @@ messages:
     console:
       player:
         # command
-        # ipaddress
-        # name
-        # playerid
-        # steamid
-        # class
-        # team
-        message: "<var:name> (<var:steamid>) використав команду '<var:command>'."
+        # player - Player
+        message: "<var:player-name> (<var:player-userid>) використав команду '<var:command>'."
         regex: [ ]
       server:
         # command
@@ -768,13 +559,8 @@ messages:
         # command
         # result
         # returnmessage
-        # ipaddress
-        # name
-        # playerid
-        # steamid
-        # class
-        # team
-        message: "<var:name> (<var:steamid>) використав команду '<var:command>'. Результат: '<var:returnmessage>'"
+        # player - Player
+        message: "<var:player-name> (<var:player-userid>) використав команду '<var:command>'. Результат: '<var:returnmessage>'"
         regex: [ ]
       server:
         # command
@@ -787,13 +573,8 @@ messages:
         # command
         # result
         # returnmessage
-        # ipaddress
-        # name
-        # playerid
-        # steamid
-        # class
-        # team
-        message: "<var:name> (<var:steamid>) використав команду '<var:command>'. Результат: '<var:returnmessage>'"
+        # player - Player
+        message: "<var:player-name> (<var:player-userid>) використав команду '<var:command>'. Результат: '<var:returnmessage>'"
         regex: [ ]
       server:
         # command
@@ -806,13 +587,8 @@ messages:
         # command
         # result
         # returnmessage
-        # ipaddress
-        # name
-        # playerid
-        # steamid
-        # class
-        # team
-        message: "<var:name> (<var:steamid>) використав команду '<var:command>'. Результат: '<var:returnmessage>'"
+        # player - Player
+        message: "<var:player-name> (<var:player-userid>) використав команду '<var:command>'. Результат: '<var:returnmessage>'"
         regex: [ ]
       server:
         # command
@@ -824,39 +600,19 @@ messages:
   onreload:
     # weapon
     # maxclipsize
-    # ipaddress
-    # name
-    # playerid
-    # steamid
-    # class
-    # team
-    message: "<var:name> (<var:steamid>) перезарядив <var:weapon>."
+    # player - Player
+    message: "<var:player-name> (<var:player-userid>) перезарядив <var:weapon>."
     regex: []
 
   ongrenadeexplosion:
-    # ipaddress
-    # name
-    # playerid
-    # steamid
-    # class
-    # team
-    message: "Граната <var:name> (<var:steamid>) гравця підірвалась."
+    # player - Player
+    message: "Граната <var:player-name> (<var:player-userid>) гравця підірвалась."
     regex: []
 
   ongrenadehitplayer:
-    # targetipaddress - string
-    # targetname - string
-    # targetplayerid - int
-    # targetsteamid - string
-    # targetclass - Role
-    # targetteam - Team
-    # playeripaddress - string
-    # playername - string
-    # playerplayerid - int
-    # playersteamid - string
-    # playerclass - Role
-    # playerteam - Team
-    message: "Граната <var:playername> (<var:playersteamid>) гравця заділа <var:targetname> (<var:targetsteamid>)"
+    # player - Player
+    # target - Player
+    message: "Граната <var:player-name> (<var:player-userid>) гравця заділа <var:target-name> (<var:target-userid>)"
     regex: []
 
   ongeneratorunlock:
@@ -867,13 +623,8 @@ messages:
     # room - RoomType
     # starttime - float
     # timeleft - float
-    # ipaddress - string
-    # name - string
-    # playerid - int
-    # steamid - string
-    # class - Role
-    # team - Team
-    message: "<var:name> (<var:steamid>) розблокував генератор у <var:room>."
+    # player - Player
+    message: "<var:player-name> (<var:player-userid>) розблокував генератор у <var:room>."
     regex: [
       "Micro-HID":"кімнаті з Micro-HID",
       "nuke":"кімнаті Боєголовки" ]
@@ -886,13 +637,8 @@ messages:
     # room - RoomType
     # starttime - float
     # timeleft - float
-    # ipaddress - string
-    # name - string
-    # playerid - int
-    # steamid - string
-    # class - Role
-    # team - Team
-    message: "<var:name> (<var:steamid>) заченив генератор у <var:room>."
+    # player - Player
+    message: "<var:player-name> (<var:player-userid>) заченив генератор у <var:room>."
     regex: [
       "Micro-HID":"кімнаті з Micro-HID",
       "nuke":"кімнаті Боєголовки" ]
@@ -905,13 +651,8 @@ messages:
     # room - RoomType
     # starttime - float
     # timeleft - float
-    # ipaddress - string
-    # name - string
-    # playerid - int
-    # steamid - string
-    # class - Role
-    # team - Team
-    message: "<var:name> (<var:steamid>) відчинив генератор у <var:room>."
+    # player - Player
+    message: "<var:player-name> (<var:player-userid>) відчинив генератор у <var:room>."
     regex: [
       "Micro-HID":"кімнаті з Micro-HID",
       "nuke":"кімнаті Боєголовки" ]
@@ -924,13 +665,8 @@ messages:
     # room - RoomType
     # starttime - float
     # timeleft - float
-    # ipaddress - string
-    # name - string
-    # playerid - int
-    # steamid - string
-    # class - Role
-    # team - Team
-    message: "<var:name> (<var:steamid>) активував генератор у <var:room>."
+    # player - Player
+    message: "<var:player-name> (<var:player-userid>) активував генератор у <var:room>."
     regex: [
       "Micro-HID":"кімнаті з Micro-HID",
       "nuke":"кімнаті Боєголовки" ]
@@ -943,13 +679,8 @@ messages:
     # room - RoomType
     # starttime - float
     # timeleft - float
-    # ipaddress - string
-    # name - string
-    # playerid - int
-    # steamid - string
-    # class - Role
-    # team - Team
-    message: "<var:name> (<var:steamid>) деактивував генератор у <var:room>."
+    # player - Player
+    message: "<var:player-name> (<var:player-userid>) деактивував генератор у <var:room>."
     regex: [
       "Micro-HID":"кімнаті з Micro-HID",
       "nuke":"кімнаті Боєголовки" ]
@@ -958,70 +689,40 @@ messages:
     # open - bool
     # door - string
     # apdrain - float
-    # ipaddress - string
-    # name - string
-    # playerid - int
-    # steamid - string
-    # class - Role
-    # team - Team
-    message: "<var:name> (<var:steamid>) заблокував двері за SCP-079."
+    # player - Player
+    message: "<var:player-name> (<var:player-userid>) заблокував двері за SCP-079."
     regex: []
 
   on079teslagate:
     # apdrain - float
-    # ipaddress - string
-    # name - string
-    # playerid - int
-    # steamid - string
-    # class - Role
-    # team - Team
-    message: "<var:name> (<var:steamid>) активував ворота Тесла."
+    # player - Player
+    message: "<var:player-name> (<var:player-userid>) активував ворота Тесла."
     regex: []
 
   on079addexp:
     # xptype - ExperienceType
     # amount - float
-    # ipaddress - string
-    # name - string
-    # playerid - int
-    # steamid - string
-    # class - Role
-    # team - Team
-    message: "<var:name> (<var:steamid>) отримав <var:amount> досвіду."
+    # player - Player
+    message: "<var:player-name> (<var:player-userid>) отримав <var:amount> досвіду."
     regex: []
 
   on079levelup:
     # level - int
-    # ipaddress - string
-    # name - string
-    # playerid - int
-    # steamid - string
-    # class - Role
-    # team - Team
-    message: "<var:name> (<var:steamid>) покращів рівень за SCP-079."
+    # player - Player
+    message: "<var:player-name> (<var:player-userid>) покращів рівень за SCP-079."
     regex: []
 
   on079unlockdoor:
     # doorname - string
-    # ipaddress - string
-    # name - string
-    # playerid - int
-    # steamid - string
-    # class - Role
-    # team - Team
-    message: "<var:name> (<var:steamid>) заблокував <var:doorname> двері."
+    # player - Player
+    message: "<var:player-name> (<var:player-userid>) заблокував <var:doorname> двері."
     regex: []
 
   on079lockdown:
     # room - RoomType
     # apdrain - float
-    # ipaddress - string
-    # name - string
-    # playerid - int
-    # steamid - string
-    # class - Role
-    # team - Team
-    message: "<var:name> (<var:steamid>) заблокував <var:room>."
+    # player - Player
+    message: "<var:player-name> (<var:player-userid>) заблокував <var:room>."
     regex: [
       "Micro-HID":"кімнаті з Micro-HID",
       "nuke":"кімнаті Боєголовки" ]
@@ -1029,13 +730,8 @@ messages:
   on079cancellockdown:
     # room - RoomType
     # apdrain - float
-    # ipaddress - string
-    # name - string
-    # playerid - int
-    # steamid - string
-    # class - Role
-    # team - Team
-    message: "<var:name> (<var:steamid>) скасував блокування в <var:room>."
+    # player - Player
+    message: "<var:player-name> (<var:player-userid>) скасував блокування в <var:room>."
     regex: [
       "Micro-HID":"кімнаті з Micro-HID",
       "nuke":"кімнаті Боєголовки" ]
@@ -1044,19 +740,9 @@ messages:
     player:
       # duration - int
       # reason - string
-      # playeripaddress - string
-      # playername - string
-      # playerplayerid - int
-      # playersteamid - string
-      # playerclass - Role
-      # playerteam - Team
-      # issueripaddress - string
-      # issuername - string
-      # issuerplayerid - int
-      # issuersteamid - string
-      # issuerclass - Role
-      # issuerteam - Team
-      message: "Гравець <var:playername> (<var:playersteamid>) був забанений <var:issuername> (<var:issuersteamid>) на `<var:duration>`. Причина: <var:reason>"
+      # player - Player
+      # issuer - Player
+      message: "Гравець <var:player-name> (<var:player-userid>) був забанений <var:issuername> (<var:issuersteamid>) на `<var:duration>`. Причина: <var:reason>"
       regex: [ ]
     server:
       # duration - int
@@ -1067,7 +753,7 @@ messages:
       # playersteamid - string
       # playerclass - Role
       # playerteam - Team
-      message: "Player <var:playername> (<var:playersteamid>) був забанений сервером на `<var:duration>`. Причина: <var:reason>"
+      message: "Player <var:player-name> (<var:player-userid>) був забанений сервером на `<var:duration>`. Причина: <var:reason>"
       regex: []
 
   onbanissued:
@@ -1082,7 +768,7 @@ messages:
       message: >+
         **Видано IP-бан**
         ```
-        Гравець:    <var:playername>\n
+        Гравець:    <var:player-name>\n
         Айпі:        <var:playerip>\n
         Виданий:    <var:issuedtime>\n
         До:   <var:expirytime>\n
@@ -1102,7 +788,7 @@ messages:
       message: >+
         **Видано UserID-бан**
         ```
-        Гравець:    <var:playername>\n
+        Гравець:    <var:player-name>\n
         Айді:    <var:playeruserid>\n
         Виданий:    <var:issuedtime>\n
         До:   <var:expirytime>\n
@@ -1124,7 +810,7 @@ messages:
       message: >+
         **IP-бан оновлений**
         ```
-        Гравець:    <var:playername>\n
+        Гравець:    <var:player-name>\n
         Айпі:        <var:playerip>\n
         Виданий:    <var:issuedtime>\n
         До:   <var:expirytime>\n
@@ -1144,7 +830,7 @@ messages:
       message: >+
         **UserID-бан оновлений**
         ```
-        Гравець:    <var:playername>\n
+        Гравець:    <var:player-name>\n
         Айді:    <var:playeruserid>\n
         Виданий:    <var:issuedtime>\n
         До:   <var:expirytime>\n
@@ -1167,19 +853,9 @@ messages:
   onkick:
     player:
       # reason - string
-      # playeripaddress - string
-      # playername - string
-      # playerplayerid - int
-      # playersteamid - string
-      # playerclass - Role
-      # playerteam - Team
-      # issueripaddress - string
-      # issuername - string
-      # issuerplayerid - int
-      # issuersteamid - string
-      # issuerclass - Role
-      # issuerteam - Team
-      message: "**Гравець <var:playername> (<var:playersteamid>) був кікнутий <var:issuername> (<var:issuersteamid>). Причина: <var:reason>**"
+      # player - Player
+      # issuer - Player
+      message: "**Гравець <var:player-name> (<var:player-userid>) був кікнутий <var:issuername> (<var:issuersteamid>). Причина: <var:reason>**"
       regex: [ ]
     server:
       # reason - string
@@ -1189,111 +865,51 @@ messages:
       # playersteamid - string
       # playerclass - Role
       # playerteam - Team
-      message: "**Player <var:playername> (<var:playersteamid>) був кікнутий сервером. Причина: <var:reason>**"
+      message: "**Player <var:player-name> (<var:player-userid>) був кікнутий сервером. Причина: <var:reason>**"
       regex: []
 
   onplayermuted:
     player:
       intercom:
-        # playeripaddress - string
-        # playername - string
-        # playerplayerid - int
-        # playersteamid - string
-        # playerclass - Role
-        # playerteam - Team
-        # issueripaddress - string
-        # issuername - string
-        # issuerplayerid - int
-        # issuersteamid - string
-        # issuerclass - Role
-        # issuerteam - Team
-        message: "**<var:playername> (<var:playersteamid>) був зам'ючений в інтеркомі <var:issuername> (<var:issuersteamid>).**"
+        # player - Player
+        # issuer - Player
+        message: "**<var:player-name> (<var:player-userid>) був зам'ючений в інтеркомі <var:issuername> (<var:issuersteamid>).**"
         regex: []
       standard:
-        # playeripaddress - string
-        # playername - string
-        # playerplayerid - int
-        # playersteamid - string
-        # playerclass - Role
-        # playerteam - Team
-        # issueripaddress - string
-        # issuername - string
-        # issuerplayerid - int
-        # issuersteamid - string
-        # issuerclass - Role
-        # issuerteam - Team
-        message: "**<var:playername> (<var:playersteamid>) був зам'ючений <var:issuername> (<var:issuersteamid>).**"
+        # player - Player
+        # issuer - Player
+        message: "**<var:player-name> (<var:player-userid>) був зам'ючений <var:issuername> (<var:issuersteamid>).**"
         regex: []
     server:
       intercom:
-        # playeripaddress - string
-        # playername - string
-        # playerplayerid - int
-        # playersteamid - string
-        # playerclass - Role
-        # playerteam - Team
-        message: "**<var:playername> (<var:playersteamid>) був зам'ючений в інтеркомі сервером.**"
+        # player - Player
+        message: "**<var:player-name> (<var:player-userid>) був зам'ючений в інтеркомі сервером.**"
         regex: []
       standard:
-        # playeripaddress - string
-        # playername - string
-        # playerplayerid - int
-        # playersteamid - string
-        # playerclass - Role
-        # playerteam - Team
-        message: "**<var:playername> (<var:playersteamid>) був зам'ючений сервером.**"
+        # player - Player
+        message: "**<var:player-name> (<var:player-userid>) був зам'ючений сервером.**"
         regex: []
 
   onplayerunmuted:
     player:
       intercom:
-        # playeripaddress - string
-        # playername - string
-        # playerplayerid - int
-        # playersteamid - string
-        # playerclass - Role
-        # playerteam - Team
-        # issueripaddress - string
-        # issuername - string
-        # issuerplayerid - int
-        # issuersteamid - string
-        # issuerclass - Role
-        # issuerteam - Team
-        message: "**<var:playername> (<var:playersteamid>) був розм'ючений в інтеркомі <var:issuername> (<var:issuersteamid>).**"
+        # player - Player
+        # issuer - Player
+        message: "**<var:player-name> (<var:player-userid>) був розм'ючений в інтеркомі <var:issuername> (<var:issuersteamid>).**"
         regex: []
       standard:
-        # playeripaddress - string
-        # playername - string
-        # playerplayerid - int
-        # playersteamid - string
-        # playerclass - Role
-        # playerteam - Team
-        # issueripaddress - string
-        # issuername - string
-        # issuerplayerid - int
-        # issuersteamid - string
-        # issuerclass - Role
-        # issuerteam - Team
-        message: "**<var:playername> (<var:playersteamid>) був розм'ючений <var:issuername> (<var:issuersteamid>).**"
+        # player - Player
+        # issuer - Player
+        message: "**<var:player-name> (<var:player-userid>) був розм'ючений <var:issuername> (<var:issuersteamid>).**"
         regex: []
     server:
       intercom:
-        # playeripaddress - string
-        # playername - string
-        # playerplayerid - int
-        # playersteamid - string
-        # playerclass - Role
-        # playerteam - Team
-        message: "**<var:playername> (<var:playersteamid>) був розм'ючений в інтеркомі сервером.**"
+        # player - Player
+        message: "**<var:player-name> (<var:player-userid>) був розм'ючений в інтеркомі сервером.**"
         regex: []
       standard:
-        # playeripaddress - string
-        # playername - string
-        # playerplayerid - int
-        # playersteamid - string
-        # playerclass - Role
-        # playerteam - Team
-        message: "**<var:playername> (<var:playersteamid>) був розм'ючений сервером.**"
+        # player - Player
+        message: "**<var:player-name> (<var:player-userid>) був розм'ючений сервером.**"
         regex: []
 
   onteamrespawn:
@@ -1308,20 +924,15 @@ messages:
 
   onplayerescape:
     # newclass - Role
-    # ipaddress - string
-    # name - string
-    # playerid - int
-    # steamid - string
-    # oldclass - Role
-    # team - Team
-    message: "<var:name> (<var:steamid>) втік і став a <var:newclass>"
+    # player - Player
+    message: "<var:player-name> (<var:player-userid>) втік і став a <var:newclass>"
     regex: []
 
   #####################################################################################################################
   #                                                                                                                   #
   #                                                   DISCORD BOT                                                     #
   #                                                                                                                   #
-  #   message: The message to be displayed. Variables are inserted in the format <var:name>, such as <var:ipaddress>. #
+  #   message: The message to be displayed. Variables are inserted in the format <var:player-name>, such as <var:ipaddress>. #
   #   regex: A regular expression paired with a replacement string to find and replace parts of a message.            #
   #                                                                                                                   #
   #####################################################################################################################
@@ -1332,7 +943,7 @@ messages:
 
   invalidsteamid:
     # steamid - string
-    message: "Недійсний SteamID '<var:steamid>'."
+    message: "Недійсний SteamID '<var:player-userid>'."
     regex: []
 
   invalidsteamidorip:
@@ -1347,14 +958,14 @@ messages:
 
   playernotfound:
     # steamid - string
-    message: "Гравць з SteamID '<var:steamid>' не знайдено."
+    message: "Гравць з SteamID '<var:player-userid>' не знайдено."
     regex: []
 
   playerkicked:
     # name - string
     # steamid - string
     # admintag - string
-    message: "'<var:name>' (<var:steamid>) був кікнутий із сервера <var:admintag>."
+    message: "'<var:player-name>' (<var:player-userid>) був кікнутий із сервера <var:admintag>."
     regex: []
 
   playerbanned:
@@ -1363,7 +974,7 @@ messages:
     # reason - string
     # duration - string
     # admintag - string
-    message: "'<var:name>' (<var:steamid>) був забанений на сервері <var:admintag> по причині '<var:reason>' (<var:duration>)."
+    message: "'<var:player-name>' (<var:player-userid>) був забанений на сервері <var:admintag> по причині '<var:reason>' (<var:duration>)."
     regex: []
 
   playerunbanned:
@@ -1397,13 +1008,8 @@ messages:
 
   listrow:
     default:
-      # ipaddress - string
-      # name - string
-      # playerid - int
-      # steamid - string
-      # class - Role
-      # team - Team
-      message: "**<var:name>** | **<var:class>** | <var:steamid>\n"
+      # player - Player
+      message: "**<var:player-name>** | **<var:player-role>** | <var:player-userid>\n"
       regex: []
     empty:
       message: "Немає гравців онлайн."

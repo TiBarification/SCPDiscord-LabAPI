@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using PluginAPI.Core;
 using SCPDiscord.Interface;
 using UnityEngine;
-using System;
 using System.Linq;
 
 namespace SCPDiscord

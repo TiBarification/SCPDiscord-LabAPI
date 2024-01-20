@@ -426,7 +426,7 @@ namespace SCPDiscord.EventListeners
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
 					{ "duration",          (new TimeSpan(DateTime.Now.Ticks - Statistics.CurrentRound.StartTimestamp.Ticks).TotalSeconds / 60).ToString("0") },
-					{ "leadingteam",        ev.LeadingTeam.ToString()                               },
+					{ "leadingteam",        ev.LeadingTeam.ToString()                            },
 					{ "dclassalive",        Statistics.CurrentRound.ClassDAlive.ToString()       },
 					{ "dclassdead",         Statistics.CurrentRound.ClassDDead.ToString()        },
 					{ "dclassescaped",      Statistics.CurrentRound.ClassDEscaped.ToString()     },
