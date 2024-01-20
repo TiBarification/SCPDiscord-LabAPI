@@ -382,15 +382,9 @@ namespace SCPDiscord
 			List<string> listItems = new List<string>();
 			foreach (Player player in Player.GetPlayers())
 			{
-				string row = Language.GetProcessedMessage("messages.listrow.default", new Dictionary<string, string>
-				{
-					{ "ipaddress",        player.IpAddress                         },
-					{ "name",             player.Nickname                          },
-					{ "playerid",         player.PlayerId.ToString()               },
-					{ "steamid",          player.GetParsedUserID()                 },
-					{ "class",            player.Role.ToString()                   },
-					{ "team",             player.ReferenceHub.GetTeam().ToString() }
-				});
+				Dictionary<string, string> variables = new Dictionary<string, string> {};
+				variables.AddPlayerVariables(player, "player");
+				string row = Language.GetProcessedMessage("messages.listrow.default", variables);
 
 				// Remove sensitive information if set in config
 				if (Config.GetChannelIDs("channelsettings.filterips").Contains(command.ChannelID))

@@ -145,15 +145,12 @@ namespace SCPDiscord
 						{
 							Dictionary<string, string> variables = new Dictionary<string, string>
 							{
-								{ "ipaddress",                        player.IpAddress                          },
-								{ "name",                             player.Nickname                           },
-								{ "playerid",                         player.PlayerId.ToString()                },
-								{ "userid",                           player.UserId                             },
-								{ "steamid",                          player.GetParsedUserID()                  },
-								{ "discorddisplayname",               userInfo.DiscordDisplayName               },
-								{ "discordusername",                  userInfo.DiscordUsername                  },
-								{ "discordid",                        userInfo.DiscordID.ToString()             }
+								{ "discorddisplayname", userInfo.DiscordDisplayName   },
+								{ "discordusername",    userInfo.DiscordUsername      },
+								{ "discordid",          userInfo.DiscordID.ToString() }
 							};
+							variables.AddPlayerVariables(player, "player");
+
 							foreach (string unparsedCommand in keyValuePair.Value)
 							{
 								string command = unparsedCommand;
