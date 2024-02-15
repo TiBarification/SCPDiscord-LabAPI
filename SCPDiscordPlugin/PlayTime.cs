@@ -60,7 +60,16 @@ namespace SCPDiscord
 
 		        playtimeData = JsonConvert.DeserializeObject<Dictionary<string, ulong>>(File.ReadAllText(Config.GetPlaytimePath()));
 		        fileWatcher = new Utilities.FileWatcher(Config.GetPlaytimeDir(), "playtime.json", Reload);
-		        Logger.Debug("Successfully loaded '" + Config.GetPlaytimePath() + "'.");
+
+		        if (playtimeData == null)
+		        {
+			        Logger.Warn("Failed loading '" + Config.GetPlaytimePath() + "'.");
+		        }
+		        else
+		        {
+			        Logger.Debug("Successfully loaded '" + Config.GetPlaytimePath() + "'.");
+		        }
+
 	        }
         }
 
