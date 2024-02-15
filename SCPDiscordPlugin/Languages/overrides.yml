@@ -9,7 +9,8 @@ messages:
 #      # maxplayers - int
 #      message: "<var:players>/<var:maxplayers>"
 #      regex: []
-## Example for overriding the report events in order to add a discord ping to a specific user/role:
+## Example for overriding the report events in order to add a discord ping to a specific user/role.
+## <@&000000000000000000> for a role and <@000000000000000000> for a user:
 #  onplayercheaterreport:
 #    # player - Player
 #    # target - Player
