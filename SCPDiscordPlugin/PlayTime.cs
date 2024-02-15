@@ -170,7 +170,7 @@ namespace SCPDiscord
         {
 	        hours = "0.0";
 
-	        if (userID == null)
+	        if (userID == null || playtimeData == null)
 	        {
 		        return false;
 	        }
