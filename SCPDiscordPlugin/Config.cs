@@ -35,19 +35,20 @@ namespace SCPDiscord
 
 		private static readonly Dictionary<string, bool> configBools = new Dictionary<string, bool>
 		{
-			{ "channelsettings.invertfilters",            false },
-			{ "settings.autoreload.reservedslots",        true  },
-			{ "settings.autoreload.whitelist",            true  },
-			{ "settings.configvalidation",                true  },
-			{ "settings.debug",                           true  },
-			{ "settings.emotes",                          true  },
-			{ "settings.regeneratelanguagefiles",         false },
-			{ "settings.rolesync",                        false },
-			{ "settings.playtime",                        true  },
-			{ "settings.useglobaldirectory.language",     true  },
-			{ "settings.useglobaldirectory.mutes",        true  },
-			{ "settings.useglobaldirectory.rolesync",     true  },
-			{ "settings.useglobaldirectory.playtime",     true  },
+			{ "channelsettings.invertipfilter",       false },
+			{ "channelsettings.invertsteamidfilter",  false },
+			{ "settings.autoreload.reservedslots",    true  },
+			{ "settings.autoreload.whitelist",        true  },
+			{ "settings.configvalidation",            true  },
+			{ "settings.debug",                       true  },
+			{ "settings.emotes",                      true  },
+			{ "settings.regeneratelanguagefiles",     false },
+			{ "settings.rolesync",                    false },
+			{ "settings.playtime",                    true  },
+			{ "settings.useglobaldirectory.language", true  },
+			{ "settings.useglobaldirectory.mutes",    true  },
+			{ "settings.useglobaldirectory.rolesync", true  },
+			{ "settings.useglobaldirectory.playtime", true  },
 			//{ "settings.autoreload.mutes",            true  }
 		};
 

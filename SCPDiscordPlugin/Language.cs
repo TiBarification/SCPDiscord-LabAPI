@@ -581,12 +581,12 @@ namespace SCPDiscord
 
 		public static string RunFilters(ulong channelID, string ipAddress, string parsedUserID, string userIDReplacement, string message)
 		{
-			if (Config.GetChannelIDs("channelsettings.filterips").Contains(channelID) && !string.IsNullOrWhiteSpace(ipAddress))
+			if (ShouldFilterIP(channelID) && !string.IsNullOrWhiteSpace(ipAddress))
 			{
 				message = message.Replace(ipAddress, new string('#', ipAddress.Length));
 			}
 
-			if (Config.GetChannelIDs("channelsettings.filtersteamids").Contains(channelID) && !string.IsNullOrWhiteSpace(parsedUserID))
+			if (ShouldFilterSteamID(channelID) && !string.IsNullOrWhiteSpace(parsedUserID))
 			{
 				message = message.Replace(parsedUserID, userIDReplacement);
 			}
@@ -596,12 +596,12 @@ namespace SCPDiscord
 
 		public static string RunFilters(ulong channelID, Player player, string message)
 		{
-			if (Config.GetChannelIDs("channelsettings.filterips").Contains(channelID))
+			if (ShouldFilterIP(channelID))
 			{
 				message = message.Replace(player.IpAddress, new string('#', player.IpAddress.Length));
 			}
 
-			if (Config.GetChannelIDs("channelsettings.filtersteamids").Contains(channelID))
+			if (ShouldFilterSteamID(channelID))
 			{
 				message = message.Replace(player.GetParsedUserID(), "Player " + player.PlayerId);
 			}
@@ -611,15 +611,8 @@ namespace SCPDiscord
 
 		public static string RunFilters(ulong channelID, string message)
 		{
-			bool filterIPs = Config.GetChannelIDs("channelsettings.filterips").Contains(channelID);
-			bool filterSteamIDs = Config.GetChannelIDs("channelsettings.filtersteamids").Contains(channelID);
-
-			if (Config.GetBool("channelsettings.invertfilters"))
-			{
-				filterIPs = !filterIPs;
-				filterSteamIDs = !filterSteamIDs;
-			}
-
+			bool filterIPs = ShouldFilterIP(channelID);
+			bool filterSteamIDs = ShouldFilterSteamID(channelID);
 			foreach (Player player in Player.GetPlayers())
 			{
 				if (filterIPs)
@@ -634,6 +627,28 @@ namespace SCPDiscord
 			}
 
 			return message;
+		}
+
+		public static bool ShouldFilterIP(ulong channelID)
+		{
+			bool filterIPs = Config.GetChannelIDs("channelsettings.filterips").Contains(channelID);
+			if (Config.GetBool("channelsettings.invertipfilter"))
+			{
+				return !filterIPs;
+			}
+
+			return filterIPs;
+		}
+
+		public static bool ShouldFilterSteamID(ulong channelID)
+		{
+			bool filterIDs = Config.GetChannelIDs("channelsettings.filtersteamids").Contains(channelID);
+			if (Config.GetBool("channelsettings.invertsteamidfilter"))
+			{
+				return !filterIDs;
+			}
+
+			return filterIDs;
 		}
 
 		public static string RunUsernameRegexReplacements(string input)
