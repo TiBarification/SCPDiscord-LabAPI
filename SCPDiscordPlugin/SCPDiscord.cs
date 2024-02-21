@@ -32,7 +32,7 @@ namespace SCPDiscord
 		//private Utilities.FileWatcher vanillaMutesWatcher;
 		private Utilities.FileWatcher whitelistWatcher;
 
-		public const string VERSION = "3.2.0-RC1";
+		public const string VERSION = "3.2.0-RC3";
 
 		[PluginEntryPoint("SCPDiscord", VERSION, "SCP:SL - Discord bridge.", "Karl Essinger")]
 		public void Start()
