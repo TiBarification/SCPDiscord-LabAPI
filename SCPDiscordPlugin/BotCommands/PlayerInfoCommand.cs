@@ -86,6 +86,7 @@ namespace SCPDiscord.BotCommands
 					{ "banstatus",      banStatus  },
 					{ "banreason",      banReason  },
 					{ "playtimehours",  PlayTime.GetHours(command.SteamID) },
+					{ "hasreservedslot",   ReservedSlots.HasReservedSlot(command.SteamID).ToString() },
 				};
 				SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.playerinfo.offline", vars);
 			}

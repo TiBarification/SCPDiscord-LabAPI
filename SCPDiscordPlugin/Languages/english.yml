@@ -1358,6 +1358,8 @@ messages:
       # mutereason - string
       # banstatus - string
       # banreason - string
+      # playtimehours - int
+      # hasreservedslot - bool
       message: >+
         **Player Information - <var:discordmention>**
         ```
@@ -1367,6 +1369,7 @@ messages:
         Playtime:       <var:playtimehours> hours\n
         Muted:          <var:mutestatus> (Reason: <var:mutereason>)\n
         Banned:         <var:banstatus> (Reason: <var:banreason>)\n
+        Reserved Slot:  replaceYesNo<var:hasreservedslot>
         Discord Synced: replaceYesNo<var:issynced>
         ```
       regex: [ "replaceYesNoTrue":"Yes", "replaceYesNoFalse":"No", "replaceOnOffTrue":"On", "replaceOnOffFalse":"Off", "- <@0>": "", "\\(Reason: \\)":"" ]
