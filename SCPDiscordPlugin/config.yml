@@ -116,7 +116,8 @@ channelsettings:
     filterips: [ "staff" ]
     filtersteamids: []
 
-    # Invert the filters in order to block messages in all channels other than the ones specified.
+    # If true only the messages in the channels above are filtered,
+    # if false all messages except the ones in the above channels are filtered.
     invertipfilter: true
     invertsteamidfilter: false
 
