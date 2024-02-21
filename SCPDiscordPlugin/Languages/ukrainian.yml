@@ -927,9 +927,9 @@ messages:
       regex: []
 
   onplayerescape:
-    # newclass - Role
+    # newrole - Role
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) втік і став a <var:newclass>"
+    message: "<var:player-name> (<var:player-userid>) втік і став a <var:newrole>"
     regex: []
 
   #####################################################################################################################
@@ -973,13 +973,21 @@ messages:
     regex: []
 
   playerbanned:
-    # name - string
-    # steamid - string
-    # reason - string
-    # duration - string
-    # admintag - string
-    message: "'<var:player-name>' (<var:player-userid>) був забанений на сервері <var:admintag> по причині '<var:reason>' (<var:duration>)."
-    regex: []
+    online:
+      # player - Player
+      # reason - string
+      # duration - string
+      # admintag - string
+      message: "'<var:player-name>' (<var:player-userid>) був забанений на сервері <var:admintag> по причині '<var:reason>' (<var:duration>) (+IP-ban)."
+      regex: []
+    offline:
+      # name - string
+      # userid - string
+      # reason - string
+      # duration - string
+      # admintag - string
+      message: "'<var:name>' (<var:userid>) був забанений на сервері <var:admintag> по причині '<var:reason>' (<var:duration>)."
+      regex: []
 
   playerunbanned:
     # steamidorip - string

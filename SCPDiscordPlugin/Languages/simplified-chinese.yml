@@ -936,9 +936,9 @@ messages:
       regex: []
 
   onplayerescape:
-    # newclass - Role
+    # newrole - Role
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) 已经逃脱并成为了 <var:newclass>"
+    message: "<var:player-name> (<var:player-userid>) 已经逃脱并成为了 <var:newrole>"
     regex: []
 
   #####################################################################################################################
@@ -982,13 +982,21 @@ messages:
     regex: []
 
   playerbanned:
-    # name - string
-    # steamid - string
-    # reason - string
-    # duration - string
-    # admintag - string
-    message: "'<var:player-name>' (<var:player-userid>) 被 <var:admintag> 从服务器上封禁 原因 '<var:reason>' (<var:duration>)."
-    regex: []
+    online:
+      # player - Player
+      # reason - string
+      # duration - string
+      # admintag - string
+      message: "'<var:player-name>' (<var:player-userid>) 被 <var:admintag> 从服务器上封禁 原因 '<var:reason>' (<var:duration>) (+IP-ban)."
+      regex: []
+    offline:
+      # name - string
+      # userid - string
+      # reason - string
+      # duration - string
+      # admintag - string
+      message: "'<var:name>' (<var:userid>) 被 <var:admintag> 从服务器上封禁 原因 '<var:reason>' (<var:duration>)."
+      regex: []
 
   playerunbanned:
     # steamidorip - string

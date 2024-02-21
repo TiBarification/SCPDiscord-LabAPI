@@ -53,6 +53,19 @@ namespace SCPDiscord.BotCommands
 				return;
 			}
 
+			command.Reason = command.Reason.Replace(";", "");
+			if (command.Reason == "")
+			{
+				command.Reason = "No reason provided.";
+			}
+
+			Dictionary<string, string> banVars = new Dictionary<string, string>
+			{
+				{ "reason",     command.Reason         },
+				{ "duration",   humanReadableDuration  },
+				{ "admintag",   command.AdminTag       }
+			};
+
 			if (!Utilities.TryGetPlayerName(command.SteamID, out string name))
 			{
 				if (!Utilities.TryGetSteamName(command.SteamID, out name))
@@ -60,21 +73,16 @@ namespace SCPDiscord.BotCommands
 					name = "Offline player";
 				}
 			}
-
-			//Semicolons are separators in the ban file so cannot be part of strings
 			name = name.Replace(";", "");
-			command.Reason = command.Reason.Replace(";", "");
-
-			if (command.Reason == "")
-			{
-				command.Reason = "No reason provided.";
-			}
 
 			// TODO: Feedback if the request is cancelled by another plugin
 
 			// Send player banned event if player is online, and add ipban
+			bool offlineBan = true;
 			if (Player.TryGet(command.SteamID.EndsWith("@steam") ? command.SteamID : command.SteamID + "@steam", out Player player))
 			{
+				offlineBan = false;
+				banVars.AddPlayerVariables(player, "player");
 				PlayerBannedEvent eventArgs = new PlayerBannedEvent(player.ReferenceHub, Server.Instance.ReferenceHub, command.Reason, durationSeconds);
 				if (!EventManager.ExecuteEvent<bool>(eventArgs))
 				{
@@ -103,18 +111,19 @@ namespace SCPDiscord.BotCommands
 			}, BanHandler.BanType.UserId);
 
 			BanHandler.ValidateBans();
-
-			Dictionary<string, string> banVars = new Dictionary<string, string>
-			{
-				{ "name",       name                   },
-				{ "steamid",    command.SteamID        },
-				{ "reason",     command.Reason         },
-				{ "duration",   humanReadableDuration  },
-				{ "admintag",   command.AdminTag       }
-			};
-
 			embed.Colour = EmbedMessage.Types.DiscordColour.Green;
-			SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.playerbanned", banVars);
+
+			if (offlineBan)
+			{
+				banVars.Add("name", name);
+				banVars.Add("userid", command.SteamID);
+				SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.playerbanned.offline", banVars);
+			}
+			else
+			{
+				SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.playerbanned.online", banVars);
+			}
+
 		}
     }
 }

@@ -956,9 +956,9 @@ messages:
       regex: []
 
   onplayerescape:
-    # newclass - Role
+    # newrole - Role
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) � scappato ed � stato generato come: <var:newclass>"
+    message: "<var:player-name> (<var:player-userid>) � scappato ed � stato generato come: <var:newrole>"
     regex: []
 
   onplayercheaterreport:
@@ -1016,13 +1016,21 @@ messages:
     regex: []
 
   playerbanned:
-    # name - string
-    # steamid - string
-    # reason - string
-    # duration - string
-    # admintag - string
-    message: "<var:player-name> (<var:player-userid>) � stato bannato da - <var:admintag> per la seguente motivazione: <var:reason> (<var:duration>)."
-    regex: []
+    online:
+      # player - Player
+      # reason - string
+      # duration - string
+      # admintag - string
+      message: "<var:player-name> (<var:player-userid>) � stato bannato da - <var:admintag> per la seguente motivazione: <var:reason> (<var:duration>) (+IP-ban)."
+      regex: []
+    offline:
+      # name - string
+      # steamid - string
+      # reason - string
+      # duration - string
+      # admintag - string
+      message: "<var:name> (<var:userid>) � stato bannato da - <var:admintag> per la seguente motivazione: <var:reason> (<var:duration>)."
+      regex: []
 
   playerunbanned:
     # steamidorip - string

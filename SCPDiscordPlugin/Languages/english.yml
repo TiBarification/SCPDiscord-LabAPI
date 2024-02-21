@@ -1063,9 +1063,9 @@ messages:
       cancel_regex: []
 
   onplayerescape:
-    # newclass - Role
+    # newrole - Role
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) has escaped and become a <var:newclass>"
+    message: "<var:player-name> (<var:player-userid>) has escaped and become a <var:newrole>"
     regex: []
     cancel_regex: []
 
@@ -1132,14 +1132,23 @@ messages:
     cancel_regex: []
 
   playerbanned:
-    # name - string
-    # userid - string
-    # reason - string
-    # duration - string
-    # admintag - string
-    message: "'<var:name>' (<var:userid>) was banned for the reason '<var:reason>' (<var:duration>)."
-    regex: []
-    cancel_regex: []
+    online:
+      # player - Player
+      # reason - string
+      # duration - string
+      # admintag - string
+      message: "'<var:player-name>' (<var:player-userid>) was banned for the reason '<var:reason>' (<var:duration>) (+IP-ban)."
+      regex: []
+      cancel_regex: []
+    offline:
+      # name - string
+      # userid - string
+      # reason - string
+      # duration - string
+      # admintag - string
+      message: "'<var:name>' (<var:userid>) was banned for the reason '<var:reason>' (<var:duration>)."
+      regex: []
+      cancel_regex: []
 
   playerunbanned:
     # steamidorip - string
