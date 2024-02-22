@@ -331,9 +331,16 @@ namespace SCPDiscord
 			return Task.CompletedTask;
 		}
 
-		public Task OnGuildAvailable(DiscordClient discordClient, GuildCreateEventArgs e)
+		public async Task OnGuildAvailable(DiscordClient discordClient, GuildCreateEventArgs e)
 		{
 			Logger.Log("Found Discord server: " + e.Guild.Name, LogID.DISCORD);
+
+			if (SCPDiscordBot.commandlineArguments.Contains("--leave-all-servers"))
+			{
+				Logger.Warn("LEAVING DISCORD SERVER AS REQUESTED: " + e.Guild.Name, LogID.DISCORD);
+				await e.Guild.LeaveAsync();
+				return;
+			}
 
 			IReadOnlyDictionary<ulong, DiscordRole> roles = e.Guild.Roles;
 
@@ -341,7 +348,6 @@ namespace SCPDiscord
 			{
 				Logger.Debug(role.Name.PadRight(40, '.') + roleID, LogID.DISCORD);
 			}
-			return Task.CompletedTask;
 		}
 
 		public Task OnClientError(DiscordClient discordClient, ClientErrorEventArgs e)
