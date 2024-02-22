@@ -147,7 +147,9 @@ messages:
   invalidduration: ""
   playernotfound: ""
   playerkicked: ""
-  playerbanned: ""
+  playerbanned:
+    online: ""
+    offline: ""
   playerunbanned: ""
   playermuted: ""
   playertempmuted: ""
