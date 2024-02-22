@@ -44,9 +44,9 @@ namespace SCPDiscord
 
 		public static void LoadConfig()
 		{
-			if (SCPDiscordBot.commandlineArguments.Length > 0)
+			if (!string.IsNullOrEmpty(SCPDiscordBot.commandLineArgs.ConfigPath))
 			{
-				configPath = SCPDiscordBot.commandlineArguments[0];
+				configPath = SCPDiscordBot.commandLineArgs.ConfigPath;
 			}
 
 			Logger.Log("Loading config \"" + Path.GetFullPath(configPath) + "\"", LogID.CONFIG);

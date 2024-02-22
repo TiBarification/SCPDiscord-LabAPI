@@ -1,17 +1,42 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using CommandLine;
 
 namespace SCPDiscord
 {
 	public class SCPDiscordBot
 	{
-		public static string[] commandlineArguments;
+		public class CommandLineArguments
+		{
+			[Option('c', "config", Required = false, HelpText = "Select a config file to use.", Default = "config.yml", MetaValue = "PATH")]
+			public string ConfigPath { get; set; }
+
+			[Option(
+				"leave",
+				Required = false,
+				HelpText = "Leaves one or more Discord servers. " +
+				           "You can check which servers your bot is in when it starts up.",
+				MetaValue = "ID,ID,ID...",
+				Separator = ','
+			)]
+			public IEnumerable<ulong> ServersToLeave { get; set; }
+		}
+
+		public static CommandLineArguments commandLineArgs;
 
 		public static void Main(string[] args)
 		{
-			commandlineArguments = args;
+			commandLineArgs = Parser.Default.ParseArguments<CommandLineArguments>(args).Value;
+
+			if (args.Contains("--help") || args.Contains("--version"))
+			{
+				return;
+			}
+
 			new SCPDiscordBot().MainAsync().GetAwaiter().GetResult();
 		}
 

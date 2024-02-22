@@ -333,11 +333,11 @@ namespace SCPDiscord
 
 		public async Task OnGuildAvailable(DiscordClient discordClient, GuildCreateEventArgs e)
 		{
-			Logger.Log("Found Discord server: " + e.Guild.Name, LogID.DISCORD);
+			Logger.Log("Found Discord server: " + e.Guild.Name + " (" + e.Guild.Id + ")", LogID.DISCORD);
 
-			if (SCPDiscordBot.commandlineArguments.Contains("--leave-all-servers"))
+			if (SCPDiscordBot.commandLineArgs.ServersToLeave.Contains(e.Guild.Id))
 			{
-				Logger.Warn("LEAVING DISCORD SERVER AS REQUESTED: " + e.Guild.Name, LogID.DISCORD);
+				Logger.Warn("LEAVING DISCORD SERVER AS REQUESTED: " + e.Guild.Name + " (" + e.Guild.Id + ")", LogID.DISCORD);
 				await e.Guild.LeaveAsync();
 				return;
 			}
