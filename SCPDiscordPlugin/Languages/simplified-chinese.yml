@@ -459,7 +459,7 @@ messages:
   onpocketdimensionenter:
     # attacker - Player
     # target - Player
-    message: "<var:player-name> (<var:player-userid>) 被SCP-106 <var:attacker-name> (<var:attacker-userid>) 吸引进了口袋空间."
+    message: "<var:target-name> (<var:target-userid>) 被SCP-106 <var:attacker-name> (<var:attacker-userid>) 吸引进了口袋空间."
     regex: []
 
   onthrowprojectile:

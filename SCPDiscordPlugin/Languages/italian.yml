@@ -472,7 +472,7 @@ messages:
   onpocketdimensionenter:
     # attacker - Player
     # target - Player
-    message: "<var:player-name> (<var:player-userid>) � stato portato all'interno della dimensione tascabile da SCP-106 (<var:attacker-name> (<var:attacker-userid>))."
+    message: "<var:target-name> (<var:target-userid>) � stato portato all'interno della dimensione tascabile da SCP-106 (<var:attacker-name> (<var:attacker-userid>))."
     regex: []
 
   onthrowprojectile:

@@ -450,7 +450,7 @@ messages:
   onpocketdimensionenter:
     # attacker - Player
     # target - Player
-    message: "Игрока <var:player-name> (<var:player-userid>) забрал в Карманное Измерение игрок <var:attacker-name> (<var:attacker-userid>)."
+    message: "Игрока <var:target-name> (<var:target-userid>) забрал в Карманное Измерение игрок <var:attacker-name> (<var:attacker-userid>)."
     regex: []
 
   onthrowprojectile:

@@ -546,7 +546,7 @@ messages:
   onpocketdimensionenter:
     # attacker - Player
     # target - Player
-    message: "<var:player-name> (<var:player-userid>) was taken into the SCP-106 pocket dimension by <var:attacker-name> (<var:attacker-userid>)."
+    message: "<var:target-name> (<var:target-userid>) was taken into the SCP-106 pocket dimension by <var:attacker-name> (<var:attacker-userid>)."
     regex: []
     cancel_regex: []
 
@@ -586,6 +586,7 @@ messages:
       regex: []
       cancel_regex: []
     nootherplayer:
+      # target - Player
       message: "<var:target-role> <var:target-name> (<var:target-userid>) was handcuffed."
       regex: []
       cancel_regex: []
