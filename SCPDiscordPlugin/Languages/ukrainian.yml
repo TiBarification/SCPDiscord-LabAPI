@@ -28,7 +28,7 @@ global_regex: [
   # Roles
   "None":"Неназвана роль",
   "Scp173":"SCP-173",
-  "ClassD":"Клас-Д",
+  #"ClassD":"",
   "Spectator":"Глядач",
   "Scp106":"SCP-106",
   "NtfSpecialist":"МОГ Спеціаліст",
