@@ -1,4 +1,12 @@
-# Bot commands
+# Usage
+
+## Bot command line arguments
+
+| Argument                 | Description                                                                       |
+|--------------------------|-----------------------------------------------------------------------------------|
+| `--help`                 | Shows information about all arguments.                                            |
+| `--config <config file>` | Select a specific config file to load.                                            |
+| `--leave <server id>`    | Make the bot leave one or more Discord servers. The IDs are shown on bot startup. |
 
 ## Bot commands
 

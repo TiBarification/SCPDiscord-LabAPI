@@ -9,7 +9,7 @@ You can download the latest release [here](https://github.com/KarlOfDuty/SCPDisc
 
 - [Editing messages and languages](docs/Languages.md)
 
-- [Commands](docs/Commands.md)
+- [Usage](docs/Usage.md)
 
 - [Building SCPDiscord](docs/Building.md)
 
@@ -38,7 +38,7 @@ You can use server and remote admin commands via the bot, with command permissio
 ### Extra commands
 The bot also comes with a few extra commands such as playerinfo, improved ban/unban, and improved mute/unmute commands which all also work on offline players.
 
-More information about bot commands are available [here](docs/Commands.md).
+More information about bot commands are available [here](docs/Usage.md).
 
 ![helpcommand.png](docs%2Fimg%2Fhelpcommand.png)
 
