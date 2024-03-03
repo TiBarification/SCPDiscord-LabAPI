@@ -66,8 +66,8 @@ This should now have generated the default config in your working directory.
 
 If you want to run several bots you can just enter the config you want to use for each instance as a command parameter:
 ```yaml
-./SCPDiscordBot config1.yml
-./SCPDiscordBot config2.yml
+./SCPDiscordBot --config config1.yml
+./SCPDiscordBot --config config2.yml
 ```
 
 If you are unable to run the bot make sure the file has correct permissions.
