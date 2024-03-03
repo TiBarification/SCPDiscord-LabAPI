@@ -3,7 +3,7 @@
 1. [Open the Discord developer portal](https://discord.com/developers/applications).
 2. Create a new application in the top right corner.
 3. Click add bot in the bot tab.
-4. **(IMPORTANT!)** Turn off public status in the bot tab. If anyone can add the bot they can use commands on your bot through their own server which bypasses your permissions!
+4. **(IMPORTANT!)** Turn off public status in the bot tab. If anyone can add the bot they can use commands on your bot through their own server which bypasses your permissions! If someone else has added your bot to their server you can tell the bot to leave it using the `--leave` command line parameter (Use --help for more info).
 
 ![Image showing a Discord selection box](img/botPublic.png)
 
