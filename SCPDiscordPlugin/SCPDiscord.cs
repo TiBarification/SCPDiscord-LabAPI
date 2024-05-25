@@ -137,29 +137,29 @@ namespace SCPDiscord
 			}
 			catch (Exception e)
 			{
-				if (e is DirectoryNotFoundException)
+				switch (e)
 				{
-					Logger.Error("Config directory not found.");
-				}
-				else if (e is UnauthorizedAccessException)
-				{
-					Logger.Error("Primary language file access denied.");
-				}
-				else if (e is FileNotFoundException)
-				{
-					Logger.Error("'" + Config.GetConfigPath() + "' was not found.");
-				}
-				else if (e is JsonReaderException || e is YamlException)
-				{
-					Logger.Error("'" + Config.GetConfigPath() + "' formatting error.");
-				}
-				else if (e is Config.ConfigParseException)
-				{
-					Logger.Error("Formatting issue in config file '" + Config.GetConfigPath() + "'. Aborting startup.");
-				}
-				else
-				{
-					Logger.Error("Error reading config file '" + Config.GetConfigPath() + "'. Aborting startup.\n" + e);
+					case DirectoryNotFoundException _:
+						Logger.Error("Config directory not found.");
+						break;
+					case UnauthorizedAccessException _:
+						Logger.Error("Config file access denied.");
+						break;
+					case FileNotFoundException _:
+						Logger.Error("'" + Config.GetConfigPath() + "' was not found.");
+						break;
+					case JsonReaderException jsonEx:
+						Logger.Error("'" + Config.GetConfigPath() + "' formatting error:\n" + jsonEx.Message);
+						break;
+					case YamlException yamlEx:
+						Logger.Error("'" + Config.GetConfigPath() + "' formatting error:\n" + yamlEx.Message);
+						break;
+					case Config.ConfigParseException _:
+						Logger.Error("Formatting issue in config file '" + Config.GetConfigPath() + "'. Aborting startup.");
+						break;
+					default:
+						Logger.Error("Error reading config file '" + Config.GetConfigPath() + "'. Aborting startup.\n" + e);
+						break;
 				}
 			}
 			return false;

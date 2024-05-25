@@ -2,7 +2,7 @@
 ############# SCPDiscord plugin configuration file #############
 
 
-# Connection settings, the port cannot be the same as the SCPSL server port.
+# Connection settings, the port cannot be the same as the SCP:SL server port.
 bot:
     ip: "127.0.0.1"
     port: 8888
@@ -50,10 +50,10 @@ settings:
     # Turns on the config validation which shows the values after they have been read by the plugin so you can see they are correct
     configvalidation: false
 
-    # Whether or not to use the rolesync system
+    # Whether to use the rolesync system
     rolesync: true
 
-    # Whether or not to track players play time on the server, which can then be checked using the /playerinfo command
+    # Whether to track players play time on the server, which can then be checked using the /playerinfo command
     playtime: true
 
     # Whether files should be read from the global config directory or the local one (aka the server specific one).
@@ -184,6 +184,14 @@ messages:
             server: [ "staff" ]
     onplayercheaterreport: [ "staff" ]
     onplayerreport: [ "staff" ]
+    onplayeraim: []
+    onplayercancelusingitem: []
+    onplayerchangeitem: []
+    onplayerchangespectator: []
+    onplayerdamageshootingtarget: []
+    onplayerdamagewindow: []
+    onplayerdryfireweapon: []
+    onplayerreceiveeffect: []
 
     # Environment events
     onscp914activate: []
@@ -219,6 +227,11 @@ messages:
     ondooraccess:
         allowed: []
         denied: []
+    onmapgenerated: []
+    onitemspawned: []
+    onplaceblood: []
+    onplayerinteractlocker: []
+    onplayerinteractshootingtarget: []
 
     # SCP Events
     on079lockdoor: []
@@ -230,6 +243,7 @@ messages:
     on079cancellockdown: []
     onrecallzombie: []
     onplayerinfected: [ "default" ]
+    oninteract330: []
 
     # Player events
     onplayerhurt:

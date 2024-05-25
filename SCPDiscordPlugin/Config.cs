@@ -113,20 +113,33 @@ namespace SCPDiscord
 			"messages.onhandcuff.nootherplayer",
 			"messages.onhandcuffremoved.default",
 			"messages.onhandcuffremoved.nootherplayer",
+			"messages.oninteract330",
+			"messages.onitemspawned",
 			"messages.onitemuse",
 			"messages.onkick.player",
 			"messages.onkick.server",
+			"messages.onmapgenerated",
 			"messages.onnicknameset",
+			"messages.onplaceblood",
+			"messages.onplayeraim",
+			"messages.onplayercancelusingitem",
+			"messages.onplayerchangeitem",
+			"messages.onplayerchangespectator",
 			"messages.onplayercheaterreport",
+			"messages.onplayerdamageshootingtarget",
+			"messages.onplayerdamagewindow",
 			"messages.onplayerdie.default",
 			"messages.onplayerdie.friendlyfire",
 			"messages.onplayerdie.nokiller",
 			"messages.onplayerdropammo",
 			"messages.onplayerdropitem",
+			"messages.onplayerdryfireweapon",
 			"messages.onplayerescape",
 			"messages.onplayerhurt.default",
 			"messages.onplayerhurt.friendlyfire",
 			"messages.onplayerhurt.noattacker",
+			"messages.onplayerinteractlocker",
+			"messages.onplayerinteractshootingtarget",
 			"messages.onplayerjoin",
 			"messages.onplayerleave",
 			"messages.onplayermuted.player.intercom",
@@ -138,6 +151,7 @@ namespace SCPDiscord
 			"messages.onplayerpickupitem",
 			"messages.onplayerpickupscp330",
 			"messages.onplayerradioswitch",
+			"messages.onplayerreceiveeffect",
 			"messages.onplayerreport",
 			"messages.onplayertriggertesla.default",
 			"messages.onplayertriggertesla.ignored",
@@ -567,10 +581,16 @@ namespace SCPDiscord
 			sb.Append("------------ Config arrays ------------\n");
 			foreach (KeyValuePair<string, string[]> node in configArrays)
 			{
-				sb.Append(node.Key + ": [ " + string.Join(", ", node.Value) + " ]\n");
+				if (node.Value == null)
+				{
+					sb.Append(node.Key + " NOT FOUND!\n");
+					continue;
+				}
+
+				sb.Append(node.Key + ": [ " + string.Join(", ", node.Value ?? new [] { "ERROR - NOT FOUND" }) + " ]\n");
 				if (node.Key.StartsWith("messages."))
 				{
-					foreach (string s in node.Value)
+					foreach (string s in node.Value ?? Array.Empty<string>())
 					{
 						if (!GetDict("channels").ContainsKey(s))
 						{
