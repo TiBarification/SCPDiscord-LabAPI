@@ -39,6 +39,9 @@ namespace SCPDiscord
 		{
 			plugin = this;
 
+			if (!LoadConfig())
+				return;
+
 			serverStartTime.Start();
 
 			LiteNetLib4MirrorNetworkManager.singleton.gameObject.AddComponent<SynchronousExecutor>();
@@ -53,8 +56,7 @@ namespace SCPDiscord
 			EventManager.RegisterEvents(this, new ServerEventListener(this));
 			EventManager.RegisterEvents(this, new EnvironmentEventListener(this));
 
-			if (!LoadConfig())
-				return;
+
 
 			/*
 			// Add the invisible SCPD marker at the end of the server name if the server has metrics on
