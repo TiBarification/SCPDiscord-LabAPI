@@ -559,7 +559,7 @@ namespace SCPDiscord
 		public static void ValidateConfig(SCPDiscord plugin)
 		{
 			StringBuilder sb = new StringBuilder();
-			sb.Append("\n||||||||||||| SCPDiscord config validator ||||||||||||||\n");
+			sb.Append("\n||||||||||||| SCPDISCORD CONFIG VALIDATOR ||||||||||||||\n");
 			sb.Append("------------ Config strings ------------\n");
 			foreach (KeyValuePair<string, string> node in configStrings)
 			{
@@ -620,7 +620,7 @@ namespace SCPDiscord
 				}
 			}
 
-			sb.Append("|||||||||||| End of config validation ||||||||||||");
+			sb.Append("|||||||||||| END OF CONFIG VALIDATION ||||||||||||");
 			Logger.Info(sb.ToString());
 		}
 

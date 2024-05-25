@@ -48,7 +48,7 @@ settings:
     debug: false
 
     # Turns on the config validation which shows the values after they have been read by the plugin so you can see they are correct
-    configvalidation: false
+    configvalidation: true
 
     # Whether to use the rolesync system
     rolesync: true
