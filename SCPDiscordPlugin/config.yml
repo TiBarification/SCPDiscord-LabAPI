@@ -34,26 +34,27 @@ settings:
     # italian
 
     # If you want to override specific messages you can copy them to overrides.yml
-    # and they will automatically replace the corresponding messages from the language selected below
+    # and they will automatically replace the corresponding messages from the language selected below.
     language: "english"
 
-    # Add an emote as a prefix to messages
+    # Add an emote as a prefix to messages.
     emotes: true
 
     # The message timestamp, see syntax guide here: https://learn.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings
     # You can set it to "HH:mm:ss" for a simple timestamp.
     timestamp: ""
 
-    # Whether the plugin should send debug information in the console
+    # Whether the plugin should send debug information in the console.
     debug: false
 
-    # Turns on the config validation which shows the values after they have been read by the plugin so you can see they are correct
+    # Turns on the config validation which shows the values after they have been read by the plugin so you can see they are correct.
+    # You can turn this off when you get everything working.
     configvalidation: true
 
-    # Whether to use the rolesync system
+    # Whether to use the rolesync system.
     rolesync: true
 
-    # Whether to track players play time on the server, which can then be checked using the /playerinfo command
+    # Whether to track players play time on the server, which can then be checked using the /playerinfo command.
     playtime: true
 
     # Whether files should be read from the global config directory or the local one (aka the server specific one).
@@ -70,14 +71,14 @@ settings:
     regeneratelanguagefiles: true
 
     # EXPERIMENTAL:
-    # Whether SCPDiscord should automatically cause the game to reload certain files when they are changed by other servers
+    # Whether SCPDiscord should automatically cause the game to reload certain files when they are changed by other servers.
     autoreload:
         reservedslots: false
         whitelist: false
 
-# Sets commands which are run whenever someone with a synced Discord rank joins the server,
-# only the highest one in the list that matches the player is executed
-# Turn on debug above to see console feedback when the commands are used
+# Sets commands to run whenever someone with a synced Discord rank joins the server,
+# only the highest command in the list that matches the player is executed.
+# Turn on debug above to see console feedback when the commands are used.
 # Valid variables:
 # player-userid
 # player-id
@@ -89,7 +90,7 @@ settings:
 # discordusername
 # discordusernamewithdiscriminator
 # discordid
-# There are some more player variables you can use here but they are mostly irrelevant, check the list in APIExtensions.cs on github for the full list.
+# There are some more player variables you can use here but they are mostly irrelevant, check the list in APIExtensions.cs on GitHub for the full list.
 rolesync:
     - "add-role-id-here":
         - "scpd grantvanillarank <var:player-userid> moderator"
@@ -112,7 +113,7 @@ channels:
 
 channelsettings:
     # Removes online players' IPs/SteamIDs from discord messages in specific channels, use the channel aliases from above.
-    # Warning: This only works on online players, so may fail on player disconnect related events
+    # Warning: This only works on online players, so may fail on player disconnect related events.
     filterips: [ "staff" ]
     filtersteamids: []
 
@@ -121,10 +122,10 @@ channelsettings:
     invertipfilter: true
     invertsteamidfilter: false
 
-# Using the channel aliases above you can direct events to different channels here
+# Using the channel aliases above you can direct events to different channels here.
 # Set to [] to disable an event.
 messages:
-    # Server events
+    # Server events.
     connectedtobot: [ "default", "staff" ]
     onroundstart: []
     onconnect: []
@@ -193,7 +194,7 @@ messages:
     onplayerdryfireweapon: []
     onplayerreceiveeffect: []
 
-    # Environment events
+    # Environment events.
     onscp914activate: []
     onstartcountdown:
         player:
@@ -233,7 +234,7 @@ messages:
     onplayerinteractlocker: []
     onplayerinteractshootingtarget: []
 
-    # SCP Events
+    # SCP Events.
     on079lockdoor: []
     on079teslagate: []
     on079addexp: []
@@ -245,7 +246,7 @@ messages:
     onplayerinfected: [ "default" ]
     oninteract330: []
 
-    # Player events
+    # Player events.
     onplayerhurt:
         default: []
         friendlyfire: []

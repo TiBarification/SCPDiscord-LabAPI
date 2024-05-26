@@ -622,6 +622,7 @@ namespace SCPDiscord
 
 			sb.Append("|||||||||||| END OF CONFIG VALIDATION ||||||||||||");
 			Logger.Info(sb.ToString());
+			Logger.Info("You can turn the config validator off when you get the config set up correctly.");
 		}
 
 		public static List<ulong> GetChannelIDs(string path)
