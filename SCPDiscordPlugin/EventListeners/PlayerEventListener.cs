@@ -257,7 +257,7 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent]
 		public void OnPlayerLeave(PlayerLeftEvent ev)
 		{
-			if (ev.Player.PlayerId == Server.Instance.PlayerId || ev.Player.UserId == null) return;
+			if (ev.Player?.PlayerId == Server.Instance.PlayerId || ev.Player?.UserId == null) return;
 
 			Dictionary<string, string> variables = new Dictionary<string, string> {};
 			variables.AddPlayerVariables(ev.Player, "player");
