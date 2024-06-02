@@ -25,6 +25,7 @@ namespace SCPDiscord.Commands
             RegisterCommand(new ReconnectCommand());
             RegisterCommand(new ReloadCommand());
             RegisterCommand(new RemoveReservedSlotCommand());
+            RegisterCommand(new SendMessageCommand());
             RegisterCommand(new SetNickname());
             RegisterCommand(new UnsyncCommand());
             RegisterCommand(new ValidateCommand());
@@ -32,7 +33,7 @@ namespace SCPDiscord.Commands
 
         protected override bool ExecuteParent(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
-            response = "Usage: " + arguments.At(0) + " [COMMAND]";
+            response = "Usage: scpdiscord/scpd [COMMAND]";
             foreach (SCPDiscordCommand command in AllCommands.OfType<SCPDiscordCommand>())
             {
                 string line = "\n" + command.Command;

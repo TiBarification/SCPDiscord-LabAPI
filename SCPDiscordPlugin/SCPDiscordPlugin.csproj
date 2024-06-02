@@ -82,6 +82,7 @@
     <Compile Include="MuteSystem.cs" />
     <Compile Include="ServerCommands\GrantVanillaRankCommand.cs" />
     <Compile Include="ServerCommands\RootCommand.cs" />
+    <Compile Include="ServerCommands\SendMessageCommand.cs" />
     <Compile Include="ServerCommands\SetNickname.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="ServerCommands\DebugCommand.cs" />
