@@ -1,11 +1,9 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using SCPDiscord.Properties;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using PluginAPI.Core;
 using YamlDotNet.Core;
@@ -26,14 +24,14 @@ namespace SCPDiscord
 		// All default languages included in the .dll
 		private static readonly Dictionary<string, string> defaultLanguages = new Dictionary<string, string>
 		{
-			{ "overrides",          Encoding.UTF8.GetString(Resources.overrides)          },
-			{ "emotes",             Encoding.UTF8.GetString(Resources.emotes)             },
-			{ "emote-overrides",    Encoding.UTF8.GetString(Resources.emote_overrides)    },
-			{ "english",            Encoding.UTF8.GetString(Resources.english)            },
-			{ "ukrainian",          Encoding.UTF8.GetString(Resources.ukrainian)          },
-			{ "russian",            Encoding.UTF8.GetString(Resources.russian)            },
-			{ "simplified-chinese", Encoding.UTF8.GetString(Resources.simplified_chinese) },
-			{ "italian",            Encoding.UTF8.GetString(Resources.italian)            }
+			{ "emote-overrides",    Utilities.ReadManifestData("Languages.emote-overrides.yml")    },
+			{ "emotes",             Utilities.ReadManifestData("Languages.emotes.yml")             },
+			{ "english",            Utilities.ReadManifestData("Languages.english.yml")            },
+			{ "italian",            Utilities.ReadManifestData("Languages.italian.yml")            },
+			{ "overrides",          Utilities.ReadManifestData("Languages.overrides.yml")          },
+			{ "russian",            Utilities.ReadManifestData("Languages.russian.yml")            },
+			{ "simplified-chinese", Utilities.ReadManifestData("Languages.simplified-chinese.yml") },
+			{ "ukrainian",          Utilities.ReadManifestData("Languages.ukrainian.yml")          },
 		};
 
 		public static void Reload()

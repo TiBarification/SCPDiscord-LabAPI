@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using DSharpPlus.Entities;
 using DSharpPlus.Interactivity;
 using SCPDiscord.Interface;
@@ -118,5 +121,20 @@ public static class Utilities
 			EmbedMessage.Types.DiscordColour.Sienna => DiscordColor.Sienna,
 			_ => DiscordColor.None
 		};
+	}
+
+	public static string ReadManifestData(string embeddedFileName)
+	{
+		Assembly assembly = Assembly.GetExecutingAssembly();
+		string resourceName = assembly.GetManifestResourceNames().First(s => s.EndsWith(embeddedFileName,StringComparison.CurrentCultureIgnoreCase));
+
+		using Stream stream = assembly.GetManifestResourceStream(resourceName);
+		if (stream == null)
+		{
+			throw new InvalidOperationException("Could not load manifest resource stream.");
+		}
+
+		using StreamReader reader = new StreamReader(stream);
+		return reader.ReadToEnd();
 	}
 }

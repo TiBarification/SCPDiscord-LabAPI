@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using SCPDiscordBot.Properties;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using DSharpPlus.Entities;
 using YamlDotNet.Serialization;
@@ -54,7 +52,7 @@ namespace SCPDiscord
 			// Writes default config to file if it does not already exist
 			if (!File.Exists(configPath))
 			{
-				File.WriteAllText(configPath, Encoding.UTF8.GetString(Resources.default_config));
+				File.WriteAllText(configPath, Utilities.ReadManifestData("default_config.yml"));
 			}
 
 			// Reads config contents into FileStream

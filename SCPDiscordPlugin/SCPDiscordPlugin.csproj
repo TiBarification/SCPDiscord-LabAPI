@@ -109,16 +109,6 @@
     <Compile Include="Language.cs" />
     <Compile Include="NetworkSystem.cs" />
     <Compile Include="APIExtensions.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
     <Compile Include="ServerCommands\ReconnectCommand.cs" />
     <Compile Include="ServerCommands\ReloadCommand.cs" />
     <Compile Include="ServerCommands\RemoveReservedSlotCommand.cs" />
@@ -131,61 +121,23 @@
     <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <SubType>Designer</SubType>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="config.yml" />
-    <None Include="Languages\emotes.yml" />
-    <None Include="Languages\english.yml" />
-    <None Include="Languages\italian.yml" />
-    <None Include="Languages\ukrainian.yml" />
-    <None Include="Languages\russian.yml" />
-    <None Include="Languages\simplified-chinese.yml" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Languages\emote-overrides.yml" />
-    <Content Include="Languages\emotes.yml" />
-    <Content Include="Languages\overrides.yml" />
-    <Content Include="Languages\simplified-chinese.yml" />
-    <Content Include="schema\BotToPlugin\BanCommand.proto" />
-    <Content Include="schema\BotToPlugin\ConsoleCommand.proto" />
-    <Content Include="schema\BotToPlugin\KickallCommand.proto" />
-    <Content Include="schema\BotToPlugin\KickCommand.proto" />
-    <Content Include="schema\BotToPlugin\ListCommand.proto" />
-    <Content Include="schema\BotToPlugin\ListRankedCommand.proto" />
-    <Content Include="schema\BotToPlugin\ListSyncedCommand.proto" />
-    <Content Include="schema\BotToPlugin\MuteCommand.proto" />
-    <Content Include="schema\BotToPlugin\PlayerInfoCommand.proto" />
-    <Content Include="schema\BotToPlugin\SyncRoleCommand.proto" />
-    <Content Include="schema\BotToPlugin\UnbanCommand.proto" />
-    <Content Include="schema\BotToPlugin\UnsyncRoleCommand.proto" />
-    <Content Include="schema\BotToPlugin\UserInfo.proto" />
-    <Content Include="schema\MessageWrapper.proto" />
-    <Content Include="schema\PluginToBot\BotActivity.proto" />
-    <Content Include="schema\PluginToBot\ChatMessage.proto" />
-    <Content Include="schema\PluginToBot\EmbedMessage.proto" />
-    <Content Include="schema\PluginToBot\PaginatedMessage.proto" />
-    <Content Include="schema\PluginToBot\UserQuery.proto" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.25.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Buffers" Version="4.5.1" />
     <PackageReference Include="System.Memory" Version="4.5.3" />
     <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="config.yml" />
+    <EmbeddedResource Include="Languages/emote-overrides.yml" />
+    <EmbeddedResource Include="Languages/emotes.yml" />
+    <EmbeddedResource Include="Languages/english.yml" />
+    <EmbeddedResource Include="Languages/italian.yml" />
+    <EmbeddedResource Include="Languages/overrides.yml" />
+    <EmbeddedResource Include="Languages/russian.yml" />
+    <EmbeddedResource Include="Languages/simplified-chinese.yml" />
+    <EmbeddedResource Include="Languages/ukrainian.yml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

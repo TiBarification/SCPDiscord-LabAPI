@@ -15,7 +15,7 @@ namespace SCPDiscord
 
 	public static class Logger
 	{
-		private static readonly Dictionary<LogID, EventId> eventIDs = new Dictionary<LogID, EventId>
+		private static readonly Dictionary<LogID, EventId> eventIDs = new()
 		{
 			{ LogID.GENERAL, new EventId(500, "General") },
 			{ LogID.CONFIG,  new EventId(501, "Config")  },

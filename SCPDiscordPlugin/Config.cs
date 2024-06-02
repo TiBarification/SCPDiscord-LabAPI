@@ -7,7 +7,6 @@ using System.Text;
 using GameCore;
 using PluginAPI.Helpers;
 using YamlDotNet.Serialization;
-using Resources = SCPDiscord.Properties.Resources;
 
 namespace SCPDiscord
 {
@@ -255,7 +254,7 @@ namespace SCPDiscord
 			if (!File.Exists(GetConfigPath()))
 			{
 				Logger.Info("Config file '" + GetConfigPath() + "' does not exist, creating...");
-				File.WriteAllText(GetConfigPath(), Encoding.UTF8.GetString(Resources.config));
+				File.WriteAllText(GetConfigPath(), Utilities.ReadManifestData("config.yml"));
 			}
 
 			// Reads file contents into FileStream
