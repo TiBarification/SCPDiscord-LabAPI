@@ -189,7 +189,7 @@ global_regex: [
 ]
 
 # Executes on usernames
-user_regex: ["<@":"\\<@", "<@!":"\\<@!", "`":"\\`", "\\*":"\\*", "_":"\\_", "~":"\\~"]
+user_regex: ["<@":"\\<@", "<@!":"\\<@!", "`":"\\`", "\\*":"\\*", "_":"\\_", "~":"\\~", "|":"\\|"]
 
 # Executes on the final version of the message, after everything else has completed
 final_regex: ["discord\\.gg":"","discord\\.com":"","http://":"","https://":""]
