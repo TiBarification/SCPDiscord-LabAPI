@@ -37,10 +37,12 @@ namespace SCPDiscord.EventListeners
 			{
 				return false;
 			}
+
 			if (attackerTeam == targetTeam)
 			{
 				return true;
 			}
+
 			foreach (KeyValuePair<Team, Team> team in teamKillingMatrix)
 			{
 				if (attackerTeam == team.Value && targetTeam == team.Key)
@@ -121,35 +123,31 @@ namespace SCPDiscord.EventListeners
 				return;
 			}
 
-			if (ev.Player == null || ev.Target.PlayerId == ev.Player.PlayerId)
-			{
-				Dictionary<string, string> noAttackerVar = new Dictionary<string, string>
-				{
-					{ "damage",     stdHandler.Damage.ToString("0.##") },
-					{ "damagetype", GetDamageType(ev.DamageHandler)    }
-				};
-				noAttackerVar.AddPlayerVariables(ev.Target, "target");
-
-				plugin.SendMessage("messages.onplayerhurt.noattacker", noAttackerVar);
-				return;
-			}
-
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
 				{ "damage",     stdHandler.Damage.ToString("0.##") },
 				{ "damagetype", GetDamageType(ev.DamageHandler)    }
 			};
 
-			variables.AddPlayerVariables(ev.Target, "target");
-			variables.AddPlayerVariables(ev.Player, "attacker");
-
-			if (IsTeamDamage(ev.Player.ReferenceHub.GetTeam(), ev.Target.ReferenceHub.GetTeam()))
+			if (ev.Player == null || ev.Target.PlayerId == ev.Player.PlayerId)
 			{
-				plugin.SendMessage("messages.onplayerhurt.friendlyfire", variables);
-				return;
-			}
+				variables.AddPlayerVariables(ev.Target, "target");
 
-			plugin.SendMessage("messages.onplayerhurt.default", variables);
+				plugin.SendMessage("messages.onplayerhurt.noattacker", variables);
+			}
+			else
+			{
+				variables.AddPlayerVariables(ev.Target, "target");
+				variables.AddPlayerVariables(ev.Player, "attacker");
+
+				if (IsTeamDamage(ev.Player.ReferenceHub.GetTeam(), ev.Target.ReferenceHub.GetTeam()))
+				{
+					plugin.SendMessage("messages.onplayerhurt.friendlyfire", variables);
+					return;
+				}
+
+				plugin.SendMessage("messages.onplayerhurt.default", variables);
+			}
 		}
 
 		[PluginEvent]
@@ -160,30 +158,30 @@ namespace SCPDiscord.EventListeners
 				return;
 			}
 
-			if (ev.Attacker == null || ev.Player.PlayerId == ev.Attacker.PlayerId)
-			{
-				Dictionary<string, string> noKillerVar = new Dictionary<string, string>
-				{
-					{ "damagetype", GetDamageType(ev.DamageHandler) }
-				};
-				noKillerVar.AddPlayerVariables(ev.Player, "target");
-				plugin.SendMessage("messages.onplayerdie.nokiller", noKillerVar);
-				return;
-			}
-
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
 				{ "damagetype", GetDamageType(ev.DamageHandler) }
 			};
-			variables.AddPlayerVariables(ev.Attacker, "attacker");
-			variables.AddPlayerVariables(ev.Player, "target");
 
-			if (IsTeamDamage(ev.Attacker.ReferenceHub.GetTeam(), ev.Player.ReferenceHub.GetTeam()))
+			if (ev.Attacker == null || ev.Player.PlayerId == ev.Attacker.PlayerId)
 			{
-				plugin.SendMessage("messages.onplayerdie.friendlyfire", variables);
-				return;
+				variables.AddPlayerVariables(ev.Player, "target");
+				plugin.SendMessage("messages.onplayerdie.nokiller", variables);
 			}
-			plugin.SendMessage("messages.onplayerdie.default", variables);
+			else
+			{
+				variables.AddPlayerVariables(ev.Attacker, "attacker");
+				variables.AddPlayerVariables(ev.Player, "target");
+
+				if (IsTeamDamage(ev.Attacker.ReferenceHub.GetTeam(), ev.Player.ReferenceHub.GetTeam()))
+				{
+					plugin.SendMessage("messages.onplayerdie.friendlyfire", variables);
+				}
+				else
+				{
+					plugin.SendMessage("messages.onplayerdie.default", variables);
+				}
+			}
 		}
 
 		[PluginEvent]
@@ -281,16 +279,17 @@ namespace SCPDiscord.EventListeners
 		public void OnSpawn(PlayerSpawnEvent ev)
 		{
 			if (ev.Player == null
-			 || ev.Player.UserId == "server"
-			 || ev.Player.UserId == null
-			 || ev.Role == RoleTypeId.None
-			 || ev.Role == RoleTypeId.Spectator
-			 || ev.Role == RoleTypeId.Overwatch)
+		     || ev.Player.UserId == "server"
+		     || ev.Player.UserId == null
+		     || ev.Role == RoleTypeId.None
+		     || ev.Role == RoleTypeId.Spectator
+		     || ev.Role == RoleTypeId.Overwatch)
+			{
 				return;
+			}
 
 			Dictionary<string, string> variables = new Dictionary<string, string> {};
 			variables.AddPlayerVariables(ev.Player, "player");
-
 			plugin.SendMessage("messages.onspawn", variables);
 		}
 
@@ -301,7 +300,6 @@ namespace SCPDiscord.EventListeners
 			{
 				{ "players", ev.Players.Select(x => x.Nickname).ToString() }
 			};
-
 			plugin.SendMessage(ev.Team == SpawnableTeamType.ChaosInsurgency ? "messages.onteamrespawn.ci" : "messages.onteamrespawn.mtf", variables);
 		}
 
@@ -341,18 +339,18 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent]
 		public void OnHandcuffed(PlayerHandcuffEvent ev)
 		{
+			Dictionary<string, string> variables = new Dictionary<string, string> {};
 			if (ev.Player == null)
 			{
-				Dictionary<string, string> noOtherPlayerVars = new Dictionary<string, string> {};
-				noOtherPlayerVars.AddPlayerVariables(ev.Target, "target");
-				plugin.SendMessage("messages.onhandcuff.nootherplayer", noOtherPlayerVars);
-				return;
+				variables.AddPlayerVariables(ev.Target, "target");
+				plugin.SendMessage("messages.onhandcuff.nootherplayer", variables);
 			}
-
-			Dictionary<string, string> variables = new Dictionary<string, string> {};
-			variables.AddPlayerVariables(ev.Target, "target");
-			variables.AddPlayerVariables(ev.Player, "disarmer");
-			plugin.SendMessage("messages.onhandcuff.default", variables);
+			else
+			{
+				variables.AddPlayerVariables(ev.Target, "target");
+				variables.AddPlayerVariables(ev.Player, "disarmer");
+				plugin.SendMessage("messages.onhandcuff.default", variables);
+			}
 		}
 
 		[PluginEvent]
@@ -405,7 +403,9 @@ namespace SCPDiscord.EventListeners
 			};
 
 			if (ev?.Thrower.Hub != null)
+			{
 				variables.AddPlayerVariables(new Player(ev.Thrower.Hub), "player");
+			}
 
 			plugin.SendMessage("messages.ongrenadeexplosion", variables);
 		}
@@ -417,7 +417,6 @@ namespace SCPDiscord.EventListeners
 			{
 				{ "newrole", ev.NewRole.ToString() }
 			};
-
 			variables.AddPlayerVariables(ev.Player, "player");
 			plugin.SendMessage("messages.onplayerescape", variables);
 		}
@@ -431,7 +430,6 @@ namespace SCPDiscord.EventListeners
 				{ "isAiming", ev.IsAiming.ToString() }
 			};
             variables.AddPlayerVariables(ev.Player, "player");
-
             plugin.SendMessage("messages.onplayeraim", variables);
         }
 
@@ -443,7 +441,6 @@ namespace SCPDiscord.EventListeners
 				{ "item", ev.Item.ItemTypeId.ToString() }
 			};
             variables.AddPlayerVariables(ev.Player, "player");
-
             plugin.SendMessage("messages.onplayercancelusingitem", variables);
         }
 
@@ -456,7 +453,6 @@ namespace SCPDiscord.EventListeners
                 { "newItem", ev.NewItem.ToString() },
             };
             variables.AddPlayerVariables(ev.Player, "player");
-
             plugin.SendMessage("messages.onplayerchangeitem", variables);
         }
 
@@ -467,7 +463,6 @@ namespace SCPDiscord.EventListeners
             variables.AddPlayerVariables(ev.OldTarget, "oldTarget");
             variables.AddPlayerVariables(ev.NewTarget, "newTarget");
             variables.AddPlayerVariables(ev.Player, "spectator");
-
             plugin.SendMessage("messages.onplayerchangespectator", variables);
         }
 
@@ -481,7 +476,6 @@ namespace SCPDiscord.EventListeners
 				{ "target", ev.ShootingTarget.ToString() }
             };
             variables.AddPlayerVariables(ev.Player, "player");
-
             plugin.SendMessage("messages.onplayerdamageshootingtarget", variables);
         }
 
@@ -495,7 +489,6 @@ namespace SCPDiscord.EventListeners
                 //{ "window", ev.Window.ToString() }
             };
             variables.AddPlayerVariables(ev.Player, "player");
-
             plugin.SendMessage("messages.onplayerdamagewindow", variables);
         }
 
@@ -507,7 +500,6 @@ namespace SCPDiscord.EventListeners
                 { "weapon", ev.Firearm.ItemTypeId.ToString() }
             };
             variables.AddPlayerVariables(ev.Player, "player");
-
             plugin.SendMessage("messages.onplayerdryfireweapon", variables);
         }
 
@@ -521,7 +513,6 @@ namespace SCPDiscord.EventListeners
                 { "intensity", ev.Intensity.ToString() }
             };
             variables.AddPlayerVariables(ev.Player, "player");
-
             plugin.SendMessage("messages.onplayerreceiveeffect", variables);
         }
     }

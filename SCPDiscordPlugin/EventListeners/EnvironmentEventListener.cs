@@ -85,24 +85,13 @@ namespace SCPDiscord.EventListeners
 				{ "elevatorname", ev.Elevator.AssignedGroup.ToString() }
 			};
 			variables.AddPlayerVariables(ev.Player, "player");
+
 			plugin.SendMessage("messages.onelevatoruse", variables);
 		}
 
 		[PluginEvent]
 		public void OnStartCountdown(WarheadStartEvent ev)
 		{
-			if (ev.Player == null || ev.Player.PlayerId == Server.Instance.PlayerId)
-			{
-				Dictionary<string, string> vars = new Dictionary<string, string>
-				{
-					{ "isAutomatic", ev.IsAutomatic.ToString()            },
-					{ "timeleft",    Warhead.DetonationTime.ToString("0") }
-				};
-				vars.AddPlayerVariables(ev.Player, "player");
-				plugin.SendMessage(ev.IsResumed ? "messages.onstartcountdown.server.resumed" : "messages.onstartcountdown.server.initiated", vars);
-				return;
-			}
-
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
 				{ "isAutomatic", ev.IsAutomatic.ToString()            },
@@ -110,26 +99,30 @@ namespace SCPDiscord.EventListeners
 			};
 			variables.AddPlayerVariables(ev.Player, "player");
 
-			plugin.SendMessage(ev.IsResumed ? "messages.onstartcountdown.player.resumed" : "messages.onstartcountdown.player.initiated", variables);
+			if (ev.Player == null || ev.Player.PlayerId == Server.Instance.PlayerId)
+			{
+				plugin.SendMessage(ev.IsResumed ? "messages.onstartcountdown.server.resumed" : "messages.onstartcountdown.server.initiated", variables);
+			}
+			else
+			{
+				plugin.SendMessage(ev.IsResumed ? "messages.onstartcountdown.player.resumed" : "messages.onstartcountdown.player.initiated", variables);
+			}
 		}
 
 		[PluginEvent]
 		public void OnStopCountdown(WarheadStopEvent ev)
 		{
+			Dictionary<string, string> variables = new Dictionary<string, string>
+			{
+				{ "timeleft", Warhead.DetonationTime.ToString("0.##") }
+			};
+
 			if (ev.Player == null || ev.Player.PlayerId == Server.Instance.PlayerId)
 			{
-				Dictionary<string, string> variables = new Dictionary<string, string>
-				{
-					{ "timeleft", Warhead.DetonationTime.ToString("0.##") }
-				};
 				plugin.SendMessage("messages.onstopcountdown.noplayer", variables);
 			}
 			else
 			{
-				Dictionary<string, string> variables = new Dictionary<string, string>
-				{
-					{ "timeleft", Warhead.DetonationTime.ToString("0.##") }
-				};
 				variables.AddPlayerVariables(ev.Player, "player");
 				plugin.SendMessage("messages.onstopcountdown.default", variables);
 			}
@@ -223,9 +216,9 @@ namespace SCPDiscord.EventListeners
         }
 
 		[PluginEvent]
-        public void OnMapGenerated(MapGeneratedEvent ev) 
-		{ 
-			plugin.SendMessage("messages.onmapgenerated"); 
+        public void OnMapGenerated(MapGeneratedEvent ev)
+		{
+			plugin.SendMessage("messages.onmapgenerated");
 		}
 
 		[PluginEvent]
@@ -235,7 +228,6 @@ namespace SCPDiscord.EventListeners
             {
                 { "item", ev.Item.ToString() }
             };
-
             plugin.SendMessage("messages.onitemspawned", variables);
         }
 
@@ -244,7 +236,6 @@ namespace SCPDiscord.EventListeners
         {
             Dictionary<string, string> variables = new Dictionary<string, string> { };
             variables.AddPlayerVariables(ev.Player, "player");
-
             plugin.SendMessage("messages.onplaceblood", variables);
         }
 
@@ -258,7 +249,6 @@ namespace SCPDiscord.EventListeners
 				{ "canOpen", ev.CanOpen.ToString() }
             };
             variables.AddPlayerVariables(ev.Player, "player");
-
             plugin.SendMessage("messages.onplayerinteractlocker", variables);
         }
 
@@ -270,7 +260,6 @@ namespace SCPDiscord.EventListeners
                 { "target", ev.ShootingTarget.ToString() },
             };
             variables.AddPlayerVariables(ev.Player, "player");
-
             plugin.SendMessage("messages.onplayerinteractshootingtarget", variables);
         }
     }

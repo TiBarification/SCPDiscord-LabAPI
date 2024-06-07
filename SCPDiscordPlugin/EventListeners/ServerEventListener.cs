@@ -102,32 +102,24 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent]
 		public void OnBanIssued(BanIssuedEvent ev)
 		{
+			Dictionary<string, string> variables = new Dictionary<string, string>
+			{
+				{ "duration",    Utilities.TicksToCompoundTime(ev.BanDetails.Expires - ev.BanDetails.IssuanceTime + 1000000) },
+				{ "expirytime",  new DateTime(ev.BanDetails.Expires).ToString("yyyy-MM-dd HH:mm:ss") },
+				{ "issuedtime",  new DateTime(ev.BanDetails.IssuanceTime).ToString("yyyy-MM-dd HH:mm:ss") },
+				{ "reason",      ev.BanDetails.Reason       },
+				{ "player-name", ev.BanDetails.OriginalName },
+				{ "issuer-name", ev.BanDetails.Issuer       },
+			};
+
 			if (ev.BanType == BanHandler.BanType.IP)
 			{
-				Dictionary<string, string> variables = new Dictionary<string, string>
-				{
-					{ "duration",    Utilities.TicksToCompoundTime(ev.BanDetails.Expires - ev.BanDetails.IssuanceTime + 1000000) },
-					{ "expirytime",  new DateTime(ev.BanDetails.Expires).ToString("yyyy-MM-dd HH:mm:ss") },
-					{ "issuedtime",  new DateTime(ev.BanDetails.IssuanceTime).ToString("yyyy-MM-dd HH:mm:ss") },
-					{ "reason",      ev.BanDetails.Reason       },
-					{ "player-ip",   ev.BanDetails.Id           },
-					{ "player-name", ev.BanDetails.OriginalName },
-					{ "issuer-name", ev.BanDetails.Issuer       },
-				};
+				variables.Add("player-ip", ev.BanDetails.Id);
 				plugin.SendMessage("messages.onbanissued.ip", variables);
 			}
 			else
 			{
-				Dictionary<string, string> variables = new Dictionary<string, string>
-				{
-					{ "duration",      Utilities.TicksToCompoundTime(ev.BanDetails.Expires - ev.BanDetails.IssuanceTime + 1000000) },
-					{ "expirytime",    new DateTime(ev.BanDetails.Expires).ToString("yyyy-MM-dd HH:mm:ss") },
-					{ "issuedtime",    new DateTime(ev.BanDetails.IssuanceTime).ToString("yyyy-MM-dd HH:mm:ss") },
-					{ "reason",        ev.BanDetails.Reason       },
-					{ "player-userid", ev.BanDetails.Id           },
-					{ "player-name",   ev.BanDetails.OriginalName },
-					{ "issuer-name",   ev.BanDetails.Issuer       },
-				};
+				variables.Add("player-userid", ev.BanDetails.Id);
 				plugin.SendMessage("messages.onbanissued.userid", variables);
 			}
 		}
@@ -135,32 +127,25 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent]
 		public void OnBanUpdated(BanUpdatedEvent ev)
 		{
+			Dictionary<string, string> variables = new Dictionary<string, string>
+			{
+				{ "duration",    Utilities.TicksToCompoundTime(ev.BanDetails.Expires - ev.BanDetails.IssuanceTime + 1000000) },
+				{ "expirytime",  new DateTime(ev.BanDetails.Expires).ToString("yyyy-MM-dd HH:mm:ss") },
+				{ "issuedtime",  new DateTime(ev.BanDetails.IssuanceTime).ToString("yyyy-MM-dd HH:mm:ss") },
+				{ "reason",      ev.BanDetails.Reason       },
+				{ "player-ip",   ev.BanDetails.Id           },
+				{ "player-name", ev.BanDetails.OriginalName },
+				{ "issuer-name", ev.BanDetails.Issuer       },
+			};
+
 			if (ev.BanType == BanHandler.BanType.IP)
 			{
-				Dictionary<string, string> variables = new Dictionary<string, string>
-				{
-					{ "duration",    Utilities.TicksToCompoundTime(ev.BanDetails.Expires - ev.BanDetails.IssuanceTime + 1000000) },
-					{ "expirytime",  new DateTime(ev.BanDetails.Expires).ToString("yyyy-MM-dd HH:mm:ss") },
-					{ "issuedtime",  new DateTime(ev.BanDetails.IssuanceTime).ToString("yyyy-MM-dd HH:mm:ss") },
-					{ "reason",      ev.BanDetails.Reason       },
-					{ "player-ip",   ev.BanDetails.Id           },
-					{ "player-name", ev.BanDetails.OriginalName },
-					{ "issuer-name", ev.BanDetails.Issuer       },
-				};
+				variables.Add("player-ip", ev.BanDetails.Id);
 				plugin.SendMessage("messages.onbanupdated.ip", variables);
 			}
 			else
 			{
-				Dictionary<string, string> variables = new Dictionary<string, string>
-				{
-					{ "duration",      Utilities.TicksToCompoundTime(ev.BanDetails.Expires - ev.BanDetails.IssuanceTime + 1000000) },
-					{ "expirytime",    new DateTime(ev.BanDetails.Expires).ToString("yyyy-MM-dd HH:mm:ss") },
-					{ "issuedtime",    new DateTime(ev.BanDetails.IssuanceTime).ToString("yyyy-MM-dd HH:mm:ss") },
-					{ "reason",        ev.BanDetails.Reason       },
-					{ "player-userid", ev.BanDetails.Id           },
-					{ "player-name",   ev.BanDetails.OriginalName },
-					{ "issuer-name",   ev.BanDetails.Issuer       },
-				};
+				variables.Add("player-userid", ev.BanDetails.Id);
 				plugin.SendMessage("messages.onbanupdated.userid", variables);
 			}
 		}
@@ -267,26 +252,20 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent]
 		public void OnRemoteAdminCommand(RemoteAdminCommandExecutedEvent ev)
 		{
+			Dictionary<string, string> variables = new Dictionary<string, string>
+			{
+				{ "command",       (ev.Command + " " + string.Join(" ", ev.Arguments)).Trim() },
+				{ "result",        ev.Result.ToString() },
+				{ "returnmessage", ev.Response }
+			};
+
 			if (ev.Sender is PlayerCommandSender playerSender && Player.Get(playerSender.ReferenceHub) != null)
 			{
-				Player player = Player.Get(playerSender.ReferenceHub);
-				Dictionary<string, string> variables = new Dictionary<string, string>
-				{
-					{ "command",      (ev.Command + " " + string.Join(" ", ev.Arguments)).Trim() },
-					{ "result",        ev.Result.ToString() },
-					{ "returnmessage", ev.Response }
-				};
-				variables.AddPlayerVariables(player, "player");
+				variables.AddPlayerVariables(Player.Get(playerSender.ReferenceHub), "player");
 				plugin.SendMessage("messages.onexecutedcommand.remoteadmin.player", variables);
 			}
 			else
 			{
-				Dictionary<string, string> variables = new Dictionary<string, string>
-				{
-					{ "command",       (ev.Command + " " + string.Join(" ", ev.Arguments)).Trim() },
-					{ "result",        ev.Result.ToString() },
-					{ "returnmessage", ev.Response }
-				};
 				plugin.SendMessage("messages.onexecutedcommand.remoteadmin.server", variables);
 			}
 		}
@@ -294,23 +273,19 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent]
 		public void OnGameConsoleCommand(PlayerGameConsoleCommandExecutedEvent ev)
 		{
+			Dictionary<string, string> variables = new Dictionary<string, string>
+			{
+				{ "command",      (ev.Command + " " + string.Join(" ", ev.Arguments)).Trim() },
+				{ "returnmessage", ev.Response }
+			};
+
 			if (ev.Player != null && ev.Player.PlayerId != Server.Instance.PlayerId)
 			{
-				Dictionary<string, string> variables = new Dictionary<string, string>
-				{
-					{ "command",      (ev.Command + " " + string.Join(" ", ev.Arguments)).Trim() },
-					{ "returnmessage", ev.Response }
-				};
 				variables.AddPlayerVariables(ev.Player, "player");
 				plugin.SendMessage("messages.onexecutedcommand.game.player", variables);
 			}
 			else
 			{
-				Dictionary<string, string> variables = new Dictionary<string, string>
-				{
-					{ "command",      (ev.Command + " " + string.Join(" ", ev.Arguments)).Trim() },
-					{ "returnmessage", ev.Response }
-				};
 				plugin.SendMessage("messages.onexecutedcommand.game.server", variables);
 			}
 		}
@@ -318,26 +293,20 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent]
 		public void OnConsoleCommand(ConsoleCommandExecutedEvent ev)
 		{
+			Dictionary<string, string> variables = new Dictionary<string, string>
+            {
+            	{ "command",      (ev.Command + " " + string.Join(" ", ev.Arguments)).Trim() },
+            	{ "result",        ev.Result.ToString()                        },
+            	{ "returnmessage", ev.Response                                 }
+            };
+
 			if (ev.Sender is PlayerCommandSender playerSender && Player.Get(playerSender.ReferenceHub) != null)
 			{
-				Player player = Player.Get(playerSender.ReferenceHub);
-				Dictionary<string, string> variables = new Dictionary<string, string>
-				{
-					{ "command",      (ev.Command + " " + string.Join(" ", ev.Arguments)).Trim() },
-					{ "result",        ev.Result.ToString()                        },
-					{ "returnmessage", ev.Response                                 }
-				};
-				variables.AddPlayerVariables(player, "player");
+				variables.AddPlayerVariables(Player.Get(playerSender.ReferenceHub), "player");
 				plugin.SendMessage("messages.onexecutedcommand.console.player", variables);
 			}
 			else
 			{
-				Dictionary<string, string> variables = new Dictionary<string, string>
-				{
-					{ "command",      (ev.Command + " " + string.Join(" ", ev.Arguments)).Trim() },
-					{ "result",        ev.Result.ToString() },
-					{ "returnmessage", ev.Response }
-				};
 				plugin.SendMessage("messages.onexecutedcommand.console.server", variables);
 			}
 		}
@@ -345,22 +314,18 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent]
 		public void OnRemoteAdminCommand(RemoteAdminCommandEvent ev)
 		{
+			Dictionary<string, string> variables = new Dictionary<string, string>
+			{
+				{ "command", (ev.Command + " " + string.Join(" ", ev.Arguments)).Trim() }
+			};
+
 			if (ev.Sender is PlayerCommandSender playerSender && Player.Get(playerSender.ReferenceHub) != null)
 			{
-				Player player = Player.Get(playerSender.ReferenceHub);
-				Dictionary<string, string> variables = new Dictionary<string, string>
-				{
-					{ "command", (ev.Command + " " + string.Join(" ", ev.Arguments)).Trim() }
-				};
-				variables.AddPlayerVariables(player, "player");
+				variables.AddPlayerVariables(Player.Get(playerSender.ReferenceHub), "player");
 				plugin.SendMessage("messages.oncallcommand.remoteadmin.player", variables);
 			}
 			else
 			{
-				Dictionary<string, string> variables = new Dictionary<string, string>
-				{
-					{ "command", (ev.Command + " " + string.Join(" ", ev.Arguments)).Trim() }
-				};
 				plugin.SendMessage("messages.oncallcommand.remoteadmin.server", variables);
 			}
 		}
@@ -368,21 +333,18 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent]
 		public void OnGameConsoleCommand(PlayerGameConsoleCommandEvent ev)
 		{
+			Dictionary<string, string> variables = new Dictionary<string, string>
+			{
+				{ "command", (ev.Command + " " + string.Join(" ", ev.Arguments)).Trim() }
+			};
+
 			if (ev.Player != null && ev.Player.PlayerId != Server.Instance.PlayerId)
 			{
-				Dictionary<string, string> variables = new Dictionary<string, string>
-				{
-					{ "command", (ev.Command + " " + string.Join(" ", ev.Arguments)).Trim() }
-				};
 				variables.AddPlayerVariables(ev.Player, "player");
 				plugin.SendMessage("messages.oncallcommand.game.player", variables);
 			}
 			else
 			{
-				Dictionary<string, string> variables = new Dictionary<string, string>
-				{
-					{ "command", (ev.Command + " " + string.Join(" ", ev.Arguments)).Trim() }
-				};
 				plugin.SendMessage("messages.oncallcommand.game.server", variables);
 			}
 		}
@@ -390,22 +352,18 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent]
 		public void OnConsoleCommand(ConsoleCommandEvent ev)
 		{
+			Dictionary<string, string> variables = new Dictionary<string, string>
+			{
+				{ "command", (ev.Command + " " + string.Join(" ", ev.Arguments)).Trim() },
+			};
+
 			if (ev.Sender is PlayerCommandSender playerSender && Player.Get(playerSender.ReferenceHub) != null)
 			{
-				Player player = Player.Get(playerSender.ReferenceHub);
-				Dictionary<string, string> variables = new Dictionary<string, string>
-				{
-					{ "command",   (ev.Command + " " + string.Join(" ", ev.Arguments)).Trim() },
-				};
-				variables.AddPlayerVariables(player, "player");
+				variables.AddPlayerVariables(Player.Get(playerSender.ReferenceHub), "player");
 				plugin.SendMessage("messages.oncallcommand.console.player", variables);
 			}
 			else
 			{
-				Dictionary<string, string> variables = new Dictionary<string, string>
-				{
-					{ "command", (ev.Command + " " + string.Join(" ", ev.Arguments)).Trim() }
-				};
 				plugin.SendMessage("messages.oncallcommand.console.server", variables);
 			}
 		}
