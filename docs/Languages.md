@@ -60,6 +60,7 @@ While I would prefer you submitting the language changes on GitHub you can also 
 ## Language file structure
 
 ### Messages
+
 These are the messages that are sent to Discord, you can add variables to them with the <var:name> syntax. If you for instance want to add an IP-address to the OnConnect event message you can put `"Player is connecting with IP address <var:ipaddress>."` which will become something like `Player is connecting with IP address 127.0.0.1.` in Discord.
 
 All available variables are listed as comments on each event.
@@ -74,6 +75,7 @@ it means each of these contain a number of standard variables like `attacker-nam
 The top of the language file should have a list of all available player variables, but if you want to be sure you can also check the list in [APIExtensions.cs](../SCPDiscordPlugin/APIExtensions.cs).
 
 ### Regex
+
 This will not be necessary for most users.
 
 Aside from the messages themselves, the language file contains several different regex options. You can add any number of regular expression to each entry by separating them with a comma, check the `english.yml` file for examples of this.
@@ -83,6 +85,7 @@ If you are unfamiliar with regex, don't worry, you can basically think of it as 
 If you are interested in learning how regex works use this link to start learning some simple patterns: [RegExr](https://regexr.com/)
 
 ### Cancel Regex
+
 These are regex patterns where the entire message will get cancelled if there is a match.
 
 ### Order of operations

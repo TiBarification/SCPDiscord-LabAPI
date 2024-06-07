@@ -8,22 +8,26 @@
 ## Building the plugin
 
 ### Via Rider or Visual Studio
+
 Load the SCPDiscordPlugin project and build using the controls in the IDE.
 
 Note: Rider doesn't support mixing mono and dotnet projects in the same solution so you have to open the projects individually, not the solution.
 
 ### Manually
+
 Enter the SCPDiscord plugin directory and use the following command in order to build the plugin:
 ```bash
-msbuild SCPDiscordPlugin.csproj -restore -p:PostBuildEvent=
+msbuild SCPDiscordPlugin.csproj -restore
 ```
 
 ## Building the bot
 
 ### Via Rider or Visual Studio
-Load the SCPDiscordPlugin project and build using the controls in the IDE.
+
+Load the SCPDiscordBot project and build using the controls in the IDE.
 
 ### Manually
+
 Enter the SCPDiscord bot directory and use the following commands:
 ```bash
 dotnet build --output bin/linux-x64 --configuration Release --runtime linux-x64
@@ -31,6 +35,8 @@ dotnet build --output bin/win-x64 --configuration Release --runtime win-x64
 ```
 
 ## Generating the network interface
+
+**This section is only needed if you need to edit the network traffic between the plugin and bot.**
 
 The bot and plugin communicate using protobuf messages. These messages are constructed from protobuf schemas located in the schema directory which are then generated into the bot and plugin's interface directories.
 

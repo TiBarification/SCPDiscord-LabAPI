@@ -18,7 +18,7 @@ pipeline {
             parallel {
                 stage('Plugin') {
                     steps {
-                        sh 'msbuild SCPDiscordPlugin/SCPDiscordPlugin.csproj -restore -p:PostBuildEvent='
+                        sh 'msbuild SCPDiscordPlugin/SCPDiscordPlugin.csproj -restore'
                     }
                 }
                 stage('Bot - Small') {

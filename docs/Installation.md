@@ -54,6 +54,7 @@ There are two versions available, a self contained version which can run on its 
 Pick the one you want and extract it somewhere where your user has permission to read and write.
 
 ### 4. Run the bot
+
 Run the bot using:
 ```yaml
 # Linux:
