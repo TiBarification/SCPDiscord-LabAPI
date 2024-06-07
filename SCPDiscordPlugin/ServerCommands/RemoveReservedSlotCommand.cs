@@ -15,6 +15,8 @@ namespace SCPDiscord.Commands
 
 		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
 		{
+			Logger.Debug(sender.LogName + "used the removereservedslot command.");
+
 			if (arguments.Count < 1 || arguments.At(0).Length < 10)
 			{
 				response = "Invalid arguments.";

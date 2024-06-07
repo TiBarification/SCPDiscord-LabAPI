@@ -1,6 +1,5 @@
 using System;
 using CommandSystem;
-using PluginAPI.Core;
 
 namespace SCPDiscord.Commands
 {
@@ -13,6 +12,8 @@ namespace SCPDiscord.Commands
 
 		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
 		{
+			Logger.Debug(sender.LogName + "used the unsync command.");
+
 			if (arguments.Count > 0 && ulong.TryParse(arguments.At(0), out ulong discordID))
 			{
 				response = RoleSync.RemovePlayerLocally(discordID);

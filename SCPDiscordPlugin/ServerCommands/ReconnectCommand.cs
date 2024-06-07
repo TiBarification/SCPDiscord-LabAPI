@@ -1,6 +1,5 @@
 using System;
 using CommandSystem;
-using PluginAPI.Core;
 
 namespace SCPDiscord.Commands
 {
@@ -13,6 +12,8 @@ namespace SCPDiscord.Commands
 
 		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
 		{
+			Logger.Debug(sender.LogName + "used the reconnect command.");
+
 			if (NetworkSystem.IsConnected())
 			{
 				NetworkSystem.Disconnect();

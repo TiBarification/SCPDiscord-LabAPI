@@ -15,6 +15,8 @@ namespace SCPDiscord.Commands
 
 		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
 		{
+			Logger.Debug(sender.LogName + "used the grantvanillarank command.");
+
 			if (arguments.Count < 2)
 			{
 				response = "Invalid arguments.";

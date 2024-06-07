@@ -8,6 +8,9 @@ namespace SCPDiscord.BotCommands
     {
         public static void Execute(Interface.ListCommand command)
 		{
+			Logger.Debug("List command called by " + command.UserID + " in " + command.ChannelID + ". Interaction:" + command.InteractionID + ")");
+
+			// Create empty list if there are no players online
 			if (Player.Count == 0)
 			{
 				EmbedMessage embed = new EmbedMessage
@@ -28,6 +31,7 @@ namespace SCPDiscord.BotCommands
 				return;
 			}
 
+			// Create list of player rows
 			List<string> listItems = new List<string>();
 			foreach (Player player in Player.GetPlayers())
 			{
@@ -38,6 +42,7 @@ namespace SCPDiscord.BotCommands
 				listItems.Add(Language.RunFilters(command.ChannelID, player, row));
 			}
 
+			// Separate list into pages
 			List<EmbedMessage> embeds = new List<EmbedMessage>();
 			int pageNum = 0;
 			LinkedList<string> pages = Utilities.ParseListIntoMessages(listItems);

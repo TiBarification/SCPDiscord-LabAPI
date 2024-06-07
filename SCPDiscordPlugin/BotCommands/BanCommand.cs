@@ -11,6 +11,11 @@ namespace SCPDiscord.BotCommands
     {
         public static void Execute(Interface.BanCommand command)
 		{
+			Logger.Debug("Ban command called by " + command.AdminTag + " in " + command.ChannelID + ". Interaction: " + command.InteractionID + ")\n" +
+			             "SteamID: " + command.SteamID + "\n" +
+			             "Duration: " + command.Duration + "\n" +
+			             "Reason: " + command.Reason);
+
 			EmbedMessage embed = new EmbedMessage
 			{
 				Colour = EmbedMessage.Types.DiscordColour.Red,

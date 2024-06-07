@@ -9,7 +9,9 @@ namespace SCPDiscord.BotCommands
     public static class UnbanCommand
     {
         public static void Execute(Interface.UnbanCommand command)
-		{
+        {
+	        Logger.Debug("Unban command called  in " + command.ChannelID + ". Interaction: " + command.InteractionID + ")");
+
 			EmbedMessage embed = new EmbedMessage
 			{
 				Colour = EmbedMessage.Types.DiscordColour.Red,

@@ -8,6 +8,10 @@ namespace SCPDiscord.BotCommands
     {
         public static void Execute(Interface.KickCommand command)
         {
+	        Logger.Debug("Kick command called by " + command.AdminTag + " in " + command.ChannelID + ". Interaction: " + command.InteractionID + ")\n" +
+	                     "SteamID: " + command.SteamID + "\n" +
+	                     "Reason: " + command.Reason);
+
         	EmbedMessage embed = new EmbedMessage
         	{
         		Colour = EmbedMessage.Types.DiscordColour.Red,

@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using CommandSystem;
-using PluginAPI.Core;
 
 namespace SCPDiscord.Commands
 {
@@ -16,6 +15,8 @@ namespace SCPDiscord.Commands
 
 		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
 		{
+			Logger.Debug(sender.LogName + "used the grantreservedslot command.");
+
 			if (arguments.Count < 1)
 			{
 				response = "Invalid arguments.";

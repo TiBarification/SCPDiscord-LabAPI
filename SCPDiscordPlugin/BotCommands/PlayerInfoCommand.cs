@@ -8,7 +8,10 @@ namespace SCPDiscord.BotCommands
     public static class PlayerInfoCommand
     {
 	    public static void Execute(Interface.PlayerInfoCommand command)
-		{
+	    {
+		    Logger.Debug("Playerinfo command called by " + command.DiscordID + " in " + command.ChannelID + ". Interaction: " + command.InteractionID +
+		                 ") SteamID: " + command.SteamID);
+
 			EmbedMessage embed = new EmbedMessage
 			{
 				Colour = EmbedMessage.Types.DiscordColour.Green,

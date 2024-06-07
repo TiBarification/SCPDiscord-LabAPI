@@ -12,6 +12,8 @@ namespace SCPDiscord.Commands
 
 		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
 		{
+			Logger.Debug(sender.LogName + "used the reload command.");
+
 			Logger.Info("Reloading plugin...");
 			if (!SCPDiscord.plugin.LoadConfig())
 			{

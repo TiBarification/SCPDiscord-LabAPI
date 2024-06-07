@@ -8,6 +8,9 @@ namespace SCPDiscord.BotCommands
     {
         public static void Execute(Interface.KickallCommand command)
         {
+            Logger.Debug("Kickall command called by " + command.AdminTag + " in " + command.ChannelID + ". Interaction: " + command.InteractionID + ")\n" +
+                         "Reason: " + command.Reason);
+
             if (command.Reason == "")
             {
                 command.Reason = "All players kicked by Admin";
