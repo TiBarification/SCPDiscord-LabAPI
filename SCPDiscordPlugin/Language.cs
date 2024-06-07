@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using PluginAPI.Core;
 using YamlDotNet.Core;
-using YamlDotNet.Serialization;
 
 namespace SCPDiscord
 {
@@ -242,51 +241,33 @@ namespace SCPDiscord
 			}
 		}
 
-		/// <summary>
-		/// This function makes me want to die too, don't worry.
-		/// Parses a yaml file into a yaml object, parses the yaml object into a json string, parses the json string into a json object
-		/// </summary>
 		private static void LoadLanguageFile(string language, string type, out JObject dataObject)
 		{
 			try
 			{
 				Logger.Info("Loading " + type + " file...");
-
-				// Reads file contents into FileStream
-                FileStream stream = File.OpenRead(Config.GetLanguageDir() + language + ".yml");
-
-                // Converts the FileStream into a YAML Dictionary object
-                IDeserializer deserializer = new DeserializerBuilder().Build();
-                object yamlObject = deserializer.Deserialize(new StreamReader(stream));
-
-                // Converts the YAML Dictionary into JSON String
-                ISerializer serializer = new SerializerBuilder()
-                	.JsonCompatible()
-                	.Build();
-                string jsonString = serializer.Serialize(yamlObject);
-                dataObject = JObject.Parse(jsonString);
-
-                Logger.Info("Successfully loaded " + type + " file '" + language + ".yml'.");
+				dataObject = Utilities.LoadYamlFile(Config.GetLanguageDir() + language + ".yml");
+                Logger.Info("Successfully loaded " + type + " file '" + Config.GetLanguageDir() + language + ".yml'.");
 			}
 			catch (Exception e)
 			{
 				switch (e)
 				{
 					case DirectoryNotFoundException _:
-						Logger.Warn("Language directory not found.");
+						Logger.Error("Language directory not found.");
 						break;
 					case UnauthorizedAccessException _:
-						Logger.Warn("Language file '" + Config.GetLanguageDir() + language + ".yml' access denied.");
+						Logger.Error("Language file '" + Config.GetLanguageDir() + language + ".yml' access denied.");
 						break;
 					case FileNotFoundException _:
-						Logger.Warn("Language file '" + Config.GetLanguageDir() + language + ".yml' was not found.");
+						Logger.Error("Language file '" + Config.GetLanguageDir() + language + ".yml' was not found.");
 						break;
 					case JsonReaderException _:
 					case YamlException _:
-						Logger.Warn("Language file '" + Config.GetLanguageDir() + language + ".yml' formatting error.");
+						Logger.Error("Language file '" + Config.GetLanguageDir() + language + ".yml' formatting error.");
 						break;
 					default:
-						Logger.Warn("Error reading language file '" + Config.GetLanguageDir() + language + ".yml'.");
+						Logger.Error("Error reading language file '" + Config.GetLanguageDir() + language + ".yml'.");
 						break;
 				}
 				Logger.Error(e.ToString());

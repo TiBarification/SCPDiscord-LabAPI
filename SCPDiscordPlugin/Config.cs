@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using GameCore;
 using PluginAPI.Helpers;
-using YamlDotNet.Serialization;
 
 namespace SCPDiscord
 {
@@ -257,21 +256,7 @@ namespace SCPDiscord
 				File.WriteAllText(GetConfigPath(), Utilities.ReadManifestData("config.yml"));
 			}
 
-			// Reads file contents into FileStream
-			FileStream stream = File.OpenRead(GetConfigDir() + "config.yml");
-
-			// Converts the FileStream into a YAML Dictionary object
-			IDeserializer deserializer = new DeserializerBuilder().Build();
-			object yamlObject = deserializer.Deserialize(new StreamReader(stream));
-
-			// Converts the YAML Dictionary into JSON String
-			ISerializer serializer = new SerializerBuilder()
-				.JsonCompatible()
-				.Build();
-			string jsonString = serializer.Serialize(yamlObject);
-
-			JObject json = JObject.Parse(jsonString);
-
+			JObject json = Utilities.LoadYamlFile(GetConfigDir() + "config.yml");
 			Logger.Debug("Reading config validation");
 
 			// Reads the configvalidation node first as it is used for reading the others

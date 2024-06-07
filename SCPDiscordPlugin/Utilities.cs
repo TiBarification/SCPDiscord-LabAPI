@@ -8,7 +8,10 @@ using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 using System.Xml;
+using Newtonsoft.Json.Linq;
 using PluginAPI.Core;
+using YamlDotNet.Core;
+using YamlDotNet.Serialization;
 
 namespace SCPDiscord
 {
@@ -306,6 +309,33 @@ namespace SCPDiscord
 			stream.Dispose();
 
 			return fileContents;
+		}
+
+		/// <summary>
+		/// This function makes me want to die too, don't worry.
+		/// Parses a yaml file into a yaml object, parses the yaml object into a json string, parses the json string into a json object
+		/// </summary>
+		public static JObject LoadYamlFile(string fileName)
+		{
+			// Reads file contents into FileStream
+			FileStream stream = File.OpenRead(fileName);
+
+			// Converts the FileStream into a YAML Dictionary object
+			IDeserializer deserializer = new DeserializerBuilder().Build();
+			object yamlObject = deserializer.Deserialize(new StreamReader(stream));
+
+			// Converts the YAML Dictionary into JSON String
+			ISerializer serializer = new SerializerBuilder()
+				.JsonCompatible()
+				.Build();
+
+			if (yamlObject == null)
+			{
+				throw new YamlException("Could not read YAML file: '" + fileName + "'. Is it a valid YAML file?");
+			}
+
+			string jsonString = serializer.Serialize(yamlObject);
+			return JObject.Parse(jsonString);
 		}
 	}
 }
