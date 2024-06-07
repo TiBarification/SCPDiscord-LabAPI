@@ -222,7 +222,7 @@ namespace SCPDiscord
 					XmlResolver = null
 				};
 				xml.LoadXml(xmlResponse);
-				steamName = xml.DocumentElement?.SelectSingleNode("/profile/steamID")?.InnerText + "TEST";
+				steamName = xml.DocumentElement?.SelectSingleNode("/profile/steamID")?.InnerText;
 
 				response.Close();
 				return !string.IsNullOrWhiteSpace(steamName);
