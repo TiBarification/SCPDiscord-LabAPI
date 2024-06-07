@@ -5,7 +5,7 @@ using SCPDiscord.Interface;
 
 namespace SCPDiscord.BotCommands
 {
-    public class PlayerInfoCommand
+    public static class PlayerInfoCommand
     {
 	    public static void Execute(Interface.PlayerInfoCommand command)
 		{

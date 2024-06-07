@@ -13,16 +13,6 @@ namespace SCPDiscord.Commands
 
 		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
 		{
-			/*
-			if (sender is Player player)
-			{
-				if (!player.HasPermission("scpdiscord.reconnect"))
-				{
-					return new[] { "You don't have permission to use that command." };
-				}
-			}
-			*/
-
 			if (NetworkSystem.IsConnected())
 			{
 				NetworkSystem.Disconnect();

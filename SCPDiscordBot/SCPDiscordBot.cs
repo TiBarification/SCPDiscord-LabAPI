@@ -13,7 +13,7 @@ namespace SCPDiscord
 		public class CommandLineArguments
 		{
 			[Option('c', "config", Required = false, HelpText = "Select a config file to use.", Default = "config.yml", MetaValue = "PATH")]
-			public string ConfigPath { get; set; }
+			public string configPath { get; set; }
 
 			[Option(
 				"leave",
@@ -23,10 +23,10 @@ namespace SCPDiscord
 				MetaValue = "ID,ID,ID...",
 				Separator = ','
 			)]
-			public IEnumerable<ulong> ServersToLeave { get; set; }
+			public IEnumerable<ulong> serversToLeave { get; set; }
 		}
 
-		public static CommandLineArguments commandLineArgs;
+		internal static CommandLineArguments commandLineArgs;
 
 		public static void Main(string[] args)
 		{

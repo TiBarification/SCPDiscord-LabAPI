@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace SCPDiscord
 {
-	public enum LogID
+	internal enum LogID
 	{
 		GENERAL,
 		CONFIG,
@@ -13,7 +13,7 @@ namespace SCPDiscord
 		DISCORD
 	};
 
-	public static class Logger
+	internal static class Logger
 	{
 		private static readonly Dictionary<LogID, EventId> eventIDs = new()
 		{
@@ -24,7 +24,7 @@ namespace SCPDiscord
 			{ LogID.DISCORD, new EventId(504, "Discord") },
 		};
 
-		public static void Debug(string message, LogID logID = LogID.GENERAL)
+		internal static void Debug(string message, LogID logID)
 		{
 			try
 			{
@@ -36,7 +36,7 @@ namespace SCPDiscord
 			}
 		}
 
-		public static void Log(string message, LogID logID = LogID.GENERAL)
+		internal static void Log(string message, LogID logID = LogID.GENERAL)
 		{
 			try
 			{
@@ -48,7 +48,7 @@ namespace SCPDiscord
 			}
 		}
 
-		public static void Warn(string message, LogID logID = LogID.GENERAL)
+		internal static void Warn(string message, LogID logID = LogID.GENERAL)
 		{
 			try
 			{
@@ -60,7 +60,7 @@ namespace SCPDiscord
 			}
 		}
 
-		public static void Error(string message, LogID logID = LogID.GENERAL)
+		internal static void Error(string message, LogID logID = LogID.GENERAL)
 		{
 			try
 			{
@@ -72,7 +72,7 @@ namespace SCPDiscord
 			}
 		}
 
-		public static void Fatal(string message, LogID logID = LogID.GENERAL)
+		internal static void Fatal(string message, LogID logID = LogID.GENERAL)
 		{
 			try
 			{

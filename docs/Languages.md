@@ -1,15 +1,17 @@
-# Switching to another included language
+# Languages and message overriding
+
+## Switching to another included language
 
 There are several languages included in the plugin dll. The current languages are:
 * English (default)
 * Ukrainian
 * Russian
-* Chinese (Simplified)
+* Simplified Chinese
 * Italian
 
 You can choose which language you want to use by setting the config entry `settings.language` to the name of the language file in all lower-case. You can find the language files in `SCPDiscord/Languages` in your plugin directory.
 
-# Overriding specific messages
+## Overriding specific messages
 
 Use the `overrides.yml` file to override specific entries from the normal language files.
 
@@ -31,7 +33,7 @@ There is also an `emote-overrides.yml` file which works the exact same way but f
 
 If you want to find out more about how the language files work you can read the contribution guide below.
 
-# Editing or adding a new language (usually for contributing to the plugin)
+## Editing or adding a new language (usually for contributing to the plugin)
 
 **Make sure the file encoding is UTF-8, other encodings like UTF-8 BOM do not work.**
 
@@ -41,9 +43,21 @@ In notepad++:
 
 Also make sure to turn off language regeneration in the config or your changes will be overwritten!
 
-If you are making a new language you can copy the english.yml file and name the new file something in all lowercase. Otherwise you can just edit the english file directly as long as you have turned off overwriting the language files in the config. Below is a more in depth guide, but you can just edit the existing words instead if you wish.
+**If you are making a new language:**  Copy the `english.yml` file and name it whatever the new language is called. Set this name in your plugin config and edit the new file however you wish.
 
-If you want to you can submit your language file to the default languages by either making a pull request here on GitHub or by sending it to me either in an issue here or in Discord.
+**If you are editing an existing language:** Turn off language regeneration in the config and start editing the language file.
+Below is a more in depth guide, but you can just edit the existing words instead if you wish.
+
+When you are done editing the language file you can submit it here by:
+1. Create a fork.
+2. Upload/update the language file on your fork.
+3. Open a pull request to the main branch of this repository from your branch on your fork.
+
+You don't have to update the code to load the default language, I can do that for you when you open your pull request.
+
+While I would prefer you submitting the language changes on GitHub you can also send me the file in Discord.
+
+## Language file structure
 
 ### Messages
 These are the messages that are sent to Discord, you can add variables to them with the <var:name> syntax. If you for instance want to add an IP-address to the OnConnect event message you can put `"Player is connecting with IP address <var:ipaddress>."` which will become something like `Player is connecting with IP address 127.0.0.1.` in Discord.

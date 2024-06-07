@@ -7,7 +7,7 @@ using SCPDiscord.Interface;
 
 namespace SCPDiscord.BotCommands
 {
-    public class BanCommand
+    public static class BanCommand
     {
         public static void Execute(Interface.BanCommand command)
 		{
@@ -87,7 +87,7 @@ namespace SCPDiscord.BotCommands
 				{
 					return;
 				}
-				BanHandler.IssueBan(new BanDetails()
+				BanHandler.IssueBan(new BanDetails
 				{
 					OriginalName = name,
 					Id = player.ReferenceHub.connectionToClient.address,
@@ -99,7 +99,7 @@ namespace SCPDiscord.BotCommands
 				ServerConsole.Disconnect(player.ReferenceHub.gameObject, "You have been banned. Reason: " + command.Reason);
 			}
 
-			BanHandler.IssueBan(new BanDetails()
+			BanHandler.IssueBan(new BanDetails
 			{
 				OriginalName = name,
 				Id = (command.SteamID.EndsWith("@steam") ? command.SteamID : command.SteamID + "@steam"),

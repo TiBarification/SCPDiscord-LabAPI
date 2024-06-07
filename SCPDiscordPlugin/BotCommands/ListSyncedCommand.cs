@@ -5,7 +5,7 @@ using SCPDiscord.Interface;
 
 namespace SCPDiscord.BotCommands
 {
-    public class ListSyncedCommand
+    public static class ListSyncedCommand
     {
 	    public static void Execute(Interface.ListSyncedCommand command)
 	    {
@@ -100,7 +100,10 @@ namespace SCPDiscord.BotCommands
 		    List<string> rows = new List<string>();
 			foreach (Player player in Player.GetPlayers())
 			{
-				if (!RoleSync.IsPlayerSynced(player.UserId, out ulong discordID)) continue;
+				if (!RoleSync.IsPlayerSynced(player.UserId, out ulong discordID))
+				{
+					continue;
+				}
 
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{

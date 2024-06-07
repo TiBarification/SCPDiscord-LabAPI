@@ -23,7 +23,10 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent]
 		public void OnPlayerBanned(PlayerBannedEvent ev)
 		{
-			if (!(ev.Player is Player player)) return;
+			if (!(ev.Player is Player player))
+			{
+				return;
+			}
 
 			if (ev.Issuer != null)
 			{
@@ -67,7 +70,10 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent]
 		public void OnPlayerKicked(PlayerKickedEvent ev)
 		{
-			if (ev.Player == null) return;
+			if (ev.Player == null)
+			{
+				return;
+			}
 
 			if (ev.Issuer is PlayerCommandSender playerSender && Player.Get(playerSender.ReferenceHub) != null)
 			{
@@ -183,7 +189,10 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent]
 		public void OnPlayerMuted(PlayerMutedEvent ev)
 		{
-			if (ev?.Player.UserId == null) return;
+			if (ev?.Player.UserId == null)
+			{
+				return;
+			}
 
 			if (ev.Issuer != null)
 			{
@@ -219,7 +228,10 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent]
 		public void OnPlayerUnmuted(PlayerUnmutedEvent ev)
 		{
-			if (ev.Player == null) return;
+			if (ev.Player == null)
+			{
+				return;
+			}
 
 			if (ev.Issuer != null)
 			{

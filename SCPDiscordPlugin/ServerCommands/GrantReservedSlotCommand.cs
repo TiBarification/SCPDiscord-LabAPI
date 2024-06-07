@@ -16,16 +16,6 @@ namespace SCPDiscord.Commands
 
 		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
 		{
-			/*
-			if (sender is Player admin)
-			{
-				if (!messages.HasPermission("scpdiscord.grantreservedslot"))
-				{
-					return new[] { "You don't have permission to use that command." };
-				}
-			}
-			*/
-
 			if (arguments.Count < 1)
 			{
 				response = "Invalid arguments.";

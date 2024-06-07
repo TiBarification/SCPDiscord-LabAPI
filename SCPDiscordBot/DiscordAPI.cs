@@ -18,8 +18,8 @@ namespace SCPDiscord
 {
 	public class DiscordAPI
 	{
-		public static DiscordAPI instance = null;
-		public bool connected = false;
+		public static DiscordAPI instance { get; private set; }
+		public bool connected;
 
 		private static readonly DiscordConfiguration config = new()
 		{
@@ -32,9 +32,10 @@ namespace SCPDiscord
 			LogUnknownAuditlogs = false,
 			LogUnknownEvents = false
 		};
-		public static DiscordClient client = new DiscordClient(config);
-		private static DiscordRestClient restClient = null;
-		private SlashCommandsExtension commands = null;
+
+		public static DiscordClient client { get; private set; } = new(config);
+		private static DiscordRestClient restClient;
+		private SlashCommandsExtension commands;
 
 		public static async Task Init()
 		{
@@ -335,7 +336,7 @@ namespace SCPDiscord
 		{
 			Logger.Log("Found Discord server: " + e.Guild.Name + " (" + e.Guild.Id + ")", LogID.DISCORD);
 
-			if (SCPDiscordBot.commandLineArgs.ServersToLeave.Contains(e.Guild.Id))
+			if (SCPDiscordBot.commandLineArgs.serversToLeave.Contains(e.Guild.Id))
 			{
 				Logger.Warn("LEAVING DISCORD SERVER AS REQUESTED: " + e.Guild.Name + " (" + e.Guild.Id + ")", LogID.DISCORD);
 				await e.Guild.LeaveAsync();

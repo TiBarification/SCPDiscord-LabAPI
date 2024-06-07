@@ -11,7 +11,10 @@ namespace SCPDiscord.BotCommands
 			List<string> listItems = new List<string>();
 			foreach (Player player in Player.GetPlayers())
 			{
-				if (!player.TryGetRank(out string _)) continue;
+				if (!player.TryGetRank(out string _))
+				{
+					continue;
+				}
 
 				Dictionary<string, string> variables = new Dictionary<string, string> {};
 				variables.AddPlayerVariables(player, "player");

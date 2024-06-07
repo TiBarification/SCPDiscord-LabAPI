@@ -3,6 +3,7 @@ using System.Linq;
 using CustomPlayerEffects;
 using MapGeneration;
 using PlayerRoles;
+using PlayerRoles.PlayableScps.Scp3114;
 using PlayerRoles.PlayableScps.Scp939;
 using PlayerStatsSystem;
 using PluginAPI.Core;
@@ -58,43 +59,49 @@ namespace SCPDiscord.EventListeners
 				case DisruptorDamageHandler _:
 					return "disruptor";
 
-				case ExplosionDamageHandler explosionDamageHandler:
+				case ExplosionDamageHandler _:
 					return "an explosion";
 
 				case FirearmDamageHandler firearmDamageHandler:
 					return firearmDamageHandler.WeaponType.ToString();
 
-				case MicroHidDamageHandler microHidDamageHandler:
-					return "Micro-HID";
+				case JailbirdDamageHandler _:
+					return "a jailbird";
 
-				case RecontainmentDamageHandler recontainmentDamageHandler:
+				case MicroHidDamageHandler _:
+					return "a Micro-HID";
+
+				case RecontainmentDamageHandler _:
 					return "recontainment";
 
-				case Scp018DamageHandler scp018DamageHandler:
+				case Scp018DamageHandler _:
 					return "SCP-018";
 
-				case Scp049DamageHandler scp049DamageHandler:
+				case Scp049DamageHandler _:
 					return "SCP-049";
 
-				case Scp096DamageHandler scp096DamageHandler:
+				case Scp096DamageHandler _:
 					return "SCP-096";
 
-				case ScpDamageHandler scpDamageHandler:
+				case ScpDamageHandler _:
 					return "SCP attack";
 
-				case Scp939DamageHandler scp939DamageHandler:
+				case Scp3114DamageHandler _:
+					return "SCP-3114";
+
+				case Scp939DamageHandler _:
 					return "SCP-939";
 
 				//case AttackerDamageHandler attackerDamageHandler:
 				//	break;
 
-				case CustomReasonDamageHandler customReasonDamageHandler:
+				case CustomReasonDamageHandler _:
 					return "UNKNOWN";
 
-				case UniversalDamageHandler universalDamageHandler:
+				case UniversalDamageHandler _:
 					return "UNKNOWN";
 
-				case WarheadDamageHandler warheadDamageHandler:
+				case WarheadDamageHandler _:
 					return "alpha warhead";
 
 				//case StandardDamageHandler standardDamageHandler:
@@ -148,7 +155,7 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent]
 		public void OnPlayerDie(PlayerDyingEvent ev)
 		{
-			if (ev.Player == null || ev.Player.Role == RoleTypeId.None || !(ev.DamageHandler is StandardDamageHandler stdHandler))
+			if (ev.Player == null || ev.Player.Role == RoleTypeId.None || !(ev.DamageHandler is StandardDamageHandler))
 			{
 				return;
 			}
@@ -247,7 +254,10 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent]
 		public void OnPlayerJoin(PlayerJoinedEvent ev)
 		{
-			if (ev.Player.PlayerId == Server.Instance.PlayerId) return;
+			if (ev.Player.PlayerId == Server.Instance.PlayerId)
+			{
+				return;
+			}
 
 			Dictionary<string, string> variables = new Dictionary<string, string> {};
 			variables.AddPlayerVariables(ev.Player, "player");
@@ -257,7 +267,10 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent]
 		public void OnPlayerLeave(PlayerLeftEvent ev)
 		{
-			if (ev.Player?.PlayerId == Server.Instance.PlayerId || ev.Player?.UserId == null) return;
+			if (ev.Player?.PlayerId == Server.Instance.PlayerId || ev.Player?.UserId == null)
+			{
+				return;
+			}
 
 			Dictionary<string, string> variables = new Dictionary<string, string> {};
 			variables.AddPlayerVariables(ev.Player, "player");
@@ -499,7 +512,7 @@ namespace SCPDiscord.EventListeners
         }
 
 		[PluginEvent]
-        public void OnPlayerrReceiveEffect(PlayerReceiveEffectEvent ev)
+        public void OnPlayerReceiveEffect(PlayerReceiveEffectEvent ev)
         {
             Dictionary<string, string> variables = new Dictionary<string, string>
             {

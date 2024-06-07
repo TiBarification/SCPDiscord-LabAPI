@@ -24,9 +24,13 @@ namespace SCPDiscord
 						catch (Exception e)
 						{
 							if (e is IOException)
+							{
 								Logger.Error("Connection to bot lost.");
+							}
 							else
+							{
 								Logger.Error("Couldn't parse incoming packet!\n" + e);
+							}
 							return;
 						}
 

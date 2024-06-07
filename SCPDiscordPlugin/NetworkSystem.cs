@@ -204,7 +204,6 @@ namespace SCPDiscord
 				{
 					if (socket != null && socket.IsBound)
 					{
-						//socket.Shutdown(SocketShutdown.Both);
 						messageThread?.Abort();
 						socket.Close();
 					}

@@ -25,13 +25,24 @@ namespace SCPDiscord
 		public static void SetRank(this Player player, string color = null, string text = null, string group = null)
 		{
 			if (player.ReferenceHub.serverRoles == null)
+			{
 				return;
+			}
+
 			if (group != null)
+			{
 				player.ReferenceHub.serverRoles.SetGroup(ServerStatic.GetPermissionsHandler().GetGroup(group), false);
+			}
+
 			if (color != null)
+			{
 				player.ReferenceHub.serverRoles.SetColor(color);
+			}
+
 			if (text != null)
+			{
 				player.ReferenceHub.serverRoles.SetText(text);
+			}
 		}
 
 		public static bool TryGetRank(this Player player, out string rank)
@@ -54,7 +65,10 @@ namespace SCPDiscord
 
 		public static void AddPlayerVariables(this Dictionary<string, string> variables, Player player, string prefix, bool includeDisarmer = true)
 		{
-			if (variables == null) return;
+			if (variables == null)
+			{
+				return;
+			}
 
 			variables.AddIfNotExist(prefix + "-ipaddress",            player?.IpAddress);
 			variables.AddIfNotExist(prefix + "-name",                 player?.Nickname);
@@ -111,7 +125,7 @@ namespace SCPDiscord
 		public static void AddIfNotExist<TKey, TValue>(this Dictionary<TKey, TValue> variables, TKey key, TValue value)
 		{
 			try { variables.Add(key, value); }
-			catch (ArgumentException) { }
+			catch (ArgumentException) { /* Ignored */ }
 		}
 	}
 }

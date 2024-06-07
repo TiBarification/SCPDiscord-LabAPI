@@ -6,7 +6,7 @@ using SCPDiscord.Interface;
 
 namespace SCPDiscord.BotCommands
 {
-    public class UnbanCommand
+    public static class UnbanCommand
     {
         public static void Execute(Interface.UnbanCommand command)
 		{

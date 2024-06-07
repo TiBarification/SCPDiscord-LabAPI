@@ -13,7 +13,7 @@ namespace SCPDiscord
 {
 	internal static class Language
 	{
-		public static bool ready;
+		internal static bool ready;
 
 		private static JObject primary;
 		private static JObject backup;
@@ -34,7 +34,7 @@ namespace SCPDiscord
 			{ "ukrainian",          Utilities.ReadManifestData("Languages.ukrainian.yml")          },
 		};
 
-		public static void Reload()
+		internal static void Reload()
 		{
 			ready = false;
 
@@ -70,7 +70,7 @@ namespace SCPDiscord
 		}
 
 		// TODO: Clean this function up
-		public static string GetProcessedMessage(string messagePath, Dictionary<string, string> variables)
+		internal static string GetProcessedMessage(string messagePath, Dictionary<string, string> variables)
 		{
 			// Get unparsed message from config
 			string message;
@@ -100,6 +100,9 @@ namespace SCPDiscord
 				case ".":
 					Logger.Warn("Tried to send empty message '" + messagePath + "' to discord. Check your language files.");
 					return null;
+				default:
+					// Ignore
+					break;
 			}
 
 			// Re-add newlines
@@ -291,7 +294,7 @@ namespace SCPDiscord
 			}
 		}
 
-		public static void ValidateLanguageStrings()
+		internal static void ValidateLanguageStrings()
 		{
 			bool valid = true;
 			foreach (string node in Config.languageNodes)
@@ -347,7 +350,7 @@ namespace SCPDiscord
 		/// </summary>
 		/// <param name="path">The path to the node</param>
 		/// <returns></returns>
-		public static string GetString(string path)
+		private static string GetString(string path)
 		{
 			if (primary == null && backup == null)
 			{
@@ -409,7 +412,7 @@ namespace SCPDiscord
 		/// </summary>
 		/// <param name="path">The path to the node.</param>
 		/// <returns></returns>
-		public static Dictionary<string, string> GetRegexDictionary(string path)
+		private static Dictionary<string, string> GetRegexDictionary(string path)
 		{
 			if (primary == null && backup == null)
 			{
@@ -475,7 +478,7 @@ namespace SCPDiscord
 			return new Dictionary<string, string>();
 		}
 
-		public static List<string> GetCancelRegexList(string path)
+		private static List<string> GetCancelRegexList(string path)
 		{
 			if (primary == null && backup == null)
 			{
@@ -538,7 +541,7 @@ namespace SCPDiscord
 			return new List<string>();
 		}
 
-		public static string GetEmote(string path)
+		private static string GetEmote(string path)
 		{
 			if (emotes == null)
 			{
@@ -577,7 +580,7 @@ namespace SCPDiscord
 			}
 		}
 
-		public static string RunFilters(ulong channelID, string ipAddress, string parsedUserID, string userIDReplacement, string message)
+		internal static string RunFilters(ulong channelID, string ipAddress, string parsedUserID, string userIDReplacement, string message)
 		{
 			if (ShouldFilterIP(channelID) && !string.IsNullOrWhiteSpace(ipAddress))
 			{
@@ -592,7 +595,7 @@ namespace SCPDiscord
 			return message;
 		}
 
-		public static string RunFilters(ulong channelID, Player player, string message)
+		internal static string RunFilters(ulong channelID, Player player, string message)
 		{
 			if (ShouldFilterIP(channelID))
 			{
@@ -607,7 +610,7 @@ namespace SCPDiscord
 			return message;
 		}
 
-		public static string RunFilters(ulong channelID, string message)
+		internal static string RunFilters(ulong channelID, string message)
 		{
 			bool filterIPs = ShouldFilterIP(channelID);
 			bool filterSteamIDs = ShouldFilterSteamID(channelID);
@@ -627,7 +630,7 @@ namespace SCPDiscord
 			return message;
 		}
 
-		public static bool ShouldFilterIP(ulong channelID)
+		private static bool ShouldFilterIP(ulong channelID)
 		{
 			bool filterIPs = Config.GetChannelIDs("channelsettings.filterips").Contains(channelID);
 			if (Config.GetBool("channelsettings.invertipfilter"))
@@ -638,7 +641,7 @@ namespace SCPDiscord
 			return filterIPs;
 		}
 
-		public static bool ShouldFilterSteamID(ulong channelID)
+		private static bool ShouldFilterSteamID(ulong channelID)
 		{
 			bool filterIDs = Config.GetChannelIDs("channelsettings.filtersteamids").Contains(channelID);
 			if (Config.GetBool("channelsettings.invertsteamidfilter"))
@@ -649,7 +652,7 @@ namespace SCPDiscord
 			return filterIDs;
 		}
 
-		public static string RunUsernameRegexReplacements(string input)
+		private static string RunUsernameRegexReplacements(string input)
 		{
 			Dictionary<string, string> userRegex;
 			try

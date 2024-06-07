@@ -7,7 +7,7 @@ using SCPDiscord.Interface;
 namespace SCPDiscord.BotCommands
 {
 	// This command is also used for unmuting by setting the duration to 0
-    public class MuteCommand
+    public static class MuteCommand
     {
 	    public static void Execute(Interface.MuteCommand command)
 		{

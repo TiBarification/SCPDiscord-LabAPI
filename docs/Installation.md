@@ -100,7 +100,7 @@ This way your mods will not have to think about which bot they are executing the
 
 ----
 
-# Other important information
+## Other important information
 
 **SECURITY WARNING:**
 

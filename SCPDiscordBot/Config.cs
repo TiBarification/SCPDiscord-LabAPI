@@ -8,43 +8,49 @@ using YamlDotNet.Serialization.NamingConventions;
 
 namespace SCPDiscord
 {
-	public class Config
+	public struct Config
 	{
-		public class Bot
+		public struct Bot
 		{
 			public string token = "";
 			public ulong serverId = 0;
-			public string logLevel = "Information";
+			public string logLevel = "Debug";
 			public string statusType = "DoNotDisturb";
 			public string presenceType = "Watching";
 			public string presenceText = "for server startup...";
 			public bool disableCommands = false;
+
+			public Bot() { }
 		}
 		public Bot bot;
 
 		public Dictionary<ulong, string[]> permissions = new Dictionary<ulong, string[]>();
 
-		public class Plugin
+		public struct Plugin
 		{
 			public string address = "127.0.0.1";
 			public int port = 8888;
+
+			public Plugin() { }
 		}
 		public Plugin plugin;
+
+		public Config() { }
 	}
 
 	public static class ConfigParser
 	{
 		public static bool loaded = false;
 
-		public static Config config = null;
+		public static Config config { get; private set; }
 
-		public static string configPath = "config.yml";
+		private static string configPath = "config.yml";
 
 		public static void LoadConfig()
 		{
-			if (!string.IsNullOrEmpty(SCPDiscordBot.commandLineArgs.ConfigPath))
+			if (!string.IsNullOrEmpty(SCPDiscordBot.commandLineArgs.configPath))
 			{
-				configPath = SCPDiscordBot.commandLineArgs.ConfigPath;
+				configPath = SCPDiscordBot.commandLineArgs.configPath;
 			}
 
 			Logger.Log("Loading config \"" + Path.GetFullPath(configPath) + "\"", LogID.CONFIG);

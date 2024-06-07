@@ -18,15 +18,15 @@ namespace SCPDiscord
 {
 	public class SCPDiscord
 	{
-		public readonly Stopwatch serverStartTime = new Stopwatch();
+		private readonly Stopwatch serverStartTime = new Stopwatch();
 
 		internal SynchronousExecutor sync;
 
 		internal static SCPDiscord plugin;
 
-		public bool roundStarted = false;
+		internal bool roundStarted = false;
 
-		public bool shutdown;
+		internal bool shutdown;
 
 		private Utilities.FileWatcher reservedSlotsWatcher;
 		//private Utilities.FileWatcher vanillaMutesWatcher;
@@ -55,17 +55,6 @@ namespace SCPDiscord
 			EventManager.RegisterEvents(this, new PlayerEventListener(this));
 			EventManager.RegisterEvents(this, new ServerEventListener(this));
 			EventManager.RegisterEvents(this, new EnvironmentEventListener(this));
-
-
-
-			/*
-			// Add the invisible SCPD marker at the end of the server name if the server has metrics on
-			if (Config.GetBool("settings.metrics") && !string.IsNullOrWhiteSpace(ConfigFile.ServerConfig.GetString("server_name", "")))
-			{
-				ConfigFile.ServerConfig.SetString("server_name", ConfigFile.ServerConfig.GetString("server_name", "") + "<color=#ffffff00><size=1>SCPD:" + VERSION + "</size></color>");
-				ServerConsole.ReloadServerName();
-			}
-			*/
 
 			if (Server.Port == Config.GetInt("bot.port"))
 			{

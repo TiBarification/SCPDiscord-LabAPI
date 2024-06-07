@@ -16,8 +16,8 @@ namespace SCPDiscord
 	{
 		public class FileWatcher : IDisposable
 		{
-			private FileSystemWatcher watcher;
-			private Action action;
+			private readonly FileSystemWatcher watcher;
+			private readonly Action action;
 			public FileWatcher(string dirPath, string fileName, Action func)
 			{
 				action = func;
@@ -155,6 +155,9 @@ namespace SCPDiscord
 					case 'y':
 						timeSpanDuration += TimeSpan.FromDays(amount * 365);
 						break;
+					default:
+						durationSeconds = 0;
+						return DateTime.MinValue;
 				}
 			}
 
@@ -186,8 +189,13 @@ namespace SCPDiscord
 
 		public static bool TryGetSteamName(string userID, out string steamName)
 		{
-			userID = userID.Replace("@steam", "");
 			steamName = null;
+			if (!IsPossibleSteamID(userID, out ulong _))
+			{
+				return false;
+			}
+
+			userID = userID.Replace("@steam", "");
 
 			HttpWebResponse response = null;
 			ServicePointManager.ServerCertificateValidationCallback = SSLValidation;
@@ -206,9 +214,12 @@ namespace SCPDiscord
 
 				string xmlResponse = new StreamReader(responseStream).ReadToEnd();
 
-				XmlDocument xml = new XmlDocument();
+				XmlDocument xml = new XmlDocument
+				{
+					XmlResolver = null
+				};
 				xml.LoadXml(xmlResponse);
-				steamName = xml.DocumentElement?.SelectSingleNode("/profile/steamID")?.InnerText;
+				steamName = xml.DocumentElement?.SelectSingleNode("/profile/steamID")?.InnerText + "TEST";
 
 				response.Close();
 				return !string.IsNullOrWhiteSpace(steamName);
