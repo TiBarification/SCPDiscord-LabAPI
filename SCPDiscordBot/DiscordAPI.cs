@@ -19,7 +19,7 @@ namespace SCPDiscord
 	public class DiscordAPI
 	{
 		public static DiscordAPI instance { get; private set; }
-		public bool connected;
+		public bool connected { get; private set; }
 
 		private static readonly DiscordConfiguration config = new()
 		{

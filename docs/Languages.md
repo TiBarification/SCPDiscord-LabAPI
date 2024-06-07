@@ -84,6 +84,14 @@ If you are unfamiliar with regex, don't worry, you can basically think of it as 
 
 If you are interested in learning how regex works use this link to start learning some simple patterns: [RegExr](https://regexr.com/)
 
+Example:
+```yaml
+# This replaces isopen:<var:open> with close if the door is open
+# and with open if the door is closed.
+message: "<var:player-name> (<var:player-userid>) tried to isopen:<var:open> a locked door."
+regex: ["isopen:True":"close", "isopen:False":"open"]
+```
+
 ### Cancel Regex
 
 These are regex patterns where the entire message will get cancelled if there is a match.
@@ -98,12 +106,6 @@ The replacements are executed in the following order:
 2. All variables are added to the message except names
 3. The `global_regex` replacements are executed, I use this to fix names of variables such as classes and items.
 4. The message specific `regex` is executed, I use this for simple logic replacements such as:
-```yaml
-# This replaces isopen:<var:open> with close if the door is open
-# and with open if the door is closed.
-message: "<var:player-name> (<var:player-userid>) tried to isopen:<var:open> a locked door."
-regex: ["isopen:True":"close", "isopen:False":"open"]
-```
 5. The message specific `cancel_regex` matching is performed and the message is cancelled if any of them match the message contents.
 6. The variables representing names are added in, this is to make sure players don't use names with words that get accidentally or deliberately replaced by your above regex replacements.
 7. The `user_regex` is executed in order to remove forbidden parts from names, this only affects user names.

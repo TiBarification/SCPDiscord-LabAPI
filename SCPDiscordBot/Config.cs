@@ -34,7 +34,7 @@ namespace SCPDiscord
 
 	public static class ConfigParser
 	{
-		public static bool loaded = false;
+		public static bool loaded { get; private set; } = false;
 
 		public static Config config { get; private set; }
 

@@ -119,7 +119,7 @@ namespace SCPDiscord
 	{
 		private const int ACTIVITY_UPDATE_RATE_MS = 10000;
 		private static Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-		public static NetworkStream networkStream = null;
+		public static NetworkStream networkStream { get; private set; } = null;
 		private static readonly List<MessageWrapper> messageQueue = new List<MessageWrapper>();
 		private static Stopwatch activityUpdateTimer = new Stopwatch();
 

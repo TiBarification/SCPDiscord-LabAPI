@@ -16,7 +16,7 @@ namespace SCPDiscord
 			public ConfigParseException(Exception e) : base(e.Message, e) { }
 		}
 
-		public static bool ready;
+		public static bool ready { get; private set; }
 
 		private static readonly Dictionary<string, string> configStrings = new Dictionary<string, string>
 		{

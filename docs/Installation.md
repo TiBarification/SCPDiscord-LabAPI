@@ -4,11 +4,11 @@
 
 ### Installing the plugin
 
-**Option 1: Download using the localadmin package manager**
+#### Option 1: Download using the localadmin package manager
 
 `p install KarlOfDuty/SCPDiscord` and restart your server.
 
-**Option 2: Manual download**
+#### Option 2: Manual download
 
 Download SCPDiscord, either a [release](https://github.com/KarlOfDuty/SCPDiscord/releases) or [dev build](https://jenkins.karlofduty.com/blue/organizations/jenkins/CI%2FSCPDiscord/activity/).
 Place the plugin library and dependencies directory in the `~/.config/SCP Secret Laboratory/PluginAPI/plugins/<port>` directory:
@@ -39,7 +39,7 @@ Simply change the bot ip in the plugin config to correspond with the other devic
 
 ----
 
-## Bot Setup:
+## Bot Setup
 
 ### 1. Creating the Discord bot
 
@@ -49,7 +49,7 @@ Set up your bot in the discord control panel according to the guide [here](Creat
 
 Download SCPDiscord, either a [release](https://github.com/KarlOfDuty/SCPDiscord/releases) or [dev build](https://jenkins.karlofduty.com/blue/organizations/jenkins/CI%2FSCPDiscord/activity/).
 
-There are two versions available, a self contained version which can run on its own and a smaller version which requires you to install dotnet-8.0 on the system first.
+There are two versions available, a self-contained version which can run on its own and a smaller version which requires you to install dotnet-8.0 on the system first.
 
 Pick the one you want and extract it somewhere where your user has permission to read and write.
 

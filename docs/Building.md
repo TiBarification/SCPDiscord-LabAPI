@@ -1,6 +1,7 @@
 # Building SCPDiscord
 
 ## Dependencies
+
 - dotnet-sdk (8.0)
 - mono
 - protobuf
