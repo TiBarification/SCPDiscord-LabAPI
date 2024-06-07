@@ -245,7 +245,7 @@ namespace SCPDiscord
 			return false;
 		}
 
-		private static bool SSLValidation(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+		private static bool SSLValidation(object _, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
 		{
 			if (sslPolicyErrors == SslPolicyErrors.None)
 			{
