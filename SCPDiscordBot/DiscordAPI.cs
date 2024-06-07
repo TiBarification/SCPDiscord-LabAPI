@@ -282,7 +282,7 @@ namespace SCPDiscord
 			}
 		}
 
-		public static async void GetPlayerRoles(ulong userID, string steamID)
+		public static async Task GetPlayerRoles(ulong userID, string steamID)
 		{
 			if (!instance.connected) return;
 

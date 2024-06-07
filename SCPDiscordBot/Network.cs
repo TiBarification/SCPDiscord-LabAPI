@@ -86,7 +86,7 @@ namespace SCPDiscord
 				{
 					if (IsConnected())
 					{
-						Update();
+						Task _ = Update();
 					}
 					else
 					{
@@ -104,7 +104,7 @@ namespace SCPDiscord
 			}
 		}
 
-		private static async void Update()
+		private static async Task Update()
 		{
 			MessageWrapper wrapper;
 			try
@@ -147,7 +147,7 @@ namespace SCPDiscord
 				case MessageWrapper.MessageOneofCase.UserQuery:
 					try
 					{
-						DiscordAPI.GetPlayerRoles(wrapper.UserQuery.DiscordID, wrapper.UserQuery.SteamIDOrIP);
+						Task _ = DiscordAPI.GetPlayerRoles(wrapper.UserQuery.DiscordID, wrapper.UserQuery.SteamIDOrIP);
 					}
 					catch (Exception)
 					{

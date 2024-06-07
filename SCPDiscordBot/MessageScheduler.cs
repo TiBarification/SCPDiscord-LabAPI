@@ -15,7 +15,7 @@ public class StartMessageScheduler
 {
 	public StartMessageScheduler()
 	{
-		MessageScheduler.Init();
+		Task _ = MessageScheduler.Init();
 	}
 }
 

@@ -86,7 +86,7 @@ namespace SCPDiscord
 	        public DateTime endTime;
         }
 
-        private static async void SchedulePlayerCheck(DateTime targetTime, ulong steamID)
+        private static async Task SchedulePlayerCheck(DateTime targetTime, ulong steamID)
         {
 	        // Add one second to time to make sure the check triggers after the mute ends
 	        TimeSpan remaining = targetTime - DateTime.UtcNow + TimeSpan.FromSeconds(1);

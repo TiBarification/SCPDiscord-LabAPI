@@ -8,34 +8,28 @@ using YamlDotNet.Serialization.NamingConventions;
 
 namespace SCPDiscord
 {
-	public struct Config
+	public class Config
 	{
-		public struct Bot
+		public class Bot
 		{
-			public string token = "";
-			public ulong serverId = 0;
-			public string logLevel = "Debug";
-			public string statusType = "DoNotDisturb";
-			public string presenceType = "Watching";
-			public string presenceText = "for server startup...";
-			public bool disableCommands = false;
-
-			public Bot() { }
+			public string token { get; private set; } = "";
+			public ulong serverId { get; private set; } = 0;
+			public string logLevel { get; private set; } = "Debug";
+			public string statusType { get; private set; } = "DoNotDisturb";
+			public string presenceType { get; private set; } = "Watching";
+			public string presenceText { get; private set; } = "for server startup...";
+			public bool disableCommands { get; private set; } = false;
 		}
-		public Bot bot;
+		public Bot bot { get; private set; }
 
-		public Dictionary<ulong, string[]> permissions = new Dictionary<ulong, string[]>();
+		public Dictionary<ulong, string[]> permissions { get; private set; } = new();
 
-		public struct Plugin
+		public class Plugin
 		{
-			public string address = "127.0.0.1";
-			public int port = 8888;
-
-			public Plugin() { }
+			public string address { get; private set; } = "127.0.0.1";
+			public int port { get; private set; } = 8888;
 		}
-		public Plugin plugin;
-
-		public Config() { }
+		public Plugin plugin { get; private set; }
 	}
 
 	public static class ConfigParser
