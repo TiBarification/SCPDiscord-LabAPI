@@ -3,11 +3,12 @@
 ## Switching to another included language
 
 There are several languages included in the plugin dll. The current languages are:
-* English (default)
-* Ukrainian
-* Russian
-* Simplified Chinese
-* Italian
+
+- English (default)
+- Ukrainian
+- Russian
+- Simplified Chinese
+- Italian
 
 You can choose which language you want to use by setting the config entry `settings.language` to the name of the language file in all lower-case. You can find the language files in `SCPDiscord/Languages` in your plugin directory.
 
@@ -39,7 +40,7 @@ If you want to find out more about how the language files work you can read the 
 
 In notepad++:
 
-![](img/nppNewlines.png)
+![Encoding example](img/nppNewLines.png)
 
 Also make sure to turn off language regeneration in the config or your changes will be overwritten!
 
@@ -49,6 +50,7 @@ Also make sure to turn off language regeneration in the config or your changes w
 Below is a more in depth guide, but you can just edit the existing words instead if you wish.
 
 When you are done editing the language file you can submit it here by:
+
 1. Create a fork.
 2. Upload/update the language file on your fork.
 3. Open a pull request to the main branch of this repository from your branch on your fork.
