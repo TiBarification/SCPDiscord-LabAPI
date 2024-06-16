@@ -151,12 +151,17 @@ namespace SCPDiscord
 		public static void SetActivity(string activityText, ActivityType activityType, UserStatus status)
 		{
 			if (instance.connected)
+			{
 				client.UpdateStatusAsync(new DiscordActivity(activityText, activityType), status);
+			}
 		}
 
 		public static async Task SendMessage(ulong channelID, string message)
 		{
-			if (!instance.connected) return;
+			if (!instance.connected)
+			{
+				return;
+			}
 
 			try
 			{
@@ -179,7 +184,10 @@ namespace SCPDiscord
 
 		public static async Task SendMessage(ulong channelID, DiscordEmbed message)
 		{
-			if (!instance.connected) return;
+			if (!instance.connected)
+			{
+				return;
+			}
 
 			try
 			{
@@ -201,7 +209,10 @@ namespace SCPDiscord
 
 		public static async Task SendInteractionResponse(ulong interactionID, ulong channelID, DiscordEmbed message)
 		{
-			if (!instance.connected) return;
+			if (!instance.connected)
+			{
+				return;
+			}
 
 			try
 			{
@@ -230,7 +241,10 @@ namespace SCPDiscord
 
 		public static async Task SendPaginatedResponse(ulong interactionID, ulong channelID, ulong userID, List<Page> message)
 		{
-			if (!instance.connected) return;
+			if (!instance.connected)
+			{
+				return;
+			}
 
 			try
 			{
@@ -260,7 +274,10 @@ namespace SCPDiscord
 
 		public static async Task SendPaginatedMessage(ulong channelID, ulong userID, IEnumerable<Page> pages)
 		{
-			if (!instance.connected) return;
+			if (!instance.connected)
+			{
+				return;
+			}
 
 			try
 			{
@@ -284,7 +301,10 @@ namespace SCPDiscord
 
 		public static async Task GetPlayerRoles(ulong userID, string steamID)
 		{
-			if (!instance.connected) return;
+			if (!instance.connected)
+			{
+				return;
+			}
 
 			if (ConfigParser.config.bot.serverId == 0)
 			{

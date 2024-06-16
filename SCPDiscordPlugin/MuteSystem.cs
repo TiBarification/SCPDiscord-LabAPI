@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Concurrent;
 using System.IO;
-using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using PluginAPI.Core;
@@ -210,10 +209,14 @@ namespace SCPDiscord
         public static void CheckMuteStatus(Player player)
         {
 	        if (!Utilities.IsPossibleSteamID(player.UserId, out ulong steamID))
+	        {
 		        return;
+	        }
 
 	        if (!muteCache.TryGetValue(steamID, out MuteEntry entry))
+	        {
 		        return;
+	        }
 
 	        if (player.IsMuted && entry.endTime < DateTime.UtcNow)
 	        {
