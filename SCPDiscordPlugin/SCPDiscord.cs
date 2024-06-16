@@ -84,7 +84,7 @@ namespace SCPDiscord
 			[PluginEvent(ServerEventType.PlayerJoined)]
 			public void OnPlayerJoin(Player player)
 			{
-				if (player == null) return;
+				if (player == null || !Config.GetBool("settings.rolesync")) return;
 
 				try
 				{
