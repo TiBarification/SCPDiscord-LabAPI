@@ -257,16 +257,15 @@ namespace SCPDiscord
 			}
 
 			JObject json = Utilities.LoadYamlFile(GetConfigDir() + "config.yml");
-			Logger.Debug("Reading config validation");
 
-			// Reads the configvalidation node first as it is used for reading the others
+			// Reads the debug node first as it is used for reading the others
 			try
 			{
-				configBools["settings.configvalidation"] = json.SelectToken("settings.configvalidation").Value<bool>();
+				configBools["settings.debug"] = json.SelectToken("settings.debug").Value<bool>();
 			}
 			catch (ArgumentNullException)
 			{
-				Logger.Warn("Config bool 'settings.configvalidation' not found, using default value: true");
+				Logger.Warn("Config bool 'settings.debug' not found, using default value: true");
 			}
 
 			// Read config strings
