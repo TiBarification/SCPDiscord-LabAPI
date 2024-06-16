@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Download SCP:SL') {
             steps {
-                sh 'steamcmd +force_install_dir \$HOME/scpsl +login anonymous +app_update 996560 -beta public-beta validate +quit'
+                sh 'steamcmd +force_install_dir \$HOME/scpsl +login anonymous +app_update 996560 -beta early-server-build validate +quit'
                 sh 'ln -s "\$HOME/scpsl/SCPSL_Data/Managed" ".scpsl_libs"'
                 sh 'cp -r "SCPDiscordBot" "AOT"'
                 sh 'cp -r "SCPDiscordBot" "SMALL"'
