@@ -11,6 +11,7 @@ namespace SCPDiscord.Commands
 		public string Command { get; } = "grantreservedslot";
 		public string[] Aliases { get; } = { "grs" };
 		public string Description { get; } = "Adds a user to the reserved slots list and reloads it.";
+		public bool SanitizeResponse { get; } = true;
 		public string[] ArgumentList { get; } = { "<steamid>" };
 
 		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)

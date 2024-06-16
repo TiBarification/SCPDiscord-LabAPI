@@ -11,6 +11,7 @@ namespace SCPDiscord.Commands
 		public string Command { get; } = "grantvanillarank";
 		public string[] Aliases { get; } = { "gvr" };
 		public string Description { get; } = "Grants a player the vanilla rank provided.";
+		public bool SanitizeResponse { get; } = true;
 		public string[] ArgumentList { get; } = { "<playerid/steamid>", "<rank>" };
 
 		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)

@@ -11,6 +11,7 @@ namespace SCPDiscord.Commands
 		public string Command { get; } = "removereservedslot";
 		public string[] Aliases { get; } = { "rrs" };
 		public string Description { get; } = "Removes a player from the reserved slots list.";
+		public bool SanitizeResponse { get; } = true;
 		public string[] ArgumentList { get; } = { "<steamid>" };
 
 		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)

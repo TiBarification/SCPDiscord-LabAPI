@@ -8,6 +8,7 @@ namespace SCPDiscord.Commands
 		public string Command { get; } = "debug";
 		public string[] Aliases { get; } = { };
 		public string Description { get; } = "Toggles debug mode for SCPDiscord.";
+		public bool SanitizeResponse { get; } = true;
 		public string[] ArgumentList { get; } = { };
 
 		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)

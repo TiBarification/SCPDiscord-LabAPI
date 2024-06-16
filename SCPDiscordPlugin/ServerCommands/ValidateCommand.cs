@@ -9,6 +9,7 @@ namespace SCPDiscord.Commands
 		public string Command { get; } = "validate";
 		public string[] Aliases { get; } = { };
 		public string Description { get; } = "Creates a config validation report.";
+		public bool SanitizeResponse { get; } = true;
 		public string[] ArgumentList { get; } = { };
 
 		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)

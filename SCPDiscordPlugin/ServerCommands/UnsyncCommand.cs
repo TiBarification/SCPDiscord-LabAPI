@@ -8,6 +8,7 @@ namespace SCPDiscord.Commands
 		public string Command { get; } = "unsync";
 		public string[] Aliases { get; } = { };
 		public string Description { get; } = "Removes a user from having their discord role synced to the server.";
+		public bool SanitizeResponse { get; } = true;
 		public string[] ArgumentList { get; } = { "<discordid>" };
 
 		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)

@@ -8,6 +8,7 @@ namespace SCPDiscord.Commands
 		public string Command { get; } = "reload";
 		public string[] Aliases { get; } = { };
 		public string Description { get; } = "Reloads all plugin configs and data files and then reconnects to the bot.";
+		public bool SanitizeResponse { get; } = true;
 		public string[] ArgumentList { get; } = { };
 
 		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)

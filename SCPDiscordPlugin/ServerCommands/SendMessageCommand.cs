@@ -9,6 +9,7 @@ namespace SCPDiscord.Commands
 		public string Command { get; } = "sendmessage";
 		public string[] Aliases { get; } = { "msg" };
 		public string Description { get; } = "Sends a message to a Discord channel.";
+		public bool SanitizeResponse { get; } = true;
 		public string[] ArgumentList { get; } = { "<channel-id>", "<message>" };
 
 		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)

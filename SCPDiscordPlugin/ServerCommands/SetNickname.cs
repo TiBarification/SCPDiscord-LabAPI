@@ -11,6 +11,7 @@ namespace SCPDiscord.Commands
 		public string Command { get; } = "setnickname";
 		public string[] Aliases { get; } = { "nick" };
 		public string Description { get; } = "Sets a nickname for a player.";
+		public bool SanitizeResponse { get; } = true;
 		public string[] ArgumentList { get; } = { "<playerid/steamid>", "<nickname>" };
 
 		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
