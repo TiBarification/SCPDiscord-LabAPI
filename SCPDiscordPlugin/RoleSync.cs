@@ -66,9 +66,15 @@ namespace SCPDiscord
 
 		public static void SendRoleQuery(Player player)
 		{
+			if (player?.PlayerId == null || player?.IpAddress == null)
+			{
+				Logger.Warn("Unable to sync player, player object was null.");
+				return;
+			}
+
 			if (PlayerAuthenticationManager.OnlineMode)
 			{
-				if (!syncedPlayers.ContainsKey(player.UserId))
+				if (!syncedPlayers.TryGetValue(player.UserId, out ulong syncedPlayer))
 				{
 					Logger.Debug("User ID '" + player.UserId + "' is not in rolesync list.");
 					return;
@@ -79,7 +85,7 @@ namespace SCPDiscord
 					UserQuery = new UserQuery
 					{
 						SteamIDOrIP = player.UserId,
-						DiscordID = syncedPlayers[player.UserId]
+						DiscordID = syncedPlayer
 					}
 				};
 
@@ -87,7 +93,7 @@ namespace SCPDiscord
 			}
 			else
 			{
-				if (!syncedPlayers.ContainsKey(player.IpAddress))
+				if (!syncedPlayers.TryGetValue(player.IpAddress, out ulong syncedPlayer))
 				{
 					Logger.Debug("IP '" + player.IpAddress + "' is not in rolesync list.");
 					return;
@@ -98,7 +104,7 @@ namespace SCPDiscord
 					UserQuery = new UserQuery
 					{
 						SteamIDOrIP = player.IpAddress,
-						DiscordID = syncedPlayers[player.IpAddress]
+						DiscordID = syncedPlayer
 					}
 				};
 
