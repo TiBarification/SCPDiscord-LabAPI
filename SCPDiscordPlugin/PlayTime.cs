@@ -13,14 +13,24 @@ namespace SCPDiscord
         [PluginEvent]
         public void OnPlayerJoin(PlayerJoinedEvent ev)
         {
-            if (ev.Player.PlayerId == Server.Instance.PlayerId) return;
+	        if (!Config.GetBool("settings.playtime")
+	         || ev.Player?.UserId == null
+	         || ev.Player.PlayerId == Server.Instance.PlayerId)
+	        {
+		        return;
+	        }
             PlayTime.OnPlayerJoin(ev.Player.UserId, DateTime.Now);
         }
 
         [PluginEvent]
         public void OnPlayerLeave(PlayerLeftEvent ev)
         {
-            if (ev.Player.PlayerId == Server.Instance.PlayerId) return;
+	        if (!Config.GetBool("settings.playtime")
+	            || ev.Player?.UserId == null
+	            || ev.Player.PlayerId == Server.Instance.PlayerId)
+	        {
+		        return;
+	        }
 			PlayTime.OnPlayerLeave(ev.Player.UserId);
         }
 
