@@ -445,7 +445,7 @@ namespace SCPDiscord.EventListeners
         }
 
 		[PluginEvent]
-        public void OnPlayerChanceItem(PlayerChangeItemEvent ev)
+        public void OnPlayerChangeItem(PlayerChangeItemEvent ev)
 		{
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
