@@ -70,6 +70,11 @@ namespace SCPDiscord
 				return;
 			}
 
+			if (player == null)
+			{
+				return;
+			}
+
 			variables.AddIfNotExist(prefix + "-ipaddress",            player?.IpAddress);
 			variables.AddIfNotExist(prefix + "-name",                 player?.Nickname);
 			variables.AddIfNotExist(prefix + "-id",                   player?.PlayerId.ToString());
@@ -81,7 +86,7 @@ namespace SCPDiscord
 			variables.AddIfNotExist(prefix + "-isdisarmed",           player?.IsDisarmed.ToString());
 			variables.AddIfNotExist(prefix + "-isalive",              player?.IsAlive.ToString());
 			variables.AddIfNotExist(prefix + "-ismuted",              player?.IsMuted.ToString());
-			variables.AddIfNotExist(prefix + "-hasreservedslot",      player?.HasReservedSlot.ToString());
+			variables.AddIfNotExist(prefix + "-hasreservedslot",      string.IsNullOrWhiteSpace(player.UserId) ? "-" : player?.HasReservedSlot.ToString());
 			variables.AddIfNotExist(prefix + "-isglobalmod",          player?.IsGlobalModerator.ToString());
 			variables.AddIfNotExist(prefix + "-isintercommuted",      player?.IsIntercomMuted.ToString());
 			variables.AddIfNotExist(prefix + "-hasfullinventory",     player?.IsInventoryFull.ToString());
