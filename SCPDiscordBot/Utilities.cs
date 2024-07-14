@@ -137,4 +137,10 @@ public static class Utilities
 		using StreamReader reader = new StreamReader(stream);
 		return reader.ReadToEnd();
 	}
+
+	public static bool IsPossibleSteamID(string steamID, out ulong id)
+	{
+		id = 0;
+		return steamID.Length >= 17 && ulong.TryParse(steamID.Replace("@steam", ""), out id);
+	}
 }

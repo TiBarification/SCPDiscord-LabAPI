@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using DSharpPlus.Entities;
 using DSharpPlus.SlashCommands;
 using DSharpPlus.SlashCommands.Attributes;
 
@@ -13,13 +14,24 @@ namespace SCPDiscord.Commands
 			[Option("Duration", "Ban duration (ex: 2d is 2 days).")] string duration,
 			[Option("Reason", "Reason for the ban.")] string reason)
 		{
+			if (!Utilities.IsPossibleSteamID(steamID, out ulong parsedSteamID))
+			{
+				DiscordEmbed error = new DiscordEmbedBuilder
+				{
+					Color = DiscordColor.Red,
+					Description = "That SteamID doesn't seem to be valid."
+				};
+				await command.CreateResponseAsync(error);
+				return;
+			}
+
 			await command.DeferAsync();
 			Interface.MessageWrapper message = new Interface.MessageWrapper
 			{
 				BanCommand = new Interface.BanCommand
 				{
 					ChannelID = command.Channel.Id,
-					SteamID = steamID,
+					SteamID = parsedSteamID.ToString(),
 					Duration = duration,
 					AdminTag = command.Member?.Username,
 					Reason = reason,

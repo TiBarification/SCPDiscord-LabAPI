@@ -11,12 +11,12 @@ namespace SCPDiscord.Commands
 		[SlashCommand("syncid", "Syncs your Discord role to the server using your SteamID.")]
 		public async Task OnExecute(InteractionContext command, [Option("SteamID", "Your Steam ID.")] string steamID)
 		{
-			if (steamID.Length < 17)
+			if (!Utilities.IsPossibleSteamID(steamID, out ulong parsedSteamID))
 			{
 				DiscordEmbed error = new DiscordEmbedBuilder
 				{
 					Color = DiscordColor.Red,
-					Description = "That SteamID doesn't seem to be the right length."
+					Description = "That SteamID doesn't seem to be valid."
 				};
 				await command.CreateResponseAsync(error);
 				return;
@@ -30,7 +30,7 @@ namespace SCPDiscord.Commands
 					ChannelID = command.Channel.Id,
 					DiscordID = command.Member?.Id ?? 0,
 					DiscordTag = command.Member?.Username,
-					SteamIDOrIP = steamID,
+					SteamIDOrIP = parsedSteamID.ToString(),
 					InteractionID = command.InteractionId
 				}
 			};
