@@ -13,7 +13,7 @@ namespace SCPDiscord.Commands
 
 		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
 		{
-			Logger.Debug(sender.LogName + "used the reconnect command.");
+			Logger.Debug(sender.LogName + " used the reconnect command.");
 
 			if (NetworkSystem.IsConnected())
 			{

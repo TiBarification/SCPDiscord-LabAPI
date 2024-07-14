@@ -16,7 +16,7 @@ namespace SCPDiscord.Commands
 
 		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
 		{
-			Logger.Debug(sender.LogName + "used the grantreservedslot command.");
+			Logger.Debug(sender.LogName + " used the grantreservedslot command.");
 
 			if (arguments.Count < 1)
 			{
