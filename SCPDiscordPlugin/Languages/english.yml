@@ -1343,7 +1343,7 @@ messages:
       row:
         default:
           # player - Player
-          message: "**<var:player-name>** | **<var:player-role>** | `<var:player-userid>` \n"
+          message: "**<var:player-name>** | **<var:player-role>** | `<var:player-userid>`"
           regex: []
           cancel_regex: []
         empty:
@@ -1364,7 +1364,7 @@ messages:
       row:
         default:
           # player - Player
-          message: "**<var:player-name>** | **<var:player-rank>** | `<var:player-userid>` \n"
+          message: "**<var:player-name>** | **<var:player-rank>** | `<var:player-userid>`"
           regex: []
           cancel_regex: []
         empty:
@@ -1398,7 +1398,7 @@ messages:
             # player - Player
             # discordid - int
             # discordmention - string
-            message: "**<var:player-name>** | <var:discordmention> | `<var:player-userid>`\n"
+            message: "**<var:player-name>** | <var:discordmention> | `<var:player-userid>`"
             regex: []
             cancel_regex: []
           empty:
@@ -1411,7 +1411,7 @@ messages:
             # name - string
             # discordid - int
             # discordmention - string
-            message: "**<var:name>** | <var:discordmention> | `<var:userid>`\n"
+            message: "**<var:name>** | <var:discordmention> | `<var:userid>`"
             regex: []
             cancel_regex: []
           empty:
