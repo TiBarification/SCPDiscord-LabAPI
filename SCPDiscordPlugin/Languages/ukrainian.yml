@@ -772,13 +772,13 @@ messages:
       message: >+
         **Видано IP-бан**
         ```
-        Гравець:    <var:player-name>\n
-        Айпі:        <var:player-ip>\n
-        Виданий:    <var:issuedtime>\n
-        До:   <var:expirytime>\n
-        Термін:  <var:duration>\n
+        Гравець:  <var:player-name>\n
+        Айпі:     <var:player-ip>\n
+        Виданий:  <var:issuedtime>\n
+        До:       <var:expirytime>\n
+        Термін:   <var:duration>\n
         Адмін:    <var:issuer-name>\n
-        Причина:    <var:reason>
+        Причина:  <var:reason>
         ```
       regex: []
     # duration
@@ -792,13 +792,13 @@ messages:
       message: >+
         **Видано UserID-бан**
         ```
-        Гравець:    <var:player-name>\n
-        Айді:    <var:player-userid>\n
-        Виданий:    <var:issuedtime>\n
-        До:   <var:expirytime>\n
-        Термін:  <var:duration>\n
+        Гравець:  <var:player-name>\n
+        Айді:     <var:player-userid>\n
+        Виданий:  <var:issuedtime>\n
+        До:       <var:expirytime>\n
+        Термін:   <var:duration>\n
         Адмін:    <var:issuer-name>\n
-        Причина:    <var:reason>
+        Причина:  <var:reason>
         ```
       regex: []
 
@@ -814,13 +814,13 @@ messages:
       message: >+
         **IP-бан оновлений**
         ```
-        Гравець:    <var:player-name>\n
-        Айпі:        <var:player-ip>\n
-        Виданий:    <var:issuedtime>\n
-        До:   <var:expirytime>\n
-        Термін:  <var:duration>\n
+        Гравець:  <var:player-name>\n
+        Айпі:     <var:player-ip>\n
+        Виданий:  <var:issuedtime>\n
+        До:       <var:expirytime>\n
+        Термін:   <var:duration>\n
         Адмін:    <var:issuer-name>\n
-        Причина:    <var:reason>
+        Причина:  <var:reason>
         ```
       regex: []
     # duration
@@ -834,13 +834,13 @@ messages:
       message: >+
         **UserID-бан оновлений**
         ```
-        Гравець:    <var:player-name>\n
-        Айді:    <var:player-userid>\n
-        Виданий:    <var:issuedtime>\n
-        До:   <var:expirytime>\n
-        Термін:  <var:duration>\n
+        Гравець:  <var:player-name>\n
+        Айді:     <var:player-userid>\n
+        Виданий:  <var:issuedtime>\n
+        До:       <var:expirytime>\n
+        Термін:   <var:duration>\n
         Адмін:    <var:issuer-name>\n
-        Причина:    <var:reason>
+        Причина:  <var:reason>
         ```
       regex: []
 

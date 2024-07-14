@@ -798,7 +798,7 @@ messages:
         **Выдан бан по UserID**
         ```
         Игрок:           <var:player-name>\n
-        UserID:          <var:player-ip>\n
+        UserID:          <var:player-userid>\n
         Выдан:           <var:issuedtime>\n
         Заканчивается:   <var:expirytime>\n
         Длительность:    <var:duration>\n
@@ -840,7 +840,7 @@ messages:
         **Бан по UserID обновлён**
         ```
         Игрок:           <var:player-name>\n
-        UserID:          <var:player-ip>\n
+        UserID:          <var:player-userid>\n
         Выдан:           <var:issuedtime>\n
         Заканчивается:   <var:expirytime>\n
         Длительность:    <var:duration>\n
