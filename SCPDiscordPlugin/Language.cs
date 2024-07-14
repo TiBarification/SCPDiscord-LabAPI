@@ -570,7 +570,7 @@ namespace SCPDiscord
 
 			if (ShouldFilterSteamID(channelID) && !string.IsNullOrWhiteSpace(parsedUserID))
 			{
-				message = message.Replace(parsedUserID, userIDReplacement);
+				message = message.Replace(parsedUserID, userIDReplacement ?? "");
 			}
 
 			return message;
@@ -578,12 +578,12 @@ namespace SCPDiscord
 
 		internal static string RunFilters(ulong channelID, Player player, string message)
 		{
-			if (ShouldFilterIP(channelID))
+			if (ShouldFilterIP(channelID) && !string.IsNullOrWhiteSpace(player.IpAddress))
 			{
 				message = message.Replace(player.IpAddress, new string('#', player.IpAddress.Length));
 			}
 
-			if (ShouldFilterSteamID(channelID))
+			if (ShouldFilterSteamID(channelID) && !string.IsNullOrWhiteSpace(player.GetParsedUserID()))
 			{
 				message = message.Replace(player.GetParsedUserID(), "Player " + player.PlayerId);
 			}
@@ -597,12 +597,12 @@ namespace SCPDiscord
 			bool filterSteamIDs = ShouldFilterSteamID(channelID);
 			foreach (Player player in Player.GetPlayers())
 			{
-				if (filterIPs)
+				if (filterIPs && !string.IsNullOrWhiteSpace(player.IpAddress))
 				{
 					message = message.Replace(player.IpAddress, new string('#', player.IpAddress.Length));
 				}
 
-				if (filterSteamIDs)
+				if (filterSteamIDs && !string.IsNullOrWhiteSpace(player.GetParsedUserID()))
 				{
 					message = message.Replace(player.GetParsedUserID(), "Player " + player.PlayerId);
 				}
