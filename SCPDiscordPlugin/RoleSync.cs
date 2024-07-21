@@ -158,9 +158,13 @@ namespace SCPDiscord
 						{
 							Dictionary<string, string> variables = new Dictionary<string, string>
 							{
+								{ "discord-displayname", userInfo.DiscordDisplayName   },
+								{ "discord-username",    userInfo.DiscordUsername      },
+								{ "discord-userid",      userInfo.DiscordUserID.ToString() },
+								// Old names
 								{ "discorddisplayname", userInfo.DiscordDisplayName   },
 								{ "discordusername",    userInfo.DiscordUsername      },
-								{ "discordid",          userInfo.DiscordID.ToString() }
+								{ "discordid",      userInfo.DiscordUserID.ToString() }
 							};
 							variables.AddPlayerVariables(player, "player");
 
@@ -203,7 +207,7 @@ namespace SCPDiscord
 					};
 				}
 
-				if (syncedPlayers.ContainsValue(command.DiscordID))
+				if (syncedPlayers.ContainsValue(command.DiscordUserID))
 				{
 					return new EmbedMessage
 					{
@@ -225,7 +229,7 @@ namespace SCPDiscord
 					};
 				}
 
-				syncedPlayers.Add(command.SteamIDOrIP + "@steam", command.DiscordID);
+				syncedPlayers.Add(command.SteamIDOrIP + "@steam", command.DiscordUserID);
 				SavePlayers();
 				return new EmbedMessage
 				{
@@ -242,13 +246,13 @@ namespace SCPDiscord
 					return new EmbedMessage
 					{
 						Colour = EmbedMessage.Types.DiscordColour.Red,
-						ChannelID = command.DiscordID,
+						ChannelID = command.DiscordUserID,
 						Description = "IP is already linked to a Discord account. You will have to remove it first.",
 						InteractionID = command.InteractionID
 					};
 				}
 
-				if (syncedPlayers.ContainsValue(command.DiscordID))
+				if (syncedPlayers.ContainsValue(command.DiscordUserID))
 				{
 					return new EmbedMessage
 					{
@@ -259,7 +263,7 @@ namespace SCPDiscord
 					};
 				}
 
-				syncedPlayers.Add(command.SteamIDOrIP, command.DiscordID);
+				syncedPlayers.Add(command.SteamIDOrIP, command.DiscordUserID);
 				SavePlayers();
 				return new EmbedMessage
 				{
@@ -273,7 +277,7 @@ namespace SCPDiscord
 
 		public static EmbedMessage RemovePlayer(UnsyncRoleCommand command)
 		{
-			if (!syncedPlayers.ContainsValue(command.DiscordID))
+			if (!syncedPlayers.ContainsValue(command.DiscordUserID))
 			{
 				return new EmbedMessage
 				{
@@ -284,7 +288,7 @@ namespace SCPDiscord
 				};
 			}
 
-			KeyValuePair<string, ulong> player = syncedPlayers.First(kvp => kvp.Value == command.DiscordID);
+			KeyValuePair<string, ulong> player = syncedPlayers.First(kvp => kvp.Value == command.DiscordUserID);
 			syncedPlayers.Remove(player.Key);
 			SavePlayers();
 			return new EmbedMessage

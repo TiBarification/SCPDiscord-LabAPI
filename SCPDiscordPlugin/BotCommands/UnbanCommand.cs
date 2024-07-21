@@ -10,7 +10,7 @@ namespace SCPDiscord.BotCommands
     {
         public static void Execute(Interface.UnbanCommand command)
         {
-	        Logger.Debug("Unban command called  in " + command.ChannelID + ". Interaction: " + command.InteractionID + ")");
+	        Logger.Debug("Unban command called by " + command.DiscordUsername + " (" + command.DiscordUserID + " in " + command.ChannelID + ". Interaction: " + command.InteractionID + ")");
 
 			EmbedMessage embed = new EmbedMessage
 			{
@@ -24,7 +24,10 @@ namespace SCPDiscord.BotCommands
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "steamidorip", command.SteamIDOrIP }
+					{ "steamidorip", command.SteamIDOrIP },
+					{ "discord-displayname", command.DiscordDisplayName },
+					{ "discord-username", command.DiscordUsername },
+					{ "discord-userid", command.DiscordUserID.ToString() },
 				};
 				SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.invalidsteamidorip", variables);
 				return;
@@ -87,7 +90,10 @@ namespace SCPDiscord.BotCommands
 			// Send response message to Discord
 			Dictionary<string, string> unbanVars = new Dictionary<string, string>
 			{
-				{ "steamidorip", command.SteamIDOrIP }
+				{ "steamidorip", command.SteamIDOrIP },
+				{ "discord-displayname", command.DiscordDisplayName },
+				{ "discord-username", command.DiscordUsername },
+				{ "discord-userid", command.DiscordUserID.ToString() },
 			};
 			embed.Colour = EmbedMessage.Types.DiscordColour.Green;
 			SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.playerunbanned", unbanVars);

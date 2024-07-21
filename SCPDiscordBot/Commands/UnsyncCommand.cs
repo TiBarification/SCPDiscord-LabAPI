@@ -16,9 +16,10 @@ namespace SCPDiscord.Commands
 				UnsyncRoleCommand = new Interface.UnsyncRoleCommand
 				{
 					ChannelID = command.Channel.Id,
-					DiscordID = command.Member?.Id ?? 0,
-					DiscordTag = command.Member?.Username,
-					InteractionID = command.InteractionId
+					DiscordUserID = command.Member?.Id ?? 0,
+					InteractionID = command.InteractionId,
+					DiscordDisplayName = command.Member.DisplayName,
+					DiscordUsername = command.Member.Username
 				}
 			};
 			MessageScheduler.CacheInteraction(command);

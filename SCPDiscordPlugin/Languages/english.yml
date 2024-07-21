@@ -1206,24 +1206,35 @@ messages:
 
   invalidsteamid:
     # userid - string
+    # discord-displayname - string
+    # discord-username - string
     message: "Invalid SteamID '<var:userid>'."
     regex: []
     cancel_regex: []
 
   invalidsteamidorip:
     # steamidorip - string
+    # discord-displayname - string
+    # discord-username - string
+    # discord-userid - int
     message: "Invalid SteamID or IP '<var:steamidorip>'."
     regex: []
     cancel_regex: []
 
   invalidduration:
     # duration - string
+    # discord-displayname - string
+    # discord-username - string
+    # discord-userid - int
     message: "Invalid duration '<var:duration>'."
     regex: []
     cancel_regex: []
 
   playernotfound:
     # userid - string
+    # discord-displayname - string
+    # discord-username - string
+    # discord-userid - int
     message: "Player with SteamID '<var:userid>' not found."
     regex: []
     cancel_regex: []
@@ -1231,8 +1242,10 @@ messages:
   playerkicked:
     # player - Player
     # reason - string
-    # admintag - string
-    message: "'<var:player-name>' (<var:player-userid>) was kicked from the server by <var:admintag> for the reason '<var:reason>'."
+    # discord-displayname - string
+    # discord-username - string
+    # discord-userid - int
+    message: "'<var:player-name>' (<var:player-userid>) was kicked from the server by <var:discord-username> for the reason '<var:reason>'."
     regex: []
     cancel_regex: []
 
@@ -1241,8 +1254,10 @@ messages:
       # player - Player
       # reason - string
       # duration - string
-      # admintag - string
-      message: "'<var:player-name>' (<var:player-userid>) was banned for the reason '<var:reason>' (<var:duration>) (+IP-ban)."
+      # discord-displayname - string
+      # discord-username - string
+      # discord-userid - int
+      message: "'<var:player-name>' (<var:player-userid>) was banned by <var:discord-username> for the reason '<var:reason>' (<var:duration>) (+IP-ban)."
       regex: []
       cancel_regex: []
     offline:
@@ -1250,13 +1265,18 @@ messages:
       # userid - string
       # reason - string
       # duration - string
-      # admintag - string
-      message: "'<var:name>' (<var:userid>) was banned for the reason '<var:reason>' (<var:duration>)."
+      # discord-displayname - string
+      # discord-username - string
+      # discord-userid - int
+      message: "'<var:name>' (<var:userid>) was banned by <var:discord-username> for the reason '<var:reason>' (<var:duration>)."
       regex: []
       cancel_regex: []
 
   playerunbanned:
     # steamidorip - string
+    # discord-displayname - string
+    # discord-username - string
+    # discord-userid - int
     message: "All entries with SteamID/IP '<var:steamidorip>' have been cleared from the ban lists."
     regex: []
     cancel_regex: []
@@ -1268,7 +1288,7 @@ messages:
     # duration - string
     # admintag - string
     # adminid - long
-    message: "<var:name> (<var:userid>) was muted for the reason '<var:reason>' (Permanently)."
+    message: "<var:name> (<var:userid>) was muted by <var:discord-username> for the reason '<var:reason>' (Permanently)."
     regex: []
     cancel_regex: []
 
@@ -1277,9 +1297,10 @@ messages:
     # userid - string
     # reason - string
     # duration - string
-    # admintag - string
-    # adminid - long
-    message: "<var:name> (<var:userid>) was muted for the reason '<var:reason>' (<var:duration>)."
+    # discord-displayname - string
+    # discord-username - string
+    # discord-userid - int
+    message: "<var:name> (<var:userid>) was muted by <var:discord-username> for the reason '<var:reason>' (<var:duration>)."
     regex: []
     cancel_regex: []
 
@@ -1288,8 +1309,9 @@ messages:
     # userid - string
     # reason - string
     # duration - string
-    # admintag - string
-    # adminid - long
+    # discord-displayname - string
+    # discord-username - string
+    # discord-userid - int
     message: "Error occured trying to mute player with steamid '<var:userid>', check the console for more info."
     regex: []
     cancel_regex: []
@@ -1299,9 +1321,10 @@ messages:
     # userid - string
     # reason - string
     # duration - string
-    # admintag - string
-    # adminid - long
-    message: "<var:name> (<var:userid>) was unmuted."
+    # discord-displayname - string
+    # discord-username - string
+    # discord-userid - int
+    message: "<var:name> (<var:userid>) was unmuted by <var:discord-username>."
     regex: []
     cancel_regex: []
 
@@ -1310,15 +1333,18 @@ messages:
     # userid - string
     # reason - string
     # duration - string
-    # admintag - string
-    # adminid - long
+    # discord-displayname - string
+    # discord-username - string
+    # discord-userid - int
     message: "Error occured trying to unmute player with steamid '<var:userid>', check the console for more info."
     regex: []
     cancel_regex: []
 
   kickall:
     # reason - string
-    # admintag - string
+    # discord-displayname - string
+    # discord-username - string
+    # discord-userid - int
     message: "All players have been kicked from the server with the reason '<var:reason>'."
     regex: []
     cancel_regex: []
@@ -1326,6 +1352,9 @@ messages:
   # The feedback from a console command, except the custom ones above. (Is not affected by global regex other than final_regex)
   consolecommandfeedback:
     # feedback - string
+    # discord-displayname - string
+    # discord-username - string
+    # discord-userid - int
     message: "<var:feedback>"
     regex: []
     cancel_regex: []
@@ -1337,6 +1366,9 @@ messages:
         # maxplayers - int
         # page - int
         # pages - int
+        # discord-displayname - string
+        # discord-username - string
+        # discord-userid - int
         message: "<var:players> / <var:maxplayers> players"
         regex: []
         cancel_regex: []
@@ -1358,6 +1390,9 @@ messages:
         # maxplayers - int
         # page - int
         # pages - int
+        # discord-displayname - string
+        # discord-username - string
+        # discord-userid - int
         message: "<var:rankedplayers> / <var:players> ranked players"
         regex: []
         cancel_regex: []
@@ -1380,6 +1415,9 @@ messages:
           # syncedplayers - int
           # page - int
           # pages - int
+          # discord-displayname - string
+          # discord-username - string
+          # discord-userid - int
           message: "<var:syncedplayers> / <var:maxplayers> synced players"
           regex: [ "1 synced players":"1 synced player" ]
           cancel_regex: []
@@ -1389,6 +1427,9 @@ messages:
           # syncedplayers - int
           # page - int
           # pages - int
+          # discord-displayname - string
+          # discord-username - string
+          # discord-userid - int
           message: "<var:syncedplayers> synced players"
           regex: [ "1 synced players":"1 synced player" ]
           cancel_regex: []
@@ -1427,6 +1468,9 @@ messages:
       # issynced - bool
       # mutestatus - string
       # mutereason - string
+      # discord-displayname - string
+      # discord-username - string
+      # discord-userid - int
       message: >+
         **Player Information - <var:discordmention>**
         ```
@@ -1465,6 +1509,9 @@ messages:
       # banreason - string
       # playtimehours - int
       # hasreservedslot - bool
+      # discord-displayname - string
+      # discord-username - string
+      # discord-userid - int
       message: >+
         **Player Information - <var:discordmention>**
         ```

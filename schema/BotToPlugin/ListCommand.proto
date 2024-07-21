@@ -5,6 +5,8 @@ package SCPDiscord.Interface;
 message ListCommand
 {
 	uint64 channelID = 1;
-	uint64 userID = 2;
+	uint64 discordUserID = 2;
 	uint64 interactionID = 3;
+	string discordDisplayName = 4;
+	string discordUsername = 5;
 }

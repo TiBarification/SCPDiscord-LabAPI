@@ -33,10 +33,11 @@ public class MuteCommand : ApplicationCommandModule
                 ChannelID = command.Channel.Id,
                 SteamID = parsedSteamID.ToString(),
                 Duration = duration,
-                AdminTag = command.Member?.Username,
-                AdminID = command.Member.Id,
+                DiscordUserID = command.Member.Id,
                 Reason = reason,
-                InteractionID = command.InteractionId
+                InteractionID = command.InteractionId,
+                DiscordDisplayName = command.Member.DisplayName,
+                DiscordUsername = command.Member.Username
             }
         };
 

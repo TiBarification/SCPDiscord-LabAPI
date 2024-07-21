@@ -5,7 +5,7 @@ package SCPDiscord.Interface;
 message UserInfo
 {
 	string steamIDOrIP = 1;
-	uint64 discordID = 2;
+	uint64 discordUserID = 2;
 	repeated uint64 roleIDs = 3;
 	string discordDisplayName = 4;
 	string discordUsername = 5;

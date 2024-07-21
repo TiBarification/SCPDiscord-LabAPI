@@ -321,7 +321,7 @@ namespace SCPDiscord
 				{
 					UserInfo = new Interface.UserInfo
 					{
-						DiscordID = userID,
+						DiscordUserID = userID,
 						SteamIDOrIP = steamID,
 						DiscordDisplayName = member.DisplayName,
 						DiscordUsername = member.Username

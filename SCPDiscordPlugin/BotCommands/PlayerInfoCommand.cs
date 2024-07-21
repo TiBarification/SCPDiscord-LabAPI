@@ -9,7 +9,7 @@ namespace SCPDiscord.BotCommands
     {
 	    public static void Execute(Interface.PlayerInfoCommand command)
 	    {
-		    Logger.Debug("Playerinfo command called by " + command.DiscordID + " in " + command.ChannelID + ". Interaction: " + command.InteractionID +
+		    Logger.Debug("Playerinfo command called by " + command.DiscordUsername + " (" + command.DiscordUserID + " in " + command.ChannelID + ". Interaction: " + command.InteractionID +
 		                 ") SteamID: " + command.SteamID);
 
 			EmbedMessage embed = new EmbedMessage
@@ -26,7 +26,10 @@ namespace SCPDiscord.BotCommands
 			{
 				Dictionary<string, string> vars = new Dictionary<string, string>
 				{
-					{ "userid", command.SteamID }
+					{ "userid", command.SteamID },
+					{ "discord-displayname", command.DiscordDisplayName },
+					{ "discord-username", command.DiscordUsername },
+					{ "discord-userid", command.DiscordUserID.ToString() },
 				};
 				embed.Colour = EmbedMessage.Types.DiscordColour.Red;
 				SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.invalidsteamid", vars);
@@ -57,6 +60,9 @@ namespace SCPDiscord.BotCommands
 					{ "issynced",       isSynced.ToString()    },
 					{ "mutestatus",     muteStatus             },
 					{ "mutereason",     muteReason             },
+					{ "discord-displayname", command.DiscordDisplayName },
+					{ "discord-username", command.DiscordUsername },
+					{ "discord-userid", command.DiscordUserID.ToString() },
 				};
 				vars.AddPlayerVariables(player, "player");
 				SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.playerinfo.online", vars);
@@ -90,6 +96,9 @@ namespace SCPDiscord.BotCommands
 					{ "banreason",      banReason  },
 					{ "playtimehours",  PlayTime.GetHours(command.SteamID) },
 					{ "hasreservedslot",   ReservedSlots.HasReservedSlot(command.SteamID).ToString() },
+					{ "discord-displayname", command.DiscordDisplayName },
+					{ "discord-username", command.DiscordUsername },
+					{ "discord-userid", command.DiscordUserID.ToString() },
 				};
 				SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.playerinfo.offline", vars);
 			}

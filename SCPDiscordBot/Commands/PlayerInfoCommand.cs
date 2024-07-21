@@ -29,7 +29,10 @@ namespace SCPDiscord.Commands
 				{
 					ChannelID = command.Channel.Id,
 					SteamID = parsedSteamID.ToString(),
-					InteractionID = command.InteractionId
+					InteractionID = command.InteractionId,
+					DiscordDisplayName = command.Member.DisplayName,
+					DiscordUsername = command.Member.Username,
+					DiscordUserID = command.Member.Id
 				}
 			};
 

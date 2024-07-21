@@ -16,8 +16,10 @@ namespace SCPDiscord.Commands
 				ListCommand = new Interface.ListCommand
 				{
 					ChannelID = command.Channel.Id,
-					UserID = command.User.Id,
-					InteractionID = command.InteractionId
+					DiscordUserID = command.User.Id,
+					InteractionID = command.InteractionId,
+					DiscordDisplayName = command.Member.DisplayName,
+					DiscordUsername = command.Member.Username
 				}
 			};
 			MessageScheduler.CacheInteraction(command);

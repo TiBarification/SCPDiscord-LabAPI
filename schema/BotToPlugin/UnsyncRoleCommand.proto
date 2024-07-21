@@ -5,7 +5,8 @@ package SCPDiscord.Interface;
 message UnsyncRoleCommand
 {
 	uint64 channelID = 1;
-	uint64 discordID = 2;
-	string discordTag = 3;
+	uint64 discordUserID = 2;
+	string discordUsername = 3;
 	uint64 interactionID = 6;
+	string discordDisplayName = 7;
 }

@@ -8,6 +8,8 @@ message BanCommand
 	string steamID = 2;
 	string duration = 3;
 	string reason = 4;
-	string adminTag = 5;
+	string discordUsername = 5;
 	uint64 interactionID = 6;
+	string discordDisplayName = 7;
+	uint64 discordUserID = 8;
 }

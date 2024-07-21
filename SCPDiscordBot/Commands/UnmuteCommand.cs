@@ -30,10 +30,11 @@ public class UnmuteCommand : ApplicationCommandModule
                 ChannelID = command.Channel.Id,
                 SteamID = parsedSteamID.ToString(),
                 Duration = "0",
-                AdminTag = command.Member?.Username,
-                AdminID = command.Member.Id,
+                DiscordUserID = command.Member.Id,
                 Reason = "",
-                InteractionID = command.InteractionId
+                InteractionID = command.InteractionId,
+                DiscordDisplayName = command.Member.DisplayName,
+                DiscordUsername = command.Member.Username
             }
         };
         MessageScheduler.CacheInteraction(command);

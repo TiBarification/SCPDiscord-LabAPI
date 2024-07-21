@@ -11,7 +11,7 @@ namespace SCPDiscord.BotCommands
     {
         public static void Execute(Interface.BanCommand command)
 		{
-			Logger.Debug("Ban command called by " + command.AdminTag + " in " + command.ChannelID + ". Interaction: " + command.InteractionID + ")\n" +
+			Logger.Debug("Ban command called by " + command.DiscordUsername + " (" + command.DiscordUserID + ") in " + command.ChannelID + ". Interaction: " + command.InteractionID + ")\n" +
 			             "SteamID: " + command.SteamID + "\n" +
 			             "Duration: " + command.Duration + "\n" +
 			             "Reason: " + command.Reason);
@@ -28,7 +28,10 @@ namespace SCPDiscord.BotCommands
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "steamid", command.SteamID }
+					{ "steamid", command.SteamID },
+					{ "discord-displayname", command.DiscordDisplayName },
+					{ "discord-username", command.DiscordUsername },
+					{ "discord-userid", command.DiscordUserID.ToString() },
 				};
 				SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.invalidsteamid", variables);
 				return;
@@ -51,7 +54,10 @@ namespace SCPDiscord.BotCommands
 			{
 				Dictionary<string, string> variables = new Dictionary<string, string>
 				{
-					{ "duration", command.Duration }
+					{ "duration", command.Duration },
+					{ "discord-displayname", command.DiscordDisplayName },
+					{ "discord-username", command.DiscordUsername },
+					{ "discord-userid", command.DiscordUserID.ToString() },
 				};
 				SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.invalidduration", variables);
 				return;
@@ -67,7 +73,9 @@ namespace SCPDiscord.BotCommands
 			{
 				{ "reason",   command.Reason },
 				{ "duration", Utilities.SecondsToCompoundTime(durationSeconds) },
-				{ "admintag", command.AdminTag }
+				{ "discord-displayname", command.DiscordDisplayName },
+				{ "discord-username", command.DiscordUsername },
+				{ "discord-userid", command.DiscordUserID.ToString() },
 			};
 
 			if (!Utilities.TryGetPlayerName(command.SteamID, out string name))
@@ -99,7 +107,7 @@ namespace SCPDiscord.BotCommands
 					IssuanceTime = issuanceTime,
 					Expires = endTime.Ticks,
 					Reason = command.Reason,
-					Issuer = command.AdminTag
+					Issuer = command.DiscordUsername
 				}, BanHandler.BanType.IP);
 				ServerConsole.Disconnect(player.ReferenceHub.gameObject, "You have been banned. Reason: " + command.Reason);
 			}
@@ -111,7 +119,7 @@ namespace SCPDiscord.BotCommands
 				IssuanceTime = issuanceTime,
 				Expires = endTime.Ticks,
 				Reason = command.Reason,
-				Issuer = command.AdminTag
+				Issuer = command.DiscordUsername
 			}, BanHandler.BanType.UserId);
 
 			BanHandler.ValidateBans();

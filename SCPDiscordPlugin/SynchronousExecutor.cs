@@ -91,7 +91,7 @@ namespace SCPDiscord
 			PaginatedMessage responsePages = new PaginatedMessage
 			{
 				ChannelID = command.ChannelID,
-				UserID = command.DiscordID,
+				UserID = command.DiscordUserID,
 				InteractionID = command.InteractionID
 			};
 			responsePages.Pages.Add(embeds);

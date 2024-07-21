@@ -8,7 +8,8 @@ message MuteCommand
     string steamID = 2;
     string duration = 3;
     string reason = 4;
-    string adminTag = 5;
-    uint64 adminID = 6;
+    string discordUsername = 5;
+    uint64 discordUserID = 6;
     uint64 interactionID = 7;
+    string discordDisplayName = 8;
 }

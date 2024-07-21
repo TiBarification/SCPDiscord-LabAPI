@@ -7,6 +7,8 @@ message KickCommand
 	uint64 channelID = 1;
 	string steamID = 2;
 	string reason = 3;
-	string adminTag = 4;
+	string discordUsername = 4;
 	uint64 interactionID = 5;
+	string discordDisplayName = 6;
+	uint64 discordUserID = 7;
 }

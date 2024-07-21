@@ -5,7 +5,9 @@ package SCPDiscord.Interface;
 message ListSyncedCommand
 {
 	uint64 channelID = 1;
-	uint64 userID = 2;
+	uint64 discordUserID = 2;
 	uint64 interactionID = 3;
 	bool   listAll = 4;
+	string discordDisplayName = 5;
+	string discordUsername = 6;
 }

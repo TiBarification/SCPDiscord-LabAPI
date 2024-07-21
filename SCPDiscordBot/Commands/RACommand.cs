@@ -28,9 +28,11 @@ namespace SCPDiscord.Commands
 				ConsoleCommand = new Interface.ConsoleCommand
 				{
 					ChannelID = command.Channel.Id,
-					DiscordID = command.Member?.Id ?? 0,
+					DiscordUserID = command.Member?.Id ?? 0,
 					Command = "/" + serverCommand,
-					InteractionID = command.InteractionId
+					InteractionID = command.InteractionId,
+					DiscordDisplayName = command.Member?.DisplayName,
+					DiscordUsername = command.Member?.Username
 				}
 			};
 			MessageScheduler.CacheInteraction(command);

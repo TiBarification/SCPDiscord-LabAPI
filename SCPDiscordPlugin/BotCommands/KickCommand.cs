@@ -8,7 +8,7 @@ namespace SCPDiscord.BotCommands
     {
         public static void Execute(Interface.KickCommand command)
         {
-	        Logger.Debug("Kick command called by " + command.AdminTag + " in " + command.ChannelID + ". Interaction: " + command.InteractionID + ")\n" +
+	        Logger.Debug("Kick command called by " + command.DiscordUsername + " (" + command.DiscordUserID + " in " + command.ChannelID + ". Interaction: " + command.InteractionID + ")\n" +
 	                     "SteamID: " + command.SteamID + "\n" +
 	                     "Reason: " + command.Reason);
 
@@ -24,7 +24,10 @@ namespace SCPDiscord.BotCommands
         	{
         		Dictionary<string, string> vars = new Dictionary<string, string>
         		{
-        			{ "userid", command.SteamID }
+        			{ "userid", command.SteamID },
+			        { "discord-displayname", command.DiscordDisplayName },
+			        { "discord-username", command.DiscordUsername },
+			        { "discord-userid", command.DiscordUserID.ToString() },
         		};
         		SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.invalidsteamid", vars);
         		return;
@@ -35,7 +38,10 @@ namespace SCPDiscord.BotCommands
 	        {
 		        Dictionary<string, string> vars = new Dictionary<string, string>
 		        {
-			        { "userid", command.SteamID }
+			        { "userid", command.SteamID },
+			        { "discord-displayname", command.DiscordDisplayName },
+			        { "discord-username", command.DiscordUsername },
+			        { "discord-userid", command.DiscordUserID.ToString() },
 		        };
 		        SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.playernotfound", vars);
 	        }
@@ -49,7 +55,9 @@ namespace SCPDiscord.BotCommands
         	Dictionary<string, string> variables = new Dictionary<string, string>
         	{
 		        { "reason", command.Reason },
-        		{ "admintag", command.AdminTag }
+		        { "discord-displayname", command.DiscordDisplayName },
+		        { "discord-username", command.DiscordUsername },
+		        { "discord-userid", command.DiscordUserID.ToString() },
         	};
 	        variables.AddPlayerVariables(player, "player");
         	embed.Colour = EmbedMessage.Types.DiscordColour.Green;

@@ -11,7 +11,7 @@ namespace SCPDiscord.BotCommands
     {
 	    public static void Execute(Interface.MuteCommand command)
 		{
-			Logger.Debug("Mute/unmute command called by " + command.AdminTag + " (" + command.AdminID + ") in " + command.ChannelID + ". Interaction: " + command.InteractionID + ")\n" +
+			Logger.Debug("Mute/unmute command called by " + command.DiscordUsername + " (" + command.DiscordUserID + ") in " + command.ChannelID + ". Interaction: " + command.InteractionID + ")\n" +
 			             "SteamID: " + command.SteamID + "\n" +
 			             "Duration: " + command.Duration + "\n" +
 			             "Reason: " + command.Reason);
@@ -101,8 +101,9 @@ namespace SCPDiscord.BotCommands
 					    { "userid",   command.SteamID            },
 					    { "reason",   command.Reason             },
 					    { "duration", humanReadableDuration      },
-					    { "admintag", command.AdminTag           },
-					    { "adminid",  command.AdminID.ToString() }
+					    { "discord-displayname", command.DiscordDisplayName },
+					    { "discord-username", command.DiscordUsername },
+					    { "discord-userid", command.DiscordUserID.ToString() },
 				    };
 
 				    SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.mutefailed", banVars);
@@ -116,7 +117,7 @@ namespace SCPDiscord.BotCommands
 			    Utilities.TryGetSteamName(userID, out playerName);
 		    }
 
-		    if (MuteSystem.MutePlayer(ref playerName, userID, command.AdminTag, command.Reason, endTime))
+		    if (MuteSystem.MutePlayer(ref playerName, userID, command.DiscordUsername, command.Reason, endTime))
 		    {
 			    EmbedMessage embed = new EmbedMessage
 			    {
@@ -131,8 +132,9 @@ namespace SCPDiscord.BotCommands
 				    { "userid",   command.SteamID            },
 				    { "reason",   command.Reason             },
 				    { "duration", humanReadableDuration      },
-				    { "admintag", command.AdminTag           },
-				    { "adminid",  command.AdminID.ToString() }
+				    { "discord-displayname", command.DiscordDisplayName },
+				    { "discord-username", command.DiscordUsername },
+				    { "discord-userid", command.DiscordUserID.ToString() },
 			    };
 
 			    if (endTime == DateTime.MaxValue)
@@ -159,8 +161,9 @@ namespace SCPDiscord.BotCommands
 				    { "userid",   command.SteamID            },
 				    { "reason",   command.Reason             },
 				    { "duration", humanReadableDuration      },
-				    { "admintag", command.AdminTag           },
-				    { "adminid",  command.AdminID.ToString() }
+				    { "discord-displayname", command.DiscordDisplayName },
+				    { "discord-username", command.DiscordUsername },
+				    { "discord-userid", command.DiscordUserID.ToString() },
 			    };
 
 			    SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.mutefailed", banVars);
@@ -188,8 +191,10 @@ namespace SCPDiscord.BotCommands
 				    {
 					    { "name",     playerName                 },
 					    { "userid",   command.SteamID            },
-					    { "admintag", command.AdminTag           },
-					    { "adminid",  command.AdminID.ToString() }
+					    { "discord-displayname", command.DiscordDisplayName },
+					    { "discord-displayname", command.DiscordDisplayName },
+					    { "discord-username", command.DiscordUsername },
+					    { "discord-userid", command.DiscordUserID.ToString() },
 				    };
 
 				    SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.unmutefailed", banVars);
@@ -203,21 +208,22 @@ namespace SCPDiscord.BotCommands
 			    Utilities.TryGetSteamName(userID, out playerName);
 		    }
 
-		    if (MuteSystem.UnmutePlayer(ref playerName, userID, command.AdminTag))
+		    Dictionary<string, string> variables = new Dictionary<string, string>
+		    {
+			    { "name",     playerName       			 },
+			    { "userid",   command.SteamID  			 },
+			    { "discord-displayname", command.DiscordDisplayName },
+			    { "discord-username", command.DiscordUsername },
+			    { "discord-userid", command.DiscordUserID.ToString() }
+		    };
+
+		    if (MuteSystem.UnmutePlayer(ref playerName, userID, command.DiscordUsername))
 		    {
 			    EmbedMessage embed = new EmbedMessage
 			    {
 				    Colour = EmbedMessage.Types.DiscordColour.Green,
 				    ChannelID = command.ChannelID,
 				    InteractionID = command.InteractionID
-			    };
-
-			    Dictionary<string, string> variables = new Dictionary<string, string>
-			    {
-				    { "name",     playerName       			 },
-				    { "userid",   command.SteamID  			 },
-				    { "admintag", command.AdminTag 			 },
-				    { "adminid",  command.AdminID.ToString() }
 			    };
 
 			    SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.playerunmuted", variables);
@@ -229,13 +235,6 @@ namespace SCPDiscord.BotCommands
 				    Colour = EmbedMessage.Types.DiscordColour.Red,
 				    ChannelID = command.ChannelID,
 				    InteractionID = command.InteractionID
-			    };
-
-			    Dictionary<string, string> variables = new Dictionary<string, string>
-			    {
-				    { "name",     playerName       },
-				    { "userid",   command.SteamID  },
-				    { "admintag", command.AdminTag }
 			    };
 
 			    SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.unmutefailed", variables);

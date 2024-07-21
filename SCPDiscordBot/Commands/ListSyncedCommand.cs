@@ -16,9 +16,11 @@ namespace SCPDiscord.Commands
 				ListSyncedCommand = new Interface.ListSyncedCommand
 				{
 					ChannelID = command.Channel.Id,
-					UserID = command.User.Id,
+					DiscordUserID = command.User.Id,
 					ListAll = includeOffline,
-					InteractionID = command.InteractionId
+					InteractionID = command.InteractionId,
+					DiscordDisplayName = command.Member.DisplayName,
+					DiscordUsername = command.Member.Username
 				}
 			};
 			MessageScheduler.CacheInteraction(command);

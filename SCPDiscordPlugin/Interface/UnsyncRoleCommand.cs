@@ -25,13 +25,14 @@ namespace SCPDiscord.Interface {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "CiNCb3RUb1BsdWdpbi9VbnN5bmNSb2xlQ29tbWFuZC5wcm90bxIUU0NQRGlz",
-            "Y29yZC5JbnRlcmZhY2UiZAoRVW5zeW5jUm9sZUNvbW1hbmQSEQoJY2hhbm5l",
-            "bElEGAEgASgEEhEKCWRpc2NvcmRJRBgCIAEoBBISCgpkaXNjb3JkVGFnGAMg",
-            "ASgJEhUKDWludGVyYWN0aW9uSUQYBiABKARiBnByb3RvMw=="));
+            "Y29yZC5JbnRlcmZhY2UiiQEKEVVuc3luY1JvbGVDb21tYW5kEhEKCWNoYW5u",
+            "ZWxJRBgBIAEoBBIVCg1kaXNjb3JkVXNlcklEGAIgASgEEhcKD2Rpc2NvcmRV",
+            "c2VybmFtZRgDIAEoCRIVCg1pbnRlcmFjdGlvbklEGAYgASgEEhoKEmRpc2Nv",
+            "cmREaXNwbGF5TmFtZRgHIAEoCWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::SCPDiscord.Interface.UnsyncRoleCommand), global::SCPDiscord.Interface.UnsyncRoleCommand.Parser, new[]{ "ChannelID", "DiscordID", "DiscordTag", "InteractionID" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::SCPDiscord.Interface.UnsyncRoleCommand), global::SCPDiscord.Interface.UnsyncRoleCommand.Parser, new[]{ "ChannelID", "DiscordUserID", "DiscordUsername", "InteractionID", "DiscordDisplayName" }, null, null, null, null)
           }));
     }
     #endregion
@@ -74,9 +75,10 @@ namespace SCPDiscord.Interface {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public UnsyncRoleCommand(UnsyncRoleCommand other) : this() {
       channelID_ = other.channelID_;
-      discordID_ = other.discordID_;
-      discordTag_ = other.discordTag_;
+      discordUserID_ = other.discordUserID_;
+      discordUsername_ = other.discordUsername_;
       interactionID_ = other.interactionID_;
+      discordDisplayName_ = other.discordDisplayName_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -98,27 +100,27 @@ namespace SCPDiscord.Interface {
       }
     }
 
-    /// <summary>Field number for the "discordID" field.</summary>
-    public const int DiscordIDFieldNumber = 2;
-    private ulong discordID_;
+    /// <summary>Field number for the "discordUserID" field.</summary>
+    public const int DiscordUserIDFieldNumber = 2;
+    private ulong discordUserID_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ulong DiscordID {
-      get { return discordID_; }
+    public ulong DiscordUserID {
+      get { return discordUserID_; }
       set {
-        discordID_ = value;
+        discordUserID_ = value;
       }
     }
 
-    /// <summary>Field number for the "discordTag" field.</summary>
-    public const int DiscordTagFieldNumber = 3;
-    private string discordTag_ = "";
+    /// <summary>Field number for the "discordUsername" field.</summary>
+    public const int DiscordUsernameFieldNumber = 3;
+    private string discordUsername_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string DiscordTag {
-      get { return discordTag_; }
+    public string DiscordUsername {
+      get { return discordUsername_; }
       set {
-        discordTag_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        discordUsername_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -131,6 +133,18 @@ namespace SCPDiscord.Interface {
       get { return interactionID_; }
       set {
         interactionID_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "discordDisplayName" field.</summary>
+    public const int DiscordDisplayNameFieldNumber = 7;
+    private string discordDisplayName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string DiscordDisplayName {
+      get { return discordDisplayName_; }
+      set {
+        discordDisplayName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -150,9 +164,10 @@ namespace SCPDiscord.Interface {
         return true;
       }
       if (ChannelID != other.ChannelID) return false;
-      if (DiscordID != other.DiscordID) return false;
-      if (DiscordTag != other.DiscordTag) return false;
+      if (DiscordUserID != other.DiscordUserID) return false;
+      if (DiscordUsername != other.DiscordUsername) return false;
       if (InteractionID != other.InteractionID) return false;
+      if (DiscordDisplayName != other.DiscordDisplayName) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -161,9 +176,10 @@ namespace SCPDiscord.Interface {
     public override int GetHashCode() {
       int hash = 1;
       if (ChannelID != 0UL) hash ^= ChannelID.GetHashCode();
-      if (DiscordID != 0UL) hash ^= DiscordID.GetHashCode();
-      if (DiscordTag.Length != 0) hash ^= DiscordTag.GetHashCode();
+      if (DiscordUserID != 0UL) hash ^= DiscordUserID.GetHashCode();
+      if (DiscordUsername.Length != 0) hash ^= DiscordUsername.GetHashCode();
       if (InteractionID != 0UL) hash ^= InteractionID.GetHashCode();
+      if (DiscordDisplayName.Length != 0) hash ^= DiscordDisplayName.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -186,17 +202,21 @@ namespace SCPDiscord.Interface {
         output.WriteRawTag(8);
         output.WriteUInt64(ChannelID);
       }
-      if (DiscordID != 0UL) {
+      if (DiscordUserID != 0UL) {
         output.WriteRawTag(16);
-        output.WriteUInt64(DiscordID);
+        output.WriteUInt64(DiscordUserID);
       }
-      if (DiscordTag.Length != 0) {
+      if (DiscordUsername.Length != 0) {
         output.WriteRawTag(26);
-        output.WriteString(DiscordTag);
+        output.WriteString(DiscordUsername);
       }
       if (InteractionID != 0UL) {
         output.WriteRawTag(48);
         output.WriteUInt64(InteractionID);
+      }
+      if (DiscordDisplayName.Length != 0) {
+        output.WriteRawTag(58);
+        output.WriteString(DiscordDisplayName);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -212,17 +232,21 @@ namespace SCPDiscord.Interface {
         output.WriteRawTag(8);
         output.WriteUInt64(ChannelID);
       }
-      if (DiscordID != 0UL) {
+      if (DiscordUserID != 0UL) {
         output.WriteRawTag(16);
-        output.WriteUInt64(DiscordID);
+        output.WriteUInt64(DiscordUserID);
       }
-      if (DiscordTag.Length != 0) {
+      if (DiscordUsername.Length != 0) {
         output.WriteRawTag(26);
-        output.WriteString(DiscordTag);
+        output.WriteString(DiscordUsername);
       }
       if (InteractionID != 0UL) {
         output.WriteRawTag(48);
         output.WriteUInt64(InteractionID);
+      }
+      if (DiscordDisplayName.Length != 0) {
+        output.WriteRawTag(58);
+        output.WriteString(DiscordDisplayName);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -237,14 +261,17 @@ namespace SCPDiscord.Interface {
       if (ChannelID != 0UL) {
         size += 1 + pb::CodedOutputStream.ComputeUInt64Size(ChannelID);
       }
-      if (DiscordID != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(DiscordID);
+      if (DiscordUserID != 0UL) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(DiscordUserID);
       }
-      if (DiscordTag.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(DiscordTag);
+      if (DiscordUsername.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(DiscordUsername);
       }
       if (InteractionID != 0UL) {
         size += 1 + pb::CodedOutputStream.ComputeUInt64Size(InteractionID);
+      }
+      if (DiscordDisplayName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(DiscordDisplayName);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -261,14 +288,17 @@ namespace SCPDiscord.Interface {
       if (other.ChannelID != 0UL) {
         ChannelID = other.ChannelID;
       }
-      if (other.DiscordID != 0UL) {
-        DiscordID = other.DiscordID;
+      if (other.DiscordUserID != 0UL) {
+        DiscordUserID = other.DiscordUserID;
       }
-      if (other.DiscordTag.Length != 0) {
-        DiscordTag = other.DiscordTag;
+      if (other.DiscordUsername.Length != 0) {
+        DiscordUsername = other.DiscordUsername;
       }
       if (other.InteractionID != 0UL) {
         InteractionID = other.InteractionID;
+      }
+      if (other.DiscordDisplayName.Length != 0) {
+        DiscordDisplayName = other.DiscordDisplayName;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -281,7 +311,11 @@ namespace SCPDiscord.Interface {
     #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
@@ -290,15 +324,19 @@ namespace SCPDiscord.Interface {
             break;
           }
           case 16: {
-            DiscordID = input.ReadUInt64();
+            DiscordUserID = input.ReadUInt64();
             break;
           }
           case 26: {
-            DiscordTag = input.ReadString();
+            DiscordUsername = input.ReadString();
             break;
           }
           case 48: {
             InteractionID = input.ReadUInt64();
+            break;
+          }
+          case 58: {
+            DiscordDisplayName = input.ReadString();
             break;
           }
         }
@@ -312,7 +350,11 @@ namespace SCPDiscord.Interface {
     void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
@@ -321,15 +363,19 @@ namespace SCPDiscord.Interface {
             break;
           }
           case 16: {
-            DiscordID = input.ReadUInt64();
+            DiscordUserID = input.ReadUInt64();
             break;
           }
           case 26: {
-            DiscordTag = input.ReadString();
+            DiscordUsername = input.ReadString();
             break;
           }
           case 48: {
             InteractionID = input.ReadUInt64();
+            break;
+          }
+          case 58: {
+            DiscordDisplayName = input.ReadString();
             break;
           }
         }

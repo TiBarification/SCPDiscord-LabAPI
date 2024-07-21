@@ -8,7 +8,7 @@ namespace SCPDiscord.BotCommands
     {
         public static void Execute(Interface.KickallCommand command)
         {
-            Logger.Debug("Kickall command called by " + command.AdminTag + " in " + command.ChannelID + ". Interaction: " + command.InteractionID + ")\n" +
+            Logger.Debug("Kickall command called by " + command.DiscordUsername + " (" + command.DiscordUserID + " in " + command.ChannelID + ". Interaction: " + command.InteractionID + ")\n" +
                          "Reason: " + command.Reason);
 
             if (command.Reason == "")
@@ -22,7 +22,9 @@ namespace SCPDiscord.BotCommands
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "reason", command.Reason },
-                { "admintag", command.AdminTag}
+                { "discord-displayname", command.DiscordDisplayName },
+                { "discord-username", command.DiscordUsername },
+                { "discord-userid", command.DiscordUserID.ToString() },
             };
 
             EmbedMessage embed = new EmbedMessage

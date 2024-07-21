@@ -28,10 +28,11 @@ namespace SCPDiscord.Commands
 				SyncRoleCommand = new Interface.SyncRoleCommand
 				{
 					ChannelID = command.Channel.Id,
-					DiscordID = command.Member?.Id ?? 0,
-					DiscordTag = command.Member?.Username,
+					DiscordUserID = command.Member?.Id ?? 0,
 					SteamIDOrIP = parsedSteamID.ToString(),
-					InteractionID = command.InteractionId
+					InteractionID = command.InteractionId,
+					DiscordDisplayName = command.Member.DisplayName,
+					DiscordUsername = command.Member.Username
 				}
 			};
 			MessageScheduler.CacheInteraction(command);

@@ -17,7 +17,10 @@ namespace SCPDiscord.Commands
 				{
 					ChannelID = command.Channel.Id,
 					SteamIDOrIP = steamIDOrIP,
-					InteractionID = command.InteractionId
+					InteractionID = command.InteractionId,
+					DiscordDisplayName = command.Member.DisplayName,
+					DiscordUsername = command.Member.Username,
+					DiscordUserID = command.Member.Id
 				}
 			};
 			MessageScheduler.CacheInteraction(command);

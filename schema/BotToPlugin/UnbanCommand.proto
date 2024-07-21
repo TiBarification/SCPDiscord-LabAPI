@@ -7,4 +7,7 @@ message UnbanCommand
 	uint64 channelID = 1;
 	string steamIDOrIP = 2;
 	uint64 interactionID = 3;
+	string discordDisplayName = 4;
+	string discordUsername = 5;
+	uint64 discordUserID = 6;
 }

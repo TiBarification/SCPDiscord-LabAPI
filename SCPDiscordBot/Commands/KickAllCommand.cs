@@ -17,9 +17,11 @@ namespace SCPDiscord.Commands
 				KickallCommand = new Interface.KickallCommand
 				{
 					ChannelID = command.Channel.Id,
-					AdminTag = command.Member?.Username,
 					Reason = kickReason,
-					InteractionID = command.InteractionId
+					InteractionID = command.InteractionId,
+					DiscordDisplayName = command.Member.DisplayName,
+					DiscordUsername = command.Member.Username,
+					DiscordUserID = command.Member.Id
 				}
 			};
 			MessageScheduler.CacheInteraction(command);

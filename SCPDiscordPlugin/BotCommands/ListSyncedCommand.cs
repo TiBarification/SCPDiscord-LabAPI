@@ -9,7 +9,7 @@ namespace SCPDiscord.BotCommands
     {
 	    public static void Execute(Interface.ListSyncedCommand command)
 	    {
-		    Logger.Debug("Listsynced command called by " + command.UserID + " in " + command.ChannelID + ". Interaction: " + command.InteractionID + ") Listall: " + command.ListAll);
+		    Logger.Debug("Listsynced command called by " + command.DiscordUsername + " (" + command.DiscordUserID + " in " + command.ChannelID + ". Interaction: " + command.InteractionID + ") Listall: " + command.ListAll);
 
 		    string messageType = command.ListAll ? "all" : "online-only";
             List<string> listItems = command.ListAll
@@ -26,7 +26,10 @@ namespace SCPDiscord.BotCommands
             			{ "syncedplayers", listItems.Count.ToString() },
             			{ "maxplayers",    Server.MaxPlayers.ToString() },
 			            { "page",          "1" },
-			            { "pages",         "1" }
+			            { "pages",         "1" },
+			            { "discord-displayname", command.DiscordDisplayName },
+			            { "discord-username", command.DiscordUsername },
+			            { "discord-userid", command.DiscordUserID.ToString() },
             		}),
             		Description = Language.GetProcessedMessage("messages.list.synced.row." + messageType + ".empty", new Dictionary<string, string>()),
             		Colour = EmbedMessage.Types.DiscordColour.Red,
@@ -52,7 +55,10 @@ namespace SCPDiscord.BotCommands
             			{ "syncedplayers", listItems.Count.ToString()           },
             			{ "maxplayers",    Server.MaxPlayers.ToString()         },
 			            { "page",          pageNum.ToString()                   },
-			            { "pages",         pages.Count.ToString()               }
+			            { "pages",         pages.Count.ToString()               },
+			            { "discord-displayname", command.DiscordDisplayName },
+			            { "discord-username", command.DiscordUsername },
+						{ "discord-userid", command.DiscordUserID.ToString() },
             		}),
             		Colour = EmbedMessage.Types.DiscordColour.Cyan,
             		Description = message
@@ -62,7 +68,7 @@ namespace SCPDiscord.BotCommands
             PaginatedMessage response = new PaginatedMessage
             {
             	ChannelID = command.ChannelID,
-            	UserID = command.UserID,
+            	UserID = command.DiscordUserID,
             	InteractionID = command.InteractionID
             };
             response.Pages.Add(embeds);
