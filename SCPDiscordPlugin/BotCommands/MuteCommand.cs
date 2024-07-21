@@ -175,7 +175,7 @@ namespace SCPDiscord.BotCommands
 		    if (Player.TryGet(userID, out Player player))
 		    {
 			    MuteSystem.ignoreUserID = userID;
-			    if (!EventManager.ExecuteEvent(new PlayerMutedEvent(player.ReferenceHub, Server.Instance.ReferenceHub, false)))
+			    if (!EventManager.ExecuteEvent(new PlayerUnmutedEvent(player.ReferenceHub, Server.Instance.ReferenceHub, false)))
 			    {
 				    EmbedMessage embed = new EmbedMessage
 				    {
