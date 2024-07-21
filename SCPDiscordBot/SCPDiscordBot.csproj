@@ -5,7 +5,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <StartupObject>SCPDiscord.SCPDiscordBot</StartupObject>
     <Version>3.2.0</Version>
-    <PackageVersion>3.2.0</PackageVersion>
+    <PackageVersion>3.2.1</PackageVersion>
     <ApplicationIcon>icon.ico</ApplicationIcon>
     <LangVersion>default</LangVersion>
     <RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
@@ -18,6 +18,8 @@
     <NeutralLanguage>en</NeutralLanguage>
     <PublishSingleFile>true</PublishSingleFile>
     <TrimMode>partial</TrimMode>
+    <Title>SCPDiscord Bot</Title>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/KarlOfDuty/SCPDiscord/main/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
 
   <ItemGroup>

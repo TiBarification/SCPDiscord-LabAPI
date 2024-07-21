@@ -10,7 +10,7 @@ namespace SCPDiscord.Commands
 		[SlashRequireGuild]
 		[SlashCommand("ban", "Bans a player from the server")]
 		public async Task OnExecute(InteractionContext command,
-			[Option("SteamID", "Steam ID of the user to ban.")] string steamID,
+			[Option("SteamID", "Steam ID of the player to ban.")] string steamID,
 			[Option("Duration", "Ban duration (ex: 2d is 2 days).")] string duration,
 			[Option("Reason", "Reason for the ban.")] string reason)
 		{

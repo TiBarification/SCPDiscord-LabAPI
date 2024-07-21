@@ -10,7 +10,7 @@ public class MuteCommand : ApplicationCommandModule
     [SlashRequireGuild]
     [SlashCommand("mute", "Mutes a player on the server")]
     public async Task OnExecute(InteractionContext command,
-        [Option("SteamID", "Steam ID of the user to mute.")] string steamID,
+        [Option("SteamID", "Steam ID of the player to mute.")] string steamID,
         [Option("Duration", "Mute duration (ex: 2d is 2 days).")] string duration,
         [Option("Reason", "Reason for the mute.")] string reason)
     {
