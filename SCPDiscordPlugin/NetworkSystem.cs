@@ -276,12 +276,12 @@ namespace SCPDiscord
 			try
 			{
 				message.WriteDelimitedTo(networkStream);
-				Logger.Debug("Sent message '" + message.MessageCase + "' to bot.");
+				Logger.Debug("Sent packet '" + JsonFormatter.Default.Format(message) + "' to bot.");
 				return true;
 			}
 			catch (Exception e)
 			{
-				Logger.Error("Error sending message '" + message.MessageCase + "' to bot.");
+				Logger.Error("Error sending packet '" + JsonFormatter.Default.Format(message) + "' to bot.");
 				Logger.Error(e.ToString());
 				if (!(e is InvalidOperationException || e is ArgumentNullException || e is SocketException))
 				{
