@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Sockets;
-using System.Text.RegularExpressions;
 using System.Threading;
 using PluginAPI.Core;
 
@@ -122,6 +121,7 @@ namespace SCPDiscord
 		public static NetworkStream networkStream { get; private set; } = null;
 		private static readonly List<MessageWrapper> messageQueue = new List<MessageWrapper>();
 		private static Stopwatch activityUpdateTimer = new Stopwatch();
+		private static int previousActivityPlayerCount = -1;
 
 		private static Thread messageThread;
 
@@ -173,7 +173,6 @@ namespace SCPDiscord
 			}
 		}
 
-		/// Connection functions //////////////////////////
 		public static bool IsConnected()
 		{
 			if (socket == null)
@@ -332,16 +331,19 @@ namespace SCPDiscord
 			messageQueue.Add(message);
 		}
 
-		/// ///////////////////////////////////////////////
-
-		/// Status refreshing //////////////////////
-
 		private static void RefreshBotStatus()
 		{
 			if (activityUpdateTimer.ElapsedMilliseconds < ACTIVITY_UPDATE_RATE_MS && activityUpdateTimer.IsRunning) return;
 
 			activityUpdateTimer.Reset();
 			activityUpdateTimer.Start();
+
+			// Skip if the player count hasn't changed
+			if (previousActivityPlayerCount == Player.Count)
+			{
+				return;
+			}
+			previousActivityPlayerCount = Player.Count;
 
 			// Update player count
 			Dictionary<string, string> variables = new Dictionary<string, string>
