@@ -64,7 +64,6 @@ namespace SCPDiscord
                 {
                     logFileWriter.WriteLine(logMessage);
                     logFileWriter.Flush();
-                    Log.Info("Wrote to log file");
                 }
                 catch (Exception e)
                 {
