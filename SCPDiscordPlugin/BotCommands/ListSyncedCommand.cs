@@ -9,8 +9,6 @@ namespace SCPDiscord.BotCommands
     {
 	    public static void Execute(Interface.ListSyncedCommand command)
 	    {
-		    Logger.Debug("Listsynced command called by " + command.DiscordUsername + " (" + command.DiscordUserID + " in " + command.ChannelID + ". Interaction: " + command.InteractionID + ") Listall: " + command.ListAll);
-
 		    string messageType = command.ListAll ? "all" : "online-only";
             List<string> listItems = command.ListAll
 	                                 ? GetAllSyncedPlayers(command.ChannelID)

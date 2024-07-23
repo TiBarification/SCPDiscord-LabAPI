@@ -8,8 +8,6 @@ namespace SCPDiscord.BotCommands
     {
         public static void Execute(Interface.ListRankedCommand command)
 		{
-			Logger.Debug("Listranked command called by " + command.DiscordUsername + " (" + command.DiscordUserID + " in " + command.ChannelID + ". Interaction: " + command.InteractionID + ")");
-
 			List<string> listItems = new List<string>();
 			foreach (Player player in Player.GetPlayers())
 			{

@@ -11,11 +11,6 @@ namespace SCPDiscord.BotCommands
     {
 	    public static void Execute(Interface.MuteCommand command)
 		{
-			Logger.Debug("Mute/unmute command called by " + command.DiscordUsername + " (" + command.DiscordUserID + ") in " + command.ChannelID + ". Interaction: " + command.InteractionID + ")\n" +
-			             "SteamID: " + command.SteamID + "\n" +
-			             "Duration: " + command.Duration + "\n" +
-			             "Reason: " + command.Reason);
-
 			EmbedMessage embed = new EmbedMessage
 			{
 				Colour = EmbedMessage.Types.DiscordColour.Red,

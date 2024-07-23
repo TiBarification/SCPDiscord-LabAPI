@@ -8,8 +8,6 @@ namespace SCPDiscord.BotCommands
     {
         public static void Execute(Interface.ListCommand command)
 		{
-			Logger.Debug("List command called by " + command.DiscordUsername + " (" + command.DiscordUserID + " in " + command.ChannelID + ". Interaction:" + command.InteractionID + ")");
-
 			// Create empty list if there are no players online
 			if (Player.Count == 0)
 			{
