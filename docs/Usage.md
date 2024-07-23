@@ -42,13 +42,14 @@ Base command:
 | `reconnect`'<br/>`rc`                                                                  | Reconnects to the bot.                                                                      |
 | `reload`                                                                               | Reloads the plugin, all configs and files and reconnects.                                   |
 | `removereservedslot <steamid>`<br/>`rrs <steamid>`                                     | Removes a reserved slot from a player.                                                      |
+| `sendmessage <channel-id> <message>`                                                   | Manually sends a message to a discord channel.                                              |
 | `setnickname <player id/steamid> <nickname>`<br/>`nick <player id/steamid> <nickname>` | Sets a player's nickname, useful for the rolesync system if you want to sync discord names. |
-| `unsync <discordid>`                                                                   | Manually remove a player from being synced to discord.                                      |
+| `unsync <discord-id>`                                                                  | Manually remove a player from being synced to discord.                                      |
 | `validate`                                                                             | Creates a config and language validation report in the console.                             |
 
 ## Time
 
-Time is expressed in the format `NumberUnit` where unit is a unit of time and number is the amount of that time unit, for example `6M` represents six months.
+Time is expressed in the format `NumberUnit` where unit is a unit of time and number is the amount of that time unit, for example `6M20d5m` represents six months, 20 days and five minutes.
 
 Valid time units:
 
