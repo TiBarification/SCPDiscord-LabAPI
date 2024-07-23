@@ -168,7 +168,6 @@ namespace SCPDiscord
 				DiscordChannel channel = await client.GetChannelAsync(channelID);
 				try
 				{
-					Logger.Debug("Sending message to " + channelID, LogID.DISCORD);
 					await channel.SendMessageAsync(message);
 				}
 				catch (UnauthorizedException)

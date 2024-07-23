@@ -43,6 +43,5 @@ public class MuteCommand : ApplicationCommandModule
 
         MessageScheduler.CacheInteraction(command);
         await NetworkSystem.SendMessage(message, command);
-        Logger.Debug("Sending MuteCommand to plugin from @" + command.Member?.Username, LogID.DISCORD);
     }
 }

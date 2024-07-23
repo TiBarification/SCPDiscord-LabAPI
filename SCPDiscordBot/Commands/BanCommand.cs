@@ -43,7 +43,6 @@ namespace SCPDiscord.Commands
 
 			MessageScheduler.CacheInteraction(command);
 			await NetworkSystem.SendMessage(message, command);
-			Logger.Debug("Sending BanCommand to plugin from @" + command.Member?.Username, LogID.DISCORD);
 		}
 	}
 }

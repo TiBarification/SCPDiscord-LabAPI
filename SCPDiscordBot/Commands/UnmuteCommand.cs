@@ -39,6 +39,5 @@ public class UnmuteCommand : ApplicationCommandModule
         };
         MessageScheduler.CacheInteraction(command);
         await NetworkSystem.SendMessage(message, command);
-        Logger.Debug("Sending UnbanCommand to plugin from @" + command.Member?.Username, LogID.DISCORD);
     }
 }

@@ -218,6 +218,7 @@ namespace SCPDiscord
 		{
 			try
 			{
+				Logger.Debug("Sent packet '" + JsonFormatter.Default.Format(message) + "' to plugin.", LogID.NETWORK);
 				message.WriteDelimitedTo(networkStream);
 			}
 			catch (Exception)

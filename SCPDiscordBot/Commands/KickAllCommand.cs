@@ -26,7 +26,6 @@ namespace SCPDiscord.Commands
 			};
 			MessageScheduler.CacheInteraction(command);
 			await NetworkSystem.SendMessage(message, command);
-			Logger.Debug("Sending KickallCommand to plugin from @" + command.Member?.Username, LogID.DISCORD);
 		}
 	}
 }
