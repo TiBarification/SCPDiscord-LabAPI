@@ -245,12 +245,12 @@ namespace SCPDiscord
 
 			        if (!File.Exists(Config.GetMutesPath()))
 			        {
-				        Logger.Info("Mute file " + Config.GetMutesPath() + "does not exist, creating...");
+				        Logger.Info("Mute file \"" + Config.GetMutesPath() + "\" does not exist, creating...");
 				        File.WriteAllText(Config.GetMutesPath(), "{}");
 			        }
 			        fileWatcher = new Utilities.FileWatcher(Config.GetMutesDir(), "mutes.json", Reload);
 			        muteCache = JsonConvert.DeserializeObject<ConcurrentDictionary<ulong, MuteEntry>>(File.ReadAllText(Config.GetMutesPath()));
-			        Logger.Debug("Successfully loaded '" + Config.GetMutesPath() + "'.");
+			        Logger.Debug("Reloaded \"" + Config.GetMutesPath() + "\".");
 		        }
 		        catch (Exception e)
 		        {
@@ -260,13 +260,13 @@ namespace SCPDiscord
 					        Logger.Error("Mute file directory not found.");
 					        break;
 				        case UnauthorizedAccessException _:
-					        Logger.Error("Mute file '" + Config.GetMutesPath() + "' access denied.");
+					        Logger.Error("Mute file \"" + Config.GetMutesPath() + "\" access denied.");
 					        break;
 				        case FileNotFoundException _:
-					        Logger.Error("Mute file '" + Config.GetMutesPath() + "' was not found.");
+					        Logger.Error("Mute file \"" + Config.GetMutesPath() + "\" was not found.");
 					        break;
 				        case JsonReaderException _:
-					        Logger.Error("Mute file '" + Config.GetMutesPath() + "' formatting error.");
+					        Logger.Error("Mute file \"" + Config.GetMutesPath() + "\" formatting error.");
 					        break;
 				        default:
 					        Logger.Error("Error reading mute file '" + Config.GetMutesPath() + "'.");
@@ -288,7 +288,7 @@ namespace SCPDiscord
 		        }
 		        catch (Exception e)
 		        {
-			        Logger.Error("Failed writing to mute file '" + Config.GetMutesPath() + "'.");
+			        Logger.Error("Failed writing to mute file \"" + Config.GetMutesPath() + "\".");
 			        Logger.Error(e.ToString());
 			        return false;
 		        }

@@ -225,7 +225,7 @@ namespace SCPDiscord
 				if (!File.Exists(Config.GetLanguageDir() + language.Key + ".yml") || (Config.GetBool("settings.regeneratelanguagefiles")
 				                                                                      && language.Key != "overrides" && language.Key != "emote-overrides"))
 				{
-					Logger.Debug("Creating file " + Config.GetLanguageDir() + language.Key + ".yml...");
+					Logger.Debug("Creating file \"" + Config.GetLanguageDir() + language.Key + ".yml\"...");
 					try
 					{
 						File.WriteAllText((Config.GetLanguageDir() + language.Key + ".yml"), language.Value);
@@ -245,9 +245,9 @@ namespace SCPDiscord
 		{
 			try
 			{
-				Logger.Info("Loading " + type + " file...");
+				Logger.Debug("Loading " + type + " file...");
 				dataObject = Utilities.LoadYamlFile(Config.GetLanguageDir() + language + ".yml");
-                Logger.Info("Successfully loaded " + type + " file '" + Config.GetLanguageDir() + language + ".yml'.");
+                Logger.Info("Loaded " + type + " file \"" + Config.GetLanguageDir() + language + ".yml\".");
 			}
 			catch (Exception e)
 			{
@@ -257,17 +257,17 @@ namespace SCPDiscord
 						Logger.Error("Language directory not found.");
 						break;
 					case UnauthorizedAccessException _:
-						Logger.Error("Language file '" + Config.GetLanguageDir() + language + ".yml' access denied.");
+						Logger.Error("Language file \"" + Config.GetLanguageDir() + language + ".yml\" access denied.");
 						break;
 					case FileNotFoundException _:
-						Logger.Error("Language file '" + Config.GetLanguageDir() + language + ".yml' was not found.");
+						Logger.Error("Language file \"" + Config.GetLanguageDir() + language + ".yml\" was not found.");
 						break;
 					case JsonReaderException _:
 					case YamlException _:
-						Logger.Error("Language file '" + Config.GetLanguageDir() + language + ".yml' formatting error.");
+						Logger.Error("Language file \"" + Config.GetLanguageDir() + language + ".yml\" formatting error.");
 						break;
 					default:
-						Logger.Error("Error reading language file '" + Config.GetLanguageDir() + language + ".yml'.");
+						Logger.Error("Error reading language file \"" + Config.GetLanguageDir() + language + ".yml\".");
 						break;
 				}
 				Logger.Error(e.ToString());
@@ -322,7 +322,7 @@ namespace SCPDiscord
 
 			if (valid)
 			{
-				Logger.Info("No language errors.\n");
+				Logger.Info("No language errors.");
 			}
 		}
 
@@ -353,7 +353,7 @@ namespace SCPDiscord
 				// This exception means the node does not exist in the language file, the plugin attempts to find it in the backup file
 				if (primaryException is NullReferenceException || primaryException is ArgumentNullException || primaryException is InvalidCastException || primaryException is JsonException)
 				{
-					Logger.Warn("Error reading string '" + path + "' from primary language file, switching to backup...");
+					Logger.Warn("Error reading string \"" + path + "\" from primary language file, switching to backup...");
 					try
 					{
 						return backup.SelectToken(path).Value<string>();
@@ -361,12 +361,12 @@ namespace SCPDiscord
 					// The node also does not exist in the backup file
 					catch (NullReferenceException)
 					{
-						Logger.Error("Error: Language string '" + path + "' does not exist. Message can not be sent.");
+						Logger.Error("Error: Language string \"" + path + "\" does not exist. Message can not be sent.");
 						return null;
 					}
 					catch (ArgumentNullException)
 					{
-						Logger.Error("Error: Language string '" + path + "' does not exist. Message can not be sent.");
+						Logger.Error("Error: Language string \"" + path + "\" does not exist. Message can not be sent.");
 						return null;
 					}
 					catch (InvalidCastException e)
@@ -397,7 +397,7 @@ namespace SCPDiscord
 		{
 			if (primary == null && backup == null)
 			{
-				Logger.Warn("Tried to read regex dictionary '" + path + "' before loading languages.");
+				Logger.Warn("Tried to read regex dictionary \"" + path + "\" before loading languages.");
 				return new Dictionary<string, string>();
 			}
 
@@ -455,7 +455,7 @@ namespace SCPDiscord
 				throw;
 			}
 
-			Logger.Warn("Error: Language regex dictionary '" + path + "' does not exist in language file.");
+			Logger.Warn("Error: Language regex dictionary \"" + path + "\" does not exist in language file.");
 			return new Dictionary<string, string>();
 		}
 
@@ -463,7 +463,7 @@ namespace SCPDiscord
 		{
 			if (primary == null && backup == null)
 			{
-				Logger.Warn("Tried to read cancel regex array '" + path + "' before loading languages.");
+				Logger.Warn("Tried to read cancel regex array \"" + path + "\" before loading languages.");
 				return new List<string>();
 			}
 
@@ -518,7 +518,7 @@ namespace SCPDiscord
 				throw;
 			}
 
-			Logger.Warn("Error: Language cancel regex array '" + path + "' does not exist in language file.");
+			Logger.Warn("Error: Language cancel regex array \"" + path + "\" does not exist in language file.");
 			return new List<string>();
 		}
 
@@ -541,12 +541,12 @@ namespace SCPDiscord
 			}
 			catch (NullReferenceException)
 			{
-				Logger.Warn("Emote string '" + path + "' does not exist.");
+				Logger.Warn("Emote string \"" + path + "\" does not exist.");
 				return "";
 			}
 			catch (ArgumentNullException)
 			{
-				Logger.Warn("Emote string '" + path + "' does not exist.");
+				Logger.Warn("Emote string \"" + path + "\" does not exist.");
 				return "";
 			}
 			catch (InvalidCastException e)

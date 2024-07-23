@@ -121,7 +121,7 @@ namespace SCPDiscord
 					whitelistWatcher = new Utilities.FileWatcher(ConfigSharing.Paths[2], "UserIDWhitelist.txt", WhiteList.Reload);
 				}
 
-				Logger.Info("Successfully loaded config '" + Config.GetConfigPath() + "'.");
+				Logger.Info("Loaded config \"" + Config.GetConfigPath() + "\".");
 				return true;
 			}
 			catch (Exception e)
@@ -135,19 +135,19 @@ namespace SCPDiscord
 						Logger.Error("Config file access denied.");
 						break;
 					case FileNotFoundException _:
-						Logger.Error("'" + Config.GetConfigPath() + "' was not found.");
+						Logger.Error("\"" + Config.GetConfigPath() + "\" was not found.");
 						break;
 					case JsonReaderException jsonEx:
-						Logger.Error("'" + Config.GetConfigPath() + "' formatting error:\n" + jsonEx.Message);
+						Logger.Error("\"" + Config.GetConfigPath() + "\" formatting error:\n" + jsonEx.Message);
 						break;
 					case YamlException yamlEx:
-						Logger.Error("'" + Config.GetConfigPath() + "' formatting error:\n" + yamlEx.Message);
+						Logger.Error("\"" + Config.GetConfigPath() + "\" formatting error:\n" + yamlEx.Message);
 						break;
 					case Config.ConfigParseException _:
-						Logger.Error("Formatting issue in config file '" + Config.GetConfigPath() + "'. Aborting startup.");
+						Logger.Error("Formatting issue in config file \"" + Config.GetConfigPath() + "\". Aborting startup.");
 						break;
 					default:
-						Logger.Error("Error reading config file '" + Config.GetConfigPath() + "'. Aborting startup.\n" + e);
+						Logger.Error("Error reading config file \"" + Config.GetConfigPath() + "\". Aborting startup.\n" + e);
 						break;
 				}
 			}

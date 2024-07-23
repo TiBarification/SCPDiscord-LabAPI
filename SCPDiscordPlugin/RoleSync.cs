@@ -29,7 +29,7 @@ namespace SCPDiscord
 
 			if (!File.Exists(Config.GetRolesyncPath()))
 			{
-				Logger.Info("Rolesync file " + Config.GetRolesyncPath() + " does not exist, creating...");
+				Logger.Info("Rolesync file \"" + Config.GetRolesyncPath() + "\" does not exist, creating...");
 				File.WriteAllText(Config.GetRolesyncPath(), "{}");
 			}
 
@@ -41,7 +41,7 @@ namespace SCPDiscord
 			{
 				try
 				{
-					Logger.Warn("Could not read rolesync file '" + Config.GetRolesyncPath() + "', attempting to convert file from old format...");
+					Logger.Warn("Could not read rolesync file \"" + Config.GetRolesyncPath() + "\", attempting to convert file from old format...");
 					syncedPlayers = JArray.Parse(File.ReadAllText(Config.GetRolesyncPath())).ToDictionary(
 						k => ((JObject)k).Properties().First().Name,
 						v => v.Values().First().Value<ulong>());
@@ -49,14 +49,14 @@ namespace SCPDiscord
 				}
 				catch (Exception e)
 				{
-					Logger.Error("Could not read rolesync file '" + Config.GetRolesyncPath() + "', check the file formatting and try again.");
+					Logger.Error("Could not read rolesync file \"" + Config.GetRolesyncPath() + "\", check the file formatting and try again.");
 					Logger.Debug("Error: " + e);
 					throw;
 				}
 			}
 
 			fileWatcher = new Utilities.FileWatcher(Config.GetRolesyncDir(), "rolesync.json", Reload);
-			Logger.Debug("Successfully loaded '" + Config.GetRolesyncPath() + "'.");
+			Logger.Debug("Reloaded \"" + Config.GetRolesyncPath() + "\".");
 		}
 
 		private static void SavePlayers()

@@ -44,8 +44,12 @@ settings:
     # You can set it to "HH:mm:ss" for a simple timestamp.
     timestamp: ""
 
-    # Whether the plugin should send debug information in the console.
+    # Whether the plugin should show debug information in the console.
     debug: false
+
+    # Log file path, set to empty to disable log file.
+    # The log file always includes debug messages regardless of the debug setting.
+    logfile: ""
 
     # Turns on the config validation which shows the values after they have been read by the plugin so you can see they are correct.
     # You can turn this off when you get everything working.
@@ -83,12 +87,10 @@ settings:
 # player-id
 # player-name
 # player-ipaddress
-# player-role
-# player-team
 # discord-displayname
 # discord-username
 # discord-userid
-# There are some more player variables you can use here but they are mostly irrelevant, check the list in APIExtensions.cs on GitHub for the full list.
+# There are some more player variables you can use here, but they are mostly irrelevant, check the list in APIExtensions.cs on GitHub for the full list.
 rolesync:
     - "add-role-id-here":
         - "scpd grantvanillarank <var:player-userid> moderator"

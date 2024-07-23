@@ -28,6 +28,7 @@ namespace SCPDiscord
 			{ "bot.status.empty",    ""          },
 			{ "bot.status.full",     ""          },
 			{ "settings.language",   "english"   },
+			{ "settings.logfile",    ""          },
 			{ "settings.timestamp",  ""          }
 		};
 
@@ -252,7 +253,7 @@ namespace SCPDiscord
 
 			if (!File.Exists(GetConfigPath()))
 			{
-				Logger.Info("Config file '" + GetConfigPath() + "' does not exist, creating...");
+				Logger.Info("Config file \"" + GetConfigPath() + "\" does not exist, creating...");
 				File.WriteAllText(GetConfigPath(), Utilities.ReadManifestData("config.yml"));
 			}
 
@@ -386,6 +387,7 @@ namespace SCPDiscord
 				ValidateConfig(plugin);
 			}
 
+			Logger.SetupLogfile(GetString("settings.logfile"));
 			ready = true;
 		}
 
@@ -542,7 +544,7 @@ namespace SCPDiscord
 		public static void ValidateConfig(SCPDiscord plugin)
 		{
 			StringBuilder sb = new StringBuilder();
-			sb.Append("\n||||||||||||| SCPDISCORD CONFIG VALIDATOR ||||||||||||||\n");
+			sb.Append("||||||||||||| SCPDISCORD CONFIG VALIDATOR ||||||||||||||\n");
 			sb.Append("------------ Config strings ------------\n");
 			foreach (KeyValuePair<string, string> node in configStrings)
 			{

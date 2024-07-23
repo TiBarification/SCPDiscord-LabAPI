@@ -72,11 +72,11 @@ namespace SCPDiscord
 
 		        if (playtimeData == null)
 		        {
-			        Logger.Warn("Failed loading '" + Config.GetPlaytimePath() + "'.");
+			        Logger.Error("Failed loading \"" + Config.GetPlaytimePath() + "\".");
 		        }
 		        else
 		        {
-			        Logger.Debug("Successfully loaded '" + Config.GetPlaytimePath() + "'.");
+			        Logger.Debug("Reloaded \"" + Config.GetPlaytimePath() + "\".");
 		        }
 
 	        }
