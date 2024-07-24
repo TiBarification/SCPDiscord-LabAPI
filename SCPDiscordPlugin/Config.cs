@@ -308,7 +308,7 @@ namespace SCPDiscord
 			}
 
 			// Read config bools
-			foreach (KeyValuePair<string, bool> node in configBools.ToList().Where(kvm => kvm.Key != "settings.configvalidation"))
+			foreach (KeyValuePair<string, bool> node in configBools.ToList())
 			{
 				try
 				{
