@@ -77,6 +77,7 @@ namespace SCPDiscord
             {
                 if (string.IsNullOrWhiteSpace(path))
                 {
+                    startupCache.Clear();
                     logFileWriter?.Close();
                     logFileWriter = null;
                     return;
