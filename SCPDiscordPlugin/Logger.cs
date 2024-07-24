@@ -56,7 +56,6 @@ namespace SCPDiscord
 
                 if (logFileWriter == null)
                 {
-                    Log.Error("Error writing to log file: log file not open.");
                     return;
                 }
 
