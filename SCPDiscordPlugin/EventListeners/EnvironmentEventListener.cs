@@ -153,6 +153,7 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent]
         public void OnPlayerUnlockGenerator(PlayerUnlockGeneratorEvent ev)
         {
+	        if (ev.Player == null) return;
         	Dictionary<string, string> variables = new Dictionary<string, string>
         	{
         		{ "engaged",    ev.Generator.Engaged.ToString() },
@@ -166,6 +167,7 @@ namespace SCPDiscord.EventListeners
         [PluginEvent]
         public void OnPlayerOpenGenerator(PlayerOpenGeneratorEvent ev)
         {
+	        if (ev.Player == null) return;
         	Dictionary<string, string> variables = new Dictionary<string, string>
         	{
         		{ "engaged",    ev.Generator.Engaged.ToString() },
@@ -179,6 +181,8 @@ namespace SCPDiscord.EventListeners
         [PluginEvent]
         public void OnPlayerCloseGenerator(PlayerCloseGeneratorEvent ev)
         {
+	        if (ev.Player == null) return;
+
         	Dictionary<string, string> variables = new Dictionary<string, string>
         	{
         		{ "engaged",    ev.Generator.Engaged.ToString() },
@@ -192,6 +196,8 @@ namespace SCPDiscord.EventListeners
         [PluginEvent]
         public void OnPlayerActivateGenerator(PlayerActivateGeneratorEvent ev)
         {
+	        if (ev.Player == null) return;
+
         	Dictionary<string, string> variables = new Dictionary<string, string>
         	{
         		{ "engaged",    ev.Generator.Engaged.ToString() },
@@ -205,6 +211,8 @@ namespace SCPDiscord.EventListeners
         [PluginEvent]
         public void OnPlayerDeactivatedGenerator(PlayerDeactivatedGeneratorEvent ev)
         {
+	        if (ev.Player == null) return;
+
         	Dictionary<string, string> variables = new Dictionary<string, string>
         	{
         		{ "engaged",    ev.Generator.Engaged.ToString() },
@@ -234,6 +242,8 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent]
         public void OnPlaceBlood(PlaceBloodEvent ev)
         {
+	        if (ev.Player == null) return;
+
             Dictionary<string, string> variables = new Dictionary<string, string> { };
             variables.AddPlayerVariables(ev.Player, "player");
             plugin.SendMessage("messages.onplaceblood", variables);
@@ -242,11 +252,13 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent]
         public void OnPlayerInteractLocker(PlayerInteractLockerEvent ev)
         {
+	        if (ev.Player == null) return;
+
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "chamber", ev.Chamber.ToString() },
                 { "room",    ev.Chamber.GetComponentInParent<RoomIdentifier>().Name.ToString() },
-				{ "canOpen", ev.CanOpen.ToString() }
+				{ "canopen", ev.CanOpen.ToString() }
             };
             variables.AddPlayerVariables(ev.Player, "player");
             plugin.SendMessage("messages.onplayerinteractlocker", variables);
@@ -255,6 +267,8 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent]
         public void OnPlayerInteractShootingTarget(PlayerInteractShootingTargetEvent ev)
         {
+	        if (ev.Player == null) return;
+
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "target", ev.ShootingTarget.ToString() },

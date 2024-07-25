@@ -1100,7 +1100,7 @@ messages:
   onplayerinteractlocker:
     # chamber - Structure
     # room - RoomType
-    # canOpen - bool
+    # canopen - bool
     # player - Player
     message: "<var:player-name> (<var:player-userid>) interacted with <var:chamber> in <var:room>."
     regex: []
