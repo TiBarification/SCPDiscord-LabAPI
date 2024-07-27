@@ -145,7 +145,7 @@ namespace SCPDiscord.EventListeners
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
 			{
-				{ "room", ev.Generator.GetComponentInParent<RoomIdentifier>().Name.ToString() },
+				{ "room", ev.Generator?.GetComponentInParent<RoomIdentifier>()?.Name.ToString() },
 			};
 			plugin.SendMessage("messages.ongeneratorfinish", variables);
 		}
@@ -156,9 +156,9 @@ namespace SCPDiscord.EventListeners
 	        if (ev.Player == null) return;
         	Dictionary<string, string> variables = new Dictionary<string, string>
         	{
-        		{ "engaged",    ev.Generator.Engaged.ToString() },
-        		{ "activating", ev.Generator.Activating.ToString() },
-        		{ "room",       ev.Generator.GetComponentInParent<RoomIdentifier>().Name.ToString() },
+        		{ "engaged",    ev.Generator?.Engaged.ToString() },
+        		{ "activating", ev.Generator?.Activating.ToString() },
+        		{ "room",       ev.Generator?.GetComponentInParent<RoomIdentifier>()?.Name.ToString() },
         	};
 	        variables.AddPlayerVariables(ev.Player, "player");
         	plugin.SendMessage("messages.ongeneratorunlock", variables);
@@ -170,9 +170,9 @@ namespace SCPDiscord.EventListeners
 	        if (ev.Player == null) return;
         	Dictionary<string, string> variables = new Dictionary<string, string>
         	{
-        		{ "engaged",    ev.Generator.Engaged.ToString() },
-        		{ "activating", ev.Generator.Activating.ToString() },
-        		{ "room",       ev.Generator.GetComponentInParent<RoomIdentifier>().Name.ToString() },
+        		{ "engaged",    ev.Generator?.Engaged.ToString() },
+        		{ "activating", ev.Generator?.Activating.ToString() },
+        		{ "room",       ev.Generator?.GetComponentInParent<RoomIdentifier>()?.Name.ToString() },
         	};
 	        variables.AddPlayerVariables(ev.Player, "player");
         	plugin.SendMessage("messages.ongeneratoropen", variables);
@@ -185,9 +185,9 @@ namespace SCPDiscord.EventListeners
 
         	Dictionary<string, string> variables = new Dictionary<string, string>
         	{
-        		{ "engaged",    ev.Generator.Engaged.ToString() },
-        		{ "activating", ev.Generator.Activating.ToString() },
-        		{ "room",       ev.Generator.GetComponentInParent<RoomIdentifier>().Name.ToString() },
+        		{ "engaged",    ev.Generator?.Engaged.ToString() },
+        		{ "activating", ev.Generator?.Activating.ToString() },
+        		{ "room",       ev.Generator?.GetComponentInParent<RoomIdentifier>()?.Name.ToString() },
         	};
 	        variables.AddPlayerVariables(ev.Player, "player");
         	plugin.SendMessage("messages.ongeneratorclose", variables);
@@ -200,9 +200,9 @@ namespace SCPDiscord.EventListeners
 
         	Dictionary<string, string> variables = new Dictionary<string, string>
         	{
-        		{ "engaged",    ev.Generator.Engaged.ToString() },
-        		{ "activating", ev.Generator.Activating.ToString() },
-        		{ "room",       ev.Generator.GetComponentInParent<RoomIdentifier>().Name.ToString() },
+        		{ "engaged",    ev.Generator?.Engaged.ToString() },
+        		{ "activating", ev.Generator?.Activating.ToString() },
+        		{ "room",       ev.Generator?.GetComponentInParent<RoomIdentifier>()?.Name.ToString() },
         	};
 	        variables.AddPlayerVariables(ev.Player, "player");
         	plugin.SendMessage("messages.ongeneratoractivated", variables);
@@ -215,9 +215,9 @@ namespace SCPDiscord.EventListeners
 
         	Dictionary<string, string> variables = new Dictionary<string, string>
         	{
-        		{ "engaged",    ev.Generator.Engaged.ToString() },
-        		{ "activating", ev.Generator.Activating.ToString() },
-        		{ "room",       ev.Generator.GetComponentInParent<RoomIdentifier>().Name.ToString() },
+        		{ "engaged",    ev.Generator?.Engaged.ToString() },
+        		{ "activating", ev.Generator?.Activating.ToString() },
+        		{ "room",       ev.Generator?.GetComponentInParent<RoomIdentifier>()?.Name.ToString() },
         	};
 			variables.AddPlayerVariables(ev.Player, "player");
         	plugin.SendMessage("messages.ongeneratordeactivated", variables);
@@ -254,10 +254,11 @@ namespace SCPDiscord.EventListeners
         {
 	        if (ev.Player == null) return;
 
+	        Logger.Warn("Room: " + ev.Chamber?.GetComponentInParent<RoomIdentifier>()?.Name.ToString());
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
-                { "chamber", ev.Chamber.ToString() },
-                { "room",    ev.Chamber.GetComponentInParent<RoomIdentifier>().Name.ToString() },
+                { "chamber", ev.Chamber?.ToString() },
+                { "room",    ev.Chamber?.GetComponentInParent<RoomIdentifier>()?.Name.ToString() },
 				{ "canopen", ev.CanOpen.ToString() }
             };
             variables.AddPlayerVariables(ev.Player, "player");
