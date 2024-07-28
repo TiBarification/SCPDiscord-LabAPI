@@ -254,7 +254,6 @@ namespace SCPDiscord.EventListeners
         {
 	        if (ev.Player == null) return;
 
-	        Logger.Warn("Room: " + ev.Chamber?.GetComponentInParent<RoomIdentifier>()?.Name.ToString());
             Dictionary<string, string> variables = new Dictionary<string, string>
             {
                 { "chamber", ev.Chamber?.ToString() },
