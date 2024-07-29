@@ -343,7 +343,16 @@ namespace SCPDiscord
 			{
 				return;
 			}
-			previousActivityPlayerCount = Player.Count;
+
+			// Don't block updates if the server hasn't loaded the max player count yet
+			if (Server.MaxPlayers <= 0)
+			{
+				previousActivityPlayerCount = -1;
+			}
+			else
+			{
+				previousActivityPlayerCount = Player.Count;
+			}
 
 			// Update player count
 			Dictionary<string, string> variables = new Dictionary<string, string>
