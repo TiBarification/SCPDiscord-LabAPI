@@ -22,6 +22,12 @@ namespace SCPDiscord
 	{
 		public ProcessMessageAsync(string messagePath, Dictionary<string, string> variables)
 		{
+			List<ulong> channelIDs = Config.GetChannelIDs(messagePath);
+			if (channelIDs.Count == 0)
+			{
+				return;
+			}
+
 			string processedMessage = Language.GetProcessedMessage(messagePath, variables);
 
 			// Add time stamp
@@ -30,7 +36,7 @@ namespace SCPDiscord
 				processedMessage = "[" + DateTime.Now.ToString(Config.GetString("settings.timestamp")) + "]: " + processedMessage;
 			}
 
-			foreach (ulong channelID in Config.GetChannelIDs(messagePath))
+			foreach (ulong channelID in channelIDs)
 			{
 				MessageWrapper wrapper = new MessageWrapper
 				{
@@ -74,6 +80,12 @@ namespace SCPDiscord
 	{
 		public ProcessEmbedMessageAsync(EmbedMessage embed, string messagePath, Dictionary<string, string> variables)
 		{
+			List<ulong> channelIDs = Config.GetChannelIDs(messagePath);
+			if (channelIDs.Count == 0)
+			{
+				return;
+			}
+
 			string processedMessage = Language.GetProcessedMessage(messagePath, variables);
 			embed.Description = processedMessage;
 
@@ -83,7 +95,7 @@ namespace SCPDiscord
 				embed.Timestamp = DateTimeOffset.Now.ToUnixTimeSeconds();
 			}
 
-			foreach (ulong channelID in Config.GetChannelIDs(messagePath))
+			foreach (ulong channelID in channelIDs)
 			{
 				// Create copy to avoid pointer issues
 				EmbedMessage embedCopy = new EmbedMessage(embed)
