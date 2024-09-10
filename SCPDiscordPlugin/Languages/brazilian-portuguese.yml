@@ -322,7 +322,7 @@ messages:
     cancel_regex: []
 
   onroundrestart:
-    message: "**Partidfa está reiniciando...**"
+    message: "**Partida está reiniciando...**"
     regex: []
     cancel_regex: []
 
@@ -434,7 +434,7 @@ messages:
       message: "<var:target-name> (<var:target-userid>) foi morto por <var:attacker-name> (<var:attacker-userid>) usando <var:damagetype>."
       regex: ["using UNKNOWN":"usando meios desconhecidos"]
     friendlyfire:
-      message: "**<var:target-team> <var:target-name> (<var:target-userid>) foi morto pelo aliado da <var:attacker-team> <var:attacker-name> (<var:attacker-userid>) usando <var:damagetype>.**"
+      message: "**<var:target-team> <var:target-name> (<var:target-userid>) foi morto pelo aliado <var:attacker-team> <var:attacker-name> (<var:attacker-userid>) usando <var:damagetype>.**"
       regex: ["using UNKNOWN":"usando meios desconhecidos"]
     nokiller:
       message: "<var:target-name> (<var:target-userid>) morreu por <var:damagetype>."
@@ -875,7 +875,7 @@ messages:
       # reason - string
       # player - Player
       # issuer - Player
-      message: "**Player <var:player-name> (<var:player-userid>) foi banido por <var:issuer-name> (<var:issuer-userid>) por `<var:duration>`. Razão: <var:reason>**"
+      message: "**Jogador <var:player-name> (<var:player-userid>) foi banido por <var:issuer-name> (<var:issuer-userid>) por `<var:duration>`. Razão: <var:reason>**"
       regex: [ ]
     server:
       # duration - int
@@ -886,7 +886,7 @@ messages:
       # player-userid - string
       # playerclass - Role
       # playerteam - Team
-      message: "**Player <var:player-name> (<var:player-userid>) foi banido pelo servidor por `<var:duration>`. Razão: <var:reason>**"
+      message: "**Jogador <var:player-name> (<var:player-userid>) foi banido pelo servidor por `<var:duration>`. Razão: <var:reason>**"
       regex: []
       cancel_regex: []
 
@@ -1485,7 +1485,7 @@ messages:
         **Informação de Jogador - <var:discordmention>**
         ```
         Ativo:          Sim\n
-        Naome:            <var:player-name>\n
+        Nome:            <var:player-name>\n
         ID da Steam:         <var:player-userid>\n
         IP:              <var:player-ipaddress>\n
         Tempo de Jogo:        <var:player-playtimehours> horas\n
@@ -1523,14 +1523,14 @@ messages:
       # discord-username - string
       # discord-userid - int
       message: >+
-        **Player Information - <var:discordmention>**
+        **Informação de Jogador - <var:discordmention>**
         ```
-        Ativo:         No\n
+        Ativo:         Não\n
         Nome:           <var:name>\n
         ID da Steam:        <var:userid>\n
-        Tempo de Jogo:       <var:playtimehours> hours\n
-        Silenciado:          <var:mutestatus> (Reason: <var:mutereason>)\n
-        Banido:         <var:banstatus> (Reason: <var:banreason>)\n
+        Tempo de Jogo:       <var:playtimehours> horas\n
+        Silenciado:          <var:mutestatus> (Razão: <var:mutereason>)\n
+        Banido:         <var:banstatus> (Razão: <var:banreason>)\n
         Vaga Reservada:  replaceYesNo<var:hasreservedslot>\n
         Discord Sincronizado: replaceYesNo<var:issynced>
         ```
