@@ -481,7 +481,7 @@ messages:
   onnicknameset:
     # nickname - string
     # player - Player
-    message: "Player '<var:player-name> (<var:player-userid>)' definiu seu apelido para <var:nickname>."
+    message: "Jogador '<var:player-name> (<var:player-userid>)' definiu seu apelido para <var:nickname>."
     regex: []
     cancel_regex: []
 
