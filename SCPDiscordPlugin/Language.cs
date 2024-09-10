@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using PluginAPI.Core;
 using YamlDotNet.Core;
+using YamlDotNet.Serialization;
 
 namespace SCPDiscord
 {
@@ -64,6 +65,7 @@ namespace SCPDiscord
 			LoadLanguageFile("emotes", "emote", out emotes);
 			LoadLanguageFile("emote-overrides", "emote overrides", out emoteOverrides);
 			ValidateLanguageStrings();
+			PrintLanguageCoverage();
 
 			ready = true;
 		}
@@ -323,6 +325,49 @@ namespace SCPDiscord
 			if (valid)
 			{
 				Logger.Info("No language errors.");
+			}
+		}
+
+		internal static void PrintLanguageCoverage()
+		{
+
+			foreach (KeyValuePair<string, string> lang in defaultLanguages)
+			{
+				if (lang.Key.Contains("overrides") || lang.Key.Contains("emote"))
+				{
+					continue;
+				}
+
+				// Converts the FileStream into a YAML Dictionary object
+				IDeserializer deserializer = new DeserializerBuilder().Build();
+				object yamlObject = deserializer.Deserialize(new StringReader(lang.Value));
+
+				// Converts the YAML Dictionary into JSON String
+				ISerializer serializer = new SerializerBuilder().JsonCompatible().Build();
+
+				if (yamlObject == null)
+				{
+					Logger.Error("Could not deserialize YAML: '" + lang.Key + "'. Is it a valid YAML file?");
+					continue;
+				}
+
+				string jsonString = serializer.Serialize(yamlObject);
+				JObject language = JObject.Parse(jsonString);
+
+				int workingNodes = 0;
+				foreach (string node in Config.languageNodes)
+				{
+					try
+					{
+						if (language.SelectToken(node + ".message")?.Value<string>() != null)
+						{
+							++workingNodes;
+						}
+					}
+					catch (Exception) { /* ignore */ }
+				}
+
+				Logger.Info((lang.Key + ": ").PadRight(45) + (Math.Round((float)workingNodes / Config.languageNodes.Count * 100) + "%").PadLeft(5) + " (" + workingNodes + "/" + Config.languageNodes.Count + " nodes)");
 			}
 		}
 
