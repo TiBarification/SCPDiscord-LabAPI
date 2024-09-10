@@ -402,14 +402,14 @@ messages:
     # playerclass - Role
     # playerteam - Team
     default:
-      message: "<var:target-name> (<var:target-userid>) was hurt by <var:attacker-name> (<var:attacker-userid>) using <var:damagetype> (<var:damage> hp)."
-      regex: ["using UNKNOWN":"using unknown means", "-1 damage":"immense damage"]
+      message: "<var:target-name> (<var:target-userid>) foi ferido por <var:attacker-name> (<var:attacker-userid>) usando <var:damagetype> (<var:damage> hp)."
+      regex: ["using UNKNOWN":"usando meios desconhecidos", "-1 de dano":"dano imenso"]
     friendlyfire:
-      message: "**<var:target-team> <var:target-name> (<var:target-userid>) was attacked by teammate <var:attacker-team> <var:attacker-name> (<var:attacker-userid>) using <var:damagetype> (<var:damage> hp).**"
-      regex: ["using UNKNOWN":"using unknown means", "-1 damage":"immense damage"]
+      message: "**<var:target-team> <var:target-name> (<var:target-userid>) foi atacado por um aliado <var:attacker-team> <var:attacker-name> (<var:attacker-userid>) usando <var:damagetype> (<var:damage> hp).**"
+      regex: ["using UNKNOWN":"usando meios desconhecidos", "-1 de dano":"dano imenso"]
     noattacker:
-      message: "<var:target-name> (<var:target-userid>) took <var:damage> damage by <var:damagetype>."
-      regex: ["damage by UNKNOWN":"damage from unknown causes", "-1 damage":"immense damage"]
+      message: "<var:target-name> (<var:target-userid>) levou <var:damage> de dano por <var:damagetype>."
+      regex: ["damage by UNKNOWN":"dano por causas desconhecidas", "-1 de dano":"dano imenso"]
 
   onplayerdie:
     # damagetype - DamageType
@@ -421,46 +421,46 @@ messages:
     # playerclass - Role
     # playerteam - Team
     default:
-      message: "<var:target-name> (<var:target-userid>) was killed by <var:attacker-name> (<var:attacker-userid>) using <var:damagetype>."
-      regex: ["using UNKNOWN":"using unknown means"]
+      message: "<var:target-name> (<var:target-userid>) foi morto por <var:attacker-name> (<var:attacker-userid>) usando <var:damagetype>."
+      regex: ["using UNKNOWN":"usando meios desconhecidos"]
     friendlyfire:
-      message: "**<var:target-team> <var:target-name> (<var:target-userid>) was teamkilled by <var:attacker-team> <var:attacker-name> (<var:attacker-userid>) using <var:damagetype>.**"
-      regex: ["using UNKNOWN":"using unknown means"]
+      message: "**<var:target-team> <var:target-name> (<var:target-userid>) foi morto pelo aliado da <var:attacker-team> <var:attacker-name> (<var:attacker-userid>) usando <var:damagetype>.**"
+      regex: ["using UNKNOWN":"usando meios desconhecidos"]
     nokiller:
-      message: "<var:target-name> (<var:target-userid>) died by <var:damagetype>."
-      regex: ["died by UNKNOWN":"died in an unknown way"]
+      message: "<var:target-name> (<var:target-userid>) morreu por <var:damagetype>."
+      regex: ["died by UNKNOWN":"morreu de uma forma desconhecida"]
 
   onplayerpickupitem:
     # item - Item
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) picked up <var:item>."
+    message: "<var:player-name> (<var:player-userid>) pegou <var:item>."
     regex: []
     cancel_regex: []
 
   onplayerpickupammo:
     # ammo - Item
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) picked up <var:ammo>."
+    message: "<var:player-name> (<var:player-userid>) pegou <var:ammo>."
     regex: []
     cancel_regex: []
 
   onplayerpickuparmor:
     # item - Item
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) picked up <var:armor>."
+    message: "<var:player-name> (<var:player-userid>) pegou <var:armor>."
     regex: []
     cancel_regex: []
 
   onplayerpickupscp330:
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) picked up SCP-330."
+    message: "<var:player-name> (<var:player-userid>) pegou SCP-330."
     regex: []
     cancel_regex: []
 
   onplayerdropitem:
     # item - Item
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) dropped <var:item>."
+    message: "<var:player-name> (<var:player-userid>) descartou <var:item>."
     regex: []
     cancel_regex: []
 
@@ -468,20 +468,20 @@ messages:
     # ammo - Item
     # amount - int
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) dropped <var:amount> <var:ammo>."
+    message: "<var:player-name> (<var:player-userid>) descartou <var:amount> <var:ammo>."
     regex: []
     cancel_regex: []
 
   onplayerjoin:
     # player - Player
-    message: "**<var:player-name> (<var:player-userid>) joined the game.**"
+    message: "**<var:player-name> (<var:player-userid>) entrou no jogo.**"
     regex: []
     cancel_regex: []
 
   onnicknameset:
     # nickname - string
     # player - Player
-    message: "Player '<var:player-name> (<var:player-userid>)' set their nickname to <var:nickname>."
+    message: "Player '<var:player-name> (<var:player-userid>)' definiu seu apelido para <var:nickname>."
     regex: []
     cancel_regex: []
 
@@ -489,37 +489,37 @@ messages:
     # oldrole - Role
     # player - Player
     roundstart:
-      message: "<var:player-name> (<var:player-userid>) has spawned as a <var:player-role>."
+      message: "<var:player-name> (<var:player-userid>) nasceu como um(a) <var:player-role>."
       regex: [ ]
     latejoin:
-      message: "<var:player-name> (<var:player-userid>) has spawned as a <var:player-role> (Latejoin)."
+      message: "<var:player-name> (<var:player-userid>) nasceu como um(a) <var:player-role> (Latejoin)."
       regex: [ ]
     respawn:
-      message: "<var:player-name> (<var:player-userid>) has respawned as a <var:player-role>."
+      message: "<var:player-name> (<var:player-userid>) nasceu como um(a) <var:player-role>."
       regex: [ ]
     died:
-      message: "<var:player-name> (<var:player-userid>) died and became a <var:player-role>."
+      message: "<var:player-name> (<var:player-userid>) morreu e virou um(a) <var:player-role>."
       regex: [ ]
     escaped:
-      message: "<var:player-name> (<var:player-userid>) has escaped the facility and become a <var:player-role>."
+      message: "<var:player-name> (<var:player-userid>) fugiu da instalação e virou um <var:player-role>."
       regex: [ ]
     revived:
-      message: "<var:player-name> (<var:player-userid>) was revived as an <var:player-role>."
+      message: "<var:player-name> (<var:player-userid>) foi revivido como um(a) <var:player-role>."
       regex: [ ]
     remoteadmin:
-      message: "<var:player-name> (<var:player-userid>) was changed to <var:player-role> via remote admin."
+      message: "<var:player-name> (<var:player-userid>) foi mudado para <var:player-role> através de administração remota."
       regex: [ ]
     left:
-      message: "<var:player-name> (<var:player-userid>) left the server."
+      message: "<var:player-name> (<var:player-userid>) saiu do servidor."
       regex: [ ]
     other:
-      message: "<var:player-name> (<var:player-userid>) has become a <var:player-role>."
+      message: "<var:player-name> (<var:player-userid>) virou um(a) <var:player-role>."
       regex: []
       cancel_regex: []
 
   onspawn:
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) spawned as <var:player-role>."
+    message: "<var:player-name> (<var:player-userid>) nasceu como <var:player-role>."
     regex: []
     cancel_regex: []
 
@@ -531,50 +531,50 @@ messages:
     # open - bool
     # player - Player
     allowed:
-      message: "<var:player-name> (<var:player-userid>) isopen:<var:open> a door (<var:doorname>) requiring \"<var:permission>\" permission."
-      regex: ["isopen:True":"closed", "isopen:False":"opened", " requiring \"\" permission\\.":"."," requiring \"None\" permission\\.":"."]
+      message: "<var:player-name> (<var:player-userid>) isopen:<var:open> uma porta (<var:doorname>) que exigia a permissão \"<var:permission>\"."
+      regex: ["isopen:True":"fechou", "isopen:False":"abriu", " requiring \"\" permission\\.":"."," requiring \"None\" permission\\.":"."]
     denied:
-      message: "<var:player-name> (<var:player-userid>) tried to isopen:<var:open> a locked door (<var:doorname>) requiring \"<var:permission>\" permission."
-      regex: ["isopen:True":"close", "isopen:False":"open"," requiring \"\" permission \\.":"."," requiring \"None\" permission\\.":"."]
+      message: "<var:player-name> (<var:player-userid>) tentou isopen:<var:open> uma porta trancada (<var:doorname>) que exigia a permissão \"<var:permission>\"."
+      regex: ["isopen:True":"fechar", "isopen:False":"abrir"," requiring \"\" permission \\.":"."," requiring \"None\" permission\\.":"."]
 
   onpocketdimensionexit:
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) escaped the SCP-106 pocket dimension."
+    message: "<var:player-name> (<var:player-userid>) escapou da dimensão portátil do SCP-106."
     regex: []
     cancel_regex: []
 
   onpocketdimensionenter:
     # attacker - Player
     # target - Player
-    message: "<var:target-name> (<var:target-userid>) was taken into the SCP-106 pocket dimension by <var:attacker-name> (<var:attacker-userid>)."
+    message: "<var:target-name> (<var:target-userid>) foi levado para dimensão portátil do SCP-106 por <var:attacker-name> (<var:attacker-userid>)."
     regex: []
     cancel_regex: []
 
   onthrowprojectile:
     # type - GrenadeType
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) threw a <var:type>."
+    message: "<var:player-name> (<var:player-userid>) jogou um <var:type>."
     regex: []
     cancel_regex: []
 
   onspawnragdoll:
     # damagetype - string
     # player - Player
-    message: "<var:player-name> (<var:player-userid>)'s <var:player-role> ragdoll spawned."
+    message: "O ragdoll do <var:player-name> (<var:player-userid>) de <var:player-role> nasceu."
     regex: []
     cancel_regex: []
 
   onitemuse:
     # item - string
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) used <var:item>."
+    message: "<var:player-name> (<var:player-userid>) usou <var:item>."
     regex: []
     cancel_regex: []
 
   onelevatoruse:
     # elevatorname - ElevatorType
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) called the <var:elevatorname> elevator."
+    message: "<var:player-name> (<var:player-userid>) chamou o elevador <var:elevatorname>."
     regex: []
     cancel_regex: []
 
@@ -582,12 +582,12 @@ messages:
     # target - Player
     # disarmer - Player
     default:
-      message: "<var:target-role> <var:target-name> (<var:target-userid>) was handcuffed by <var:disarmer-role> <var:disarmer-name> (<var:disarmer-userid>)."
+      message: "<var:target-role> <var:target-name> (<var:target-userid>) foi algemado por <var:disarmer-role> <var:disarmer-name> (<var:disarmer-userid>)."
       regex: []
       cancel_regex: []
     nootherplayer:
       # target - Player
-      message: "<var:target-role> <var:target-name> (<var:target-userid>) was handcuffed."
+      message: "<var:target-role> <var:target-name> (<var:target-userid>) foi algemado."
       regex: []
       cancel_regex: []
 
@@ -595,22 +595,22 @@ messages:
     # target - Player
     # disarmer - Player
     default:
-      message: "<var:target-role> <var:target-name> (<var:target-userid>) was released by <var:disarmer-role> <var:disarmer-name> (<var:disarmer-userid>)."
+      message: "<var:target-role> <var:target-name> (<var:target-userid>) foi solto por <var:disarmer-role> <var:disarmer-name> (<var:disarmer-userid>)."
       regex: []
       cancel_regex: []
     nootherplayer:
-      message: "<var:target-role> <var:target-name> (<var:target-userid>) was released."
+      message: "<var:target-role> <var:target-name> (<var:target-userid>) foi solto."
       regex: []
       cancel_regex: []
 
   onplayertriggertesla:
     # player - Player
     default:
-      message: "<var:player-team> <var:player-name> (<var:player-userid>) activated a tesla gate."
+      message: "<var:player-team> <var:player-name> (<var:player-userid>) ativou um portão de tesla."
       regex: []
       cancel_regex: []
     ignored:
-      message: "<var:player-team> <var:player-name> (<var:player-userid>) went through a tesla gate without activating it."
+      message: "<var:player-team> <var:player-name> (<var:player-userid>) passou por um portão de tesla sem desativá-lo."
       regex: []
       cancel_regex: []
 
@@ -618,21 +618,21 @@ messages:
     # newsetting - KnobSetting
     # oldsetting - KnobSetting
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) set the SCP-914 knob to \"<var:newsetting>\"."
+    message: "<var:player-name> (<var:player-userid>) definiu o botão da SCP-914 para \"<var:newsetting>\"."
     regex: []
     cancel_regex: []
 
   onplayerradioswitch:
     # setting - RadioStatus
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) switched their radio to the <var:setting> status."
+    message: "<var:player-name> (<var:player-userid>) trocou o rádio dele(a) para o status <var:setting>."
     regex: []
     cancel_regex: []
 
   onrecallzombie:
     # target - Player
     # player - Player
-    message: "<var:target-name> (<var:target-userid>) was revived as an SCP-049-2 instance by <var:player-name> (<var:player-userid>)"
+    message: "<var:target-name> (<var:target-userid>) foi revivido como uma instância do SCP-049-2 por <var:player-name> (<var:player-userid>)"
     regex: []
     cancel_regex: []
 
@@ -641,31 +641,31 @@ messages:
       player:
         # command
         # player - Player
-        message: "<var:player-name> (<var:player-userid>) used the command '<var:command>'."
+        message: "<var:player-name> (<var:player-userid>) usou o comando '<var:command>'."
         regex: [ ]
       server:
         # command
-        message: "Server used the command '<var:command>'."
+        message: "Servidor usou o comando '<var:command>'."
         regex: [ ]
     game:
       player:
         # command
         # player - Player
-        message: "<var:player-name> (<var:player-userid>) used the command '<var:command>'."
+        message: "<var:player-name> (<var:player-userid>) usou o comando '<var:command>'."
         regex: [ ]
       server:
         # command
-        message: "Server used the command '<var:command>'."
+        message: "Servidor usou o comando '<var:command>'."
         regex: [ ]
     console:
       player:
         # command
         # player - Player
-        message: "<var:player-name> (<var:player-userid>) used the command '<var:command>'."
+        message: "<var:player-name> (<var:player-userid>) usou o comando '<var:command>'."
         regex: [ ]
       server:
         # command
-        message: "Server used the command '<var:command>'."
+        message: "Servidor usou o comando '<var:command>'."
         regex: [ ]
 
   onexecutedcommand:
@@ -675,13 +675,13 @@ messages:
         # result
         # returnmessage
         # player - Player
-        message: "<var:player-name> (<var:player-userid>) used the command `<var:command>`:\n```<var:returnmessage>```"
+        message: "<var:player-name> (<var:player-userid>) usou o comando `<var:command>`:\n```<var:returnmessage>```"
         regex: [ ]
       server:
         # command
         # result
         # returnmessage
-        message: "Server used the command `<var:command>`:\n```<var:returnmessage>```"
+        message: "Servidor usou o comando `<var:command>`:\n```<var:returnmessage>```"
         regex: [ ]
     game:
       player:
@@ -689,13 +689,13 @@ messages:
         # result
         # returnmessage
         # player - Player
-        message: "<var:player-name> (<var:player-userid>) used the command `<var:command>`:\n```<var:returnmessage>```"
+        message: "<var:player-name> (<var:player-userid>) usou o comando `<var:command>`:\n```<var:returnmessage>```"
         regex: [ ]
       server:
         # command
         # result
         # returnmessage
-        message: "Server used the command `<var:command>`:\n```<var:returnmessage>```"
+        message: "Servidor usou o comando `<var:command>`:\n```<var:returnmessage>```"
         regex: [ ]
     console:
       player:
@@ -703,33 +703,33 @@ messages:
         # result
         # returnmessage
         # player - Player
-        message: "<var:player-name> (<var:player-userid>) used the command `<var:command>`:\n```<var:returnmessage>```"
+        message: "<var:player-name> (<var:player-userid>) usou o comando `<var:command>`:\n```<var:returnmessage>```"
         regex: [ ]
       server:
         # command
         # result
         # returnmessage
-        message: "Server used the command `<var:command>`:\n```<var:returnmessage>```"
+        message: "Servidor usou o comando `<var:command>`:\n```<var:returnmessage>```"
         regex: [ ]
 
   onreload:
     # weapon
     # maxclipsize
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) reloaded their <var:weapon>."
+    message: "<var:player-name> (<var:player-userid>) recarregou sua <var:weapon>."
     regex: []
     cancel_regex: []
 
   ongrenadeexplosion:
     # player - Player
-    message: "<var:player-name> (<var:player-userid>)'s grenade exploded."
+    message: "A granada de <var:player-name> (<var:player-userid>) explodiu."
     regex: []
     cancel_regex: []
 
   ongrenadehitplayer:
     # player - Player
     # target - Player
-    message: "<var:player-name> (<var:player-userid>)'s grenade hit <var:target-name> (<var:target-userid>)"
+    message: "A granada de <var:player-name> (<var:player-userid>) acertou <var:target-name> (<var:target-userid>)"
     regex: []
     cancel_regex: []
 
@@ -742,10 +742,10 @@ messages:
     # starttime - float
     # timeleft - float
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) unlocked a generator in <var:room>."
+    message: "<var:player-name> (<var:player-userid>) destrancou um gerador em <var:room>."
     regex: [
-      "Micro-HID":"the Micro-HID room",
-      "nuke":"the nuke silo" ]
+      "Micro-HID":"a sala da Micro-HID",
+      "nuke":"o silo nuclear" ]
 
   ongeneratorclose:
     # engaged - bool
@@ -756,10 +756,10 @@ messages:
     # starttime - float
     # timeleft - float
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) closed a generator in <var:room>."
+    message: "<var:player-name> (<var:player-userid>) fechou um gerador em <var:room>."
     regex: [
-      "Micro-HID":"the Micro-HID room",
-      "nuke":"the nuke silo" ]
+      "Micro-HID":"a sala da Micro-HID",
+      "nuke":"o silo nuclear" ]
 
   ongeneratoropen:
     # engaged - bool
@@ -770,10 +770,10 @@ messages:
     # starttime - float
     # timeleft - float
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) opened a generator in <var:room>."
+    message: "<var:player-name> (<var:player-userid>) abriu um gerador em <var:room>."
     regex: [
-      "Micro-HID":"the Micro-HID room",
-      "nuke":"the nuke silo" ]
+      "Micro-HID":"a sala da Micro-HID",
+      "nuke":"o silo nuclear" ]
 
   ongeneratoractivated:
     # engaged - bool
@@ -784,10 +784,10 @@ messages:
     # starttime - float
     # timeleft - float
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) activated a generator in <var:room>."
+    message: "<var:player-name> (<var:player-userid>) ativou um gerador em <var:room>."
     regex: [
-      "Micro-HID":"the Micro-HID room",
-      "nuke":"the nuke silo" ]
+      "Micro-HID":"a sala da Micro-HID",
+      "nuke":"o silo nuclear" ]
 
   ongeneratordeactivated:
     # engaged - bool
@@ -798,24 +798,24 @@ messages:
     # starttime - float
     # timeleft - float
     # player - Player
-    message: "The generator in <var:room> was deactivated."
+    message: "O gerador em <var:room> foi desativado."
     regex: [
-      "Micro-HID":"the Micro-HID room",
-      "nuke":"the nuke silo" ]
+      "Micro-HID":"a sala da Micro-HID",
+      "nuke":"o silo nuclear" ]
 
   on079lockdoor:
     # open - bool
     # door - string
     # apdrain - float
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) locked a door as SCP-079."
+    message: "<var:player-name> (<var:player-userid>) trancou uma porta como SCP-079."
     regex: []
     cancel_regex: []
 
   on079teslagate:
     # apdrain - float
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) activated a tesla gate."
+    message: "<var:player-name> (<var:player-userid>) ativou um portão de tesla."
     regex: []
     cancel_regex: []
 
@@ -823,21 +823,21 @@ messages:
     # xptype - ExperienceType
     # amount - float
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) got <var:amount> xp."
+    message: "<var:player-name> (<var:player-userid>) conseguiu <var:amount> de experiência."
     regex: []
     cancel_regex: []
 
   on079levelup:
     # level - int
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) leveled up as SCP-079."
+    message: "<var:player-name> (<var:player-userid>) subiu de nível como SCP-079."
     regex: []
     cancel_regex: []
 
   on079unlockdoor:
     # doorname - string
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) locked a <var:doorname> door."
+    message: "<var:player-name> (<var:player-userid>) trancou a porta <var:doorname>."
     regex: []
     cancel_regex: []
 
@@ -845,19 +845,19 @@ messages:
     # room - RoomType
     # apdrain - float
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) has locked down <var:room>."
+    message: "<var:player-name> (<var:player-userid>) botou a sala <var:room> em confinamento."
     regex: [
-      "Micro-HID":"the Micro-HID room",
-      "nuke":"the nuke silo" ]
+      "Micro-HID":"a sala da Micro-HID",
+      "nuke":"o silo nuclear" ]
 
   on079cancellockdown:
     # room - RoomType
     # apdrain - float
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) has cancelled lockdown in <var:room>."
+    message: "<var:player-name> (<var:player-userid>) cancelou o confinamento em <var:room>."
     regex: [
-      "Micro-HID":"the Micro-HID room",
-      "nuke":"the nuke silo" ]
+      "Micro-HID":"a sala da Micro-HID",
+      "nuke":"o silo nuclear" ]
 
   onban:
     player:
@@ -865,7 +865,7 @@ messages:
       # reason - string
       # player - Player
       # issuer - Player
-      message: "**Player <var:player-name> (<var:player-userid>) was banned by <var:issuer-name> (<var:issuer-userid>) for `<var:duration>`. Reason: <var:reason>**"
+      message: "**Player <var:player-name> (<var:player-userid>) foi banido por <var:issuer-name> (<var:issuer-userid>) por `<var:duration>`. Razão: <var:reason>**"
       regex: [ ]
     server:
       # duration - int
@@ -876,7 +876,7 @@ messages:
       # player-userid - string
       # playerclass - Role
       # playerteam - Team
-      message: "**Player <var:player-name> (<var:player-userid>) was banned by the server for `<var:duration>`. Reason: <var:reason>**"
+      message: "**Player <var:player-name> (<var:player-userid>) foi banido pelo servidor por `<var:duration>`. Razão: <var:reason>**"
       regex: []
       cancel_regex: []
 
