@@ -890,15 +890,15 @@ messages:
     # issuer-name
     ip:
       message: >+
-        **IP-ban issued**
+        **Banimento por IP emitido**
         ```
-        Player:    <var:player-name>\n
+        Jogador:    <var:player-name>\n
         IP:        <var:player-ip>\n
-        Issued:    <var:issuedtime>\n
-        Expires:   <var:expirytime>\n
-        Duration:  <var:duration>\n
-        Issuer:    <var:issuer-name>\n
-        Reason:    <var:reason>
+        Emitido:    <var:issuedtime>\n
+        Expira:   <var:expirytime>\n
+        Duração:  <var:duration>\n
+        Emissor:    <var:issuer-name>\n
+        Razão:    <var:reason>
         ```
       regex: []
       cancel_regex: []
@@ -911,15 +911,15 @@ messages:
     # issuer-name
     userid:
       message: >+
-        **UserID-ban issued**
+        **Banimento por ID de Usuário emitido**
         ```
-        Player:    <var:player-name>\n
-        UserID:    <var:player-userid>\n
-        Issued:    <var:issuedtime>\n
-        Expires:   <var:expirytime>\n
-        Duration:  <var:duration>\n
-        Issuer:    <var:issuer-name>\n
-        Reason:    <var:reason>
+        Jogador:    <var:player-name>\n
+        ID de Usuário:    <var:player-userid>\n
+        Emitido:    <var:issuedtime>\n
+        Expira:   <var:expirytime>\n
+        Duração:  <var:duration>\n
+        Emissor:    <var:issuer-name>\n
+        Razão:    <var:reason>
         ```
       regex: []
       cancel_regex: []
@@ -934,15 +934,15 @@ messages:
     # issuer-name
     ip:
       message: >+
-        **IP-ban updated**
+        **Banimento por IP atualizado**
         ```
-        Player:    <var:player-name>\n
+        Jogador:    <var:player-name>\n
         IP:        <var:player-ip>\n
-        Issued:    <var:issuedtime>\n
-        Expires:   <var:expirytime>\n
-        Duration:  <var:duration>\n
-        Issuer:    <var:issuer-name>\n
-        Reason:    <var:reason>
+        Emitido:    <var:issuedtime>\n
+        Expira:   <var:expirytime>\n
+        Duração:  <var:duration>\n
+        Emissor:    <var:issuer-name>\n
+        Razão:    <var:reason>
         ```
       regex: []
       cancel_regex: []
@@ -955,15 +955,15 @@ messages:
     # issuer-name
     userid:
       message: >+
-        **UserID-ban updated**
+        **Banimento por ID de Usuário atualizado**
         ```
-        Player:    <var:player-name>\n
-        UserID:    <var:player-userid>\n
-        Issued:    <var:issuedtime>\n
-        Expires:   <var:expirytime>\n
-        Duration:  <var:duration>\n
-        Issuer:    <var:issuer-name>\n
-        Reason:    <var:reason>
+        Jogador:    <var:player-name>\n
+        ID de Usuário:    <var:player-userid>\n
+        Emitido:    <var:issuedtime>\n
+        Expira:   <var:expirytime>\n
+        Duração:  <var:duration>\n
+        Emissor:    <var:issuer-name>\n
+        Razão:    <var:reason>
         ```
       regex: []
       cancel_regex: []
@@ -971,12 +971,12 @@ messages:
   onbanrevoked:
     # ip
     ip:
-      message: "**IP-ban '<var:ip>' revoked.**"
+      message: "**Banimento por IP '<var:ip>' revogado.**"
       regex: []
       cancel_regex: []
     # userid
     userid:
-      message: "**UserID-ban '<var:userid>' revoked.**"
+      message: "**Banimento por ID de Usuário '<var:userid>' revogado.**"
       regex: []
       cancel_regex: []
 
@@ -985,7 +985,7 @@ messages:
       # reason - string
       # player - Player
       # issuer - Player
-      message: "**Player <var:player-name> (<var:player-userid>) was kicked by <var:issuer-name> (<var:issuer-userid>). Reason: <var:reason>**"
+      message: "**Jogador <var:player-name> (<var:player-userid>) foi expulso por <var:issuer-name> (<var:issuer-userid>). Razão: <var:reason>**"
       regex: [ ]
     server:
       # reason - string
@@ -995,7 +995,7 @@ messages:
       # player-userid - string
       # playerclass - Role
       # playerteam - Team
-      message: "**Player <var:player-name> (<var:player-userid>) was kicked by the server. Reason: <var:reason>**"
+      message: "**Jogador <var:player-name> (<var:player-userid>) foi expulso pelo servidor. Razão: <var:reason>**"
       regex: []
       cancel_regex: []
 
@@ -1004,24 +1004,24 @@ messages:
       intercom:
         # player - Player
         # issuer - Player
-        message: "**<var:player-name> (<var:player-userid>) was intercom-muted by <var:issuer-name> (<var:issuer-userid>).**"
+        message: "**<var:player-name> (<var:player-userid>) foi silenciado no interfone por <var:issuer-name> (<var:issuer-userid>).**"
         regex: []
         cancel_regex: []
       standard:
         # player - Player
         # issuer - Player
-        message: "**<var:player-name> (<var:player-userid>) was muted by <var:issuer-name> (<var:issuer-userid>).**"
+        message: "**<var:player-name> (<var:player-userid>) foi silenciado por <var:issuer-name> (<var:issuer-userid>).**"
         regex: []
         cancel_regex: []
     server:
       intercom:
         # player - Player
-        message: "**<var:player-name> (<var:player-userid>) was intercom-muted by the server.**"
+        message: "**<var:player-name> (<var:player-userid>) foi silenciado no interfone pelo servidor.**"
         regex: []
         cancel_regex: []
       standard:
         # player - Player
-        message: "**<var:player-name> (<var:player-userid>) was muted by the server.**"
+        message: "**<var:player-name> (<var:player-userid>) foi silenciado pelo servidor.**"
         regex: []
         cancel_regex: []
 
@@ -1030,24 +1030,24 @@ messages:
       intercom:
         # player - Player
         # issuer - Player
-        message: "**<var:player-name> (<var:player-userid>) was intercom-unmuted by <var:issuer-name> (<var:issuer-userid>).**"
+        message: "**<var:player-name> (<var:player-userid>) foi dessilenciado no interfone por <var:issuer-name> (<var:issuer-userid>).**"
         regex: []
         cancel_regex: []
       standard:
         # player - Player
         # issuer - Player
-        message: "**<var:player-name> (<var:player-userid>) was unmuted by <var:issuer-name> (<var:issuer-userid>).**"
+        message: "**<var:player-name> (<var:player-userid>) foi dessilenciado por <var:issuer-name> (<var:issuer-userid>).**"
         regex: []
         cancel_regex: []
     server:
       intercom:
         # player - Player
-        message: "**<var:player-name> (<var:player-userid>) was intercom-unmuted by the server.**"
+        message: "**<var:player-name> (<var:player-userid>) foi dessilenciado no interfone pelo servidor.**"
         regex: []
         cancel_regex: []
       standard:
         # player - Player
-        message: "**<var:player-name> (<var:player-userid>) was unmuted by the server.**"
+        message: "**<var:player-name> (<var:player-userid>) foi dessilenciado pelo servidor.**"
         regex: []
         cancel_regex: []
 
@@ -1055,18 +1055,18 @@ messages:
     # players - List<Player>
     # spawnchaos - bool
     mtf:
-      message: "**Mobile Task Force Epsilon-11 designated Nine-Tailed Fox has entered the facility.**"
+      message: "**Força-Tarefa Móvel Epsilon-11, designada Nine-Tailed Fox, entrou na instalação.**"
       regex: []
       cancel_regex: []
     ci:
-      message: "**Facility incursion detected, intruders identified as members of hostile GOI \"Chaos Insurgency\".**"
+      message: "**Invasão da Instalação detectada, intrusos identificados como membros de um GDI \"Insurgência do Caos\".**"
       regex: []
       cancel_regex: []
 
   onplayerescape:
     # newrole - Role
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) has escaped and become a <var:newrole>"
+    message: "<var:player-name> (<var:player-userid>) fugiu e virou um <var:newrole>"
     regex: []
     cancel_regex: []
 
@@ -1074,7 +1074,7 @@ messages:
     # player - Player
     # target - Player
     # reason - string
-    message: "**<var:player-name> (<var:player-userid>) reported <var:target-name> (<var:target-userid>) as a cheater:**\n```<var:reason>```"
+    message: "**<var:player-name> (<var:player-userid>) denunciou <var:target-name> (<var:target-userid>) como um cheater:**\n```<var:reason>```"
     regex: []
     cancel_regex: []
 
@@ -1082,18 +1082,18 @@ messages:
     # player - Player
     # target - Player
     # reason - string
-    message: "**<var:player-name> (<var:player-userid>) reported <var:target-name> (<var:target-userid>) for breaking server rules:**\n```<var:reason>```"
+    message: "**<var:player-name> (<var:player-userid>) denunciou <var:target-name> (<var:target-userid>) por quebrar regras do servidor:**\n```<var:reason>```"
     regex: []
     cancel_regex: []
 
   onmapgenerated:
-    message: "The Site was generated correctly!"
+    message: "O Sítio foi gerado corretamente!"
     regex: []
     cancel_regex: []
 
   onitemspawned:
     # item - ItemType
-    message: "An item (<var:item>) has been spawned."
+    message: "Um item (<var:item>) nasceu."
     regex: []
     cancel_regex: []
 
@@ -1102,20 +1102,20 @@ messages:
     # room - RoomType
     # canopen - bool
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) interacted with <var:chamber> in <var:room>."
+    message: "<var:player-name> (<var:player-userid>) interagiu com <var:chamber> em <var:room>."
     regex: []
     cancel_regex: []
 
   onplaceblood:
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) was injured."
+    message: "<var:player-name> (<var:player-userid>) se feriu."
     regex: []
     cancel_regex: []
 
   onplayerinteractshootingtarget:
     # player - Player
     # target - shootingTarget
-    message: "<var:player-name> (<var:player-userid>) interacted with <var:target>."
+    message: "<var:player-name> (<var:player-userid>) interagiu com <var:target>."
     regex: []
     cancel_regex: []
 
@@ -1123,14 +1123,14 @@ messages:
     # player - Player
     # weapon - WeaponType
     # isAiming - bool
-    message: "<var:player-name> (<var:player-userid>) was aimwas<var:isAiming> with <var:weapon>."
-    regex: ["aimwasTrue":"aiming","aimwasFalse":"not aiming"]
+    message: "<var:player-name> (<var:player-userid>) aimwas<var:isAiming> com <var:weapon>."
+    regex: ["aimwasTrue":"estava mirando","aimwasFalse":"não estava mirando"]
     cancel_regex: []
 
   onplayercancelusingitem:
     # player - Player
     # item - ItemType
-    message: "<var:player-name> (<var:player-userid>) cancelled the use of <var:item>."
+    message: "<var:player-name> (<var:player-userid>) cancelou o uso de <var:item>."
     regex: []
     cancel_regex: []
 
@@ -1138,7 +1138,7 @@ messages:
     # player - Player
     # oldItem - ItemType
     # newItem - ItemType
-    message: "<var:player-name> (<var:player-userid>) changed its item from <var:oldItem> to <var:newItem>."
+    message: "<var:player-name> (<var:player-userid>) mudou seu item de <var:oldItem> para <var:newItem>."
     regex: []
     cancel_regex: []
 
@@ -1146,7 +1146,7 @@ messages:
     # spectator - Player
     # oldTarget - Player
     # newTarget - Player
-    message: "<var:spectator-name> (<var:spectator-userid>) changed spectator from <var:oldTarget-name> to <var:newTarget-name>."
+    message: "<var:spectator-name> (<var:spectator-userid>) mudou espectador de <var:oldTarget-name> para <var:newTarget-name>."
     regex: []
     cancel_regex: []
 
@@ -1155,7 +1155,7 @@ messages:
     # amount - float
     # type - DamageType
     # target - shootingTarget
-    message: "<var:player-name> (<var:player-userid>) damaged <var:target> using <var:type>, caused <var:amount> damage."
+    message: "<var:player-name> (<var:player-userid>) feriu <var:target> usando <var:type>, causou <var:amount> de dano."
     regex: []
     cancel_regex: []
 
@@ -1163,14 +1163,14 @@ messages:
     # player - Player
     # amount - float
     # type - DamageType
-    message: "<var:player-name> (<var:player-userid>) damaged a window by using <var:type> and causing <var:amount> damage."
+    message: "<var:player-name> (<var:player-userid>) danificou uma janela ao usar <var:type> e causar <var:amount> de dano."
     regex: []
     cancel_regex: []
 
   onplayerdryfireweapon:
     # player - Player
     # weapon - Firearm
-    message: "<var:player-name> (<var:player-userid>) used <var:weapon>."
+    message: "<var:player-name> (<var:player-userid>) usou <var:weapon>."
     regex: []
     cancel_regex: []
 
@@ -1179,28 +1179,28 @@ messages:
     # effect - string
     # duration - float
     # intensity - byte
-    message: "<var:player-name> (<var:player-userid>) received an effect: <var:effect>, for <var:duration> seconds at intensity <var:intensity>."
+    message: "<var:player-name> (<var:player-userid>) recebeu um efeito: <var:effect>, por <var:duration> segundos na intensidade <var:intensity>."
     regex: []
     cancel_regex: []
 
   oninteract330:
     # player - Player
     # uses - int
-    message: "<var:player-name> (<var:player-userid>) used SCP-330 (<var:uses> uses)."
+    message: "<var:player-name> (<var:player-userid>) usou SCP-330 (<var:uses> vezes)."
     regex: []
     cancel_regex: []
 
   #####################################################################################################################
   #                                                                                                                   #
-  #                                                   DISCORD BOT                                                     #
+  #                                                BOT DO DISCORD                                                     #
   #                                                                                                                   #
-  #   message: The message to be displayed. Variables are inserted in the format <var:name>, such as <var:ipaddress>. #
-  #   regex: A regular expression paired with a replacement string to find and replace parts of a message.            #
+  #   message: A mensagem que é exibida. Variáveis são inseridas no formato <var:name>, tal como <var:ipadress>.      #
+  #   regex: Uma expressão regular pareada com uma string de substituição para achar e trocar partes de uma mensagem. #
   #                                                                                                                   #
   #####################################################################################################################
 
   connectedtobot:
-    message: "**SCP:SL server connected.**"
+    message: "**Servidor do SCP:SL conectado.**"
     regex: []
     cancel_regex: []
 
@@ -1208,7 +1208,7 @@ messages:
     # userid - string
     # discord-displayname - string
     # discord-username - string
-    message: "Invalid SteamID '<var:userid>'."
+    message: "ID da Steam inválido '<var:userid>'."
     regex: []
     cancel_regex: []
 
@@ -1217,7 +1217,7 @@ messages:
     # discord-displayname - string
     # discord-username - string
     # discord-userid - int
-    message: "Invalid SteamID or IP '<var:steamidorip>'."
+    message: "ID da Steam ou IP inválido '<var:steamidorip>'."
     regex: []
     cancel_regex: []
 
@@ -1226,7 +1226,7 @@ messages:
     # discord-displayname - string
     # discord-username - string
     # discord-userid - int
-    message: "Invalid duration '<var:duration>'."
+    message: "´Duração inválida '<var:duration>'."
     regex: []
     cancel_regex: []
 
@@ -1235,7 +1235,7 @@ messages:
     # discord-displayname - string
     # discord-username - string
     # discord-userid - int
-    message: "Player with SteamID '<var:userid>' not found."
+    message: "Jogador com o ID da Steam '<var:userid>' não encontrado."
     regex: []
     cancel_regex: []
 
@@ -1245,7 +1245,7 @@ messages:
     # discord-displayname - string
     # discord-username - string
     # discord-userid - int
-    message: "'<var:player-name>' (<var:player-userid>) was kicked from the server by <var:discord-username> for the reason '<var:reason>'."
+    message: "'<var:player-name>' (<var:player-userid>) foi expulso do servidor por <var:discord-username> pela razão '<var:reason>'."
     regex: []
     cancel_regex: []
 
@@ -1257,7 +1257,7 @@ messages:
       # discord-displayname - string
       # discord-username - string
       # discord-userid - int
-      message: "'<var:player-name>' (<var:player-userid>) was banned by <var:discord-username> for the reason '<var:reason>' (<var:duration>) (+IP-ban)."
+      message: "'<var:player-name>' (<var:player-userid>) foi banido por <var:discord-username> pela razão '<var:reason>' (<var:duration>) (+Banimento por IP)."
       regex: []
       cancel_regex: []
     offline:
@@ -1268,7 +1268,7 @@ messages:
       # discord-displayname - string
       # discord-username - string
       # discord-userid - int
-      message: "'<var:name>' (<var:userid>) was banned by <var:discord-username> for the reason '<var:reason>' (<var:duration>)."
+      message: "'<var:name>' (<var:userid>) foi banido por <var:discord-username> pela razão '<var:reason>' (<var:duration>)."
       regex: []
       cancel_regex: []
 
@@ -1277,7 +1277,7 @@ messages:
     # discord-displayname - string
     # discord-username - string
     # discord-userid - int
-    message: "All entries with SteamID/IP '<var:steamidorip>' have been cleared from the ban lists."
+    message: "Todas entradas com o ID da Steam/IP '<var:steamidorip>' foram limpas da lista de banimentos."
     regex: []
     cancel_regex: []
 
@@ -1288,7 +1288,7 @@ messages:
     # duration - string
     # admintag - string
     # adminid - long
-    message: "<var:name> (<var:userid>) was muted by <var:discord-username> for the reason '<var:reason>' (Permanently)."
+    message: "<var:name> (<var:userid>) foi silenciado por <var:discord-username> pela razão '<var:reason>' (Permanentemente)."
     regex: []
     cancel_regex: []
 
@@ -1300,7 +1300,7 @@ messages:
     # discord-displayname - string
     # discord-username - string
     # discord-userid - int
-    message: "<var:name> (<var:userid>) was muted by <var:discord-username> for the reason '<var:reason>' (<var:duration>)."
+    message: "<var:name> (<var:userid>) foi silenciado por <var:discord-username> pela razão '<var:reason>' (<var:duration>)."
     regex: []
     cancel_regex: []
 
@@ -1312,7 +1312,7 @@ messages:
     # discord-displayname - string
     # discord-username - string
     # discord-userid - int
-    message: "Error occured trying to mute player with steamid '<var:userid>', check the console for more info."
+    message: "Erro ocorreu ao tentar silenciar jogador com o ID da Steam '<var:userid>', verifique o console para mais informações."
     regex: []
     cancel_regex: []
 
@@ -1324,7 +1324,7 @@ messages:
     # discord-displayname - string
     # discord-username - string
     # discord-userid - int
-    message: "<var:name> (<var:userid>) was unmuted by <var:discord-username>."
+    message: "<var:name> (<var:userid>) foi dessilenciado por <var:discord-username>."
     regex: []
     cancel_regex: []
 
@@ -1336,7 +1336,7 @@ messages:
     # discord-displayname - string
     # discord-username - string
     # discord-userid - int
-    message: "Error occured trying to unmute player with steamid '<var:userid>', check the console for more info."
+    message: "Erro ocorreu ao tentar dessilenciar jogador com ID da Steam '<var:userid>', verifique o console para mais informações."
     regex: []
     cancel_regex: []
 
@@ -1345,7 +1345,7 @@ messages:
     # discord-displayname - string
     # discord-username - string
     # discord-userid - int
-    message: "All players have been kicked from the server with the reason '<var:reason>'."
+    message: "Todos jogadores foram expulsos do servidor pela razão '<var:reason>'."
     regex: []
     cancel_regex: []
 
@@ -1379,7 +1379,7 @@ messages:
           regex: []
           cancel_regex: []
         empty:
-          message: "No players online."
+          message: "Sem jogadores ativos."
           regex: []
           cancel_regex: []
 
@@ -1393,7 +1393,7 @@ messages:
         # discord-displayname - string
         # discord-username - string
         # discord-userid - int
-        message: "<var:rankedplayers> / <var:players> ranked players"
+        message: "<var:rankedplayers> / <var:players> jogadores ranqueados"
         regex: []
         cancel_regex: []
       row:
@@ -1403,7 +1403,7 @@ messages:
           regex: []
           cancel_regex: []
         empty:
-          message: "No ranked players online."
+          message: "Sem jogadores ranqueados ativos."
           regex: []
           cancel_regex: []
 
@@ -1418,8 +1418,8 @@ messages:
           # discord-displayname - string
           # discord-username - string
           # discord-userid - int
-          message: "<var:syncedplayers> / <var:maxplayers> synced players"
-          regex: [ "1 synced players":"1 synced player" ]
+          message: "<var:syncedplayers> / <var:maxplayers> jogadores sincronizados"
+          regex: [ "1 jogadores sincronizados":"1 jogador sincronizado" ]
           cancel_regex: []
         all:
           # players - int
@@ -1430,8 +1430,8 @@ messages:
           # discord-displayname - string
           # discord-username - string
           # discord-userid - int
-          message: "<var:syncedplayers> synced players"
-          regex: [ "1 synced players":"1 synced player" ]
+          message: "<var:syncedplayers> jogadores sincronizados"
+          regex: [ "1 jogadores sincronizados":"1 jogador sincronizado" ]
           cancel_regex: []
       row:
         online-only:
@@ -1443,7 +1443,7 @@ messages:
             regex: []
             cancel_regex: []
           empty:
-            message: "No synced players online."
+            message: "Sem jogadores sincronizados ativos."
             regex: []
             cancel_regex: []
         all:
@@ -1456,7 +1456,7 @@ messages:
             regex: []
             cancel_regex: []
           empty:
-            message: "There are no synced players."
+            message: "Não há jogadores sincronizados."
             regex: []
             cancel_regex: []
 
@@ -1472,30 +1472,30 @@ messages:
       # discord-username - string
       # discord-userid - int
       message: >+
-        **Player Information - <var:discordmention>**
+        **Informação de Jogador - <var:discordmention>**
         ```
-        Online:          Yes\n
-        Name:            <var:player-name>\n
-        SteamID:         <var:player-userid>\n
+        Ativo:          Sim\n
+        Naome:            <var:player-name>\n
+        ID da Steam:         <var:player-userid>\n
         IP:              <var:player-ipaddress>\n
-        Playtime:        <var:player-playtimehours> hours\n
+        Tempo de Jogo:        <var:player-playtimehours> horas\n
         \n
-        Role:            <var:player-role>\n
+        Cargo:            <var:player-role>\n
         HP:              <var:player-health>\n
-        Overwatch:       replaceOnOff<var:player-overwatchon>\n
+        Supervisão:       replaceOnOff<var:player-overwatchon>\n
         Noclip:          replaceOnOff<var:player-noclipon>\n
         Godmode:         replaceOnOff<var:player-godmodeon>\n
         Bypass:          replaceOnOff<var:player-bypassenabled>\n
         \n
-        Muted:           <var:mutestatus> (Reason: <var:mutereason>)\n
-        Banned:          No\n
-        Discord Synced:  replaceYesNo<var:issynced>\n
-        RA Access:       replaceYesNo<var:player-hasremoteadminaccess>\n
-        Reserved Slot:   replaceYesNo<var:player-hasreservedslot>\n
+        Silenciado:           <var:mutestatus> (Razão: <var:mutereason>)\n
+        Banido:          Não\n
+        Discord Sincronizado:  replaceYesNo<var:issynced>\n
+        Acesso ao RA:       replaceYesNo<var:player-hasremoteadminaccess>\n
+        Vaga Reservada:   replaceYesNo<var:player-hasreservedslot>\n
         Do Not Track:    replaceOnOff<var:player-donottrack>\n
-        Northwood Staff: replaceYesNo<var:player-isnortwoodstaff>
+        Equipe da Northwood: replaceYesNo<var:player-isnortwoodstaff>
         ```
-      regex: [ "replaceYesNoTrue":"Yes", "replaceYesNoFalse":"No", "replaceOnOffTrue":"On", "replaceOnOffFalse":"Off", "- <@0>": "", "\\(Reason: \\)":"" ]
+      regex: [ "replaceYesNoTrue":"Sim", "replaceYesNoFalse":"Não", "replaceOnOffTrue":"Ativo", "replaceOnOffFalse":"Inativo", "- <@0>": "", "\\(Reason: \\)":"" ]
       cancel_regex: []
     offline:
       # userid - int
@@ -1515,32 +1515,32 @@ messages:
       message: >+
         **Player Information - <var:discordmention>**
         ```
-        Online:         No\n
-        Name:           <var:name>\n
-        SteamID:        <var:userid>\n
-        Playtime:       <var:playtimehours> hours\n
-        Muted:          <var:mutestatus> (Reason: <var:mutereason>)\n
-        Banned:         <var:banstatus> (Reason: <var:banreason>)\n
-        Reserved Slot:  replaceYesNo<var:hasreservedslot>\n
-        Discord Synced: replaceYesNo<var:issynced>
+        Ativo:         No\n
+        Nome:           <var:name>\n
+        ID da Steam:        <var:userid>\n
+        Tempo de Jogo:       <var:playtimehours> hours\n
+        Silenciado:          <var:mutestatus> (Reason: <var:mutereason>)\n
+        Banido:         <var:banstatus> (Reason: <var:banreason>)\n
+        Vaga Reservada:  replaceYesNo<var:hasreservedslot>\n
+        Discord Sincronizado: replaceYesNo<var:issynced>
         ```
-      regex: [ "replaceYesNoTrue":"Yes", "replaceYesNoFalse":"No", "replaceOnOffTrue":"On", "replaceOnOffFalse":"Off", "- <@0>": "", "\\(Reason: \\)":"" ]
+      regex: [ "replaceYesNoTrue":"Sim", "replaceYesNoFalse":"Não", "replaceOnOffTrue":"Ativo", "replaceOnOffFalse":"Inativo", "- <@0>": "", "\\(Reason: \\)":"" ]
       cancel_regex: []
 
   botactivity:
     empty:
       # players - int
       # maxplayers - int
-      message: "<var:players> / <var:maxplayers> online"
+      message: "<var:players> / <var:maxplayers> ativos"
       regex: [ ]
     active:
       # players - int
       # maxplayers - int
-      message: "<var:players> / <var:maxplayers> online"
+      message: "<var:players> / <var:maxplayers> ativos"
       regex: [ ]
     full:
       # players - int
       # maxplayers - int
-      message: "<var:players> / <var:maxplayers> online"
+      message: "<var:players> / <var:maxplayers> ativos"
       regex: []
       cancel_regex: []
