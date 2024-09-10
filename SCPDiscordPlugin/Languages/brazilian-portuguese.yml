@@ -238,8 +238,8 @@ global_regex: [
   "ScpOverride":"SCP-override",
 
   # Some door things
-  "PortallessBreakableDoor":"door",
-  "BreakableDoor":"door",
+  "PortallessBreakableDoor":"porta",
+  "BreakableDoor":"porta",
   "\\(Clone\\)":""
 ]
 
@@ -251,7 +251,7 @@ final_regex: ["discord\\.gg":"","discord\\.com":"","http://":"","https://":""]
 
 messages:
   onroundstart:
-    message: "**Round started.**"
+    message: "**Partida começou.**"
     regex: []
     cancel_regex: []
 
@@ -260,7 +260,7 @@ messages:
     # userid - string
     # jointype - CentralAuthPreauthFlags
     # region - string
-    message: "Player (<var:userid>) attempting connection..."
+    message: "Jogador (<var:userid>) tentando conectar..."
     regex: []
     cancel_regex: []
 
@@ -269,7 +269,7 @@ messages:
     # playerid - int
     # steamid - string
     # name - string
-    message: "**<var:player-name> (<var:player-userid>) left the game.**"
+    message: "**<var:player-name> (<var:player-userid>) saiu do jogo.**"
     regex: []
     cancel_regex: []
 
@@ -296,36 +296,36 @@ messages:
     # zombiesalive - int
     # zombieschanged - int
     message: >+
-      **Round ended after <var:duration> minutes.**
+      **Partida terminou após <var:duration> minutos.**
       ```
-      Escaped D-class:            <var:dclassescaped>/<var:dclassstart>\n
-      Rescued Scientists:         <var:scientistsescaped>/<var:scientistsstart>\n
-      Contained SCPs:             <var:scpdead>/<var:scpstart>\n
-      Killed by SCP:              <var:scpkills>\n
-      Warhead switchwas<var:warheaddetonated> detonated.
+      Classe-D que escaparam:            <var:dclassescaped>/<var:dclassstart>\n
+      Cientistas Resgatados:         <var:scientistsescaped>/<var:scientistsstart>\n
+      SCPs Contidos:             <var:scpdead>/<var:scpstart>\n
+      Morto(s) por SCP:              <var:scpkills>\n
+      Ogiva switchwas<var:warheaddetonated> detonada.
       ```
-    regex: ["switchwasTrue":"was","switchwasFalse":"was not"]
+    regex: ["switchwasTrue":"foi","switchwasFalse":"não foi"]
 
   onwaitingforplayers:
-    message: "**Server is ready and waiting for players.**"
+    message: "**Servidor está pronto e esperando por jogadores.**"
     regex: []
     cancel_regex: []
 
   onroundrestart:
-    message: "**Round is restarting...**"
+    message: "**Partidfa está reiniciando...**"
     regex: []
     cancel_regex: []
 
   onsetservername:
     # servername - string
-    message: "**Server name: <var:servername>.**"
+    message: "**Nome do servidor: <var:servername>.**"
     regex: []
     cancel_regex: []
 
   onscp914activate:
     # knobsetting - KnobSetting
     # player - Player
-    message: "<var:player-name> (<var:player-userid>) activated SCP-914 on the setting <var:knobsetting>."
+    message: "<var:player-name> (<var:player-userid>) ativou a SCP-914 na configuração <var:knobsetting>."
     regex: []
     cancel_regex: []
 
@@ -335,20 +335,20 @@ messages:
       # timeleft - float
       # player - Player
       initiated:
-        message: "**The alpha warhead has been activated by <var:player-name> (<var:player-userid>), <var:timeleft> seconds until detonation. All personnel must evacuate immediately.**"
+        message: "**A ogiva alfa foi ativada por <var:player-name> (<var:player-userid>), <var:timeleft> segundos antes da detonação. Todo pessoal deve evacuar imediatamente.**"
         regex: [ ]
       resumed:
-        message: "**The alpha  warhead countdown has been resumed by <var:player-name> (<var:player-userid>), <var:timeleft> seconds until detonation.**"
+        message: "**A contagem da ogiva alfa foi retomada por <var:player-name> (<var:player-userid>), <var:timeleft> segundos antes da detonação.**"
         regex: [ ]
     server:
       # isAutomatic - bool
       # timeleft - float
       initiated:
-        message: "**The alpha warhead has been remotely activated by order of the O5 Council. All personnel must evacuate immediately.**"
+        message: "**A ogiva alfa foi remotamente ativada por ordem do Conselho O5. Todo pessoal deve evacuar imediatamente.**"
         regex: []
         cancel_regex: []
       resumed:
-        message: "**The alpha warhead countdown has been remotely resumed by order of the O5 Council. <var:timeleft> seconds left until detonation.**"
+        message: "**A contagem da ogiva alfa foi remotamente retomada por ordem do Conselho O5. <var:timeleft> segundos antes da detonação.**"
         regex: []
         cancel_regex: []
 
@@ -356,39 +356,39 @@ messages:
     default:
       # timeleft
       # player - Player
-      message: "**The alpha warhead detonation has been canceled by <var:player-name> (<var:player-userid>) with <var:timeleft> seconds left.**"
+      message: "**A detonação da ogiva alfa foi cancelada por <var:player-name> (<var:player-userid>) com <var:timeleft> segundos restando.**"
       regex: []
       cancel_regex: []
     noplayer:
       # timeleft
-      message: "**The alpha warhead detonation has been canceled remotely by order of the Ethics Committee with <var:timeleft> seconds left.**"
+      message: "**A detonação da ogiva alfa foi remotamente cancelada por ordem do Comitê de Ética com <var:timeleft> segundos restando.**"
       regex: []
       cancel_regex: []
 
   ondetonate:
-    message: "**Detonation of the alpha warhead has been detected. MTF operatives are inbound to clear out any remaining threats.**"
+    message: "**A detonação da ogiva alfa foi detectada. Agentes da FTM estão chegando para eliminar qualquer ameaça restante.**"
     regex: []
     cancel_regex: []
 
   ondecontaminate:
-    message: "**Light Containment Zone de-contamination has been initiated, all biological material will be destroyed.**"
+    message: "**A descontaminação da Zona de Contenção Leve foi iniciada, todo material biológico será destruído.**"
     regex: []
     cancel_regex: []
 
   onsummonvehicle:
     chaos:
-      message: "**Warning: Unauthorized vehicle has breached the site perimeter.**"
+      message: "**Aviso: Veículo não autorizado entrou no perímetro do sítio.**"
       regex: []
       cancel_regex: []
     mtf:
-      message: "**MTF helicopter is in visual range of the site, preparing to land.**"
+      message: "**Helicóptero da FTM está no alcance visual do sítio, preparando-se para pousar.**"
       regex: []
       cancel_regex: []
 
   ongeneratorfinish:
     # room - string
     # player - Player
-    message: "Generator in <var:room> has been activated."
+    message: "Gerador em <var:room> foi ativado."
     regex: [ ]
 
   onplayerhurt:
