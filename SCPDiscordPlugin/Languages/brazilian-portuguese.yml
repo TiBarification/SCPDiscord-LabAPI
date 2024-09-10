@@ -1,27 +1,27 @@
 #####################################################################################################################
 #
-#                                                     EVENTS
+#                                                     EVENTOS
 #
-#   message: The message to be displayed. Variables are inserted in the format <var:name>, such as <var:ipaddress>.
-#   regex: A regular expression paired with a replacement string to find and replace parts of a message.
+#   message: A mensagem que é exibida. Variáveis são inseridas no formato <var:name:>, tal como <var:ipaddress>.
+#   regex: Uma expressão regular pareada com uma string de substituição para achar e trocar partes de uma mensagem.
 #
 #####################################################################################################################
 
 #####################################################################################################################
 #
-#                                                  PLAYER INFO
+#                                                  INFORMAÇÕES DE JOGADOR
 #
-#  You may notice many of the events below have variables of the type "Player". This means they provide a large
-#  amount of variables containing different player information. You can view an up to date list of these variabels
-#  in the APIExtensions.cs file in the Git repository.
+#  Vocês podem notar que muitos dos eventos abaixo têm variáveis do tipo "Player". Isso significa que eles fornecem uma grande
+#  quantidade de variáveis contendo diferentes informações de jogador. Você pode ver uma lista atualizada dessas variáveis
+#  no arquivo APIExtensions.cs dentro do repositório do Git.
 #
-#  Usage example:
-#  If an event has an "attacker" variable of the Player type this means you can use <var:attacker-name> to get
-#  their username. It works the same way for all player subvariables, except for the disarmer variable.
-#  The disarmer variable is also a player type, so if the "attacker" player from before was disarmed you could
-#  get the name of the disarming player using <var:attacker-disarmer-name>.
+#  Exemplo de uso:
+#  Se um evento tem uma variável "attacker" do tipo Player, isso significa que você pode usar <var:attacker-name> para conseguir
+#  seu usuário. Isso funciona da mesma forma para todas subvariáveis de jogador, exceto para a variável de desarmador.
+#  A variável de desarmador também é do tipo 'Player', então se o jogador "attacker" de antes foi desarmado, você poderia
+#  conseguir o nome do jogador desarmador usando <var:attacker-disarmer-name>.
 #
-#  List of Player sub-variables:
+#  Lista de subvariáveis de Player:
 #  -ipaddress
 #  -name
 #  -id
