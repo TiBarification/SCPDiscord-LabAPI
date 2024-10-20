@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using CommandSystem;
-using LiteNetLib;
-using PlayerRoles;
 using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
-using PluginAPI.Enums;
 using PluginAPI.Events;
 using RemoteAdmin;
 
@@ -171,83 +167,59 @@ namespace SCPDiscord.EventListeners
 			}
 		}
 
-		[PluginEvent]
-		public void OnPlayerMuted(PlayerMutedEvent ev)
-		{
-			if (ev?.Player.UserId == null)
-			{
-				return;
-			}
+        [PluginEvent]
+        public void OnPlayerMuted(PlayerMutedEvent ev)
+        {
+            if (ev?.Player.UserId == null)
+            {
+                return;
+            }
 
-			if (ev.Issuer != null)
-			{
-				Dictionary<string, string> variables = new Dictionary<string, string> {};
-				variables.AddPlayerVariables(ev.Player, "player");
-				variables.AddPlayerVariables(ev.Issuer, "issuer");
+            if (ev.Issuer != null)
+            {
+                Dictionary<string, string> variables = new Dictionary<string, string>();
+                variables.AddPlayerVariables(ev.Player, "player");
+                variables.AddPlayerVariables(ev.Issuer, "issuer");
 
-				if (ev.IsIntercom)
-				{
-					plugin.SendMessage("messages.onplayermuted.player.intercom", variables);
-				}
-				else
-				{
-					plugin.SendMessage("messages.onplayermuted.player.standard", variables);
-				}
-			}
-			else
-			{
-				Dictionary<string, string> variables = new Dictionary<string, string> {};
-				variables.AddPlayerVariables(ev.Player, "player");
+                plugin.SendMessage(ev.IsIntercom ? "messages.onplayermuted.player.intercom"
+                                                 : "messages.onplayermuted.player.standard", variables);
+            }
+            else
+            {
+                Dictionary<string, string> variables = new Dictionary<string, string>();
+                variables.AddPlayerVariables(ev.Player, "player");
 
-				if (ev.IsIntercom)
-				{
-					plugin.SendMessage("messages.onplayermuted.server.intercom", variables);
-				}
-				else
-				{
-					plugin.SendMessage("messages.onplayermuted.server.standard", variables);
-				}
-			}
-		}
+                plugin.SendMessage(ev.IsIntercom ? "messages.onplayermuted.server.intercom"
+                                                 : "messages.onplayermuted.server.standard", variables);
+            }
+        }
 
-		[PluginEvent]
-		public void OnPlayerUnmuted(PlayerUnmutedEvent ev)
-		{
-			if (ev.Player == null)
-			{
-				return;
-			}
+        [PluginEvent]
+        public void OnPlayerUnmuted(PlayerUnmutedEvent ev)
+        {
+            if (ev.Player == null)
+            {
+                return;
+            }
 
-			if (ev.Issuer != null)
-			{
-				Dictionary<string, string> variables = new Dictionary<string, string> {};
-				variables.AddPlayerVariables(ev.Issuer, "issuer");
-				variables.AddPlayerVariables(ev.Player, "player");
+            if (ev.Issuer != null)
+            {
+                Dictionary<string, string> variables = new Dictionary<string, string> ();
+                variables.AddPlayerVariables(ev.Issuer, "issuer");
+                variables.AddPlayerVariables(ev.Player, "player");
 
-				if (ev.IsIntercom)
-				{
-					plugin.SendMessage("messages.onplayerunmuted.player.intercom", variables);
-				}
-				else
-				{
-					plugin.SendMessage("messages.onplayerunmuted.player.standard", variables);
-				}
-			}
-			else
-			{
-				Dictionary<string, string> variables = new Dictionary<string, string> {};
-				variables.AddPlayerVariables(ev.Player, "player");
+                plugin.SendMessage(ev.IsIntercom ? "messages.onplayerunmuted.player.intercom"
+                                                 : "messages.onplayerunmuted.player.standard", variables);
+            }
+            else
+            {
+                Dictionary<string, string> variables = new Dictionary<string, string>();
+                variables.AddPlayerVariables(ev.Player, "player");
 
-				if (ev.IsIntercom)
-				{
-					plugin.SendMessage("messages.onplayerunmuted.server.intercom", variables);
-				}
-				else
-				{
-					plugin.SendMessage("messages.onplayerunmuted.server.standard", variables);
-				}
-			}
-		}
+                plugin.SendMessage(ev.IsIntercom ? "messages.onplayerunmuted.server.intercom"
+                                                 : "messages.onplayerunmuted.server.standard", variables);
+            }
+        }
 
 		[PluginEvent]
 		public void OnRemoteAdminCommand(RemoteAdminCommandExecutedEvent ev)
