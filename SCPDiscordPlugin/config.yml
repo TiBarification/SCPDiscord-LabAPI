@@ -1,4 +1,4 @@
-﻿
+
 ############# SCPDiscord plugin configuration file #############
 
 
@@ -238,7 +238,6 @@ messages:
     # SCP Events.
     on079lockdoor: []
     on079teslagate: []
-    on079addexp: []
     on079levelup: [ "default" ]
     on079unlockdoor: []
     on079lockdown: []

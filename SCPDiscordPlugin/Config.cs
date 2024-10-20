@@ -67,7 +67,6 @@ namespace SCPDiscord
 		private static readonly IReadOnlyList<string> configMessageArrays = new List<string>
 		{
 			"messages.connectedtobot",
-			"messages.on079addexp",
 			"messages.on079cancellockdown",
 			"messages.on079levelup",
 			"messages.on079lockdoor",

@@ -1,12 +1,5 @@
 using System.Collections.Generic;
-using Interactables.Interobjects.DoorUtils;
-using MapGeneration;
-using PlayerRoles;
-using PlayerRoles.PlayableScps.Scp079;
-using PlayerRoles.Ragdolls;
-using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
-using PluginAPI.Enums;
 using PluginAPI.Events;
 
 namespace SCPDiscord.EventListeners
@@ -34,23 +27,10 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent]
 		public void On079TeslaGate(Scp079UseTeslaEvent ev)
 		{
-			Dictionary<string, string> variables = new Dictionary<string, string> {};
+			Dictionary<string, string> variables = new Dictionary<string, string>();
 			variables.AddPlayerVariables(ev.Player, "player");
 
 			plugin.SendMessage("messages.on079teslagate", variables);
-		}
-
-		[PluginEvent]
-		public void On079AddExp(Scp079GainExperienceEvent ev)
-		{
-			Dictionary<string, string> variables = new Dictionary<string, string>
-			{
-				{ "xptype", ev.Reason.ToString() },
-				{ "amount", ev.Amount.ToString() }
-			};
-			variables.AddPlayerVariables(ev.Player, "player");
-
-			plugin.SendMessage("messages.on079addexp", variables);
 		}
 
 		[PluginEvent]
@@ -104,7 +84,7 @@ namespace SCPDiscord.EventListeners
 		[PluginEvent]
 		public void OnRecallZombie(Scp049ResurrectBodyEvent ev)
 		{
-			Dictionary<string, string> variables = new Dictionary<string, string> {};
+			Dictionary<string, string> variables = new Dictionary<string, string>();
 			variables.AddPlayerVariables(ev.Target, "target");
 			variables.AddPlayerVariables(ev.Player, "player");
 

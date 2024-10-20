@@ -819,14 +819,6 @@ messages:
     regex: []
     cancel_regex: []
 
-  on079addexp:
-    # xptype - ExperienceType
-    # amount - float
-    # player - Player
-    message: "<var:player-name> (<var:player-userid>) got <var:amount> xp."
-    regex: []
-    cancel_regex: []
-
   on079levelup:
     # level - int
     # player - Player
