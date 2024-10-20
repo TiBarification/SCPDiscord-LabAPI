@@ -4,52 +4,53 @@ using CommandSystem;
 
 namespace SCPDiscord.Commands
 {
-    public interface SCPDiscordCommand : ICommand
+  public interface SCPDiscordCommand : ICommand
+  {
+    string[] ArgumentList { get; }
+  }
+
+  [CommandHandler(typeof(GameConsoleCommandHandler))]
+  public class RootCommand : ParentCommand
+  {
+    public RootCommand() => LoadGeneratedCommands();
+    public override string Command { get; } = "scpdiscord";
+    public override string[] Aliases { get; } = { "scpd" };
+    public override string Description { get; } = "Root command for SCPDiscord.";
+
+    public override void LoadGeneratedCommands()
     {
-        string[] ArgumentList { get; }
+      RegisterCommand(new DebugCommand());
+      RegisterCommand(new GrantReservedSlotCommand());
+      RegisterCommand(new GrantVanillaRankCommand());
+      RegisterCommand(new ReconnectCommand());
+      RegisterCommand(new ReloadCommand());
+      RegisterCommand(new RemoveReservedSlotCommand());
+      RegisterCommand(new SendMessageCommand());
+      RegisterCommand(new SetNickname());
+      RegisterCommand(new UnsyncCommand());
+      RegisterCommand(new ValidateCommand());
     }
 
-    [CommandHandler(typeof(GameConsoleCommandHandler))]
-    public class RootCommand : ParentCommand
+    protected override bool ExecuteParent(ArraySegment<string> arguments, ICommandSender sender, out string response)
     {
-        public RootCommand() => LoadGeneratedCommands();
-        public override string Command { get; } = "scpdiscord";
-        public override string[] Aliases { get; } = { "scpd" };
-        public override string Description { get; } = "Root command for SCPDiscord.";
-
-        public override void LoadGeneratedCommands()
+      response = "Usage: scpdiscord/scpd [COMMAND]";
+      foreach (SCPDiscordCommand command in AllCommands.OfType<SCPDiscordCommand>())
+      {
+        string line = "\n" + command.Command;
+        if (command.Aliases != null && command.Aliases.Length != 0)
         {
-            RegisterCommand(new DebugCommand());
-            RegisterCommand(new GrantReservedSlotCommand());
-            RegisterCommand(new GrantVanillaRankCommand());
-            RegisterCommand(new ReconnectCommand());
-            RegisterCommand(new ReloadCommand());
-            RegisterCommand(new RemoveReservedSlotCommand());
-            RegisterCommand(new SendMessageCommand());
-            RegisterCommand(new SetNickname());
-            RegisterCommand(new UnsyncCommand());
-            RegisterCommand(new ValidateCommand());
+          line += "/" + string.Join("/", command.Aliases);
         }
 
-        protected override bool ExecuteParent(ArraySegment<string> arguments, ICommandSender sender, out string response)
+        if (command.ArgumentList != null && command.ArgumentList.Length != 0)
         {
-            response = "Usage: scpdiscord/scpd [COMMAND]";
-            foreach (SCPDiscordCommand command in AllCommands.OfType<SCPDiscordCommand>())
-            {
-                string line = "\n" + command.Command;
-                if (command.Aliases != null && command.Aliases.Length != 0)
-                {
-                    line += "/" + string.Join("/", command.Aliases);
-                }
-
-                if (command.ArgumentList != null && command.ArgumentList.Length != 0)
-                {
-                    line += " " + string.Join(" ", command.ArgumentList);
-                }
-
-                response += line.PadRight(50, '.') + command.Description;
-            }
-            return false;
+          line += " " + string.Join(" ", command.ArgumentList);
         }
+
+        response += line.PadRight(50, '.') + command.Description;
+      }
+
+      return false;
     }
+  }
 }

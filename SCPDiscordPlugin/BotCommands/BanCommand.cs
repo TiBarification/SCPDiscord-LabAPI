@@ -7,130 +7,131 @@ using SCPDiscord.Interface;
 
 namespace SCPDiscord.BotCommands
 {
-    public static class BanCommand
+  public static class BanCommand
+  {
+    public static void Execute(Interface.BanCommand command)
     {
-        public static void Execute(Interface.BanCommand command)
-		{
-			EmbedMessage embed = new EmbedMessage
-			{
-				Colour = EmbedMessage.Types.DiscordColour.Red,
-				ChannelID = command.ChannelID,
-				InteractionID = command.InteractionID
-			};
+      EmbedMessage embed = new EmbedMessage
+      {
+        Colour = EmbedMessage.Types.DiscordColour.Red,
+        ChannelID = command.ChannelID,
+        InteractionID = command.InteractionID
+      };
 
-			// Perform very basic SteamID validation.
-			if (!Utilities.IsPossibleSteamID(command.SteamID, out ulong _))
-			{
-				Dictionary<string, string> variables = new Dictionary<string, string>
-				{
-					{ "steamid", command.SteamID },
-					{ "discord-displayname", command.DiscordDisplayName },
-					{ "discord-username", command.DiscordUsername },
-					{ "discord-userid", command.DiscordUserID.ToString() },
-				};
-				SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.invalidsteamid", variables);
-				return;
-			}
+      // Perform very basic SteamID validation.
+      if (!Utilities.IsPossibleSteamID(command.SteamID, out ulong _))
+      {
+        Dictionary<string, string> variables = new Dictionary<string, string>
+        {
+          { "steamid",             command.SteamID },
+          { "discord-displayname", command.DiscordDisplayName },
+          { "discord-username",    command.DiscordUsername },
+          { "discord-userid",      command.DiscordUserID.ToString() },
+        };
+        SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.invalidsteamid", variables);
+        return;
+      }
 
-			// Create duration timestamp.
-			long durationSeconds = 0;
-			long issuanceTime = DateTime.UtcNow.Ticks;
-			DateTime endTime;
-			try
-			{
-				endTime = Utilities.ParseCompoundDuration(command.Duration, ref durationSeconds);
-			}
-			catch (IndexOutOfRangeException)
-			{
-				endTime = DateTime.MinValue;
-			}
+      // Create duration timestamp.
+      long durationSeconds = 0;
+      long issuanceTime = DateTime.UtcNow.Ticks;
+      DateTime endTime;
+      try
+      {
+        endTime = Utilities.ParseCompoundDuration(command.Duration, ref durationSeconds);
+      }
+      catch (IndexOutOfRangeException)
+      {
+        endTime = DateTime.MinValue;
+      }
 
-			if (endTime == DateTime.MinValue)
-			{
-				Dictionary<string, string> variables = new Dictionary<string, string>
-				{
-					{ "duration", command.Duration },
-					{ "discord-displayname", command.DiscordDisplayName },
-					{ "discord-username", command.DiscordUsername },
-					{ "discord-userid", command.DiscordUserID.ToString() },
-				};
-				SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.invalidduration", variables);
-				return;
-			}
+      if (endTime == DateTime.MinValue)
+      {
+        Dictionary<string, string> variables = new Dictionary<string, string>
+        {
+          { "duration",            command.Duration },
+          { "discord-displayname", command.DiscordDisplayName },
+          { "discord-username",    command.DiscordUsername },
+          { "discord-userid",      command.DiscordUserID.ToString() },
+        };
+        SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.invalidduration", variables);
+        return;
+      }
 
-			command.Reason = command.Reason.Replace(";", "");
-			if (command.Reason == "")
-			{
-				command.Reason = "No reason provided.";
-			}
+      command.Reason = command.Reason.Replace(";", "");
+      if (command.Reason == "")
+      {
+        command.Reason = "No reason provided.";
+      }
 
-			Dictionary<string, string> banVars = new Dictionary<string, string>
-			{
-				{ "reason",   command.Reason },
-				{ "duration", Utilities.SecondsToCompoundTime(durationSeconds) },
-				{ "discord-displayname", command.DiscordDisplayName },
-				{ "discord-username", command.DiscordUsername },
-				{ "discord-userid", command.DiscordUserID.ToString() },
-			};
+      Dictionary<string, string> banVars = new Dictionary<string, string>
+      {
+        { "reason",              command.Reason },
+        { "duration",            Utilities.SecondsToCompoundTime(durationSeconds) },
+        { "discord-displayname", command.DiscordDisplayName },
+        { "discord-username",    command.DiscordUsername },
+        { "discord-userid",      command.DiscordUserID.ToString() },
+      };
 
-			if (!Utilities.TryGetPlayerName(command.SteamID, out string name))
-			{
-				if (!Utilities.TryGetSteamName(command.SteamID, out name))
-				{
-					name = "Offline player";
-				}
-			}
-			name = name.Replace(";", "");
+      if (!Utilities.TryGetPlayerName(command.SteamID, out string name))
+      {
+        if (!Utilities.TryGetSteamName(command.SteamID, out name))
+        {
+          name = "Offline player";
+        }
+      }
 
-			// TODO: Feedback if the request is cancelled by another plugin
+      name = name.Replace(";", "");
 
-			// Send player banned event if player is online, and add ipban
-			bool offlineBan = true;
-			if (Player.TryGet(command.SteamID.EndsWith("@steam") ? command.SteamID : command.SteamID + "@steam", out Player player))
-			{
-				offlineBan = false;
-				banVars.AddPlayerVariables(player, "player");
-				PlayerBannedEvent eventArgs = new PlayerBannedEvent(player.ReferenceHub, Server.Instance.ReferenceHub, command.Reason, durationSeconds);
-				if (!EventManager.ExecuteEvent<bool>(eventArgs))
-				{
-					return;
-				}
-				BanHandler.IssueBan(new BanDetails
-				{
-					OriginalName = name,
-					Id = player.ReferenceHub.connectionToClient.address,
-					IssuanceTime = issuanceTime,
-					Expires = endTime.Ticks,
-					Reason = command.Reason,
-					Issuer = command.DiscordUsername
-				}, BanHandler.BanType.IP);
-				ServerConsole.Disconnect(player.ReferenceHub.gameObject, "You have been banned. Reason: " + command.Reason);
-			}
+      // TODO: Feedback if the request is cancelled by another plugin
 
-			BanHandler.IssueBan(new BanDetails
-			{
-				OriginalName = name,
-				Id = (command.SteamID.EndsWith("@steam") ? command.SteamID : command.SteamID + "@steam"),
-				IssuanceTime = issuanceTime,
-				Expires = endTime.Ticks,
-				Reason = command.Reason,
-				Issuer = command.DiscordUsername
-			}, BanHandler.BanType.UserId);
+      // Send player banned event if player is online, and add ipban
+      bool offlineBan = true;
+      if (Player.TryGet(command.SteamID.EndsWith("@steam") ? command.SteamID : command.SteamID + "@steam", out Player player))
+      {
+        offlineBan = false;
+        banVars.AddPlayerVariables(player, "player");
+        PlayerBannedEvent eventArgs = new PlayerBannedEvent(player.ReferenceHub, Server.Instance.ReferenceHub, command.Reason, durationSeconds);
+        if (!EventManager.ExecuteEvent<bool>(eventArgs))
+        {
+          return;
+        }
 
-			BanHandler.ValidateBans();
-			embed.Colour = EmbedMessage.Types.DiscordColour.Green;
+        BanHandler.IssueBan(new BanDetails
+        {
+          OriginalName = name,
+          Id = player.ReferenceHub.connectionToClient.address,
+          IssuanceTime = issuanceTime,
+          Expires = endTime.Ticks,
+          Reason = command.Reason,
+          Issuer = command.DiscordUsername
+        }, BanHandler.BanType.IP);
+        ServerConsole.Disconnect(player.ReferenceHub.gameObject, "You have been banned. Reason: " + command.Reason);
+      }
 
-			if (offlineBan)
-			{
-				banVars.Add("name", name);
-				banVars.Add("userid", command.SteamID);
-				SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.playerbanned.offline", banVars);
-			}
-			else
-			{
-				SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.playerbanned.online", banVars);
-			}
+      BanHandler.IssueBan(new BanDetails
+      {
+        OriginalName = name,
+        Id = (command.SteamID.EndsWith("@steam") ? command.SteamID : command.SteamID + "@steam"),
+        IssuanceTime = issuanceTime,
+        Expires = endTime.Ticks,
+        Reason = command.Reason,
+        Issuer = command.DiscordUsername
+      }, BanHandler.BanType.UserId);
 
-		}
+      BanHandler.ValidateBans();
+      embed.Colour = EmbedMessage.Types.DiscordColour.Green;
+
+      if (offlineBan)
+      {
+        banVars.Add("name", name);
+        banVars.Add("userid", command.SteamID);
+        SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.playerbanned.offline", banVars);
+      }
+      else
+      {
+        SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.playerbanned.online", banVars);
+      }
     }
+  }
 }

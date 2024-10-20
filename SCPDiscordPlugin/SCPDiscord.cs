@@ -16,189 +16,191 @@ using YamlDotNet.Core;
 
 namespace SCPDiscord
 {
-	public class SCPDiscord
-	{
-		private readonly Stopwatch serverStartTime = new Stopwatch();
+  public class SCPDiscord
+  {
+    private readonly Stopwatch serverStartTime = new Stopwatch();
 
-		internal SynchronousExecutor sync;
+    internal SynchronousExecutor sync;
 
-		internal static SCPDiscord plugin;
+    internal static SCPDiscord plugin;
 
-		internal bool roundStarted = false;
+    internal bool roundStarted = false;
 
-		internal bool shutdown;
+    internal bool shutdown;
 
-		private Utilities.FileWatcher reservedSlotsWatcher;
-		//private Utilities.FileWatcher vanillaMutesWatcher;
-		private Utilities.FileWatcher whitelistWatcher;
+    private Utilities.FileWatcher reservedSlotsWatcher;
 
-		public const string VERSION = "3.2.1";
+    //private Utilities.FileWatcher vanillaMutesWatcher;
+    private Utilities.FileWatcher whitelistWatcher;
 
-		[PluginEntryPoint("SCPDiscord", VERSION, "SCP:SL - Discord bridge.", "Karl Essinger")]
-		public void Start()
-		{
-			plugin = this;
+    public const string VERSION = "3.2.1";
 
-			if (!LoadConfig())
-				return;
+    [PluginEntryPoint("SCPDiscord", VERSION, "SCP:SL - Discord bridge.", "Karl Essinger")]
+    public void Start()
+    {
+      plugin = this;
 
-			serverStartTime.Start();
+      if (!LoadConfig())
+        return;
 
-			LiteNetLib4MirrorNetworkManager.singleton.gameObject.AddComponent<SynchronousExecutor>();
-			sync = LiteNetLib4MirrorNetworkManager.singleton.gameObject.GetComponent<SynchronousExecutor>();
+      serverStartTime.Start();
 
-			// Event handlers
-            EventManager.RegisterEvents(this, sync);
-            EventManager.RegisterEvents(this, new MuteEventListener());
-            EventManager.RegisterEvents(this, new TimeTrackingListener());
-			EventManager.RegisterEvents(this, new SyncPlayerRole());
-			EventManager.RegisterEvents(this, new PlayerEventListener(this));
-			EventManager.RegisterEvents(this, new ServerEventListener(this));
-			EventManager.RegisterEvents(this, new EnvironmentEventListener(this));
+      LiteNetLib4MirrorNetworkManager.singleton.gameObject.AddComponent<SynchronousExecutor>();
+      sync = LiteNetLib4MirrorNetworkManager.singleton.gameObject.GetComponent<SynchronousExecutor>();
 
-			if (Server.Port == Config.GetInt("bot.port"))
-			{
-				Logger.Error("ERROR: Server is running on the same port as the plugin, aborting...");
-				throw new Exception();
-			}
+      // Event handlers
+      EventManager.RegisterEvents(this, sync);
+      EventManager.RegisterEvents(this, new MuteEventListener());
+      EventManager.RegisterEvents(this, new TimeTrackingListener());
+      EventManager.RegisterEvents(this, new SyncPlayerRole());
+      EventManager.RegisterEvents(this, new PlayerEventListener(this));
+      EventManager.RegisterEvents(this, new ServerEventListener(this));
+      EventManager.RegisterEvents(this, new EnvironmentEventListener(this));
 
-			Logger.Info("Loading language system...");
-			Language.Reload();
+      if (Server.Port == Config.GetInt("bot.port"))
+      {
+        Logger.Error("ERROR: Server is running on the same port as the plugin, aborting...");
+        throw new Exception();
+      }
 
-			Logger.Info("Loading rolesync system...");
-			RoleSync.Reload();
+      Logger.Info("Loading language system...");
+      Language.Reload();
 
-			Logger.Info("Loading mute system...");
-			MuteSystem.Reload();
+      Logger.Info("Loading rolesync system...");
+      RoleSync.Reload();
 
-			Logger.Info("Loading playtime system...");
-			PlayTime.Reload();
+      Logger.Info("Loading mute system...");
+      MuteSystem.Reload();
 
-			new Thread(() => new StartNetworkSystem()).Start();
+      Logger.Info("Loading playtime system...");
+      PlayTime.Reload();
 
-			Logger.Info("SCPDiscord " + VERSION + " enabled.");
-		}
+      new Thread(() => new StartNetworkSystem()).Start();
 
-		private class SyncPlayerRole
-		{
-			[PluginEvent(ServerEventType.PlayerJoined)]
-			public void OnPlayerJoin(Player player)
-			{
-				if (player == null || !Config.GetBool("settings.rolesync")) return;
+      Logger.Info("SCPDiscord " + VERSION + " enabled.");
+    }
 
-				try
-				{
-					RoleSync.SendRoleQuery(player);
-				}
-				catch (Exception e)
-				{
-					Logger.Error("Error occured when checking player for rolesync!\n" + e);
-				}
-			}
-		}
+    private class SyncPlayerRole
+    {
+      [PluginEvent(ServerEventType.PlayerJoined)]
+      public void OnPlayerJoin(Player player)
+      {
+        if (player == null || !Config.GetBool("settings.rolesync")) return;
 
-		public bool LoadConfig()
-		{
-			try
-			{
-				reservedSlotsWatcher?.Dispose();
-				//vanillaMutesWatcher?.Dispose();
-				whitelistWatcher?.Dispose();
-				Config.Reload(plugin);
+        try
+        {
+          RoleSync.SendRoleQuery(player);
+        }
+        catch (Exception e)
+        {
+          Logger.Error("Error occured when checking player for rolesync!\n" + e);
+        }
+      }
+    }
 
-				if (Config.GetBool("settings.autoreload.reservedslots"))
-				{
-					reservedSlotsWatcher = new Utilities.FileWatcher(Config.GetReservedSlotDir(), "UserIDReservedSlots.txt", ReservedSlot.Reload);
-				}
+    public bool LoadConfig()
+    {
+      try
+      {
+        reservedSlotsWatcher?.Dispose();
+        //vanillaMutesWatcher?.Dispose();
+        whitelistWatcher?.Dispose();
+        Config.Reload(plugin);
 
-				/*if (Config.GetBool("settings.autoreload.mutes"))
-				{
-					vanillaMutesWatcher = new Utilities.FileWatcher(ConfigSharing.Paths[1], "mutes.txt", VoiceChatMutes.LoadMutes);
-				}*/
+        if (Config.GetBool("settings.autoreload.reservedslots"))
+        {
+          reservedSlotsWatcher = new Utilities.FileWatcher(Config.GetReservedSlotDir(), "UserIDReservedSlots.txt", ReservedSlot.Reload);
+        }
 
-				if (Config.GetBool("settings.autoreload.whitelist"))
-				{
-					whitelistWatcher = new Utilities.FileWatcher(ConfigSharing.Paths[2], "UserIDWhitelist.txt", WhiteList.Reload);
-				}
+        /*if (Config.GetBool("settings.autoreload.mutes"))
+        {
+          vanillaMutesWatcher = new Utilities.FileWatcher(ConfigSharing.Paths[1], "mutes.txt", VoiceChatMutes.LoadMutes);
+        }*/
 
-				Logger.Info("Loaded config \"" + Config.GetConfigPath() + "\".");
-				return true;
-			}
-			catch (Exception e)
-			{
-				switch (e)
-				{
-					case DirectoryNotFoundException _:
-						Logger.Error("Config directory not found.");
-						break;
-					case UnauthorizedAccessException _:
-						Logger.Error("Config file access denied.");
-						break;
-					case FileNotFoundException _:
-						Logger.Error("\"" + Config.GetConfigPath() + "\" was not found.");
-						break;
-					case JsonReaderException jsonEx:
-						Logger.Error("\"" + Config.GetConfigPath() + "\" formatting error:\n" + jsonEx.Message);
-						break;
-					case YamlException yamlEx:
-						Logger.Error("\"" + Config.GetConfigPath() + "\" formatting error:\n" + yamlEx.Message);
-						break;
-					case Config.ConfigParseException _:
-						Logger.Error("Formatting issue in config file \"" + Config.GetConfigPath() + "\". Aborting startup.");
-						break;
-					default:
-						Logger.Error("Error reading config file \"" + Config.GetConfigPath() + "\". Aborting startup.\n" + e);
-						break;
-				}
-			}
-			return false;
-		}
+        if (Config.GetBool("settings.autoreload.whitelist"))
+        {
+          whitelistWatcher = new Utilities.FileWatcher(ConfigSharing.Paths[2], "UserIDWhitelist.txt", WhiteList.Reload);
+        }
 
-		public void OnDisable()
-		{
-			shutdown = true;
-			NetworkSystem.Disconnect();
-			Logger.Info("SCPDiscord disabled.");
-		}
+        Logger.Info("Loaded config \"" + Config.GetConfigPath() + "\".");
+        return true;
+      }
+      catch (Exception e)
+      {
+        switch (e)
+        {
+          case DirectoryNotFoundException _:
+            Logger.Error("Config directory not found.");
+            break;
+          case UnauthorizedAccessException _:
+            Logger.Error("Config file access denied.");
+            break;
+          case FileNotFoundException _:
+            Logger.Error("\"" + Config.GetConfigPath() + "\" was not found.");
+            break;
+          case JsonReaderException jsonEx:
+            Logger.Error("\"" + Config.GetConfigPath() + "\" formatting error:\n" + jsonEx.Message);
+            break;
+          case YamlException yamlEx:
+            Logger.Error("\"" + Config.GetConfigPath() + "\" formatting error:\n" + yamlEx.Message);
+            break;
+          case Config.ConfigParseException _:
+            Logger.Error("Formatting issue in config file \"" + Config.GetConfigPath() + "\". Aborting startup.");
+            break;
+          default:
+            Logger.Error("Error reading config file \"" + Config.GetConfigPath() + "\". Aborting startup.\n" + e);
+            break;
+        }
+      }
 
-		public void SendStringByID(ulong channelID, string message)
-		{
-			MessageWrapper wrapper = new MessageWrapper
-			{
-				ChatMessage = new ChatMessage
-				{
-					ChannelID = channelID,
-					Content = message
-				}
-			};
-			NetworkSystem.QueueMessage(wrapper);
-		}
+      return false;
+    }
 
-		public void SendEmbedByID(EmbedMessage message)
-		{
-			NetworkSystem.QueueMessage(new MessageWrapper { EmbedMessage = message });
-		}
+    public void OnDisable()
+    {
+      shutdown = true;
+      NetworkSystem.Disconnect();
+      Logger.Info("SCPDiscord disabled.");
+    }
 
-		public void SendMessage(string messagePath, Dictionary<string, string> variables = null)
-		{
-			Thread messageThread = new Thread(() => new ProcessMessageAsync(messagePath, variables));
-			messageThread.Start();
-		}
+    public void SendStringByID(ulong channelID, string message)
+    {
+      MessageWrapper wrapper = new MessageWrapper
+      {
+        ChatMessage = new ChatMessage
+        {
+          ChannelID = channelID,
+          Content = message
+        }
+      };
+      NetworkSystem.QueueMessage(wrapper);
+    }
 
-		public void SendEmbedWithMessage(string messagePath, EmbedMessage embed, Dictionary<string, string> variables = null)
-		{
-			Thread messageThread = new Thread(() => new ProcessEmbedMessageAsync(embed, messagePath, variables));
-			messageThread.Start();
-		}
+    public void SendEmbedByID(EmbedMessage message)
+    {
+      NetworkSystem.QueueMessage(new MessageWrapper { EmbedMessage = message });
+    }
 
-		public void SendMessageByID(ulong channelID, string messagePath, Dictionary<string, string> variables = null)
-		{
-			new Thread(() => new ProcessMessageByIDAsync(channelID, messagePath, variables)).Start();
-		}
+    public void SendMessage(string messagePath, Dictionary<string, string> variables = null)
+    {
+      Thread messageThread = new Thread(() => new ProcessMessageAsync(messagePath, variables));
+      messageThread.Start();
+    }
 
-		public void SendEmbedWithMessageByID(EmbedMessage embed, string messagePath, Dictionary<string, string> variables = null)
-		{
-			new Thread(() => new ProcessEmbedMessageByIDAsync(embed, messagePath, variables)).Start();
-		}
-	}
+    public void SendEmbedWithMessage(string messagePath, EmbedMessage embed, Dictionary<string, string> variables = null)
+    {
+      Thread messageThread = new Thread(() => new ProcessEmbedMessageAsync(embed, messagePath, variables));
+      messageThread.Start();
+    }
+
+    public void SendMessageByID(ulong channelID, string messagePath, Dictionary<string, string> variables = null)
+    {
+      new Thread(() => new ProcessMessageByIDAsync(channelID, messagePath, variables)).Start();
+    }
+
+    public void SendEmbedWithMessageByID(EmbedMessage embed, string messagePath, Dictionary<string, string> variables = null)
+    {
+      new Thread(() => new ProcessEmbedMessageByIDAsync(embed, messagePath, variables)).Start();
+    }
+  }
 }
