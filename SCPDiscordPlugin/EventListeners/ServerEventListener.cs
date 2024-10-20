@@ -36,11 +36,11 @@ namespace SCPDiscord.EventListeners
 
         if (ev.Duration == 0)
         {
-          plugin.SendMessage("messages.onkick.player", variables);
+          SCPDiscord.SendMessage("messages.onkick.player", variables);
         }
         else
         {
-          plugin.SendMessage("messages.onban.player", variables);
+          SCPDiscord.SendMessage("messages.onban.player", variables);
         }
       }
       else
@@ -54,11 +54,11 @@ namespace SCPDiscord.EventListeners
 
         if (ev.Duration == 0)
         {
-          plugin.SendMessage("messages.onkick.server", variables);
+          SCPDiscord.SendMessage("messages.onkick.server", variables);
         }
         else
         {
-          plugin.SendMessage("messages.onban.server", variables);
+          SCPDiscord.SendMessage("messages.onban.server", variables);
         }
       }
     }
@@ -81,7 +81,7 @@ namespace SCPDiscord.EventListeners
         variables.AddPlayerVariables(issuer, "issuer");
         variables.AddPlayerVariables(ev.Player, "player");
 
-        plugin.SendMessage("messages.onkick.player", variables);
+        SCPDiscord.SendMessage("messages.onkick.player", variables);
       }
       else
       {
@@ -91,7 +91,7 @@ namespace SCPDiscord.EventListeners
         };
         variables.AddPlayerVariables(ev.Player, "player");
 
-        plugin.SendMessage("messages.onkick.server", variables);
+        SCPDiscord.SendMessage("messages.onkick.server", variables);
       }
     }
 
@@ -111,12 +111,12 @@ namespace SCPDiscord.EventListeners
       if (ev.BanType == BanHandler.BanType.IP)
       {
         variables.Add("player-ip", ev.BanDetails.Id);
-        plugin.SendMessage("messages.onbanissued.ip", variables);
+        SCPDiscord.SendMessage("messages.onbanissued.ip", variables);
       }
       else
       {
         variables.Add("player-userid", ev.BanDetails.Id);
-        plugin.SendMessage("messages.onbanissued.userid", variables);
+        SCPDiscord.SendMessage("messages.onbanissued.userid", variables);
       }
     }
 
@@ -137,12 +137,12 @@ namespace SCPDiscord.EventListeners
       if (ev.BanType == BanHandler.BanType.IP)
       {
         variables.Add("player-ip", ev.BanDetails.Id);
-        plugin.SendMessage("messages.onbanupdated.ip", variables);
+        SCPDiscord.SendMessage("messages.onbanupdated.ip", variables);
       }
       else
       {
         variables.Add("player-userid", ev.BanDetails.Id);
-        plugin.SendMessage("messages.onbanupdated.userid", variables);
+        SCPDiscord.SendMessage("messages.onbanupdated.userid", variables);
       }
     }
 
@@ -155,7 +155,7 @@ namespace SCPDiscord.EventListeners
         {
           { "ip", ev.Id },
         };
-        plugin.SendMessage("messages.onbanrevoked.ip", variables);
+        SCPDiscord.SendMessage("messages.onbanrevoked.ip", variables);
       }
       else
       {
@@ -163,7 +163,7 @@ namespace SCPDiscord.EventListeners
         {
           { "userid", ev.Id },
         };
-        plugin.SendMessage("messages.onbanrevoked.userid", variables);
+        SCPDiscord.SendMessage("messages.onbanrevoked.userid", variables);
       }
     }
 
@@ -181,7 +181,7 @@ namespace SCPDiscord.EventListeners
         variables.AddPlayerVariables(ev.Player, "player");
         variables.AddPlayerVariables(ev.Issuer, "issuer");
 
-        plugin.SendMessage(ev.IsIntercom ? "messages.onplayermuted.player.intercom"
+        SCPDiscord.SendMessage(ev.IsIntercom ? "messages.onplayermuted.player.intercom"
                                          : "messages.onplayermuted.player.standard", variables);
       }
       else
@@ -189,7 +189,7 @@ namespace SCPDiscord.EventListeners
         Dictionary<string, string> variables = new Dictionary<string, string>();
         variables.AddPlayerVariables(ev.Player, "player");
 
-        plugin.SendMessage(ev.IsIntercom ? "messages.onplayermuted.server.intercom"
+        SCPDiscord.SendMessage(ev.IsIntercom ? "messages.onplayermuted.server.intercom"
                                          : "messages.onplayermuted.server.standard", variables);
       }
     }
@@ -208,7 +208,7 @@ namespace SCPDiscord.EventListeners
         variables.AddPlayerVariables(ev.Issuer, "issuer");
         variables.AddPlayerVariables(ev.Player, "player");
 
-        plugin.SendMessage(ev.IsIntercom ? "messages.onplayerunmuted.player.intercom"
+        SCPDiscord.SendMessage(ev.IsIntercom ? "messages.onplayerunmuted.player.intercom"
                                          : "messages.onplayerunmuted.player.standard", variables);
       }
       else
@@ -216,7 +216,7 @@ namespace SCPDiscord.EventListeners
         Dictionary<string, string> variables = new Dictionary<string, string>();
         variables.AddPlayerVariables(ev.Player, "player");
 
-        plugin.SendMessage(ev.IsIntercom ? "messages.onplayerunmuted.server.intercom"
+        SCPDiscord.SendMessage(ev.IsIntercom ? "messages.onplayerunmuted.server.intercom"
                                          : "messages.onplayerunmuted.server.standard", variables);
       }
     }
@@ -234,11 +234,11 @@ namespace SCPDiscord.EventListeners
       if (ev.Sender is PlayerCommandSender playerSender && Player.Get(playerSender.ReferenceHub) != null)
       {
         variables.AddPlayerVariables(Player.Get(playerSender.ReferenceHub), "player");
-        plugin.SendMessage("messages.onexecutedcommand.remoteadmin.player", variables);
+        SCPDiscord.SendMessage("messages.onexecutedcommand.remoteadmin.player", variables);
       }
       else
       {
-        plugin.SendMessage("messages.onexecutedcommand.remoteadmin.server", variables);
+        SCPDiscord.SendMessage("messages.onexecutedcommand.remoteadmin.server", variables);
       }
     }
 
@@ -254,11 +254,11 @@ namespace SCPDiscord.EventListeners
       if (ev.Player != null && ev.Player.PlayerId != Server.Instance.PlayerId)
       {
         variables.AddPlayerVariables(ev.Player, "player");
-        plugin.SendMessage("messages.onexecutedcommand.game.player", variables);
+        SCPDiscord.SendMessage("messages.onexecutedcommand.game.player", variables);
       }
       else
       {
-        plugin.SendMessage("messages.onexecutedcommand.game.server", variables);
+        SCPDiscord.SendMessage("messages.onexecutedcommand.game.server", variables);
       }
     }
 
@@ -275,11 +275,11 @@ namespace SCPDiscord.EventListeners
       if (ev.Sender is PlayerCommandSender playerSender && Player.Get(playerSender.ReferenceHub) != null)
       {
         variables.AddPlayerVariables(Player.Get(playerSender.ReferenceHub), "player");
-        plugin.SendMessage("messages.onexecutedcommand.console.player", variables);
+        SCPDiscord.SendMessage("messages.onexecutedcommand.console.player", variables);
       }
       else
       {
-        plugin.SendMessage("messages.onexecutedcommand.console.server", variables);
+        SCPDiscord.SendMessage("messages.onexecutedcommand.console.server", variables);
       }
     }
 
@@ -294,11 +294,11 @@ namespace SCPDiscord.EventListeners
       if (ev.Sender is PlayerCommandSender playerSender && Player.Get(playerSender.ReferenceHub) != null)
       {
         variables.AddPlayerVariables(Player.Get(playerSender.ReferenceHub), "player");
-        plugin.SendMessage("messages.oncallcommand.remoteadmin.player", variables);
+        SCPDiscord.SendMessage("messages.oncallcommand.remoteadmin.player", variables);
       }
       else
       {
-        plugin.SendMessage("messages.oncallcommand.remoteadmin.server", variables);
+        SCPDiscord.SendMessage("messages.oncallcommand.remoteadmin.server", variables);
       }
     }
 
@@ -313,11 +313,11 @@ namespace SCPDiscord.EventListeners
       if (ev.Player != null && ev.Player.PlayerId != Server.Instance.PlayerId)
       {
         variables.AddPlayerVariables(ev.Player, "player");
-        plugin.SendMessage("messages.oncallcommand.game.player", variables);
+        SCPDiscord.SendMessage("messages.oncallcommand.game.player", variables);
       }
       else
       {
-        plugin.SendMessage("messages.oncallcommand.game.server", variables);
+        SCPDiscord.SendMessage("messages.oncallcommand.game.server", variables);
       }
     }
 
@@ -332,18 +332,18 @@ namespace SCPDiscord.EventListeners
       if (ev.Sender is PlayerCommandSender playerSender && Player.Get(playerSender.ReferenceHub) != null)
       {
         variables.AddPlayerVariables(Player.Get(playerSender.ReferenceHub), "player");
-        plugin.SendMessage("messages.oncallcommand.console.player", variables);
+        SCPDiscord.SendMessage("messages.oncallcommand.console.player", variables);
       }
       else
       {
-        plugin.SendMessage("messages.oncallcommand.console.server", variables);
+        SCPDiscord.SendMessage("messages.oncallcommand.console.server", variables);
       }
     }
 
     [PluginEvent]
     public void OnRoundStart(RoundStartEvent ev)
     {
-      plugin.SendMessage("messages.onroundstart");
+      SCPDiscord.SendMessage("messages.onroundstart");
       plugin.roundStarted = true;
     }
 
@@ -357,7 +357,7 @@ namespace SCPDiscord.EventListeners
         { "jointype",  ev.CentralFlags.ToString()      },
         { "region",    ev.Region                       }
       };
-      plugin.SendMessage("messages.onconnect", variables);
+      SCPDiscord.SendMessage("messages.onconnect", variables);
     }
 
     [PluginEvent]
@@ -389,7 +389,7 @@ namespace SCPDiscord.EventListeners
           { "zombiesalive",       Statistics.CurrentRound.ZombiesAlive.ToString()      },
           { "zombieschanged",     Statistics.CurrentRound.ZombiesChanged.ToString()    }
         };
-        plugin.SendMessage("messages.onroundend", variables);
+        SCPDiscord.SendMessage("messages.onroundend", variables);
       }
       plugin.roundStarted = false;
     }
@@ -397,13 +397,13 @@ namespace SCPDiscord.EventListeners
     [PluginEvent]
     public void OnWaitingForPlayers(WaitingForPlayersEvent ev)
     {
-      plugin.SendMessage("messages.onwaitingforplayers");
+      SCPDiscord.SendMessage("messages.onwaitingforplayers");
     }
 
     [PluginEvent]
     public void OnRoundRestart(RoundRestartEvent ev)
     {
-      plugin.SendMessage("messages.onroundrestart");
+      SCPDiscord.SendMessage("messages.onroundrestart");
     }
 
     [PluginEvent]
@@ -415,7 +415,7 @@ namespace SCPDiscord.EventListeners
       };
       variables.AddPlayerVariables(ev.Player, "player");
       variables.AddPlayerVariables(ev.Target, "target");
-      plugin.SendMessage("messages.onplayercheaterreport", variables);
+      SCPDiscord.SendMessage("messages.onplayercheaterreport", variables);
     }
 
     [PluginEvent]
@@ -427,7 +427,7 @@ namespace SCPDiscord.EventListeners
       };
       variables.AddPlayerVariables(ev.Player, "player");
       variables.AddPlayerVariables(ev.Target, "target");
-      plugin.SendMessage("messages.onplayerreport", variables);
+      SCPDiscord.SendMessage("messages.onplayerreport", variables);
     }
   }
 }

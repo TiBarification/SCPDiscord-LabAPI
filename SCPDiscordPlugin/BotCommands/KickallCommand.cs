@@ -32,7 +32,7 @@ namespace SCPDiscord.BotCommands
         ChannelID = command.ChannelID,
         InteractionID = command.InteractionID
       };
-      SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.kickall", variables);
+      SCPDiscord.SendEmbedWithMessageByID(embed, "messages.kickall", variables);
     }
   }
 }

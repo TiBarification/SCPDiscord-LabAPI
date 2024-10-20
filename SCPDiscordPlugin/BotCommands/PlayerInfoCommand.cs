@@ -29,7 +29,7 @@ namespace SCPDiscord.BotCommands
           { "discord-userid",      command.DiscordUserID.ToString() },
         };
         embed.Colour = EmbedMessage.Types.DiscordColour.Red;
-        SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.invalidsteamid", vars);
+        SCPDiscord.SendEmbedWithMessageByID(embed, "messages.invalidsteamid", vars);
         return;
       }
 
@@ -62,7 +62,7 @@ namespace SCPDiscord.BotCommands
           { "discord-userid",      command.DiscordUserID.ToString() },
         };
         vars.AddPlayerVariables(player, "player");
-        SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.playerinfo.online", vars);
+        SCPDiscord.SendEmbedWithMessageByID(embed, "messages.playerinfo.online", vars);
       }
       else
       {
@@ -97,7 +97,7 @@ namespace SCPDiscord.BotCommands
           { "discord-username",    command.DiscordUsername },
           { "discord-userid",      command.DiscordUserID.ToString() },
         };
-        SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.playerinfo.offline", vars);
+        SCPDiscord.SendEmbedWithMessageByID(embed, "messages.playerinfo.offline", vars);
       }
     }
   }

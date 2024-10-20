@@ -20,14 +20,8 @@ namespace SCPDiscord
 
   public class ProcessMessageAsync
   {
-    public ProcessMessageAsync(string messagePath, Dictionary<string, string> variables)
+    public ProcessMessageAsync(List<ulong> channelIDs, string messagePath, Dictionary<string, string> variables)
     {
-      List<ulong> channelIDs = Config.GetChannelIDs(messagePath);
-      if (channelIDs.Count == 0)
-      {
-        return;
-      }
-
       string processedMessage = Language.GetProcessedMessage(messagePath, variables);
 
       // Add time stamp
@@ -78,14 +72,8 @@ namespace SCPDiscord
 
   public class ProcessEmbedMessageAsync
   {
-    public ProcessEmbedMessageAsync(EmbedMessage embed, string messagePath, Dictionary<string, string> variables)
+    public ProcessEmbedMessageAsync(EmbedMessage embed, List<ulong> channelIDs, string messagePath, Dictionary<string, string> variables)
     {
-      List<ulong> channelIDs = Config.GetChannelIDs(messagePath);
-      if (channelIDs.Count == 0)
-      {
-        return;
-      }
-
       string processedMessage = Language.GetProcessedMessage(messagePath, variables);
       embed.Description = processedMessage;
 
@@ -234,7 +222,7 @@ namespace SCPDiscord
             Colour = EmbedMessage.Types.DiscordColour.Green
           };
 
-          SCPDiscord.plugin.SendEmbedWithMessage("messages.connectedtobot", embed);
+          SCPDiscord.SendEmbedWithMessage("messages.connectedtobot", embed);
         }
         catch (SocketException e)
         {

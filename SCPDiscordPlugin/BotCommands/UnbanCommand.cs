@@ -27,7 +27,7 @@ namespace SCPDiscord.BotCommands
           { "discord-username",    command.DiscordUsername },
           { "discord-userid",      command.DiscordUserID.ToString() },
         };
-        SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.invalidsteamidorip", variables);
+        SCPDiscord.SendEmbedWithMessageByID(embed, "messages.invalidsteamidorip", variables);
         return;
       }
 
@@ -95,7 +95,7 @@ namespace SCPDiscord.BotCommands
         { "discord-userid",      command.DiscordUserID.ToString() },
       };
       embed.Colour = EmbedMessage.Types.DiscordColour.Green;
-      SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.playerunbanned", unbanVars);
+      SCPDiscord.SendEmbedWithMessageByID(embed, "messages.playerunbanned", unbanVars);
     }
   }
 }

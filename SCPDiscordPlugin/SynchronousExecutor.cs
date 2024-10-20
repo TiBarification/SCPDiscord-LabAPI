@@ -49,7 +49,7 @@ namespace SCPDiscord
           InteractionID = command.InteractionID
         };
 
-        SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.consolecommandfeedback", variables);
+        SCPDiscord.SendEmbedWithMessageByID(embed, "messages.consolecommandfeedback", variables);
       }
 
       while (queuedRoleSyncCommands.TryDequeue(out string stringCommand))

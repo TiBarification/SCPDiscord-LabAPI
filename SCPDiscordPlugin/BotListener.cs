@@ -40,11 +40,11 @@ namespace SCPDiscord
             switch (data.MessageCase)
             {
               case Interface.MessageWrapper.MessageOneofCase.SyncRoleCommand:
-                SCPDiscord.plugin.SendEmbedByID(RoleSync.AddPlayer(data.SyncRoleCommand));
+                SCPDiscord.SendEmbedByID(RoleSync.AddPlayer(data.SyncRoleCommand));
                 break;
 
               case Interface.MessageWrapper.MessageOneofCase.UnsyncRoleCommand:
-                SCPDiscord.plugin.SendEmbedByID(RoleSync.RemovePlayer(data.UnsyncRoleCommand));
+                SCPDiscord.SendEmbedByID(RoleSync.RemovePlayer(data.UnsyncRoleCommand));
                 break;
 
               case Interface.MessageWrapper.MessageOneofCase.ConsoleCommand:

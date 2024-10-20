@@ -23,7 +23,7 @@ namespace SCPDiscord.EventListeners
         { "successful", ev.IsSuccessful.ToString() }
       };
       variables.AddPlayerVariables(ev.Player, "player");
-      plugin.SendMessage("messages.onpocketdimensionexit", variables);
+      SCPDiscord.SendMessage("messages.onpocketdimensionexit", variables);
     }
 
     [PluginEvent]
@@ -32,7 +32,7 @@ namespace SCPDiscord.EventListeners
       Dictionary<string, string> variables = new Dictionary<string, string>();
       variables.AddPlayerVariables(ev.Target, "target");
       variables.AddPlayerVariables(ev.Player, "attacker");
-      plugin.SendMessage("messages.onpocketdimensionenter", variables);
+      SCPDiscord.SendMessage("messages.onpocketdimensionenter", variables);
     }
 
     [PluginEvent]
@@ -43,7 +43,7 @@ namespace SCPDiscord.EventListeners
         { "knobsetting", ev.KnobSetting.ToString() }
       };
       variables.AddPlayerVariables(ev.Player, "player");
-      plugin.SendMessage("messages.onscp914activate", variables);
+      SCPDiscord.SendMessage("messages.onscp914activate", variables);
     }
 
     [PluginEvent]
@@ -55,7 +55,7 @@ namespace SCPDiscord.EventListeners
       };
       variables.AddPlayerVariables(ev.Player, "player");
 
-      plugin.SendMessage("messages.onelevatoruse", variables);
+      SCPDiscord.SendMessage("messages.onelevatoruse", variables);
     }
 
     [PluginEvent]
@@ -70,11 +70,11 @@ namespace SCPDiscord.EventListeners
 
       if (ev.Player == null || ev.Player.PlayerId == Server.Instance.PlayerId)
       {
-        plugin.SendMessage(ev.IsResumed ? "messages.onstartcountdown.server.resumed" : "messages.onstartcountdown.server.initiated", variables);
+        SCPDiscord.SendMessage(ev.IsResumed ? "messages.onstartcountdown.server.resumed" : "messages.onstartcountdown.server.initiated", variables);
       }
       else
       {
-        plugin.SendMessage(ev.IsResumed ? "messages.onstartcountdown.player.resumed" : "messages.onstartcountdown.player.initiated", variables);
+        SCPDiscord.SendMessage(ev.IsResumed ? "messages.onstartcountdown.player.resumed" : "messages.onstartcountdown.player.initiated", variables);
       }
     }
 
@@ -88,25 +88,25 @@ namespace SCPDiscord.EventListeners
 
       if (ev.Player == null || ev.Player.PlayerId == Server.Instance.PlayerId)
       {
-        plugin.SendMessage("messages.onstopcountdown.noplayer", variables);
+        SCPDiscord.SendMessage("messages.onstopcountdown.noplayer", variables);
       }
       else
       {
         variables.AddPlayerVariables(ev.Player, "player");
-        plugin.SendMessage("messages.onstopcountdown.default", variables);
+        SCPDiscord.SendMessage("messages.onstopcountdown.default", variables);
       }
     }
 
     [PluginEvent]
     public void OnDetonate(WarheadDetonationEvent ev)
     {
-      plugin.SendMessage("messages.ondetonate");
+      SCPDiscord.SendMessage("messages.ondetonate");
     }
 
     [PluginEvent]
     public void OnDecontaminate(LczDecontaminationStartEvent ev)
     {
-      plugin.SendMessage("messages.ondecontaminate");
+      SCPDiscord.SendMessage("messages.ondecontaminate");
     }
 
     [PluginEvent]
@@ -116,7 +116,7 @@ namespace SCPDiscord.EventListeners
       {
         { "room", ev.Generator?.GetComponentInParent<RoomIdentifier>()?.Name.ToString() },
       };
-      plugin.SendMessage("messages.ongeneratorfinish", variables);
+      SCPDiscord.SendMessage("messages.ongeneratorfinish", variables);
     }
 
     [PluginEvent]
@@ -130,7 +130,7 @@ namespace SCPDiscord.EventListeners
             { "room",       ev.Generator?.GetComponentInParent<RoomIdentifier>()?.Name.ToString() },
           };
           variables.AddPlayerVariables(ev.Player, "player");
-          plugin.SendMessage("messages.ongeneratorunlock", variables);
+          SCPDiscord.SendMessage("messages.ongeneratorunlock", variables);
     }
 
     [PluginEvent]
@@ -144,7 +144,7 @@ namespace SCPDiscord.EventListeners
             { "room",       ev.Generator?.GetComponentInParent<RoomIdentifier>()?.Name.ToString() },
           };
           variables.AddPlayerVariables(ev.Player, "player");
-          plugin.SendMessage("messages.ongeneratoropen", variables);
+          SCPDiscord.SendMessage("messages.ongeneratoropen", variables);
     }
 
     [PluginEvent]
@@ -159,7 +159,7 @@ namespace SCPDiscord.EventListeners
             { "room",       ev.Generator?.GetComponentInParent<RoomIdentifier>()?.Name.ToString() },
           };
           variables.AddPlayerVariables(ev.Player, "player");
-          plugin.SendMessage("messages.ongeneratorclose", variables);
+          SCPDiscord.SendMessage("messages.ongeneratorclose", variables);
     }
 
     [PluginEvent]
@@ -174,7 +174,7 @@ namespace SCPDiscord.EventListeners
             { "room",       ev.Generator?.GetComponentInParent<RoomIdentifier>()?.Name.ToString() },
           };
           variables.AddPlayerVariables(ev.Player, "player");
-          plugin.SendMessage("messages.ongeneratoractivated", variables);
+          SCPDiscord.SendMessage("messages.ongeneratoractivated", variables);
     }
 
     [PluginEvent]
@@ -189,13 +189,13 @@ namespace SCPDiscord.EventListeners
             { "room",       ev.Generator?.GetComponentInParent<RoomIdentifier>()?.Name.ToString() },
           };
       variables.AddPlayerVariables(ev.Player, "player");
-          plugin.SendMessage("messages.ongeneratordeactivated", variables);
+          SCPDiscord.SendMessage("messages.ongeneratordeactivated", variables);
     }
 
     [PluginEvent]
     public void OnMapGenerated(MapGeneratedEvent ev)
     {
-      plugin.SendMessage("messages.onmapgenerated");
+      SCPDiscord.SendMessage("messages.onmapgenerated");
     }
 
     [PluginEvent]
@@ -210,7 +210,7 @@ namespace SCPDiscord.EventListeners
         { "canopen", ev.CanOpen.ToString() }
             };
             variables.AddPlayerVariables(ev.Player, "player");
-      plugin.SendMessage("messages.onplayerinteractlocker", variables);
+      SCPDiscord.SendMessage("messages.onplayerinteractlocker", variables);
     }
   }
 }

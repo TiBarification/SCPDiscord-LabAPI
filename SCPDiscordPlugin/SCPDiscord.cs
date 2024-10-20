@@ -172,7 +172,7 @@ namespace SCPDiscord
       Logger.Info("SCPDiscord disabled.");
     }
 
-    public void SendStringByID(ulong channelID, string message)
+    public static void SendStringByID(ulong channelID, string message)
     {
       MessageWrapper wrapper = new MessageWrapper
       {
@@ -185,29 +185,41 @@ namespace SCPDiscord
       NetworkSystem.QueueMessage(wrapper);
     }
 
-    public void SendEmbedByID(EmbedMessage message)
+    public static void SendEmbedByID(EmbedMessage message)
     {
       NetworkSystem.QueueMessage(new MessageWrapper { EmbedMessage = message });
     }
 
-    public void SendMessage(string messagePath, Dictionary<string, string> variables = null)
+    public static void SendMessage(string messagePath, Dictionary<string, string> variables = null)
     {
-      Thread messageThread = new Thread(() => new ProcessMessageAsync(messagePath, variables));
+      List<ulong> channelIDs = Config.GetChannelIDs(messagePath);
+      if (channelIDs.Count == 0)
+      {
+        return;
+      }
+
+      Thread messageThread = new Thread(() => new ProcessMessageAsync(channelIDs, messagePath, variables));
       messageThread.Start();
     }
 
-    public void SendEmbedWithMessage(string messagePath, EmbedMessage embed, Dictionary<string, string> variables = null)
+    public static void SendEmbedWithMessage(string messagePath, EmbedMessage embed, Dictionary<string, string> variables = null)
     {
-      Thread messageThread = new Thread(() => new ProcessEmbedMessageAsync(embed, messagePath, variables));
+      List<ulong> channelIDs = Config.GetChannelIDs(messagePath);
+      if (channelIDs.Count == 0)
+      {
+        return;
+      }
+
+      Thread messageThread = new Thread(() => new ProcessEmbedMessageAsync(embed, channelIDs, messagePath, variables));
       messageThread.Start();
     }
 
-    public void SendMessageByID(ulong channelID, string messagePath, Dictionary<string, string> variables = null)
+    public static void SendMessageByID(ulong channelID, string messagePath, Dictionary<string, string> variables = null)
     {
       new Thread(() => new ProcessMessageByIDAsync(channelID, messagePath, variables)).Start();
     }
 
-    public void SendEmbedWithMessageByID(EmbedMessage embed, string messagePath, Dictionary<string, string> variables = null)
+    public static void SendEmbedWithMessageByID(EmbedMessage embed, string messagePath, Dictionary<string, string> variables = null)
     {
       new Thread(() => new ProcessEmbedMessageByIDAsync(embed, messagePath, variables)).Start();
     }

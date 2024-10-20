@@ -29,7 +29,7 @@ namespace SCPDiscord.Commands
       }
 
 
-      SCPDiscord.plugin.SendStringByID(channelID, string.Join(" ", arguments.Skip(1)));
+      SCPDiscord.SendStringByID(channelID, string.Join(" ", arguments.Skip(1)));
       response = "Message sent.";
       return true;
     }

@@ -132,7 +132,7 @@ namespace SCPDiscord.EventListeners
       {
         variables.AddPlayerVariables(ev.Target, "target");
 
-        plugin.SendMessage("messages.onplayerhurt.noattacker", variables);
+        SCPDiscord.SendMessage("messages.onplayerhurt.noattacker", variables);
       }
       else
       {
@@ -141,11 +141,11 @@ namespace SCPDiscord.EventListeners
 
         if (IsTeamDamage(ev.Player.ReferenceHub.GetTeam(), ev.Target.ReferenceHub.GetTeam()))
         {
-          plugin.SendMessage("messages.onplayerhurt.friendlyfire", variables);
+          SCPDiscord.SendMessage("messages.onplayerhurt.friendlyfire", variables);
           return;
         }
 
-        plugin.SendMessage("messages.onplayerhurt.default", variables);
+        SCPDiscord.SendMessage("messages.onplayerhurt.default", variables);
       }
     }
 
@@ -165,7 +165,7 @@ namespace SCPDiscord.EventListeners
       if (ev.Attacker == null || ev.Player.PlayerId == ev.Attacker.PlayerId)
       {
         variables.AddPlayerVariables(ev.Player, "target");
-        plugin.SendMessage("messages.onplayerdie.nokiller", variables);
+        SCPDiscord.SendMessage("messages.onplayerdie.nokiller", variables);
       }
       else
       {
@@ -174,11 +174,11 @@ namespace SCPDiscord.EventListeners
 
         if (IsTeamDamage(ev.Attacker.ReferenceHub.GetTeam(), ev.Player.ReferenceHub.GetTeam()))
         {
-          plugin.SendMessage("messages.onplayerdie.friendlyfire", variables);
+          SCPDiscord.SendMessage("messages.onplayerdie.friendlyfire", variables);
         }
         else
         {
-          plugin.SendMessage("messages.onplayerdie.default", variables);
+          SCPDiscord.SendMessage("messages.onplayerdie.default", variables);
         }
       }
     }
@@ -192,7 +192,7 @@ namespace SCPDiscord.EventListeners
       };
       variables.AddPlayerVariables(ev.Player, "player");
 
-      plugin.SendMessage("messages.onplayerpickupammo", variables);
+      SCPDiscord.SendMessage("messages.onplayerpickupammo", variables);
     }
 
     [PluginEvent]
@@ -203,7 +203,7 @@ namespace SCPDiscord.EventListeners
         { "armor", ev.Item.Info.ItemId.ToString() }
       };
       variables.AddPlayerVariables(ev.Player, "player");
-      plugin.SendMessage("messages.onplayerpickuparmor", variables);
+      SCPDiscord.SendMessage("messages.onplayerpickuparmor", variables);
     }
 
     [PluginEvent]
@@ -211,7 +211,7 @@ namespace SCPDiscord.EventListeners
     {
       Dictionary<string, string> variables = new Dictionary<string, string>();
       variables.AddPlayerVariables(ev.Player, "player");
-      plugin.SendMessage("messages.onplayerpickupscp330", variables);
+      SCPDiscord.SendMessage("messages.onplayerpickupscp330", variables);
     }
 
     [PluginEvent]
@@ -222,7 +222,7 @@ namespace SCPDiscord.EventListeners
         { "item", ev.Item.Info.ItemId.ToString() }
       };
       variables.AddPlayerVariables(ev.Player, "player");
-      plugin.SendMessage("messages.onplayerpickupitem", variables);
+      SCPDiscord.SendMessage("messages.onplayerpickupitem", variables);
     }
 
     [PluginEvent]
@@ -234,7 +234,7 @@ namespace SCPDiscord.EventListeners
         { "amount", ev.Amount.ToString() }
       };
       variables.AddPlayerVariables(ev.Player, "player");
-      plugin.SendMessage("messages.onplayerdropammo", variables);
+      SCPDiscord.SendMessage("messages.onplayerdropammo", variables);
     }
 
     [PluginEvent]
@@ -245,7 +245,7 @@ namespace SCPDiscord.EventListeners
         { "item", ev.Item.ItemTypeId.ToString() }
       };
       variables.AddPlayerVariables(ev.Player, "player");
-      plugin.SendMessage("messages.onplayerdropitem", variables);
+      SCPDiscord.SendMessage("messages.onplayerdropitem", variables);
     }
 
     [PluginEvent]
@@ -258,7 +258,7 @@ namespace SCPDiscord.EventListeners
 
       Dictionary<string, string> variables = new Dictionary<string, string>();
       variables.AddPlayerVariables(ev.Player, "player");
-      plugin.SendMessage("messages.onplayerjoin", variables);
+      SCPDiscord.SendMessage("messages.onplayerjoin", variables);
     }
 
     [PluginEvent]
@@ -271,7 +271,7 @@ namespace SCPDiscord.EventListeners
 
       Dictionary<string, string> variables = new Dictionary<string, string>();
       variables.AddPlayerVariables(ev.Player, "player");
-      plugin.SendMessage("messages.onplayerleave", variables);
+      SCPDiscord.SendMessage("messages.onplayerleave", variables);
     }
 
     [PluginEvent]
@@ -289,7 +289,7 @@ namespace SCPDiscord.EventListeners
 
       Dictionary<string, string> variables = new Dictionary<string, string>();
       variables.AddPlayerVariables(ev.Player, "player");
-      plugin.SendMessage("messages.onspawn", variables);
+      SCPDiscord.SendMessage("messages.onspawn", variables);
     }
 
     [PluginEvent]
@@ -299,7 +299,7 @@ namespace SCPDiscord.EventListeners
       {
         { "players", ev.Players.Select(x => x.Nickname).ToString() }
       };
-      plugin.SendMessage(ev.Team == SpawnableTeamType.ChaosInsurgency ? "messages.onteamrespawn.ci" : "messages.onteamrespawn.mtf", variables);
+      SCPDiscord.SendMessage(ev.Team == SpawnableTeamType.ChaosInsurgency ? "messages.onteamrespawn.ci" : "messages.onteamrespawn.mtf", variables);
     }
 
     [PluginEvent]
@@ -310,7 +310,7 @@ namespace SCPDiscord.EventListeners
         { "type", ev.Item.ItemTypeId.ToString() }
       };
       variables.AddPlayerVariables(ev.Thrower, "player");
-      plugin.SendMessage("messages.onthrowprojectile", variables);
+      SCPDiscord.SendMessage("messages.onthrowprojectile", variables);
     }
 
     [PluginEvent]
@@ -321,7 +321,7 @@ namespace SCPDiscord.EventListeners
         { "item", ev.Item.ItemTypeId.ToString() }
       };
       variables.AddPlayerVariables(ev.Player, "player");
-      plugin.SendMessage("messages.onitemuse", variables);
+      SCPDiscord.SendMessage("messages.onitemuse", variables);
     }
 
     [PluginEvent]
@@ -331,13 +331,13 @@ namespace SCPDiscord.EventListeners
       if (ev.Player == null)
       {
         variables.AddPlayerVariables(ev.Target, "target");
-        plugin.SendMessage("messages.onhandcuff.nootherplayer", variables);
+        SCPDiscord.SendMessage("messages.onhandcuff.nootherplayer", variables);
       }
       else
       {
         variables.AddPlayerVariables(ev.Target, "target");
         variables.AddPlayerVariables(ev.Player, "disarmer");
-        plugin.SendMessage("messages.onhandcuff.default", variables);
+        SCPDiscord.SendMessage("messages.onhandcuff.default", variables);
       }
     }
 
@@ -349,12 +349,12 @@ namespace SCPDiscord.EventListeners
       {
         variables.AddPlayerVariables(ev.Target, "target");
         variables.AddPlayerVariables(ev.Player, "disarmer");
-        plugin.SendMessage("messages.onhandcuffremoved.default", variables);
+        SCPDiscord.SendMessage("messages.onhandcuffremoved.default", variables);
       }
       else
       {
         variables.AddPlayerVariables(ev.Target, "target");
-        plugin.SendMessage("messages.onhandcuffremoved.nootherplayer", variables);
+        SCPDiscord.SendMessage("messages.onhandcuffremoved.nootherplayer", variables);
       }
     }
 
@@ -367,7 +367,7 @@ namespace SCPDiscord.EventListeners
         { "maxclipsize", ev.Firearm.AmmoManagerModule.MaxAmmo.ToString() }
       };
       variables.AddPlayerVariables(ev.Player, "player");
-      plugin.SendMessage("messages.onreload", variables);
+      SCPDiscord.SendMessage("messages.onreload", variables);
     }
 
     [PluginEvent]
@@ -383,7 +383,7 @@ namespace SCPDiscord.EventListeners
         variables.AddPlayerVariables(new Player(ev.Thrower.Hub), "player");
       }
 
-      plugin.SendMessage("messages.ongrenadeexplosion", variables);
+      SCPDiscord.SendMessage("messages.ongrenadeexplosion", variables);
     }
 
     [PluginEvent]
@@ -394,7 +394,7 @@ namespace SCPDiscord.EventListeners
         { "newrole", ev.NewRole.ToString() }
       };
       variables.AddPlayerVariables(ev.Player, "player");
-      plugin.SendMessage("messages.onplayerescape", variables);
+      SCPDiscord.SendMessage("messages.onplayerescape", variables);
     }
 
     [PluginEvent]
@@ -407,7 +407,7 @@ namespace SCPDiscord.EventListeners
         { "intensity", ev.Intensity.ToString() }
       };
       variables.AddPlayerVariables(ev.Player, "player");
-      plugin.SendMessage("messages.onplayerreceiveeffect", variables);
+      SCPDiscord.SendMessage("messages.onplayerreceiveeffect", variables);
     }
   }
 }

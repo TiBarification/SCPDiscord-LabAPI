@@ -25,7 +25,7 @@ namespace SCPDiscord.BotCommands
         {
           { "steamid", command.SteamID }
         };
-        SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.invalidsteamid", variables);
+        SCPDiscord.SendEmbedWithMessageByID(embed, "messages.invalidsteamid", variables);
         return;
       }
 
@@ -58,7 +58,7 @@ namespace SCPDiscord.BotCommands
           {
             { "duration", command.Duration }
           };
-          SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.invalidduration", variables);
+          SCPDiscord.SendEmbedWithMessageByID(embed, "messages.invalidduration", variables);
           return;
         }
       }
@@ -101,7 +101,7 @@ namespace SCPDiscord.BotCommands
             { "discord-userid",      command.DiscordUserID.ToString() },
           };
 
-          SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.mutefailed", banVars);
+          SCPDiscord.SendEmbedWithMessageByID(embed, "messages.mutefailed", banVars);
           return;
         }
 
@@ -135,11 +135,11 @@ namespace SCPDiscord.BotCommands
 
         if (endTime == DateTime.MaxValue)
         {
-          SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.playermuted", banVars);
+          SCPDiscord.SendEmbedWithMessageByID(embed, "messages.playermuted", banVars);
         }
         else
         {
-          SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.playertempmuted", banVars);
+          SCPDiscord.SendEmbedWithMessageByID(embed, "messages.playertempmuted", banVars);
         }
       }
       else
@@ -162,7 +162,7 @@ namespace SCPDiscord.BotCommands
           { "discord-userid",      command.DiscordUserID.ToString() },
         };
 
-        SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.mutefailed", banVars);
+        SCPDiscord.SendEmbedWithMessageByID(embed, "messages.mutefailed", banVars);
       }
     }
 
@@ -193,7 +193,7 @@ namespace SCPDiscord.BotCommands
             { "discord-userid",      command.DiscordUserID.ToString() },
           };
 
-          SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.unmutefailed", banVars);
+          SCPDiscord.SendEmbedWithMessageByID(embed, "messages.unmutefailed", banVars);
           return;
         }
 
@@ -223,7 +223,7 @@ namespace SCPDiscord.BotCommands
           InteractionID = command.InteractionID
         };
 
-        SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.playerunmuted", variables);
+        SCPDiscord.SendEmbedWithMessageByID(embed, "messages.playerunmuted", variables);
       }
       else
       {
@@ -234,7 +234,7 @@ namespace SCPDiscord.BotCommands
           InteractionID = command.InteractionID
         };
 
-        SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.unmutefailed", variables);
+        SCPDiscord.SendEmbedWithMessageByID(embed, "messages.unmutefailed", variables);
       }
     }
   }

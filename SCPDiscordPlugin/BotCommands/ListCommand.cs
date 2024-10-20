@@ -29,7 +29,7 @@ namespace SCPDiscord.BotCommands
           ChannelID = command.ChannelID,
           InteractionID = command.InteractionID
         };
-        SCPDiscord.plugin.SendEmbedByID(embed);
+        SCPDiscord.SendEmbedByID(embed);
         return;
       }
 

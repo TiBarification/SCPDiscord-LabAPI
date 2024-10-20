@@ -22,7 +22,7 @@ namespace SCPDiscord.EventListeners
       };
       variables.AddPlayerVariables(ev.Player, "player");
 
-      plugin.SendMessage("messages.on079lockdoor", variables);
+      SCPDiscord.SendMessage("messages.on079lockdoor", variables);
     }
 
     [PluginEvent]
@@ -31,7 +31,7 @@ namespace SCPDiscord.EventListeners
       Dictionary<string, string> variables = new Dictionary<string, string>();
       variables.AddPlayerVariables(ev.Player, "player");
 
-      plugin.SendMessage("messages.on079teslagate", variables);
+      SCPDiscord.SendMessage("messages.on079teslagate", variables);
     }
 
     [PluginEvent]
@@ -43,7 +43,7 @@ namespace SCPDiscord.EventListeners
       };
       variables.AddPlayerVariables(ev.Player, "player");
 
-      plugin.SendMessage("messages.on079levelup", variables);
+      SCPDiscord.SendMessage("messages.on079levelup", variables);
     }
 
     [PluginEvent]
@@ -55,7 +55,7 @@ namespace SCPDiscord.EventListeners
       };
       variables.AddPlayerVariables(ev.Player, "player");
 
-      plugin.SendMessage("messages.on079unlockdoor", variables);
+      SCPDiscord.SendMessage("messages.on079unlockdoor", variables);
     }
 
     [PluginEvent]
@@ -67,7 +67,7 @@ namespace SCPDiscord.EventListeners
       };
       variables.AddPlayerVariables(ev.Player, "player");
 
-      plugin.SendMessage("messages.on079lockdown", variables);
+      SCPDiscord.SendMessage("messages.on079lockdown", variables);
     }
 
     [PluginEvent]
@@ -79,7 +79,7 @@ namespace SCPDiscord.EventListeners
       };
       variables.AddPlayerVariables(ev.Player, "player");
 
-      plugin.SendMessage("messages.on079cancellockdown", variables);
+      SCPDiscord.SendMessage("messages.on079cancellockdown", variables);
     }
 
     [PluginEvent]
@@ -89,7 +89,7 @@ namespace SCPDiscord.EventListeners
       variables.AddPlayerVariables(ev.Target, "target");
       variables.AddPlayerVariables(ev.Player, "player");
 
-      plugin.SendMessage("messages.onrecallzombie", variables);
+      SCPDiscord.SendMessage("messages.onrecallzombie", variables);
     }
 
     [PluginEvent]
@@ -101,7 +101,7 @@ namespace SCPDiscord.EventListeners
       };
       variables.AddPlayerVariables(ev.Player, "player");
 
-      plugin.SendMessage("messages.oninteract330", variables);
+      SCPDiscord.SendMessage("messages.oninteract330", variables);
     }
   }
 }

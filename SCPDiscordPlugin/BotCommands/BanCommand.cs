@@ -28,7 +28,7 @@ namespace SCPDiscord.BotCommands
           { "discord-username",    command.DiscordUsername },
           { "discord-userid",      command.DiscordUserID.ToString() },
         };
-        SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.invalidsteamid", variables);
+        SCPDiscord.SendEmbedWithMessageByID(embed, "messages.invalidsteamid", variables);
         return;
       }
 
@@ -54,7 +54,7 @@ namespace SCPDiscord.BotCommands
           { "discord-username",    command.DiscordUsername },
           { "discord-userid",      command.DiscordUserID.ToString() },
         };
-        SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.invalidduration", variables);
+        SCPDiscord.SendEmbedWithMessageByID(embed, "messages.invalidduration", variables);
         return;
       }
 
@@ -126,11 +126,11 @@ namespace SCPDiscord.BotCommands
       {
         banVars.Add("name", name);
         banVars.Add("userid", command.SteamID);
-        SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.playerbanned.offline", banVars);
+        SCPDiscord.SendEmbedWithMessageByID(embed, "messages.playerbanned.offline", banVars);
       }
       else
       {
-        SCPDiscord.plugin.SendEmbedWithMessageByID(embed, "messages.playerbanned.online", banVars);
+        SCPDiscord.SendEmbedWithMessageByID(embed, "messages.playerbanned.online", banVars);
       }
     }
   }
