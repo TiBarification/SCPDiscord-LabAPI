@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using GameCore;
 using Mirror.LiteNetLib4Mirror;
@@ -14,10 +15,20 @@ using PluginAPI.Enums;
 using PluginAPI.Events;
 using YamlDotNet.Core;
 
+// Remember to update version below as well
+[assembly:AssemblyVersion(SCPDiscord.SCPDiscord.VERSION)]
+[assembly:AssemblyTitle("SCP:SL Discord Plugin")]
+[assembly:AssemblyCompany("https://github.com/KarlOfDuty/SCPDiscord")]
+[assembly:AssemblyCopyright("© 2018-2024 Karl Essinger and contributors - licenced under GPLv3")]
+[assembly:AssemblyProduct("SCPDiscord")]
+
 namespace SCPDiscord
 {
   public class SCPDiscord
   {
+    // Remember to update version above as well
+    public const string VERSION = "3.2.2";
+
     private readonly Stopwatch serverStartTime = new Stopwatch();
 
     internal SynchronousExecutor sync;
@@ -32,8 +43,6 @@ namespace SCPDiscord
 
     //private Utilities.FileWatcher vanillaMutesWatcher;
     private Utilities.FileWatcher whitelistWatcher;
-
-    public const string VERSION = "3.2.1";
 
     [PluginEntryPoint("SCPDiscord", VERSION, "SCP:SL - Discord bridge.", "Karl Essinger")]
     public void Start()
