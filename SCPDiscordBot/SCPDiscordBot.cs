@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -12,7 +13,12 @@ namespace SCPDiscord
     {
         public class CommandLineArguments
         {
-            [Option('c', "config", Required = false, HelpText = "Select a config file to use.", Default = "config.yml", MetaValue = "PATH")]
+            [Option('c',
+                                "config",
+                                Required = false,
+                                HelpText = "Select a config file to use.",
+                                Default = "config.yml",
+                                MetaValue = "PATH")]
             public string configPath { get; set; }
 
             [Option(
@@ -28,12 +34,31 @@ namespace SCPDiscord
 
         internal static CommandLineArguments commandLineArgs;
 
-        public static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            commandLineArgs = Parser.Default.ParseArguments<CommandLineArguments>(args).Value;
-
-            if (args.Contains("--help") || args.Contains("--version"))
+            StringWriter sw = new StringWriter();
+            commandLineArgs = new Parser(settings =>
             {
+                settings.AutoHelp = true;
+                settings.HelpWriter = sw;
+                settings.AutoVersion = false;
+            }).ParseArguments<CommandLineArguments>(args).Value;
+
+            // CommandLineParser has some bugs related to the built-in version option, ignore the output if it isn't found.
+            if (!sw.ToString().Contains("Option 'version' is unknown."))
+            {
+                Console.Write(sw);
+            }
+
+            if (args.Contains("--help"))
+            {
+                return;
+            }
+
+            if (args.Contains("--version"))
+            {
+                Console.WriteLine(Assembly.GetEntryAssembly()?.GetName().Name + ' ' + GetVersion());
+                Console.WriteLine("Build time: " + BuildInfo.BuildTimeUTC.ToString("yyyy-MM-dd HH:mm:ss") + " UTC");
                 return;
             }
 
@@ -74,7 +99,11 @@ namespace SCPDiscord
         public static string GetVersion()
         {
             Version version = Assembly.GetEntryAssembly()?.GetName().Version;
-            return version?.Major + "." + version?.Minor + "." + version?.Build + (version?.Revision == 0 ? "" : "-" + (char)(64 + version?.Revision ?? 0));
+            return version?.Major + "."
+                 + version?.Minor + "."
+                 + version?.Build
+                 + (version?.Revision == 0 ? "" : "-" + (char)(64 + version?.Revision ?? 0))
+                 + " (" + ThisAssembly.Git.Commit + ")";
         }
     }
 }
