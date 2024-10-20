@@ -1,14 +1,8 @@
-﻿using System.Collections.Generic;
-using Interactables.Interobjects;
-using Interactables.Interobjects.DoorUtils;
+using System.Collections.Generic;
 using MapGeneration;
-using MapGeneration.Distributors;
-using PlayerRoles;
 using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
-using PluginAPI.Enums;
 using PluginAPI.Events;
-using Scp914;
 
 namespace SCPDiscord.EventListeners
 {
@@ -19,19 +13,6 @@ namespace SCPDiscord.EventListeners
 		public EnvironmentEventListener(SCPDiscord pl)
 		{
 			plugin = pl;
-		}
-
-		[PluginEvent]
-		public void OnDoorAccess(PlayerInteractDoorEvent ev)
-		{
-			Dictionary<string, string> variables = new Dictionary<string, string>
-			{
-				{ "doorname",   ev.Door.name },
-				{ "permission", ev.Door.RequiredPermissions.RequiredPermissions.ToString() },
-				{ "open",       ev.Door.TargetState.ToString() }
-			};
-			variables.AddPlayerVariables(ev.Player, "player");
-			plugin.SendMessage(ev.CanOpen ? "messages.ondooraccess.allowed" : "messages.ondooraccess.denied", variables);
 		}
 
 		[PluginEvent]
@@ -63,18 +44,6 @@ namespace SCPDiscord.EventListeners
 			};
 			variables.AddPlayerVariables(ev.Player, "player");
 			plugin.SendMessage("messages.onscp914activate", variables);
-		}
-
-		[PluginEvent]
-		public void OnSCP914ChangeKnob(Scp914KnobChangeEvent ev)
-		{
-			Dictionary<string, string> variables = new Dictionary<string, string>
-			{
-				{ "newsetting", ev.KnobSetting.ToString()         },
-				{ "oldsetting", ev.PreviousKnobSetting.ToString() }
-			};
-			variables.AddPlayerVariables(ev.Player, "player");
-			plugin.SendMessage("messages.onscp914changeknob", variables);
 		}
 
 		[PluginEvent]
@@ -230,26 +199,6 @@ namespace SCPDiscord.EventListeners
 		}
 
 		[PluginEvent]
-        public void OnItemSpawned(ItemSpawnedEvent ev)
-		{
-            Dictionary<string, string> variables = new Dictionary<string, string>
-            {
-                { "item", ev.Item.ToString() }
-            };
-            plugin.SendMessage("messages.onitemspawned", variables);
-        }
-
-		[PluginEvent]
-        public void OnPlaceBlood(PlaceBloodEvent ev)
-        {
-	        if (ev.Player == null) return;
-
-            Dictionary<string, string> variables = new Dictionary<string, string> { };
-            variables.AddPlayerVariables(ev.Player, "player");
-            plugin.SendMessage("messages.onplaceblood", variables);
-        }
-
-		[PluginEvent]
         public void OnPlayerInteractLocker(PlayerInteractLockerEvent ev)
         {
 	        if (ev.Player == null) return;
@@ -262,19 +211,6 @@ namespace SCPDiscord.EventListeners
             };
             variables.AddPlayerVariables(ev.Player, "player");
             plugin.SendMessage("messages.onplayerinteractlocker", variables);
-        }
-
-		[PluginEvent]
-        public void OnPlayerInteractShootingTarget(PlayerInteractShootingTargetEvent ev)
-        {
-	        if (ev.Player == null) return;
-
-            Dictionary<string, string> variables = new Dictionary<string, string>
-            {
-                { "target", ev.ShootingTarget.ToString() },
-            };
-            variables.AddPlayerVariables(ev.Player, "player");
-            plugin.SendMessage("messages.onplayerinteractshootingtarget", variables);
         }
     }
 }

@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using CustomPlayerEffects;
-using MapGeneration;
 using PlayerRoles;
 using PlayerRoles.PlayableScps.Scp3114;
 using PlayerRoles.PlayableScps.Scp939;
@@ -315,17 +313,6 @@ namespace SCPDiscord.EventListeners
 		}
 
 		[PluginEvent]
-		public void OnSpawnRagdoll(RagdollSpawnEvent ev)
-		{
-			Dictionary<string, string> variables = new Dictionary<string, string>
-			{
-				{ "damagetype", GetDamageType(ev.DamageHandler) }
-			};
-			variables.AddPlayerVariables(ev.Player, "player");
-			plugin.SendMessage("messages.onspawnragdoll", variables);
-		}
-
-		[PluginEvent]
 		public void OnItemUse(PlayerUsedItemEvent ev)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
@@ -372,17 +359,6 @@ namespace SCPDiscord.EventListeners
 		}
 
 		[PluginEvent]
-		public void OnPlayerChangeRadioRange(PlayerChangeRadioRangeEvent ev)
-		{
-			Dictionary<string, string> variables = new Dictionary<string, string>
-			{
-				{ "setting", ev.Range.ToString() }
-			};
-			variables.AddPlayerVariables(ev.Player, "player");
-			plugin.SendMessage("messages.onplayerradioswitch", variables);
-		}
-
-		[PluginEvent]
 		public void OnReload(PlayerReloadWeaponEvent ev)
 		{
 			Dictionary<string, string> variables = new Dictionary<string, string>
@@ -420,88 +396,6 @@ namespace SCPDiscord.EventListeners
 			variables.AddPlayerVariables(ev.Player, "player");
 			plugin.SendMessage("messages.onplayerescape", variables);
 		}
-
-		[PluginEvent]
-        public void OnPlayerAim(PlayerAimWeaponEvent ev)
-		{
-            Dictionary<string, string> variables = new Dictionary<string, string>
-			{
-				{ "weapon",   ev.Firearm.ItemTypeId.ToString() },
-				{ "isAiming", ev.IsAiming.ToString() }
-			};
-            variables.AddPlayerVariables(ev.Player, "player");
-            plugin.SendMessage("messages.onplayeraim", variables);
-        }
-
-		[PluginEvent]
-        public void OnPlayerCancelUsingItem(PlayerCancelUsingItemEvent ev)
-		{
-            Dictionary<string, string> variables = new Dictionary<string, string>
-			{
-				{ "item", ev.Item.ItemTypeId.ToString() }
-			};
-            variables.AddPlayerVariables(ev.Player, "player");
-            plugin.SendMessage("messages.onplayercancelusingitem", variables);
-        }
-
-		[PluginEvent]
-        public void OnPlayerChangeItem(PlayerChangeItemEvent ev)
-		{
-            Dictionary<string, string> variables = new Dictionary<string, string>
-            {
-                { "oldItem", ev.OldItem.ToString() },
-                { "newItem", ev.NewItem.ToString() },
-            };
-            variables.AddPlayerVariables(ev.Player, "player");
-            plugin.SendMessage("messages.onplayerchangeitem", variables);
-        }
-
-		[PluginEvent]
-        public void OnPlayerChangeSpectator(PlayerChangeSpectatorEvent ev)
-        {
-			Dictionary<string, string> variables = new Dictionary<string, string> { };
-            variables.AddPlayerVariables(ev.OldTarget, "oldTarget");
-            variables.AddPlayerVariables(ev.NewTarget, "newTarget");
-            variables.AddPlayerVariables(ev.Player, "spectator");
-            plugin.SendMessage("messages.onplayerchangespectator", variables);
-        }
-
-		[PluginEvent]
-        public void OnPlayerDamageShootingTarget(PlayerDamagedShootingTargetEvent ev)
-        {
-			Dictionary<string, string> variables = new Dictionary<string, string>
-			{
-				{ "amount", ev.DamageAmount.ToString("0.##") },
-				{ "type",   GetDamageType(ev.DamageHandler) },
-				{ "target", ev.ShootingTarget.ToString() }
-            };
-            variables.AddPlayerVariables(ev.Player, "player");
-            plugin.SendMessage("messages.onplayerdamageshootingtarget", variables);
-        }
-
-		[PluginEvent]
-        public void OnPlayerDamageWindow(PlayerDamagedWindowEvent ev)
-        {
-            Dictionary<string, string> variables = new Dictionary<string, string>
-            {
-                { "amount", ev.DamageAmount.ToString("0.##") },
-                { "type",   GetDamageType(ev.DamageHandler) },
-                //{ "window", ev.Window.ToString() }
-            };
-            variables.AddPlayerVariables(ev.Player, "player");
-            plugin.SendMessage("messages.onplayerdamagewindow", variables);
-        }
-
-		[PluginEvent]
-        public void OnPlayerDryfireWeapon(PlayerDryfireWeaponEvent ev)
-		{
-            Dictionary<string, string> variables = new Dictionary<string, string>
-            {
-                { "weapon", ev.Firearm.ItemTypeId.ToString() }
-            };
-            variables.AddPlayerVariables(ev.Player, "player");
-            plugin.SendMessage("messages.onplayerdryfireweapon", variables);
-        }
 
 		[PluginEvent]
         public void OnPlayerReceiveEffect(PlayerReceiveEffectEvent ev)

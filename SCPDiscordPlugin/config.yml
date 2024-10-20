@@ -186,13 +186,6 @@ messages:
             server: [ "staff" ]
     onplayercheaterreport: [ "staff" ]
     onplayerreport: [ "staff" ]
-    onplayeraim: []
-    onplayercancelusingitem: []
-    onplayerchangeitem: []
-    onplayerchangespectator: []
-    onplayerdamageshootingtarget: []
-    onplayerdamagewindow: []
-    onplayerdryfireweapon: []
     onplayerreceiveeffect: []
 
     # Environment events.
@@ -220,20 +213,10 @@ messages:
     ongeneratorclose: []
     ongeneratoractivated: [ "default" ]
     ongeneratordeactivated: [ "default" ]
-    onscp914changeknob: []
-    onplayertriggertesla:
-        default: []
-        ignored: []
     onpocketdimensionexit: [ "default" ]
     onpocketdimensionenter: [ "default" ]
-    ondooraccess:
-        allowed: []
-        denied: []
     onmapgenerated: []
-    onitemspawned: []
-    onplaceblood: []
     onplayerinteractlocker: []
-    onplayerinteractshootingtarget: []
 
     # SCP Events.
     on079lockdoor: []
@@ -263,19 +246,8 @@ messages:
     onplayerdropammo: []
     onplayerjoin: [ "default", "staff" ]
     onnicknameset: []
-    onsetrole:
-        roundstart: [ "default" ]
-        latejoin: [ "default" ]
-        respawn: [ "default" ]
-        died: []
-        escaped: []
-        revived: [ "default" ]
-        remoteadmin: [ "default" ]
-        left: []
-        other: []
     onspawn: []
     onthrowprojectile: [ "default", "staff" ]
-    onspawnragdoll: []
     onitemuse: [ "default" ]
     onhandcuff:
         default: [ "default" ]
@@ -283,7 +255,6 @@ messages:
     onhandcuffremoved:
         default: [ "default" ]
         nootherplayer: [ "default" ]
-    onplayerradioswitch: []
     onreload: []
     ongrenadeexplosion: []
     ongrenadehitplayer: []
