@@ -310,7 +310,7 @@ namespace SCPDiscord
         }
         catch (ArgumentNullException)
         {
-          Logger.Warn("Config array '" + node.Key + "' not found, using default value: []");
+          Logger.Warn("Config array '" + node.Key + "' not found.");
         }
         catch (Exception e)
         {
@@ -331,7 +331,7 @@ namespace SCPDiscord
         }
         catch (ArgumentNullException)
         {
-          Logger.Warn("Config dictionary '" + node.Key + "' not found, using default value: []");
+          Logger.Warn("Config dictionary '" + node.Key + "' not found.");
         }
         catch (Exception e)
         {
@@ -383,14 +383,16 @@ namespace SCPDiscord
       return configInts[node];
     }
 
-    public static string[] GetArray(string node)
+    public static bool TryGetArray(string node, out string[] stringArray)
     {
-      return configArrays[node];
+      stringArray = configArrays[node];
+      return stringArray != null;
     }
 
-    public static Dictionary<string, ulong> GetDict(string node)
+    public static bool TryGetDict(string node, out Dictionary<string, ulong> dict)
     {
-      return configDicts[node];
+      dict = configDicts[node];
+      return dict != null;
     }
 
     public static void SetBool(string key, bool value)
@@ -540,28 +542,6 @@ namespace SCPDiscord
         sb.Append(node.Key + ": " + node.Value + "\n");
       }
 
-      sb.Append("------------ Config arrays ------------\n");
-      foreach (KeyValuePair<string, string[]> node in configArrays)
-      {
-        if (node.Value == null)
-        {
-          sb.Append(node.Key + " NOT FOUND!\n");
-          continue;
-        }
-
-        sb.Append(node.Key + ": [ " + string.Join(", ", node.Value ?? new[] { "ERROR - NOT FOUND" }) + " ]\n");
-        if (node.Key.StartsWith("messages."))
-        {
-          foreach (string s in node.Value ?? Array.Empty<string>())
-          {
-            if (!GetDict("channels").ContainsKey(s))
-            {
-              sb.Append("WARNING: Channel alias '" + s + "' does not exist!\n");
-            }
-          }
-        }
-      }
-
       sb.Append("------------ Config dictionaries ------------\n");
       foreach (KeyValuePair<string, Dictionary<string, ulong>> node in configDicts)
       {
@@ -571,6 +551,33 @@ namespace SCPDiscord
           sb.Append("    " + subNode.Key + ": " + subNode.Value + "\n");
         }
       }
+
+      if (TryGetDict("channels", out Dictionary<string, ulong> channelDict))
+      {
+        sb.Append("------------ Config arrays ------------\n");
+        foreach (KeyValuePair<string, string[]> node in configArrays)
+        {
+          if (node.Value == null)
+          {
+            sb.Append(node.Key + " NOT FOUND!\n");
+            continue;
+          }
+
+          sb.Append(node.Key + ": [ " + string.Join(", ", node.Value ?? new[] { "ERROR - NOT FOUND" }) + " ]\n");
+          if (node.Key.StartsWith("messages."))
+          {
+            foreach (string s in node.Value ?? Array.Empty<string>())
+            {
+              if (!channelDict.ContainsKey(s))
+              {
+                sb.Append("WARNING: Channel alias '" + s + "' does not exist!\n");
+              }
+            }
+          }
+        }
+      }
+
+
 
       sb.Append("------------ Rolesync system ------------\n");
       foreach (KeyValuePair<ulong, string[]> node in roleDictionary)
@@ -589,10 +596,22 @@ namespace SCPDiscord
 
     public static List<ulong> GetChannelIDs(string path)
     {
-      List<ulong> channelIDs = new List<ulong>();
-      foreach (string alias in GetArray(path))
+      if (!TryGetArray(path, out string[] aliasArray))
       {
-        if (GetDict("channels").TryGetValue(alias, out ulong channelID))
+        Logger.Warn("Tried to get \"" + path + "\" from config but it could not be found or was invalid.");
+        return new List<ulong>();
+      }
+
+      if (!TryGetDict("channels", out Dictionary<string, ulong> dict))
+      {
+        Logger.Error("Tried to get channel aliases from config but they could not be found or were invalid.");
+        return new List<ulong>();
+      }
+
+      List<ulong> channelIDs = new List<ulong>();
+      foreach (string alias in aliasArray)
+      {
+        if (dict.TryGetValue(alias, out ulong channelID))
         {
           channelIDs.Add(channelID);
         }
