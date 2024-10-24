@@ -374,7 +374,7 @@ namespace SCPDiscord
           catch (Exception) { /* ignore */ }
         }
 
-        Logger.Info((lang.Key + ": ").PadRight(45) + (Math.Round((float)workingNodes / Config.languageNodes.Count * 100) + "%").PadLeft(5) + " (" + workingNodes + "/" + Config.languageNodes.Count + " nodes)");
+        Logger.Info((lang.Key + ": ").PadRight(25) + (Math.Round((float)workingNodes / Config.languageNodes.Count * 100) + "%").PadLeft(5) + " (" + workingNodes + "/" + Config.languageNodes.Count + " nodes)");
       }
     }
 
