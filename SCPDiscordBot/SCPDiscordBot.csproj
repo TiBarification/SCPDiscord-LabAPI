@@ -28,10 +28,10 @@
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.9.1" />
-    <PackageReference Include="DSharpPlus" Version="5.0.0-nightly-02132" />
-    <PackageReference Include="DSharpPlus.Interactivity" Version="5.0.0-nightly-02132" />
-    <PackageReference Include="DSharpPlus.Rest" Version="5.0.0-nightly-02132" />
-    <PackageReference Include="DSharpPlus.SlashCommands" Version="5.0.0-nightly-02132" />
+    <PackageReference Include="DSharpPlus" Version="5.0.0-nightly-02242" />
+    <PackageReference Include="DSharpPlus.Interactivity" Version="5.0.0-nightly-02242" />
+    <PackageReference Include="DSharpPlus.Rest" Version="5.0.0-nightly-02242" />
+    <PackageReference Include="DSharpPlus.SlashCommands" Version="5.0.0-nightly-02242" />
     <PackageReference Include="EmbeddedBuildTime" Version="1.0.3" />
     <PackageReference Include="GitInfo" Version="3.3.5">
       <PrivateAssets>all</PrivateAssets>

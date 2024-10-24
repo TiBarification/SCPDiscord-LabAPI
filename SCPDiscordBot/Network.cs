@@ -125,8 +125,8 @@ namespace SCPDiscord
           try
           {
             DiscordAPI.SetActivity(wrapper.BotActivity.ActivityText,
-                     (ActivityType)wrapper.BotActivity.ActivityType,
-                       (UserStatus)wrapper.BotActivity.StatusType);
+                     (DiscordActivityType)wrapper.BotActivity.ActivityType,
+                       (DiscordUserStatus)wrapper.BotActivity.StatusType);
           }
           catch (Exception)
           {
