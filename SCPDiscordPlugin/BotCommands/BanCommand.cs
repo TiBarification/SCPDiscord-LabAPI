@@ -87,7 +87,7 @@ namespace SCPDiscord.BotCommands
 
       // Send player banned event if player is online, and add ipban
       bool offlineBan = true;
-      if (Player.TryGet(command.SteamID.EndsWith("@steam") ? command.SteamID : command.SteamID + "@steam", out Player player))
+      if (Utilities.TryGetPlayer(command.SteamID, out Player player))
       {
         offlineBan = false;
         banVars.AddPlayerVariables(player, "player");

@@ -95,7 +95,7 @@ namespace SCPDiscord
         await Task.Delay(remaining);
       }
 
-      if (Player.TryGet(userId, out Player player))
+      if (Utilities.TryGetPlayer(userId, out Player player))
       {
         CheckMuteStatus(player);
       }

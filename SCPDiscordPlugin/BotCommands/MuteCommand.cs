@@ -78,7 +78,7 @@ namespace SCPDiscord.BotCommands
       string userID = command.SteamID.EndsWith("@steam") ? command.SteamID : command.SteamID + "@steam";
       string playerName = "";
 
-      if (Player.TryGet(userID, out Player player))
+      if (Utilities.TryGetPlayer(userID, out Player player))
       {
         MuteSystem.ignoreUserID = userID;
         if (!EventManager.ExecuteEvent(new PlayerMutedEvent(player.ReferenceHub, Server.Instance.ReferenceHub, false)))
@@ -171,7 +171,7 @@ namespace SCPDiscord.BotCommands
       string userID = command.SteamID.EndsWith("@steam") ? command.SteamID : command.SteamID + "@steam";
       string playerName = "";
 
-      if (Player.TryGet(userID, out Player player))
+      if (Utilities.TryGetPlayer(userID, out Player player))
       {
         MuteSystem.ignoreUserID = userID;
         if (!EventManager.ExecuteEvent(new PlayerUnmutedEvent(player.ReferenceHub, Server.Instance.ReferenceHub, false)))

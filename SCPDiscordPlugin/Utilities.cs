@@ -72,6 +72,21 @@ namespace SCPDiscord
       return SecondsToCompoundTime(ticks / TimeSpan.TicksPerSecond);
     }
 
+    public static bool TryGetPlayer(string userID, out Player pl)
+    {
+      foreach (Player player in Player.GetPlayers<Player>())
+      {
+        if (userID.Contains(player.GetParsedUserID()))
+        {
+          pl = player;
+          return true;
+        }
+      }
+
+      pl = null;
+      return false;
+    }
+
     public static bool TryGetPlayerName(string userID, out string name)
     {
       foreach (Player player in Player.GetPlayers<Player>())

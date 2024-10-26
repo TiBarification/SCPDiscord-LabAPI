@@ -30,7 +30,7 @@ namespace SCPDiscord.BotCommands
       }
 
       //Get player name for feedback message
-      if (!Player.TryGet(command.SteamID, out Player player))
+      if (!Utilities.TryGetPlayer(command.SteamID, out Player player))
       {
         Dictionary<string, string> vars = new Dictionary<string, string>
         {
