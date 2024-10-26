@@ -108,6 +108,11 @@ namespace SCPDiscord
 
           Thread.Sleep(500);
         }
+        catch (ThreadAbortException)
+        {
+          // Break out of the loop if the thread is aborted
+          break;
+        }
         catch (Exception ex)
         {
           Logger.Error("BotListener Error: " + ex);

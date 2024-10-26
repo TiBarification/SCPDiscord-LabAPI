@@ -204,8 +204,10 @@ namespace SCPDiscord
         {
           if (socket != null && socket.IsBound)
           {
+            Logger.Warn("Aborting existing message thread...");
             messageThread?.Abort();
             socket.Close();
+            Thread.Sleep(500);
           }
 
           socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
