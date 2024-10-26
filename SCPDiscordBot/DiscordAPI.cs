@@ -133,22 +133,22 @@ namespace SCPDiscord
 
     public static void SetDisconnectedActivity()
     {
-      if (!Enum.TryParse(ConfigParser.config.bot.presenceType, true, out DiscordActivityType activityType))
+      if (!Enum.TryParse(ConfigParser.config.bot.presenceType, true, out ActivityType activityType))
       {
         Logger.Warn("Activity type '" + ConfigParser.config.bot.presenceType + "' invalid, using 'Playing' instead.", LogID.DISCORD);
-        activityType = DiscordActivityType.Playing;
+        activityType = ActivityType.Playing;
       }
 
-      if (!Enum.TryParse(ConfigParser.config.bot.statusType, true, out DiscordUserStatus statusType))
+      if (!Enum.TryParse(ConfigParser.config.bot.statusType, true, out UserStatus statusType))
       {
         Logger.Warn("Status type '" + ConfigParser.config.bot.statusType + "' invalid, using 'DoNotDisturb' instead.", LogID.DISCORD);
-        statusType = DiscordUserStatus.DoNotDisturb;
+        statusType = UserStatus.DoNotDisturb;
       }
 
       SetActivity(ConfigParser.config.bot.presenceText, activityType, statusType);
     }
 
-    public static void SetActivity(string activityText, DiscordActivityType activityType, DiscordUserStatus status)
+    public static void SetActivity(string activityText, ActivityType activityType, UserStatus status)
     {
       if (instance.connected)
       {
@@ -252,7 +252,7 @@ namespace SCPDiscord
           if (MessageScheduler.TryUncacheInteraction(interactionID, out InteractionContext interaction))
           {
             await interaction.Interaction.SendPaginatedResponseAsync(false, interaction.User, message, default,
-              default, default, true);
+              default, default, default, true);
           }
           else
           {
