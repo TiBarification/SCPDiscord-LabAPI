@@ -195,61 +195,57 @@ namespace SCPDiscord
 
     private static void Connect()
     {
-      Logger.Info("Attempting Bot Connection...");
-      Logger.Debug("Your Bot IP: " + Config.GetString("bot.ip") + ". Your Bot Port: " + Config.GetInt("bot.port") + ".");
+      Logger.Debug("Connecting to " + Config.GetString("bot.ip") + ":" + Config.GetInt("bot.port") + "...");
 
-      while (!IsConnected())
+      try
       {
-        try
+        if (socket != null && socket.IsBound)
         {
-          if (socket != null && socket.IsBound)
-          {
-            Logger.Warn("Aborting existing message thread...");
-            messageThread?.Abort();
-            socket.Close();
-            Thread.Sleep(500);
-          }
-
-          socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-          socket.Connect(Config.GetString("bot.ip"), Config.GetInt("bot.port"));
-          messageThread = new Thread(() => new BotListener());
-          messageThread.Start();
-
-          networkStream = new NetworkStream(socket);
-
-          Logger.Info("Connected to Discord bot.");
-
-          EmbedMessage embed = new EmbedMessage
-          {
-            Colour = EmbedMessage.Types.DiscordColour.Green
-          };
-
-          SCPDiscord.SendEmbedWithMessage("messages.connectedtobot", embed);
+          Logger.Warn("Aborting existing message thread...");
+          messageThread?.Abort();
+          socket.Close();
+          Thread.Sleep(500);
         }
-        catch (SocketException e)
+
+        socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        socket.Connect(Config.GetString("bot.ip"), Config.GetInt("bot.port"));
+        messageThread = new Thread(() => new BotListener());
+        messageThread.Start();
+
+        networkStream = new NetworkStream(socket);
+
+        Logger.Info("Connected to Discord bot.");
+
+        EmbedMessage embed = new EmbedMessage
         {
-          Logger.Error("Error occured while connecting to discord bot server: " + e.Message.Trim());
-          Logger.Debug(e.ToString());
-          Thread.Sleep(5000);
-        }
-        catch (ObjectDisposedException e)
-        {
-          Logger.Error("TCP client was unexpectedly closed.");
-          Logger.Debug(e.ToString());
-          Thread.Sleep(5000);
-        }
-        catch (ArgumentOutOfRangeException e)
-        {
-          Logger.Error("Invalid port.");
-          Logger.Debug(e.ToString());
-          Thread.Sleep(5000);
-        }
-        catch (ArgumentNullException e)
-        {
-          Logger.Error("IP address is null.");
-          Logger.Debug(e.ToString());
-          Thread.Sleep(5000);
-        }
+          Colour = EmbedMessage.Types.DiscordColour.Green
+        };
+
+        SCPDiscord.SendEmbedWithMessage("messages.connectedtobot", embed);
+      }
+      catch (SocketException e)
+      {
+        Logger.Error("Error occured while connecting to discord bot server: " + e.Message.Trim());
+        Logger.Debug(e.ToString());
+        Thread.Sleep(4000);
+      }
+      catch (ObjectDisposedException e)
+      {
+        Logger.Error("TCP client was unexpectedly closed.");
+        Logger.Debug(e.ToString());
+        Thread.Sleep(4000);
+      }
+      catch (ArgumentOutOfRangeException e)
+      {
+        Logger.Error("Invalid port.");
+        Logger.Debug(e.ToString());
+        Thread.Sleep(4000);
+      }
+      catch (ArgumentNullException e)
+      {
+        Logger.Error("IP address is null.");
+        Logger.Debug(e.ToString());
+        Thread.Sleep(4000);
       }
     }
 
