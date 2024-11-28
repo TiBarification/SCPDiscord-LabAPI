@@ -100,10 +100,10 @@ namespace SCPDiscord
     {
       Version version = Assembly.GetEntryAssembly()?.GetName().Version;
       return version?.Major + "."
-                            + version?.Minor + "."
-                            + version?.Build
-                            + (version?.Revision == 0 ? "" : "-" + (char)(64 + version?.Revision ?? 0))
-                            + " (" + ThisAssembly.Git.Commit + ")";
+           + version?.Minor + "."
+           + version?.Build
+           + (version?.Revision == 0 ? "" : "-" + (char)(64 + version?.Revision ?? 0))
+           + " (" + ThisAssembly.Git.Commit + ")";
     }
   }
 }
