@@ -3,13 +3,28 @@ pipeline {
 
     stages {
         stage('Download SCP:SL') {
+            when
+            {
+                expression {
+                    return env.BRANCH_NAME != 'beta';
+                }
+            }
             steps {
-                sh 'steamcmd +force_install_dir \$HOME/scpsl +login anonymous +app_update 996560 -beta early-server-build validate +quit'
+                sh 'steamcmd +force_install_dir \$HOME/scpsl +login anonymous +app_update 996560 validate +quit'
                 sh 'ln -s "\$HOME/scpsl/SCPSL_Data/Managed" ".scpsl_libs"'
-                sh 'cp -r "SCPDiscordBot" "AOT"'
                 sh 'cp -r "SCPDiscordBot" "SMALL"'
                 sh 'cp -r "SCPDiscordBot" "SC"'
-                sh 'cp -r "SCPDiscordBot" "AOT_Win"'
+                sh 'cp -r "SCPDiscordBot" "SMALL_Win"'
+                sh 'mv    "SCPDiscordBot" "SC_Win"'
+            }
+        }
+        stage('Download SCP:SL - Beta') {
+            when { branch 'beta' }
+            steps {
+                sh 'steamcmd +force_install_dir \$HOME/scpsl +login anonymous +app_update 996560 -beta experimental validate +quit'
+                sh 'ln -s "\$HOME/scpsl/SCPSL_Data/Managed" ".scpsl_libs"'
+                sh 'cp -r "SCPDiscordBot" "SMALL"'
+                sh 'cp -r "SCPDiscordBot" "SC"'
                 sh 'cp -r "SCPDiscordBot" "SMALL_Win"'
                 sh 'mv    "SCPDiscordBot" "SC_Win"'
             }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using InventorySystem.Items.Firearms.Modules;
 using PlayerRoles;
 using PlayerRoles.PlayableScps.Scp3114;
 using PlayerRoles.PlayableScps.Scp939;
@@ -364,7 +365,7 @@ namespace SCPDiscord.EventListeners
       Dictionary<string, string> variables = new Dictionary<string, string>
       {
         { "weapon",      ev.Firearm.ItemTypeId.ToString()                },
-        { "maxclipsize", ev.Firearm.AmmoManagerModule.MaxAmmo.ToString() }
+        { "maxclipsize", ev.Firearm.GetTotalMaxAmmo().ToString() }
       };
       variables.AddPlayerVariables(ev.Player, "player");
       SCPDiscord.SendMessage("messages.onreload", variables);
