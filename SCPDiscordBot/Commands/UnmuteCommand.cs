@@ -1,15 +1,19 @@
+using System.ComponentModel;
 using System.Threading.Tasks;
+using DSharpPlus.Commands;
+using DSharpPlus.Commands.ContextChecks;
+using DSharpPlus.Commands.Processors.SlashCommands;
 using DSharpPlus.Entities;
-using DSharpPlus.SlashCommands;
-using DSharpPlus.SlashCommands.Attributes;
 
 namespace SCPDiscord.Commands;
 
-public class UnmuteCommand : ApplicationCommandModule
+public class UnmuteCommand
 {
-  [SlashRequireGuild]
-  [SlashCommand("unmute", "Unmutes a player from the server")]
-  public async Task OnExecute(InteractionContext command, [Option("SteamID", "Steam ID of the user to unmute.")] string steamID)
+  [RequireGuild]
+  [Command("unmute")]
+  [Description("Unmutes a player from the server")]
+  public async Task OnExecute(SlashCommandContext command,
+    [Parameter("SteamID")] [Description("Steam ID of the user to unmute.")] string steamID)
   {
     if (!Utilities.IsPossibleSteamID(steamID, out ulong parsedSteamID))
     {
@@ -18,11 +22,11 @@ public class UnmuteCommand : ApplicationCommandModule
         Color = DiscordColor.Red,
         Description = "That SteamID doesn't seem to be valid."
       };
-      await command.CreateResponseAsync(error);
+      await command.RespondAsync(error);
       return;
     }
 
-    await command.DeferAsync();
+    await command.DeferResponseAsync();
     Interface.MessageWrapper message = new Interface.MessageWrapper
     {
       MuteCommand = new Interface.MuteCommand
@@ -32,7 +36,7 @@ public class UnmuteCommand : ApplicationCommandModule
         Duration = "0",
         DiscordUserID = command.Member.Id,
         Reason = "",
-        InteractionID = command.InteractionId,
+        InteractionID = command.Interaction.Id,
         DiscordDisplayName = command.Member.DisplayName,
         DiscordUsername = command.Member.Username
       }

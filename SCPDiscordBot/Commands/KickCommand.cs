@@ -1,17 +1,20 @@
-﻿using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using System.Threading.Tasks;
+using DSharpPlus.Commands;
+using DSharpPlus.Commands.ContextChecks;
+using DSharpPlus.Commands.Processors.SlashCommands;
 using DSharpPlus.Entities;
-using DSharpPlus.SlashCommands;
-using DSharpPlus.SlashCommands.Attributes;
 
 namespace SCPDiscord.Commands
 {
-  public class KickCommand : ApplicationCommandModule
+  public class KickCommand
   {
-    [SlashRequireGuild]
-    [SlashCommand("kick", "Kicks a player from the server.")]
-    public async Task OnExecute(InteractionContext command,
-      [Option("SteamID", "Steam ID of the user to kick.")] string steamID,
-      [Option("Reason", "Reason for the kick.")] string reason = "")
+    [RequireGuild]
+    [Command("kick")]
+    [Description("Kicks a player from the server.")]
+    public async Task OnExecute(SlashCommandContext command,
+      [Parameter("SteamID")] [Description("Steam ID of the user to kick.")] string steamID,
+      [Parameter("Reason")] [Description("Reason for the kick.")] string reason = "")
     {
       if (!Utilities.IsPossibleSteamID(steamID, out ulong parsedSteamID))
       {
@@ -20,11 +23,11 @@ namespace SCPDiscord.Commands
           Color = DiscordColor.Red,
           Description = "That SteamID doesn't seem to be valid."
         };
-        await command.CreateResponseAsync(error);
+        await command.RespondAsync(error);
         return;
       }
 
-      await command.DeferAsync();
+      await command.DeferResponseAsync();
       Interface.MessageWrapper message = new Interface.MessageWrapper
       {
         KickCommand = new Interface.KickCommand
@@ -32,7 +35,7 @@ namespace SCPDiscord.Commands
           ChannelID = command.Channel.Id,
           SteamID = parsedSteamID.ToString(),
           Reason = reason,
-          InteractionID = command.InteractionId,
+          InteractionID = command.Interaction.Id,
           DiscordDisplayName = command.Member.DisplayName,
           DiscordUsername = command.Member.Username,
           DiscordUserID = command.Member.Id

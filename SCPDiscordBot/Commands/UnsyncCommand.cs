@@ -1,29 +1,31 @@
-﻿using System.Threading.Tasks;
-using DSharpPlus.SlashCommands;
-using DSharpPlus.SlashCommands.Attributes;
+﻿using System.ComponentModel;
+using System.Threading.Tasks;
+using DSharpPlus.Commands;
+using DSharpPlus.Commands.ContextChecks;
+using DSharpPlus.Commands.Processors.SlashCommands;
 
-namespace SCPDiscord.Commands
+namespace SCPDiscord.Commands;
+
+public class UnsyncCommand
 {
-  public class UnsyncCommand : ApplicationCommandModule
+  [RequireGuild]
+  [Command("unsync")]
+  [Description("Unsyncs your Discord account from the SCP:SL server.")]
+  public async Task OnExecute(SlashCommandContext command)
   {
-    [SlashRequireGuild]
-    [SlashCommand("unsync", "Unsyncs your Discord account from the SCP:SL server.")]
-    public async Task OnExecute(InteractionContext command)
+    await command.DeferResponseAsync();
+    Interface.MessageWrapper message = new Interface.MessageWrapper
     {
-      await command.DeferAsync();
-      Interface.MessageWrapper message = new Interface.MessageWrapper
+      UnsyncRoleCommand = new Interface.UnsyncRoleCommand
       {
-        UnsyncRoleCommand = new Interface.UnsyncRoleCommand
-        {
-          ChannelID = command.Channel.Id,
-          DiscordUserID = command.Member?.Id ?? 0,
-          InteractionID = command.InteractionId,
-          DiscordDisplayName = command.Member.DisplayName,
-          DiscordUsername = command.Member.Username
-        }
-      };
-      MessageScheduler.CacheInteraction(command);
-      await NetworkSystem.SendMessage(message, command);
-    }
+        ChannelID = command.Channel.Id,
+        DiscordUserID = command.Member?.Id ?? 0,
+        InteractionID = command.Interaction.Id,
+        DiscordDisplayName = command.Member.DisplayName,
+        DiscordUsername = command.Member.Username
+      }
+    };
+    MessageScheduler.CacheInteraction(command);
+    await NetworkSystem.SendMessage(message, command);
   }
 }

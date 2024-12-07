@@ -1,18 +1,22 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.ComponentModel;
+using System.Text.RegularExpressions;
 using DSharpPlus.Entities;
 using System.Threading.Tasks;
-using DSharpPlus.SlashCommands;
-using DSharpPlus.SlashCommands.Attributes;
+using DSharpPlus.Commands;
+using DSharpPlus.Commands.ContextChecks;
+using DSharpPlus.Commands.Processors.SlashCommands;
 
 namespace SCPDiscord.Commands
 {
-  public class SyncIPCommand : ApplicationCommandModule
+  public class SyncIPCommand
   {
     private static readonly string IPV4_PATTERN = "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.){3}(25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)$";
 
-    [SlashRequireGuild]
-    [SlashCommand("syncip", "Syncs your Discord role to the server using your IP (non-northwood servers only)")]
-    public async Task OnExecute(InteractionContext command, [Option("IP", "Your IP address (IPv4 only).")] string ip)
+    [RequireGuild]
+    [Command("syncip")]
+    [Description("Syncs your Discord role to the server using your IP (non-northwood servers only)")]
+    public async Task OnExecute(SlashCommandContext command,
+      [Parameter("IP")] [Description("Your IP address (IPv4 only).")] string ip)
     {
       if (!Regex.IsMatch(ip, IPV4_PATTERN))
       {
@@ -21,11 +25,11 @@ namespace SCPDiscord.Commands
           Color = DiscordColor.Red,
           Description = "That IP doesn't seem to be in the right format, it should look something like \"255.255.255.255\"."
         };
-        await command.CreateResponseAsync(error);
+        await command.RespondAsync(error);
         return;
       }
 
-      await command.DeferAsync();
+      await command.DeferResponseAsync();
       Interface.MessageWrapper message = new Interface.MessageWrapper
       {
         SyncRoleCommand = new Interface.SyncRoleCommand
@@ -33,7 +37,7 @@ namespace SCPDiscord.Commands
           ChannelID = command.Channel.Id,
           DiscordUserID = command.Member?.Id ?? 0,
           SteamIDOrIP = ip,
-          InteractionID = command.InteractionId,
+          InteractionID = command.Interaction.Id,
           DiscordDisplayName = command.Member.DisplayName,
           DiscordUsername = command.Member.Username
         }

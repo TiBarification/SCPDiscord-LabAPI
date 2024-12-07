@@ -1,15 +1,19 @@
-﻿using DSharpPlus.Entities;
+﻿using System.ComponentModel;
+using DSharpPlus.Entities;
 using System.Threading.Tasks;
-using DSharpPlus.SlashCommands;
-using DSharpPlus.SlashCommands.Attributes;
+using DSharpPlus.Commands;
+using DSharpPlus.Commands.ContextChecks;
+using DSharpPlus.Commands.Processors.SlashCommands;
 
 namespace SCPDiscord.Commands
 {
-  public class SyncSteamIDCommand : ApplicationCommandModule
+  public class SyncIDCommand
   {
-    [SlashRequireGuild]
-    [SlashCommand("syncid", "Syncs your Discord role to the server using your SteamID.")]
-    public async Task OnExecute(InteractionContext command, [Option("SteamID", "Your Steam ID.")] string steamID)
+    [RequireGuild]
+    [Command("syncid")]
+    [Description("Syncs your Discord role to the server using your SteamID.")]
+    public async Task OnExecute(SlashCommandContext command,
+      [Parameter("SteamID")] [Description("Your Steam ID.")] string steamID)
     {
       if (!Utilities.IsPossibleSteamID(steamID, out ulong parsedSteamID))
       {
@@ -18,11 +22,11 @@ namespace SCPDiscord.Commands
           Color = DiscordColor.Red,
           Description = "That SteamID doesn't seem to be valid."
         };
-        await command.CreateResponseAsync(error);
+        await command.RespondAsync(error);
         return;
       }
 
-      await command.DeferAsync();
+      await command.DeferResponseAsync();
       Interface.MessageWrapper message = new Interface.MessageWrapper
       {
         SyncRoleCommand = new Interface.SyncRoleCommand
@@ -30,7 +34,7 @@ namespace SCPDiscord.Commands
           ChannelID = command.Channel.Id,
           DiscordUserID = command.Member?.Id ?? 0,
           SteamIDOrIP = parsedSteamID.ToString(),
-          InteractionID = command.InteractionId,
+          InteractionID = command.Interaction.Id,
           DiscordDisplayName = command.Member.DisplayName,
           DiscordUsername = command.Member.Username
         }

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using DSharpPlus;
-using DSharpPlus.SlashCommands;
+using DSharpPlus.Commands.Processors.SlashCommands;
 
 namespace SCPDiscord;
 
@@ -22,7 +22,7 @@ public class StartMessageScheduler
 public static class MessageScheduler
 {
   private static ConcurrentDictionary<ulong, ConcurrentQueue<string>> messageQueues = new ConcurrentDictionary<ulong, ConcurrentQueue<string>>();
-  private static List<InteractionContext> interactionCache = new List<InteractionContext>();
+  private static List<SlashCommandContext> interactionCache = new List<SlashCommandContext>();
 
   public static async Task Init()
   {
@@ -37,7 +37,7 @@ public static class MessageScheduler
       }
 
       // Clean old interactions from cache
-      interactionCache.RemoveAll(x => x.InteractionId.GetSnowflakeTime() < DateTimeOffset.Now - TimeSpan.FromSeconds(30));
+      interactionCache.RemoveAll(x => x.Interaction.Id.GetSnowflakeTime() < DateTimeOffset.Now - TimeSpan.FromSeconds(30));
 
       try
       {
@@ -50,7 +50,7 @@ public static class MessageScheduler
             if (finalMessage.Length + nextMessage.Length >= 2000)
             {
               Logger.Warn("Tried to send too much at once (Current: " + finalMessage.Length + " Next: " + nextMessage.Length +
-                          "), waiting one second to send the rest.", LogID.DISCORD);
+                          "), waiting one second to send the rest.");
               break;
             }
 
@@ -88,13 +88,13 @@ public static class MessageScheduler
     channelQueue.Enqueue(message);
   }
 
-  public static bool TryUncacheInteraction(ulong interactionID, out InteractionContext interaction)
+  public static bool TryUncacheInteraction(ulong interactionID, out SlashCommandContext interaction)
   {
-    interaction = interactionCache.FirstOrDefault(x => x.InteractionId == interactionID);
+    interaction = interactionCache.FirstOrDefault(x => x.Interaction.Id == interactionID);
     return interactionCache.Remove(interaction);
   }
 
-  public static void CacheInteraction(InteractionContext interaction)
+  public static void CacheInteraction(SlashCommandContext interaction)
   {
     interactionCache.Add(interaction);
   }

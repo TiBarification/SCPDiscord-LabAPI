@@ -1,16 +1,20 @@
-﻿using System.Threading.Tasks;
-using DSharpPlus.SlashCommands;
-using DSharpPlus.SlashCommands.Attributes;
+﻿using System.ComponentModel;
+using System.Threading.Tasks;
+using DSharpPlus.Commands;
+using DSharpPlus.Commands.ContextChecks;
+using DSharpPlus.Commands.Processors.SlashCommands;
 
 namespace SCPDiscord.Commands
 {
-  public class ListSyncedCommand : ApplicationCommandModule
+  public class ListSyncedCommand
   {
-    [SlashRequireGuild]
-    [SlashCommand("listsynced", "Lists players synced to Discord.")]
-    public async Task OnExecute(InteractionContext command, [Option("IncludeOffline", "List all synced players, even offline.")] bool includeOffline = false)
+    [RequireGuild]
+    [Command("listsynced")]
+    [Description("Lists players synced to Discord.")]
+    public async Task OnExecute(SlashCommandContext command,
+      [Parameter("IncludeOffline")] [Description("List all synced players, even offline.")] bool includeOffline = false)
     {
-      await command.DeferAsync();
+      await command.DeferResponseAsync();
       Interface.MessageWrapper message = new Interface.MessageWrapper
       {
         ListSyncedCommand = new Interface.ListSyncedCommand
@@ -18,7 +22,7 @@ namespace SCPDiscord.Commands
           ChannelID = command.Channel.Id,
           DiscordUserID = command.User.Id,
           ListAll = includeOffline,
-          InteractionID = command.InteractionId,
+          InteractionID = command.Interaction.Id,
           DiscordDisplayName = command.Member.DisplayName,
           DiscordUsername = command.Member.Username
         }

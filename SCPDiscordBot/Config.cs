@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using DSharpPlus.Entities;
+using Microsoft.Extensions.Logging;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
@@ -49,7 +51,7 @@ namespace SCPDiscord
         configPath = SCPDiscordBot.commandLineArgs.configPath;
       }
 
-      Logger.Log("Loading config \"" + Path.GetFullPath(configPath) + "\"", LogID.CONFIG);
+      Logger.Log("Loading config \"" + Path.GetFullPath(configPath) + "\"");
 
       // Writes default config to file if it does not already exist
       if (!File.Exists(configPath))
@@ -64,64 +66,71 @@ namespace SCPDiscord
       IDeserializer deserializer = new DeserializerBuilder().WithNamingConvention(HyphenatedNamingConvention.Instance).Build();
       config = deserializer.Deserialize<Config>(new StreamReader(stream));
 
+      if (!Enum.TryParse(config.bot.logLevel, true, out LogLevel logLevel))
+      {
+        logLevel = LogLevel.Information;
+        Logger.Warn("Log level '" + config.bot.logLevel + "' is invalid, using 'Information' instead.");
+      }
+      Logger.SetLogLevel(logLevel);
+
       loaded = true;
     }
 
     public static void PrintConfig()
     {
-      Logger.Debug("######### Config #########", LogID.CONFIG);
-      Logger.Debug("bot:", LogID.CONFIG);
-      Logger.Debug("  token:            HIDDEN", LogID.CONFIG);
-      Logger.Debug("  server-id:        " + config.bot.serverId, LogID.CONFIG);
-      Logger.Debug("  log-level:        " + config.bot.logLevel, LogID.CONFIG);
-      Logger.Debug("  presence-type:    " + config.bot.presenceType, LogID.CONFIG);
-      Logger.Debug("  presence-text:    " + config.bot.presenceText, LogID.CONFIG);
-      Logger.Debug("  disable-commands: " + config.bot.disableCommands, LogID.CONFIG);
-      Logger.Debug("", LogID.CONFIG);
-      Logger.Debug("permissions:", LogID.CONFIG);
+      Logger.Debug("######### Config #########");
+      Logger.Debug("bot:");
+      Logger.Debug("  token:            HIDDEN");
+      Logger.Debug("  server-id:        " + config.bot.serverId);
+      Logger.Debug("  log-level:        " + config.bot.logLevel);
+      Logger.Debug("  presence-type:    " + config.bot.presenceType);
+      Logger.Debug("  presence-text:    " + config.bot.presenceText);
+      Logger.Debug("  disable-commands: " + config.bot.disableCommands);
+      Logger.Debug("");
+      Logger.Debug("permissions:");
       foreach (KeyValuePair<ulong, string[]> node in config.permissions)
       {
-        Logger.Debug("  " + node.Key + ":", LogID.CONFIG);
+        Logger.Debug("  " + node.Key + ":");
         foreach (string command in node.Value)
         {
-          Logger.Debug("    " + command, LogID.CONFIG);
+          Logger.Debug("    " + command);
         }
       }
 
-      Logger.Debug("", LogID.CONFIG);
-      Logger.Debug("plugin:", LogID.CONFIG);
-      Logger.Debug("  address: " + config.plugin.address, LogID.CONFIG);
-      Logger.Debug("  port:    " + config.plugin.port, LogID.CONFIG);
+      Logger.Debug("");
+      Logger.Debug("plugin:");
+      Logger.Debug("  address: " + config.plugin.address);
+      Logger.Debug("  port:    " + config.plugin.port);
     }
 
     public static bool HasPermission(DiscordMember member, string command)
     {
       foreach (DiscordRole role in member.Roles)
       {
-        Logger.Debug("Checking role '" + role.Id + "' for command permissions...", LogID.CONFIG);
+        Logger.Debug("Checking role '" + role.Id + "' for command permissions...");
         if (config.permissions.TryGetValue(role.Id, out string[] permissions))
         {
-          Logger.Debug("Found role '" + role.Id + "' in config...", LogID.CONFIG);
+          Logger.Debug("Found role '" + role.Id + "' in config...");
           if (permissions.Any(s => Regex.IsMatch(command, "^" + s)))
           {
-            Logger.Debug("Role '" + role.Id + "' has permission to run '" + command + "'.", LogID.CONFIG);
+            Logger.Debug("Role '" + role.Id + "' has permission to run '" + command + "'.");
             return true;
           }
         }
       }
 
-      Logger.Debug("Checking @everyone role...", LogID.CONFIG);
+      Logger.Debug("Checking @everyone role...");
       if (config.permissions.TryGetValue(0, out string[] everyonePermissions))
       {
-        Logger.Debug("Found @everyone role in config...", LogID.CONFIG);
+        Logger.Debug("Found @everyone role in config...");
         if (everyonePermissions.Any(s => Regex.IsMatch(command, "^" + s)))
         {
-          Logger.Debug("Role @everyone has permission to run '" + command + "'.", LogID.CONFIG);
+          Logger.Debug("Role @everyone has permission to run '" + command + "'.");
           return true;
         }
       }
 
-      Logger.Debug("None of the user's roles have permission to run '" + command + "'.", LogID.CONFIG);
+      Logger.Debug("None of the user's roles have permission to run '" + command + "'.");
       return false;
     }
   }

@@ -1,15 +1,18 @@
-﻿using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using System.Threading.Tasks;
+using DSharpPlus.Commands;
+using DSharpPlus.Commands.ContextChecks;
+using DSharpPlus.Commands.Processors.SlashCommands;
 using DSharpPlus.Entities;
-using DSharpPlus.SlashCommands;
-using DSharpPlus.SlashCommands.Attributes;
 
 namespace SCPDiscord.Commands
 {
-  public class HelpCommand : ApplicationCommandModule
+  public class HelpCommand
   {
-    [SlashRequireGuild]
-    [SlashCommand("help", "Shows basic bot information.")]
-    public async Task OnExecute(InteractionContext command)
+    [RequireGuild]
+    [Command("help")]
+    [Description("Shows basic bot information.")]
+    public async Task OnExecute(SlashCommandContext command)
     {
       DiscordEmbed botInfo = new DiscordEmbedBuilder()
         .WithAuthor("KarlofDuty/SCPDiscord @ GitHub", "https://github.com/KarlofDuty/SCPDiscord", "https://karlofduty.com/img/tardisIcon.jpg")
@@ -21,7 +24,7 @@ namespace SCPDiscord.Commands
         .AddField("Report bugs:", "[Github Issues](https://github.com/KarlofDuty/SCPDiscord/issues)", true)
         .AddField("Commands:", "[Github Repository](https://github.com/KarlOfDuty/SCPDiscord/blob/master/docs/Usage.md)", true)
         .AddField("Donate:", "[Github Sponsors](https://github.com/sponsors/KarlOfDuty)", true);
-      await command.CreateResponseAsync(botInfo);
+      await command.RespondAsync(botInfo);
     }
   }
 }

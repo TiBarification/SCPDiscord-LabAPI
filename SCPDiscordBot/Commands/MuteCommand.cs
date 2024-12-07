@@ -1,18 +1,21 @@
+using System.ComponentModel;
 using System.Threading.Tasks;
+using DSharpPlus.Commands;
+using DSharpPlus.Commands.ContextChecks;
+using DSharpPlus.Commands.Processors.SlashCommands;
 using DSharpPlus.Entities;
-using DSharpPlus.SlashCommands;
-using DSharpPlus.SlashCommands.Attributes;
 
 namespace SCPDiscord.Commands;
 
-public class MuteCommand : ApplicationCommandModule
+public class MuteCommand
 {
-  [SlashRequireGuild]
-  [SlashCommand("mute", "Mutes a player on the server")]
-  public async Task OnExecute(InteractionContext command,
-    [Option("SteamID", "Steam ID of the player to mute.")] string steamID,
-    [Option("Duration", "Mute duration (ex: 2d is 2 days).")] string duration,
-    [Option("Reason", "Reason for the mute.")] string reason)
+  [RequireGuild]
+  [Command("mute")]
+  [Description("Mutes a player on the server")]
+  public async Task OnExecute(SlashCommandContext command,
+    [Parameter("SteamID")] [Description("Steam ID of the player to mute.")] string steamID,
+    [Parameter("Duration")] [Description("Mute duration (ex: 2d is 2 days).")] string duration,
+    [Parameter("Reason")] [Description("Reason for the mute.")] string reason)
   {
     if (!Utilities.IsPossibleSteamID(steamID, out ulong parsedSteamID))
     {
@@ -21,11 +24,11 @@ public class MuteCommand : ApplicationCommandModule
         Color = DiscordColor.Red,
         Description = "That SteamID doesn't seem to be valid."
       };
-      await command.CreateResponseAsync(error);
+      await command.RespondAsync(error);
       return;
     }
 
-    await command.DeferAsync();
+    await command.DeferResponseAsync();
     Interface.MessageWrapper message = new Interface.MessageWrapper
     {
       MuteCommand = new Interface.MuteCommand
@@ -35,7 +38,7 @@ public class MuteCommand : ApplicationCommandModule
         Duration = duration,
         DiscordUserID = command.Member.Id,
         Reason = reason,
-        InteractionID = command.InteractionId,
+        InteractionID = command.Interaction.Id,
         DiscordDisplayName = command.Member.DisplayName,
         DiscordUsername = command.Member.Username
       }

@@ -1,23 +1,26 @@
-﻿using System.Threading.Tasks;
-using DSharpPlus.SlashCommands;
-using DSharpPlus.SlashCommands.Attributes;
+﻿using System.ComponentModel;
+using System.Threading.Tasks;
+using DSharpPlus.Commands;
+using DSharpPlus.Commands.ContextChecks;
+using DSharpPlus.Commands.Processors.SlashCommands;
 
 namespace SCPDiscord.Commands
 {
-  public class ListRankedCommand : ApplicationCommandModule
+  public class ListRankedCommand
   {
-    [SlashRequireGuild]
-    [SlashCommand("listranked", "Lists online players with server ranks.")]
-    public async Task OnExecute(InteractionContext command)
+    [RequireGuild]
+    [Command("listranked")]
+    [Description("Lists online players with server ranks.")]
+    public async Task OnExecute(SlashCommandContext command)
     {
-      await command.DeferAsync();
+      await command.DeferResponseAsync();
       Interface.MessageWrapper message = new Interface.MessageWrapper
       {
         ListRankedCommand = new Interface.ListRankedCommand
         {
           ChannelID = command.Channel.Id,
           DiscordUserID = command.User.Id,
-          InteractionID = command.InteractionId,
+          InteractionID = command.Interaction.Id,
           DiscordDisplayName = command.Member.DisplayName,
           DiscordUsername = command.Member.Username
         }
