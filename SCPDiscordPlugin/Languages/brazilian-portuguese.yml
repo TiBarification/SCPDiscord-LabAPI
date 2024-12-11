@@ -12,17 +12,17 @@
 #
 #                                                     EVENTOS
 #
-#   message: A mensagem que é exibida. Variáveis são inseridas no formato <var:name:>, tal como <var:ipaddress>.
+#   message: A mensagem que é exibida. Variáveis são inseridas no formato <var:name>, tal como <var:ipaddress>.
 #   regex: Uma expressão regular pareada com uma string de substituição para achar e trocar partes de uma mensagem.
 #
 #####################################################################################################################
 
 #####################################################################################################################
 #
-#                                                  INFORMAÇÕES DE JOGADOR
+#                                                  INFORMAÇÕES DO JOGADOR
 #
 #  Vocês podem notar que muitos dos eventos abaixo têm variáveis do tipo "Player". Isso significa que eles fornecem uma grande
-#  quantidade de variáveis contendo diferentes informações de jogador. Você pode ver uma lista atualizada dessas variáveis
+#  quantidade de variáveis contendo diferentes informações do jogador. Você pode ver uma lista atualizada dessas variáveis
 #  no arquivo APIExtensions.cs dentro do repositório do Git.
 #
 #  Exemplo de uso:
@@ -1482,7 +1482,7 @@ messages:
       # discord-username - string
       # discord-userid - int
       message: >+
-        **Informação de Jogador - <var:discordmention>**
+        **Informações do Jogador - <var:discordmention>**
         ```
         Ativo:          Sim\n
         Nome:            <var:player-name>\n
@@ -1523,7 +1523,7 @@ messages:
       # discord-username - string
       # discord-userid - int
       message: >+
-        **Informação de Jogador - <var:discordmention>**
+        **Informações do Jogador - <var:discordmention>**
         ```
         Ativo:         Não\n
         Nome:           <var:name>\n
