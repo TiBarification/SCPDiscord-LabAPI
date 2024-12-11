@@ -25,7 +25,8 @@
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -33,9 +34,6 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-  </PropertyGroup>
-  <PropertyGroup>
-    <RunPostBuildEvent>Always</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
@@ -135,14 +133,12 @@
     <EmbeddedResource Include="Languages/emote-overrides.yml" />
     <EmbeddedResource Include="Languages/emotes.yml" />
     <EmbeddedResource Include="Languages/english.yml" />
+    <EmbeddedResource Include="Languages/german.yml" />
     <EmbeddedResource Include="Languages/italian.yml" />
     <EmbeddedResource Include="Languages/overrides.yml" />
     <EmbeddedResource Include="Languages/russian.yml" />
     <EmbeddedResource Include="Languages/simplified-chinese.yml" />
     <EmbeddedResource Include="Languages/ukrainian.yml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Languages\brazilian-portuguese.yml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

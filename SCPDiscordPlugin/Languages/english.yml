@@ -485,57 +485,11 @@ messages:
     regex: []
     cancel_regex: []
 
-  onsetrole:
-    # oldrole - Role
-    # player - Player
-    roundstart:
-      message: "<var:player-name> (<var:player-userid>) has spawned as a <var:player-role>."
-      regex: [ ]
-    latejoin:
-      message: "<var:player-name> (<var:player-userid>) has spawned as a <var:player-role> (Latejoin)."
-      regex: [ ]
-    respawn:
-      message: "<var:player-name> (<var:player-userid>) has respawned as a <var:player-role>."
-      regex: [ ]
-    died:
-      message: "<var:player-name> (<var:player-userid>) died and became a <var:player-role>."
-      regex: [ ]
-    escaped:
-      message: "<var:player-name> (<var:player-userid>) has escaped the facility and become a <var:player-role>."
-      regex: [ ]
-    revived:
-      message: "<var:player-name> (<var:player-userid>) was revived as an <var:player-role>."
-      regex: [ ]
-    remoteadmin:
-      message: "<var:player-name> (<var:player-userid>) was changed to <var:player-role> via remote admin."
-      regex: [ ]
-    left:
-      message: "<var:player-name> (<var:player-userid>) left the server."
-      regex: [ ]
-    other:
-      message: "<var:player-name> (<var:player-userid>) has become a <var:player-role>."
-      regex: []
-      cancel_regex: []
-
   onspawn:
     # player - Player
     message: "<var:player-name> (<var:player-userid>) spawned as <var:player-role>."
     regex: []
     cancel_regex: []
-
-  ondooraccess:
-    # doorname - string
-    # permission - string
-    # locked - bool
-    # lockcooldown - float
-    # open - bool
-    # player - Player
-    allowed:
-      message: "<var:player-name> (<var:player-userid>) isopen:<var:open> a door (<var:doorname>) requiring \"<var:permission>\" permission."
-      regex: ["isopen:True":"closed", "isopen:False":"opened", " requiring \"\" permission\\.":"."," requiring \"None\" permission\\.":"."]
-    denied:
-      message: "<var:player-name> (<var:player-userid>) tried to isopen:<var:open> a locked door (<var:doorname>) requiring \"<var:permission>\" permission."
-      regex: ["isopen:True":"close", "isopen:False":"open"," requiring \"\" permission \\.":"."," requiring \"None\" permission\\.":"."]
 
   onpocketdimensionexit:
     # player - Player
@@ -554,13 +508,6 @@ messages:
     # type - GrenadeType
     # player - Player
     message: "<var:player-name> (<var:player-userid>) threw a <var:type>."
-    regex: []
-    cancel_regex: []
-
-  onspawnragdoll:
-    # damagetype - string
-    # player - Player
-    message: "<var:player-name> (<var:player-userid>)'s <var:player-role> ragdoll spawned."
     regex: []
     cancel_regex: []
 
@@ -602,32 +549,6 @@ messages:
       message: "<var:target-role> <var:target-name> (<var:target-userid>) was released."
       regex: []
       cancel_regex: []
-
-  onplayertriggertesla:
-    # player - Player
-    default:
-      message: "<var:player-team> <var:player-name> (<var:player-userid>) activated a tesla gate."
-      regex: []
-      cancel_regex: []
-    ignored:
-      message: "<var:player-team> <var:player-name> (<var:player-userid>) went through a tesla gate without activating it."
-      regex: []
-      cancel_regex: []
-
-  onscp914changeknob:
-    # newsetting - KnobSetting
-    # oldsetting - KnobSetting
-    # player - Player
-    message: "<var:player-name> (<var:player-userid>) set the SCP-914 knob to \"<var:newsetting>\"."
-    regex: []
-    cancel_regex: []
-
-  onplayerradioswitch:
-    # setting - RadioStatus
-    # player - Player
-    message: "<var:player-name> (<var:player-userid>) switched their radio to the <var:setting> status."
-    regex: []
-    cancel_regex: []
 
   onrecallzombie:
     # target - Player
@@ -816,14 +737,6 @@ messages:
     # apdrain - float
     # player - Player
     message: "<var:player-name> (<var:player-userid>) activated a tesla gate."
-    regex: []
-    cancel_regex: []
-
-  on079addexp:
-    # xptype - ExperienceType
-    # amount - float
-    # player - Player
-    message: "<var:player-name> (<var:player-userid>) got <var:amount> xp."
     regex: []
     cancel_regex: []
 
@@ -1091,86 +1004,12 @@ messages:
     regex: []
     cancel_regex: []
 
-  onitemspawned:
-    # item - ItemType
-    message: "An item (<var:item>) has been spawned."
-    regex: []
-    cancel_regex: []
-
   onplayerinteractlocker:
     # chamber - Structure
     # room - RoomType
     # canopen - bool
     # player - Player
     message: "<var:player-name> (<var:player-userid>) interacted with <var:chamber> in <var:room>."
-    regex: []
-    cancel_regex: []
-
-  onplaceblood:
-    # player - Player
-    message: "<var:player-name> (<var:player-userid>) was injured."
-    regex: []
-    cancel_regex: []
-
-  onplayerinteractshootingtarget:
-    # player - Player
-    # target - shootingTarget
-    message: "<var:player-name> (<var:player-userid>) interacted with <var:target>."
-    regex: []
-    cancel_regex: []
-
-  onplayeraim:
-    # player - Player
-    # weapon - WeaponType
-    # isAiming - bool
-    message: "<var:player-name> (<var:player-userid>) was aimwas<var:isAiming> with <var:weapon>."
-    regex: ["aimwasTrue":"aiming","aimwasFalse":"not aiming"]
-    cancel_regex: []
-
-  onplayercancelusingitem:
-    # player - Player
-    # item - ItemType
-    message: "<var:player-name> (<var:player-userid>) cancelled the use of <var:item>."
-    regex: []
-    cancel_regex: []
-
-  onplayerchangeitem:
-    # player - Player
-    # oldItem - ItemType
-    # newItem - ItemType
-    message: "<var:player-name> (<var:player-userid>) changed its item from <var:oldItem> to <var:newItem>."
-    regex: []
-    cancel_regex: []
-
-  onplayerchangespectator:
-    # spectator - Player
-    # oldTarget - Player
-    # newTarget - Player
-    message: "<var:spectator-name> (<var:spectator-userid>) changed spectator from <var:oldTarget-name> to <var:newTarget-name>."
-    regex: []
-    cancel_regex: []
-
-  onplayerdamageshootingtarget:
-    # player - Player
-    # amount - float
-    # type - DamageType
-    # target - shootingTarget
-    message: "<var:player-name> (<var:player-userid>) damaged <var:target> using <var:type>, caused <var:amount> damage."
-    regex: []
-    cancel_regex: []
-
-  onplayerdamagewindow:
-    # player - Player
-    # amount - float
-    # type - DamageType
-    message: "<var:player-name> (<var:player-userid>) damaged a window by using <var:type> and causing <var:amount> damage."
-    regex: []
-    cancel_regex: []
-
-  onplayerdryfireweapon:
-    # player - Player
-    # weapon - Firearm
-    message: "<var:player-name> (<var:player-userid>) used <var:weapon>."
     regex: []
     cancel_regex: []
 
