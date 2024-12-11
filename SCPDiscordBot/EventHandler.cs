@@ -15,9 +15,12 @@ namespace SCPDiscord;
 
 public static class EventHandler
 {
+  internal static bool hasLoggedGuilds = false;
+
   public static Task OnReady(DiscordClient discordClient, GuildDownloadCompletedEventArgs e)
   {
     DiscordAPI.instance.connected = true;
+    hasLoggedGuilds = true;
     Logger.Log("Connected to Discord.");
     DiscordAPI.SetDisconnectedActivity();
     return Task.CompletedTask;
@@ -25,6 +28,11 @@ public static class EventHandler
 
   public static async Task OnGuildAvailable(DiscordClient discordClient, GuildCreatedEventArgs e)
   {
+    if (hasLoggedGuilds)
+    {
+      return;
+    }
+
     Logger.Log("Found Discord server: " + e.Guild.Name + " (" + e.Guild.Id + ")");
 
     if (SCPDiscordBot.commandLineArgs.serversToLeave.Contains(e.Guild.Id))
