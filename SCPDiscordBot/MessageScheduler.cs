@@ -36,11 +36,11 @@ public static class MessageScheduler
         continue;
       }
 
-      // Clean old interactions from cache
-      interactionCache.RemoveAll(x => x.Interaction.Id.GetSnowflakeTime() < DateTimeOffset.Now - TimeSpan.FromSeconds(30));
-
       try
       {
+        // Clean old interactions from cache
+        interactionCache.RemoveAll(x => x.Interaction.Id.GetSnowflakeTime() < DateTimeOffset.Now - TimeSpan.FromSeconds(30));
+
         foreach (KeyValuePair<ulong, ConcurrentQueue<string>> channelQueue in messageQueues)
         {
           StringBuilder finalMessage = new StringBuilder();
@@ -77,7 +77,7 @@ public static class MessageScheduler
       }
       catch (Exception e)
       {
-        Console.WriteLine(e);
+        Logger.Error("Message scheduler error: ", e);
       }
     }
   }
