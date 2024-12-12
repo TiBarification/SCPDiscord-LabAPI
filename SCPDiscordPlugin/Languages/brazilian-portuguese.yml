@@ -141,7 +141,7 @@ global_regex: [
   "HczCheckpointToEntranceZone":"posto de controle da zona de entrada",
   "HczCheckpointA":"posto de controle A da ZCP",
   "HczCheckpointB":"posto de controle B da ZCP",
-  "HczWarhead":"silo de ogiva",
+  "HczWarhead":"silo da ogiva",
   "Hcz049":"sala de contenção do SCP-049",
   "Hcz079":"sala de contenção do SCP-079",
   "Hcz096":"sala de contenção do SCP-096",
