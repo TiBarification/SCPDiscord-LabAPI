@@ -300,7 +300,7 @@ namespace SCPDiscord.EventListeners
       {
         { "players", ev.Players.Select(x => x.Nickname).ToString() }
       };
-      SCPDiscord.SendMessage(ev.Team == SpawnableTeamType.ChaosInsurgency ? "messages.onteamrespawn.ci" : "messages.onteamrespawn.mtf", variables);
+      SCPDiscord.SendMessage(ev.Team == Faction.FoundationEnemy ? "messages.onteamrespawn.ci" : "messages.onteamrespawn.mtf", variables);
     }
 
     [PluginEvent]
