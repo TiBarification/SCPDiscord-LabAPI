@@ -1,24 +1,27 @@
-﻿using System.Threading.Tasks;
-using DSharpPlus;
-using DSharpPlus.SlashCommands;
-using DSharpPlus.SlashCommands.Attributes;
+﻿using System.ComponentModel;
+using System.Threading.Tasks;
+using DSharpPlus.Commands;
+using DSharpPlus.Commands.ContextChecks;
+using DSharpPlus.Commands.Processors.SlashCommands;
 
 namespace SCPDiscord.Commands
 {
-  public class KickAllCommand : ApplicationCommandModule
+  public class KickAllCommand
   {
-    [SlashRequireGuild]
-    [SlashCommand("kickall", "Kicks all players on the server.")]
-    public async Task OnExecute(InteractionContext command, [Option("Reason", "Kick reason.")] string kickReason = "")
+    [RequireGuild]
+    [Command("kickall")]
+    [Description("Kicks all players on the server.")]
+    public async Task OnExecute(SlashCommandContext command,
+      [Parameter("Reason")] [Description("Kick reason.")] string kickReason = "")
     {
-      await command.DeferAsync();
+      await command.DeferResponseAsync();
       Interface.MessageWrapper message = new Interface.MessageWrapper
       {
         KickallCommand = new Interface.KickallCommand
         {
           ChannelID = command.Channel.Id,
           Reason = kickReason,
-          InteractionID = command.InteractionId,
+          InteractionID = command.Interaction.Id,
           DiscordDisplayName = command.Member.DisplayName,
           DiscordUsername = command.Member.Username,
           DiscordUserID = command.Member.Id

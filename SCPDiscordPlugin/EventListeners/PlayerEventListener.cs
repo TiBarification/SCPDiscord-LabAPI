@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using InventorySystem.Items.Firearms.Modules;
 using PlayerRoles;
 using PlayerRoles.PlayableScps.Scp3114;
 using PlayerRoles.PlayableScps.Scp939;
@@ -299,7 +300,7 @@ namespace SCPDiscord.EventListeners
       {
         { "players", ev.Players.Select(x => x.Nickname).ToString() }
       };
-      SCPDiscord.SendMessage(ev.Team == SpawnableTeamType.ChaosInsurgency ? "messages.onteamrespawn.ci" : "messages.onteamrespawn.mtf", variables);
+      SCPDiscord.SendMessage(ev.Team == Faction.FoundationEnemy ? "messages.onteamrespawn.ci" : "messages.onteamrespawn.mtf", variables);
     }
 
     [PluginEvent]
@@ -364,7 +365,7 @@ namespace SCPDiscord.EventListeners
       Dictionary<string, string> variables = new Dictionary<string, string>
       {
         { "weapon",      ev.Firearm.ItemTypeId.ToString()                },
-        { "maxclipsize", ev.Firearm.AmmoManagerModule.MaxAmmo.ToString() }
+        { "maxclipsize", ev.Firearm.GetTotalMaxAmmo().ToString() }
       };
       variables.AddPlayerVariables(ev.Player, "player");
       SCPDiscord.SendMessage("messages.onreload", variables);

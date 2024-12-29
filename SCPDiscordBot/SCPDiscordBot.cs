@@ -67,7 +67,7 @@ namespace SCPDiscord
 
     private async Task MainAsync()
     {
-      Logger.Log("Starting SCPDiscord version " + GetVersion() + "...", LogID.GENERAL);
+      Logger.Log("Starting SCPDiscord version " + GetVersion() + "...");
       try
       {
         try
@@ -76,7 +76,7 @@ namespace SCPDiscord
         }
         catch (Exception e)
         {
-          Logger.Fatal("Error loading config!\n" + e);
+          Logger.Fatal("Error loading config!", e);
           return;
         }
 
@@ -90,8 +90,7 @@ namespace SCPDiscord
       }
       catch (Exception e)
       {
-        Logger.Fatal("Fatal error:", LogID.GENERAL);
-        Logger.Fatal(e.ToString(), LogID.GENERAL);
+        Logger.Fatal("Fatal error:", e);
         Console.ReadLine();
       }
     }
@@ -100,10 +99,10 @@ namespace SCPDiscord
     {
       Version version = Assembly.GetEntryAssembly()?.GetName().Version;
       return version?.Major + "."
-                            + version?.Minor + "."
-                            + version?.Build
-                            + (version?.Revision == 0 ? "" : "-" + (char)(64 + version?.Revision ?? 0))
-                            + " (" + ThisAssembly.Git.Commit + ")";
+           + version?.Minor + "."
+           + version?.Build
+           + (version?.Revision == 0 ? "" : "-" + (char)(64 + version?.Revision ?? 0))
+           + " (" + ThisAssembly.Git.Commit + ")";
     }
   }
 }

@@ -1,18 +1,21 @@
-﻿using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using System.Threading.Tasks;
+using DSharpPlus.Commands;
+using DSharpPlus.Commands.ContextChecks;
+using DSharpPlus.Commands.Processors.SlashCommands;
 using DSharpPlus.Entities;
-using DSharpPlus.SlashCommands;
-using DSharpPlus.SlashCommands.Attributes;
 
 namespace SCPDiscord.Commands
 {
-  public class BanCommand : ApplicationCommandModule
+  public class BanCommand
   {
-    [SlashRequireGuild]
-    [SlashCommand("ban", "Bans a player from the server")]
-    public async Task OnExecute(InteractionContext command,
-      [Option("SteamID", "Steam ID of the player to ban.")] string steamID,
-      [Option("Duration", "Ban duration (ex: 2d is 2 days).")] string duration,
-      [Option("Reason", "Reason for the ban.")] string reason)
+    [RequireGuild]
+    [Command("ban")]
+    [Description("Bans a player from the server")]
+    public async Task OnExecute(SlashCommandContext command,
+      [Parameter("SteamID")] [Description("Steam ID of the player to ban.")] string steamID,
+      [Parameter("Duration")] [Description("Ban duration (ex: 2d is 2 days).")] string duration,
+      [Parameter("Reason")] [Description("Reason for the ban.")] string reason)
     {
       if (!Utilities.IsPossibleSteamID(steamID, out ulong parsedSteamID))
       {
@@ -21,11 +24,11 @@ namespace SCPDiscord.Commands
           Color = DiscordColor.Red,
           Description = "That SteamID doesn't seem to be valid."
         };
-        await command.CreateResponseAsync(error);
+        await command.RespondAsync(error);
         return;
       }
 
-      await command.DeferAsync();
+      await command.DeferResponseAsync();
       Interface.MessageWrapper message = new Interface.MessageWrapper
       {
         BanCommand = new Interface.BanCommand
@@ -34,7 +37,7 @@ namespace SCPDiscord.Commands
           SteamID = parsedSteamID.ToString(),
           Duration = duration,
           Reason = reason,
-          InteractionID = command.InteractionId,
+          InteractionID = command.Interaction.Id,
           DiscordDisplayName = command.Member.DisplayName,
           DiscordUsername = command.Member.Username,
           DiscordUserID = command.Member.Id

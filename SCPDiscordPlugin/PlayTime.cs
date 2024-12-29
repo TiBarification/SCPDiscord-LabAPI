@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Newtonsoft.Json;
 using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
@@ -85,7 +86,10 @@ namespace SCPDiscord
 
     public static void OnPlayerJoin(string userID, DateTime joinTime)
     {
-      joinTimes.Add(userID, joinTime);
+      if (!joinTimes.TryGetValue(userID, out _))
+      {
+        joinTimes.Add(userID, joinTime);
+      }
     }
 
     public static void OnPlayerLeave(string userID)
@@ -106,7 +110,12 @@ namespace SCPDiscord
       }
 
       Logger.Debug("Player " + userID + " left after " + seconds + " seconds.");
-      joinTimes.Remove(userID);
+
+      // Only remove the player from the list if they don't have several connections
+      if (Player.GetPlayers().Count(p => p.UserId == userID) < 2)
+      {
+        joinTimes.Remove(userID);
+      }
     }
 
     public static void WriteCacheToFile()

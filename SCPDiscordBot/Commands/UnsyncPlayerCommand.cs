@@ -1,24 +1,28 @@
-﻿using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using System.Threading.Tasks;
+using DSharpPlus.Commands;
+using DSharpPlus.Commands.ContextChecks;
+using DSharpPlus.Commands.Processors.SlashCommands;
 using DSharpPlus.Entities;
-using DSharpPlus.SlashCommands;
-using DSharpPlus.SlashCommands.Attributes;
 
 namespace SCPDiscord.Commands
 {
-  public class UnsyncPlayerCommand : ApplicationCommandModule
+  public class UnsyncPlayerCommand
   {
-    [SlashRequireGuild]
-    [SlashCommand("unsyncplayer", "Unsyncs a player's Discord account from the SCP:SL server.")]
-    public async Task OnExecute(InteractionContext command, [Option("Player", "Player to unsync.")] DiscordUser user)
+    [RequireGuild]
+    [Command("unsyncplayer")]
+    [Description("Unsyncs a player's Discord account from the SCP:SL server.")]
+    public async Task OnExecute(SlashCommandContext command,
+      [Parameter("Player")] [Description("Player to unsync.")] DiscordUser user)
     {
-      await command.DeferAsync();
+      await command.DeferResponseAsync();
       Interface.MessageWrapper message = new Interface.MessageWrapper
       {
         UnsyncRoleCommand = new Interface.UnsyncRoleCommand
         {
           ChannelID = command.Channel.Id,
           DiscordUserID = user.Id,
-          InteractionID = command.InteractionId,
+          InteractionID = command.Interaction.Id,
           DiscordDisplayName = command.Member.DisplayName,
           DiscordUsername = command.Member.Username
         }

@@ -8,7 +8,7 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Linq;
 using System.Threading.Tasks;
-using DSharpPlus.SlashCommands;
+using DSharpPlus.Commands.Processors.SlashCommands;
 
 namespace SCPDiscord
 {
@@ -91,15 +91,15 @@ namespace SCPDiscord
           else
           {
             DiscordAPI.SetDisconnectedActivity();
-            Logger.Log("Listening on " + ipAddress + ":" + ConfigParser.config.plugin.port, LogID.NETWORK);
+            Logger.Log("Listening on " + ipAddress + ":" + ConfigParser.config.plugin.port);
             clientSocket = listenerSocket.Accept();
             networkStream = new NetworkStream(clientSocket, true);
-            Logger.Log("Plugin connected.", LogID.NETWORK);
+            Logger.Log("Plugin connected.");
           }
         }
         catch (Exception e)
         {
-          Logger.Error("Network error caught, if this happens a lot try using the 'scpd_rc' command." + e, LogID.NETWORK);
+          Logger.Error("Network error caught, if this happens a lot try using the 'scpd_rc' command." , e);
         }
       }
     }
@@ -113,11 +113,11 @@ namespace SCPDiscord
       }
       catch (Exception)
       {
-        Logger.Error("Couldn't parse incoming packet!", LogID.NETWORK);
+        Logger.Error("Couldn't parse incoming packet!");
         return;
       }
 
-      Logger.Debug("Incoming packet: " + JsonFormatter.Default.Format(wrapper), LogID.NETWORK);
+      Logger.Debug("Incoming packet: " + JsonFormatter.Default.Format(wrapper));
 
       switch (wrapper.MessageCase)
       {
@@ -125,12 +125,12 @@ namespace SCPDiscord
           try
           {
             DiscordAPI.SetActivity(wrapper.BotActivity.ActivityText,
-                     (ActivityType)wrapper.BotActivity.ActivityType,
-                       (UserStatus)wrapper.BotActivity.StatusType);
+              (DiscordActivityType)wrapper.BotActivity.ActivityType,
+                (DiscordUserStatus)wrapper.BotActivity.StatusType);
           }
           catch (Exception)
           {
-            Logger.Error("Could not update bot activity", LogID.DISCORD);
+            Logger.Error("Could not update bot activity");
           }
 
           break;
@@ -144,7 +144,7 @@ namespace SCPDiscord
           }
           catch (Exception)
           {
-            Logger.Error("Could not send message in text channel '" + wrapper.ChatMessage.ChannelID + "'", LogID.DISCORD);
+            Logger.Error("Could not send message in text channel '" + wrapper.ChatMessage.ChannelID + "'");
           }
 
           break;
@@ -155,7 +155,7 @@ namespace SCPDiscord
           }
           catch (Exception)
           {
-            Logger.Error("Could not fetch discord roles for '" + wrapper.UserQuery.DiscordID + "'", LogID.DISCORD);
+            Logger.Error("Could not fetch discord roles for '" + wrapper.UserQuery.DiscordID + "'");
           }
 
           break;
@@ -175,7 +175,7 @@ namespace SCPDiscord
           }
           catch (Exception e)
           {
-            Logger.Error("Could not send embed in text channel '" + wrapper.EmbedMessage.ChannelID + "' Exception: " + e, LogID.DISCORD);
+            Logger.Error("Could not send embed in text channel '" + wrapper.EmbedMessage.ChannelID + "'", e);
           }
 
           break;
@@ -198,7 +198,7 @@ namespace SCPDiscord
           }
           catch (Exception e)
           {
-            Logger.Error("Could not send paginated message in text channel '" + wrapper?.PaginatedMessage?.ChannelID + "' Exception: " + e, LogID.DISCORD);
+            Logger.Error("Could not send paginated message in text channel '" + wrapper?.PaginatedMessage?.ChannelID + "'", e);
           }
 
           break;
@@ -214,32 +214,32 @@ namespace SCPDiscord
         case MessageWrapper.MessageOneofCase.UnbanCommand:
         case MessageWrapper.MessageOneofCase.UnsyncRoleCommand:
         case MessageWrapper.MessageOneofCase.UserInfo:
-          Logger.Warn("Received packet meant for plugin: " + JsonFormatter.Default.Format(wrapper), LogID.NETWORK);
+          Logger.Warn("Received packet meant for plugin: " + JsonFormatter.Default.Format(wrapper));
           break;
         case MessageWrapper.MessageOneofCase.None:
         default:
-          Logger.Warn("Unknown packet received: " + JsonFormatter.Default.Format(wrapper), LogID.NETWORK);
+          Logger.Warn("Unknown packet received: " + JsonFormatter.Default.Format(wrapper));
           break;
       }
     }
 
-    public static async Task SendMessage(MessageWrapper message, InteractionContext interaction)
+    public static async Task SendMessage(MessageWrapper message, SlashCommandContext command)
     {
       try
       {
-        Logger.Debug("Sent packet '" + JsonFormatter.Default.Format(message) + "' to plugin.", LogID.NETWORK);
+        Logger.Debug("Sent packet '" + JsonFormatter.Default.Format(message) + "' to plugin.");
         message.WriteDelimitedTo(networkStream);
       }
       catch (Exception)
       {
-        if (interaction != null)
+        if (command != null)
         {
           DiscordEmbed error = new DiscordEmbedBuilder
           {
             Color = DiscordColor.Red,
             Description = "Error communicating with server. Is it running?"
           };
-          await interaction.EditResponseAsync(new DiscordWebhookBuilder().AddEmbed(error));
+          await command.EditResponseAsync(new DiscordWebhookBuilder().AddEmbed(error));
         }
       }
     }
@@ -257,8 +257,7 @@ namespace SCPDiscord
       }
       catch (ObjectDisposedException e)
       {
-        Logger.Error("TCP client was unexpectedly closed.", LogID.NETWORK);
-        Logger.Debug(e.ToString(), LogID.NETWORK);
+        Logger.Error("TCP client was unexpectedly closed.", e);
         return false;
       }
     }

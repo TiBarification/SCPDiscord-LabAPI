@@ -116,7 +116,6 @@ namespace SCPDiscord
 
   public static class NetworkSystem
   {
-    private const int ACTIVITY_UPDATE_RATE_MS = 10000;
     private static Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
     public static NetworkStream networkStream { get; private set; } = null;
     private static readonly List<MessageWrapper> messageQueue = new List<MessageWrapper>();
@@ -331,16 +330,15 @@ namespace SCPDiscord
 
     private static void RefreshBotStatus()
     {
-      if (activityUpdateTimer.ElapsedMilliseconds < ACTIVITY_UPDATE_RATE_MS && activityUpdateTimer.IsRunning) return;
-
-      activityUpdateTimer.Reset();
-      activityUpdateTimer.Start();
+      if (activityUpdateTimer.Elapsed < TimeSpan.FromSeconds(10) && activityUpdateTimer.IsRunning) return;
 
       // Skip if the player count hasn't changed
-      if (previousActivityPlayerCount == Player.Count)
+      if (previousActivityPlayerCount == Player.Count && activityUpdateTimer.Elapsed < TimeSpan.FromMinutes(10))
       {
         return;
       }
+
+      activityUpdateTimer.Restart();
 
       // Don't block updates if the server hasn't loaded the max player count yet
       if (Server.MaxPlayers <= 0)
