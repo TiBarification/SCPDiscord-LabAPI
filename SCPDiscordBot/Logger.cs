@@ -89,6 +89,12 @@ public class Logger : ILogger
         {
             logLevel = LogLevel.Debug;
         }
+        // I haven't found any way to catch this issue so I guess I will just look for the log message?
+        else if (formatter(state, exception).StartsWith("An attempt to reconnect upon error code 4014 failed."))
+        {
+            Fatal("Bot intents are not set up correctly. Fix this and then restart the bot.");
+            Environment.Exit(14);
+        }
 
         string[] logLevelParts = logLevel switch
         {
