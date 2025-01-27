@@ -1,22 +1,20 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
+using LabApi.Events.Arguments.PlayerEvents;
+using LabApi.Events.CustomHandlers;
+using LabApi.Features.Wrappers;
 using Newtonsoft.Json;
-using PluginAPI.Core;
-using PluginAPI.Core.Attributes;
-using PluginAPI.Events;
 
 namespace SCPDiscord
 {
-  public class TimeTrackingListener
+  public class TimeTrackingListener : CustomEventsHandler
   {
-    [PluginEvent]
-    public void OnPlayerJoin(PlayerJoinedEvent ev)
+    public override void OnPlayerJoined(PlayerJoinedEventArgs ev)
     {
       if (!Config.GetBool("settings.playtime")
           || ev.Player?.UserId == null
-          || ev.Player.PlayerId == Server.Instance.PlayerId)
+          || ev.Player.PlayerId == Player.Host?.PlayerId)
       {
         return;
       }
@@ -24,12 +22,11 @@ namespace SCPDiscord
       PlayTime.OnPlayerJoin(ev.Player.UserId, DateTime.Now);
     }
 
-    [PluginEvent]
-    public void OnPlayerLeave(PlayerLeftEvent ev)
+    public override void OnPlayerLeft(PlayerLeftEventArgs ev)
     {
       if (!Config.GetBool("settings.playtime")
           || ev.Player?.UserId == null
-          || ev.Player.PlayerId == Server.Instance.PlayerId)
+          || ev.Player.PlayerId == Player.Host?.PlayerId)
       {
         return;
       }
@@ -37,8 +34,7 @@ namespace SCPDiscord
       PlayTime.OnPlayerLeave(ev.Player.UserId);
     }
 
-    [PluginEvent]
-    public void OnWaitingForPlayers(WaitingForPlayersEvent ev)
+    public override void OnServerWaitingForPlayers()
     {
       PlayTime.WriteCacheToFile();
     }

@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using PluginAPI.Core;
-using PluginAPI.Events;
+using LabApi.Events;
+using LabApi.Features.Wrappers;
 using SCPDiscord.Interface;
 
 namespace SCPDiscord.BotCommands
@@ -92,7 +91,7 @@ namespace SCPDiscord.BotCommands
         offlineBan = false;
         banVars.AddPlayerVariables(player, "player");
         PlayerBannedEvent eventArgs = new PlayerBannedEvent(player.ReferenceHub, Server.Instance.ReferenceHub, command.Reason, durationSeconds);
-        if (!EventManager.ExecuteEvent<bool>(eventArgs))
+        if (!EventManager.InvokeEvent<bool>(eventArgs))
         {
           return;
         }

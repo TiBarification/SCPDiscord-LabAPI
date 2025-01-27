@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CommandSystem;
-using PluginAPI.Core;
+using LabApi.Features.Wrappers;
 
 namespace SCPDiscord.Commands
 {
@@ -55,7 +55,7 @@ namespace SCPDiscord.Commands
 
       foreach (Player matchingPlayer in matchingPlayers)
       {
-        matchingPlayer.DisplayNickname = string.Join(" ", arguments.Skip(1));
+        matchingPlayer.Nickname = string.Join(" ", arguments.Skip(1));
       }
 
       response = "Player nickname updated.";
