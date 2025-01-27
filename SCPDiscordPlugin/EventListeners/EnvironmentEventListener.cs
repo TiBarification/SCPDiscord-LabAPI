@@ -58,7 +58,7 @@ namespace SCPDiscord.EventListeners
     }
 
     // TODO: Can I still check if it is resumed
-    /*public override void OnWarheadStarted(WarheadStartedEventArgs ev)
+    public override void OnWarheadStarted(WarheadStartedEventArgs ev)
     {
       Dictionary<string, string> variables = new Dictionary<string, string>
       {
@@ -67,15 +67,16 @@ namespace SCPDiscord.EventListeners
       };
       variables.AddPlayerVariables(ev.Player, "player");
 
-      if (ev.Player == null || ev.Player.PlayerId == Server.Instance.PlayerId)
+      // TODO: Add deadmans switch message
+      if (ev.Player == null || ev.Player.PlayerId == Player.Host?.PlayerId)
       {
-        SCPDiscord.SendMessage(ev.IsResumed ? "messages.onstartcountdown.server.resumed" : "messages.onstartcountdown.server.initiated", variables);
+        SCPDiscord.SendMessage(ev.WarheadState.ScenarioType == WarheadScenarioType.Resume ? "messages.onstartcountdown.server.resumed" : "messages.onstartcountdown.server.initiated", variables);
       }
       else
       {
-        SCPDiscord.SendMessage(ev.IsResumed ? "messages.onstartcountdown.player.resumed" : "messages.onstartcountdown.player.initiated", variables);
+        SCPDiscord.SendMessage(ev.WarheadState.ScenarioType == WarheadScenarioType.Resume ? "messages.onstartcountdown.player.resumed" : "messages.onstartcountdown.player.initiated", variables);
       }
-    }*/
+    }
 
     public override void OnWarheadStopped(WarheadStoppedEventArgs ev)
     {
@@ -130,57 +131,57 @@ namespace SCPDiscord.EventListeners
 
     public override void OnPlayerOpenedGenerator(PlayerOpenedGeneratorEventArgs ev)
     {
-          if (ev.Player == null) return;
-          Dictionary<string, string> variables = new()
-          {
-            { "engaged",    ev.Generator?.Engaged.ToString() },
-            { "activating", ev.Generator?.Activating.ToString() },
-            { "room",       ev.Generator?.Room?.Name.ToString() },
-          };
-          variables.AddPlayerVariables(ev.Player, "player");
-          SCPDiscord.SendMessage("messages.ongeneratoropen", variables);
+      if (ev.Player == null) return;
+      Dictionary<string, string> variables = new()
+      {
+        { "engaged",    ev.Generator?.Engaged.ToString() },
+        { "activating", ev.Generator?.Activating.ToString() },
+        { "room",       ev.Generator?.Room?.Name.ToString() },
+      };
+      variables.AddPlayerVariables(ev.Player, "player");
+      SCPDiscord.SendMessage("messages.ongeneratoropen", variables);
     }
 
     public override void OnPlayerClosedGenerator(PlayerClosedGeneratorEventArgs ev)
     {
       if (ev.Player == null) return;
 
-          Dictionary<string, string> variables = new()
-          {
-            { "engaged",    ev.Generator?.Engaged.ToString() },
-            { "activating", ev.Generator?.Activating.ToString() },
-            { "room",       ev.Generator?.Room?.Name.ToString() },
-          };
-          variables.AddPlayerVariables(ev.Player, "player");
-          SCPDiscord.SendMessage("messages.ongeneratorclose", variables);
+      Dictionary<string, string> variables = new()
+      {
+        { "engaged",    ev.Generator?.Engaged.ToString() },
+        { "activating", ev.Generator?.Activating.ToString() },
+        { "room",       ev.Generator?.Room?.Name.ToString() },
+      };
+      variables.AddPlayerVariables(ev.Player, "player");
+      SCPDiscord.SendMessage("messages.ongeneratorclose", variables);
     }
 
     public override void OnPlayerActivatedGenerator(PlayerActivatedGeneratorEventArgs ev)
     {
       if (ev.Player == null) return;
 
-          Dictionary<string, string> variables = new()
-          {
-            { "engaged",    ev.Generator?.Engaged.ToString() },
-            { "activating", ev.Generator?.Activating.ToString() },
-            { "room",       ev.Generator?.Room?.Name.ToString() },
-          };
-          variables.AddPlayerVariables(ev.Player, "player");
-          SCPDiscord.SendMessage("messages.ongeneratoractivated", variables);
+      Dictionary<string, string> variables = new()
+      {
+        { "engaged",    ev.Generator?.Engaged.ToString() },
+        { "activating", ev.Generator?.Activating.ToString() },
+        { "room",       ev.Generator?.Room?.Name.ToString() },
+      };
+      variables.AddPlayerVariables(ev.Player, "player");
+      SCPDiscord.SendMessage("messages.ongeneratoractivated", variables);
     }
 
     public override void OnPlayerDeactivatedGenerator(PlayerDeactivatedGeneratorEventArgs ev)
     {
       if (ev.Player == null) return;
 
-          Dictionary<string, string> variables = new()
-          {
-            { "engaged",    ev.Generator?.Engaged.ToString() },
-            { "activating", ev.Generator?.Activating.ToString() },
-            { "room",       ev.Generator?.Room?.Name.ToString() },
-          };
+      Dictionary<string, string> variables = new()
+      {
+        { "engaged",    ev.Generator?.Engaged.ToString() },
+        { "activating", ev.Generator?.Activating.ToString() },
+        { "room",       ev.Generator?.Room?.Name.ToString() },
+      };
       variables.AddPlayerVariables(ev.Player, "player");
-          SCPDiscord.SendMessage("messages.ongeneratordeactivated", variables);
+      SCPDiscord.SendMessage("messages.ongeneratordeactivated", variables);
     }
 
     public override void OnServerMapGenerated(MapGeneratedEventArgs ev)

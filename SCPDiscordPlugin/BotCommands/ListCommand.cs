@@ -35,7 +35,7 @@ namespace SCPDiscord.BotCommands
 
       // Create list of player rows
       List<string> listItems = new List<string>();
-      foreach (Player player in Player.GetPlayers())
+      foreach (Player player in Player.List)
       {
         Dictionary<string, string> variables = new Dictionary<string, string> { };
         variables.AddPlayerVariables(player, "player");

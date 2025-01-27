@@ -13,7 +13,7 @@ namespace SCPDiscord.BotCommands
         command.Reason = "All players kicked by Admin";
       }
 
-      foreach (Player player in Player.GetPlayers<Player>())
+      foreach (Player player in Player.List)
       {
         player.Ban(command.Reason, 0);
       }

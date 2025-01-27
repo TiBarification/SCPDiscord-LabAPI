@@ -3,21 +3,22 @@ using System.Collections.Concurrent;
 using System.IO;
 using System.Threading.Tasks;
 using LabApi.Events.Arguments.PlayerEvents;
+using LabApi.Events.CustomHandlers;
 using LabApi.Features.Wrappers;
 using Newtonsoft.Json;
 using VoiceChat;
 
 namespace SCPDiscord
 {
-  public class MuteEventListener
+  public class MuteEventListener : CustomEventsHandler
   {
-    public void OnPlayerJoinMuteCheck(PlayerJoinedEventArgs ev)
+    public override void OnPlayerJoined(PlayerJoinedEventArgs ev)
     {
       if (ev.Player.PlayerId == Player.Host?.PlayerId) return;
       MuteSystem.CheckMuteStatus(ev.Player);
     }
 
-    public void OnPlayerMuted(PlayerMutedEventArgs ev)
+    public override void OnPlayerMuted(PlayerMutedEventArgs ev)
     {
       if (ev.IsIntercom || ev?.Player.UserId == null)
       {
@@ -41,7 +42,7 @@ namespace SCPDiscord
         DateTime.MaxValue);
     }
 
-    public void OnPlayerUnmuted(PlayerUnmutedEventArgs ev)
+    public override void OnPlayerUnmuted(PlayerUnmutedEventArgs ev)
     {
       if (ev.IsIntercom || ev?.Player.UserId == null)
       {

@@ -74,7 +74,7 @@ namespace SCPDiscord
 
     public static bool TryGetPlayer(string userID, out Player pl)
     {
-      foreach (Player player in Server.GetPlayers<Player>())
+      foreach (Player player in Player.List)
       {
         if (userID.Contains(player.GetParsedUserID()))
         {
@@ -89,7 +89,7 @@ namespace SCPDiscord
 
     public static bool TryGetPlayerName(string userID, out string name)
     {
-      foreach (Player player in Player.GetPlayers<Player>())
+      foreach (Player player in Player.List)
       {
         if (userID.Contains(player.GetParsedUserID()))
         {

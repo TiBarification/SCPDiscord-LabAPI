@@ -121,7 +121,7 @@ namespace SCPDiscord
         try
         {
           Logger.Debug("Looking for player with SteamID/IP: " + userInfo.SteamIDOrIP);
-          foreach (Player pl in Player.GetPlayers<Player>())
+          foreach (Player pl in Player.List)
           {
             Logger.Debug("Player " + pl.PlayerId + ": SteamID " + pl.UserId + " IP " + pl.IpAddress);
             if (pl.UserId == userInfo.SteamIDOrIP)
