@@ -25,7 +25,7 @@ namespace SCPDiscord
 {
   public class SCPDiscord
   {
-    public const string VERSION = "3.2.3";
+    public const string VERSION = "3.2.4";
 
     private readonly Stopwatch serverStartTime = new Stopwatch();
 
