@@ -196,7 +196,7 @@ namespace SCPDiscord.EventListeners
       Dictionary<string, string> variables = new()
       {
           { "chamber", ev.Chamber?.ToString() },
-          { "room",    ev.Chamber?.GetComponentInParent<RoomIdentifier>()?.Name.ToString() },
+          { "room",    ev.Chamber?.Base.GetComponentInParent<RoomIdentifier>()?.Name.ToString() },
           { "canopen", ev.CanOpen.ToString() }
       };
       variables.AddPlayerVariables(ev.Player, "player");
